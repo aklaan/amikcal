@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_user_activities_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" >
+   <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="@drawable/background_menu_bar" >
+
+        <Button
+            android:id="@+id/user_activities_view_menubar_bt_home"
+            style="@style/Button_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:hapticFeedbackEnabled="true" />
+
+        <Button
+            android:id="@+id/user_activities_view_menubar_bt_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            android:background="@drawable/ic_menu_btn_add"
+            android:onClick="onClickAdd"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/user_activities_view_menubar_bt_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            android:background="@drawable/ic_menu_back" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_activities_view_tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_span="4"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="@string/user_activities_view_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+
+
+        <Button
+            android:id="@+id/user_activities_list_btn_prev"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClickButtonPrev"
+            android:text="prev" />
+
+
+        <TextView
+            android:id="@+id/user_activities_view_tv_comment"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_span="3"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="commentaire"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+        <Button
+            android:id="@+id/user_activities_list_btn_next"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClickButtonNext"
+            android:text="next" />
+
+    </LinearLayout>
+
+</LinearLayout>

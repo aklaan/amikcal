@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, AmikcalActivity!</string>
+    <string name="app_name">Amikcal</string>
+    <string name="file_refactivity_name">refactivity.xml</string>
+    <string name="file_calendar_name">calendar.xml</string>
+    <string name="clear">eff</string>
+    <string name="monday_short">Lun</string>
+    <string name="tuesday_short">Mar</string>
+    <string name="wednesday_short">Mer</string>
+    <string name="thursday_short">Jeu</string>
+    <string name="friday_short">Ven</string>
+    <string name="saturday_short">Sam</string>
+    <string name="sunday_short">Dim</string>
+    <string name="empty" >vide</string>
+        
+    <string name="default_unit" >g</string>    
+    <string name="default_quantity" >100</string>
+        
+    <item name="CALENDAR"   type="integer" format="integer">0</item>
+    <item name="NUMERICPAD" type="integer" format="integer">1</item>
+    <item name="EQUIVALENCE_EDITOR" type="integer" format="integer">2</item>
+    
+    <item name="ACTY_COMPONENT"       type="integer" format="integer">10</item>
+    <item name="ACTY_COMPONENT_LIST"  type="integer" format="integer">20</item>
+    <item name="ACTY_UNIT"            type="integer" format="integer">30</item>
+ 	<item name="ACTY_UNITS_LIST"      type="integer" format="integer">40</item>
+ 	<item name="ACTY_ENERGY"          type="integer" format="integer">50</item>
+ 	<item name="ACTY_ENERGIES_LIST"   type="integer" format="integer">60</item>
+ 	    
+ 	<item name="ACTY_USER_ACTIVITY"        type="integer" format="integer">70</item>
+ 	<item name="ACTY_USER_ACTIVITIES_LIST" type="integer" format="integer">80</item>
+ 	    
+    <item name="BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD"     type="integer" format="integer">100</item>
+    <item name="BTN_MNT_ENERGY_OF_ENERGY_VIEW_CALL_NUMERICPAD"   type="integer" format="integer">110</item>
+    <item name="BTN_MNT_LIPIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD"   type="integer" format="integer">120</item>
+    <item name="BTN_MNT_PROTEINS_OF_ENERGY_VIEW_CALL_NUMERICPAD" type="integer" format="integer">130</item>
+    <item name="BTN_MNT_GLUCIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD"  type="integer" format="integer">140</item>
+    
+   
+    <string name="dayview_head_label">Synthèse de la journée</string>
+    <string name="user_activities_view_title">Activitées de la journée</string>
+    <string name="components_list_view_title">composants</string>
+    <string name="SQL_DATE_FORMAT">yyyy-MM-dd</string>
+    <string name="energy_list_view_title">Liste des Aliments</string>
+    <string name="ONCLICKBACK">onClickBack</string>
+    <string name="espacevide"></string>
+    <string name="TITLE_PHYSICAL_ACTIVITY">Activitée physique</string>
+    
+    
+    <string name="INTENT_IN_USER_ACTIVITY_EDITOR_DAY_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_DayYYY_MM_DD</string>
+    <string name="INTENT_IN_USER_ACTIVITY_EDITOR_ID_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_id</string>
+    
+    <string name="INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES">UserActivityList_IN_DayYYY_MM_DD</string>
+    <string name="INTENT_IN_USER_ACTIVITY_LIST_TYPE_OF_LIST">UserActivityList_IN_TypeOfList</string>
+  
+    <string name="INTENT_IN_USER_ACTIVITY_COMPONENT_LIST_ID_OF_USER_ACTIVITY">UserActivityComponentList_IN_UserActivityId</string>    
+    
+    <string name="INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_COMPONENT">UserActivityComponentEditor_IN_ComponentId</string>    
+    <string name="INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_USER_ACTIVITY">UserActivityComponentEditor_IN_UserActivityId</string>
+    
+    <string name="INTENT_IN_UNITS_LIST_ID_OF_ENERGY">UnitsLits_IN_EnergyId</string>
+    <string name="INTENT_OUT_UNITS_LIST_ID_OF_THE_UNIT">UnitsList_out_UnitId</string>
+    
+    <string name="INTENT_IN_UNITS_EDITOR_ID_OF_UNIT">UnitsEditor_IN_UnitId</string>
+    
+    <string name="INTENT_IN_ENERGY_EDITOR_ID_OF_ENERGY">EnergyEditor_IN_EnergyId</string>
+    
+    <string name="INTENT_OUT_ENERGY_LIST_ID_OF_ENERGY">EnergyList_OUT_EnergyId</string>
+    
+    <string name="INTENT_OUT_NUMERICPAD_RESULT">NumericPad_OUT_Result</string>
+</resources>

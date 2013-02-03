@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendarLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:id="@+id/navigationBar"
+        android:layout_height="40dp"
+        >
+
+        <Button
+            android:id="@+id/btnPreviousMonth"
+               android:layout_width="60dp"
+             android:layout_height="60dp"
+         
+            android:background="@drawable/fleche_gu" 
+            android:onClick="previousMonth"/>
+
+        <TextView
+            android:id="@+id/monthLib"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="" />
+
+        <Button
+            android:id="@+id/btnNextMonth"
+             android:layout_width="60dp"
+             android:layout_height="60dp"
+             android:onClick="nextMonth"
+         
+          
+            android:background="@drawable/fleche_dr" />
+    </TableRow>
+
+    <TableRow android:id="@+id/weekLabel" >
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/monday_short" />
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tuesday_short" />
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/wednesday_short" />
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/thursday_short" />
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/friday_short" />
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/saturday_short" />
+
+        <TextView
+            android:id="@+id/labelDay1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sunday_short" />
+    </TableRow>
+
+
+
+</TableLayout>

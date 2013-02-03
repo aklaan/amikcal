@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_user_activities_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/view_useractivity_list_bandeau"
+        android:layout_width="fill_parent"
+        android:layout_height="146dp"
+        layout="@layout/view_useractivity_list_bandeau" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
+        
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

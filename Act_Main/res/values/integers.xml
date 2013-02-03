@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="one_line">1</integer>
+    
+    <integer name="ACTIVITY_LUNCH">1</integer>
+    <integer name="ACTIVITY_ACTIVITY">2</integer>
+    <integer name="ACTIVITY_WEIGHT">3</integer>
+    <integer name="ACTIVITY_RECIPE">4</integer>
+    
+    <integer name="USER_ACTIVITY_LIST_ACTIVITY">0</integer>
+    <integer name="USER_ACTIVITY_LIST_RECIPE">1</integer>
+    <integer name="EQUIVALENCE_EDITOR_REQUEST_UNIT_IN">150</integer>
+    <integer name="EQUIVALENCE_EDITOR_REQUEST_UNIT_OUT">160</integer>
+    <integer name="EQUIVALENCE_EDITOR_REQUEST_QUANTITY">170</integer>
+    <integer name="EQUIVALENCE_EDITOR_REQUEST_ENERGY">180</integer>
+</resources>

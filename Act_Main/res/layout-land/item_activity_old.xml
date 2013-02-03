@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android1:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android1:id="@+id/imageView1"
+        android1:layout_width="20dp"
+        android1:layout_height="fill_parent"
+        android1:layout_marginLeft="2dp"
+        android1:scaleType="fitCenter"
+        android1:src="@drawable/bouton_bleu" />
+
+    <LinearLayout
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:orientation="vertical" >
+
+        <LinearLayout
+            android1:layout_width="fill_parent"
+            android1:layout_height="wrap_content"
+            android1:layout_gravity="center_vertical" >
+
+            <TextView
+                android1:id="@+id/item_activity_hour"
+                android1:layout_width="wrap_content"
+                android1:layout_height="fill_parent"
+                android1:gravity="center"
+                android1:text="12"
+                android1:textColor="#4BB5C1"
+                android1:textSize="20dp" />
+
+            <TextView
+                android1:id="@+id/textView2"
+                android1:layout_width="wrap_content"
+                android1:layout_height="fill_parent"
+                android1:gravity="bottom"
+                android1:text="h"
+                android1:textAppearance="?android:attr/textAppearanceSmall"
+                android1:textColor="#4BB5C1"
+                android1:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android1:layout_width="fill_parent"
+            android1:layout_height="fill_parent"
+            android1:layout_gravity="center_vertical" >
+
+            <TextView
+                android1:id="@+id/item_activity_min"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:gravity="left"
+                android1:text="00"
+                android1:textColor="#4BB5C1"
+                android1:textSize="15dp" />
+
+            <TextView
+                android1:id="@+id/textView4"
+                android1:layout_width="wrap_content"
+                android1:layout_height="fill_parent"
+                android1:text="mn"
+                android1:textAppearance="?android:attr/textAppearanceSmall"
+                android1:textColor="#4BB5C1"
+                android1:textSize="10dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_gravity="center_vertical"
+        android1:layout_weight="0.92"
+        android1:orientation="vertical" >
+
+        <TextView
+            android1:id="@+id/titre"
+            android1:layout_width="wrap_content"
+            android1:layout_height="15dp"
+            android1:layout_marginLeft="5dp"
+            android1:layout_marginTop="2dp"
+            android1:gravity="bottom"
+            android1:text="Titre"
+            android1:textColor="#4BB5C1" />
+
+        <View
+            android1:id="@+id/view1"
+            android1:layout_width="fill_parent"
+            android1:layout_height="2dp"
+            android1:background="#4BB5C1" />
+
+        <LinearLayout
+            android1:layout_width="fill_parent"
+            android1:layout_height="wrap_content"
+            android1:layout_gravity="right"
+            android1:layout_marginTop="2dp"
+            android1:orientation="horizontal" >
+
+            <LinearLayout
+                android1:layout_width="fill_parent"
+                android1:layout_height="15dp"
+                android1:orientation="horizontal" >
+
+                <ImageView
+                    android1:id="@+id/imageView3"
+                    android1:layout_width="0dp"
+                    android1:layout_height="fill_parent"
+                    android1:layout_weight="1"
+                    android1:adjustViewBounds="false"
+                    android1:cropToPadding="false"
+                    android1:scaleType="fitXY"
+                    android1:src="@drawable/losange_rose4_bord_guauche" />
+
+                <TextView
+                    android1:id="@+id/item_activity_mnt_proteins"
+                    android1:layout_width="0dp"
+                    android1:layout_height="fill_parent"
+                    android1:layout_weight="1"
+                    android1:background="#ff3399"
+                    android1:gravity="center_vertical|center"
+                    android1:text="000.0"
+                    android1:textColor="#FFFFFF"
+                    android1:textSize="8dp" />
+
+                <ImageView
+                    android1:id="@+id/imageView4"
+                    android1:layout_width="0dp"
+                    android1:layout_height="fill_parent"
+                    android1:layout_weight="1"
+                    android1:scaleType="fitXY"
+                    android1:src="@drawable/losange_rose4_vers_rose3" />
+
+                <TextView
+                    android1:id="@+id/item_activity_mnt_lipids"
+                    android1:layout_width="0dp"
+                    android1:layout_height="fill_parent"
+                    android1:layout_weight="1"
+                    android1:background="#ff66cc"
+                    android1:gravity="center_vertical|center"
+                    android1:text="000.0"
+                    android1:textColor="#FFFFFF"
+                    android1:textSize="8dp"
+                    android1:visibility="visible" />
+
+                <ImageView
+                    android1:id="@+id/imageView5"
+                    android1:layout_width="0dp"
+                    android1:layout_height="fill_parent"
+                    android1:layout_weight="1"
+                    android1:scaleType="fitXY"
+                    android1:src="@drawable/losange_rose3_vers_rose2" />
+
+                <TextView
+                    android1:id="@+id/item_activity_mnt_glucids"
+                    android1:layout_width="0dp"
+                    android1:layout_height="fill_parent"
+                    android1:layout_weight="1"
+                    android1:background="#ff99cc"
+                    android1:gravity="center|center_vertical"
+                    android1:text="000.0"
+                    android1:textColor="#FFFFFF"
+                    android1:textSize="8dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android1:layout_width="wrap_content"
+        android1:layout_height="fill_parent"
+        android1:gravity="right" >
+
+        <LinearLayout
+            android1:id="@+id/item_activity_linear1"
+            android1:layout_width="wrap_content"
+            android1:layout_height="15dp"
+            android1:layout_above="@+id/item_activity_ligne"
+            android1:layout_marginBottom="2dp" >
+
+            <ImageView
+                android1:id="@+id/imageView8"
+                android1:layout_width="0dp"
+                android1:layout_height="fill_parent"
+                android1:layout_weight="1"
+                android1:scaleType="fitXY"
+                android1:src="@drawable/losange_rose1_2" />
+
+            <TextView
+                android1:id="@+id/TextView02"
+                android1:layout_width="0dp"
+                android1:layout_height="fill_parent"
+                android1:layout_weight="1"
+                android1:background="#ffccff"
+                android1:gravity="right|center_vertical"
+                android1:text="kcal"
+                android1:textColor="#002F2F"
+                android1:textSize="8dp" />
+
+            <ImageView
+                android1:id="@+id/ImageView05"
+                android1:layout_width="0dp"
+                android1:layout_height="fill_parent"
+                android1:layout_weight="1"
+                android1:scaleType="fitXY"
+                android1:src="@drawable/losange_rose1_3" />
+        </LinearLayout>
+
+        <View
+            android1:id="@+id/item_activity_ligne"
+            android1:layout_width="wrap_content"
+            android1:layout_height="2dp"
+            android1:layout_alignRight="@+id/item_activity_linear2"
+            android1:layout_centerVertical="true"
+            android1:background="#4BB5C1" />
+
+        <LinearLayout
+            android1:id="@+id/item_activity_linear2"
+            android1:layout_width="wrap_content"
+            android1:layout_height="15dp"
+            android1:layout_below="@+id/item_activity_ligne"
+            android1:layout_marginTop="2dp" >
+
+            <ImageView
+                android1:id="@+id/imageView6"
+                android1:layout_width="0dp"
+                android1:layout_height="fill_parent"
+                android1:layout_weight="1"
+                android1:scaleType="fitXY"
+                android1:src="@drawable/losange_rose2_vers_rose1" />
+
+            <TextView
+                android1:id="@+id/TextView01"
+                android1:layout_width="0dp"
+                android1:layout_height="fill_parent"
+                android1:layout_weight="1"
+                android1:background="#ffccff"
+                android1:gravity="center"
+                android1:text="cal"
+                android1:textColor="#ffccff"
+                android1:textSize="8dp"
+                android1:visibility="visible" />
+
+            <ImageView
+                android1:id="@+id/ImageView07"
+                android1:layout_width="0dp"
+                android1:layout_height="fill_parent"
+                android1:layout_weight="1"
+                android1:scaleType="fitXY"
+                android1:src="@drawable/losange_rose1_bord_droit" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android1:id="@+id/textView3"
+        android1:layout_width="wrap_content"
+        android1:layout_height="fill_parent"
+        android1:gravity="center_horizontal|center_vertical"
+        android1:text="+"
+        android1:textColor="#4BB5C1" />
+
+    <TextView
+        android1:id="@+id/item_activity_nbkcal"
+        android1:layout_width="wrap_content"
+        android1:layout_height="fill_parent"
+        android1:layout_marginRight="2dp"
+        android1:gravity="center_vertical"
+        android1:text="9999"
+        android1:textColor="#002F2F"
+        android1:textSize="20dp" />
+
+</LinearLayout>

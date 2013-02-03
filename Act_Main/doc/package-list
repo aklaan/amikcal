@@ -1,0 +1,11 @@
+com.rdupuis.amikcal
+com.rdupuis.amikcal.Data
+com.rdupuis.amikcal.Day
+com.rdupuis.amikcal.Energy
+com.rdupuis.amikcal.Equivalence
+com.rdupuis.amikcal.Recipe
+com.rdupuis.amikcal.Tools
+com.rdupuis.amikcal.Tools.NumericPad
+com.rdupuis.amikcal.UnitOfMeasure
+com.rdupuis.amikcal.UserActivity
+com.rdupuis.amikcal.UserActivityComponent

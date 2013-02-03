@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="5dp" >
+        
+        <TableRow
+            android:layout_weight="1"
+            android:baselineAligned="false" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/itemfood_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                       
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/itemfood_quantity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        />
+
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_gravity="right"
+                android:layout_weight=".2" >
+
+                <TextView
+                    android:id="@+id/itemfood_nbkcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    
+                    android:textSize="20dp" />
+
+            </TableLayout>
+        </TableRow>
+
+<TableRow
+    android:layout_weight="1"
+    android:baselineAligned="false" >
+
+    <TextView
+        android:id="@+id/itemfood_equiv"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+       
+        android:layout_weight="1"
+        
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/itemfood_lip"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+       
+        android:layout_weight="1"
+       
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/itemfood_pro"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+       
+        android:layout_weight="1"
+        
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/itemfood_glu"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        
+        android:layout_weight="1"
+        
+        android:textSize="10dp" />
+</TableRow>
+
+</TableLayout>
+
+</LinearLayout>

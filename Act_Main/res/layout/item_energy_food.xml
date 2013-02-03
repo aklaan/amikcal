@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_energy_food_main"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/item_energy_food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="0.80"
+        android:text="Texte 300"
+        android:textColor="#046380"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/item_energy_food_nbkcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:includeFontPadding="true"
+        android:text="300"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

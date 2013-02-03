@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Amikcal"
+        android:textSize="@android:dimen/app_icon_size" />
+
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical" >
+
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content" >
+
+             <Button
+                 android:id="@+id/bouton1"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:fitsSystemWindows="true"
+                 android:onClick="callDay"
+                 android:text="journée" />
+
+             <Button
+                 android:id="@+id/button1"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:onClick="onClickEquivalence"
+                 android:text="équivalences" />
+
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content" >
+
+             <Button
+                 android:id="@+id/bouton2"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:text="Recettes" />
+
+             <Button
+                 android:id="@+id/bouton1"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:onClick="callDay"
+                 android:text="paramètres" />
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1" >
+
+             <Button
+                 android:id="@+id/Button01"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:text="Profil" />
+
+             <Button
+                 android:id="@+id/Button02"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:onClick="test"
+                 android:text="test" />
+
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1" >
+
+             <Button
+                 android:id="@+id/main_bt_calorie_table"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:onClick="callEnergyList"
+                 android:text="Table des calories" />
+
+             <Button
+                 android:id="@+id/main_bt_techinfo"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_weight="1"
+                 android:onClick="callTechinfo"
+                 android:text="A propos..." />
+
+         </LinearLayout>
+
+     </LinearLayout>
+
+</LinearLayout>

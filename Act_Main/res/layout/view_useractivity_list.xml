@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/layout_user_activities_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <include
+        android:id="@+id/view_useractivity_list_bandeau"
+        android:layout_width="wrap_content"
+        android:layout_height="182dp"
+        android:layout_weight="1"
+        layout="@layout/view_useractivity_list_bandeau" />
+ 
+    <include
+        android:id="@+id/user_activities_view_customizedlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        layout="@layout/customizedlist" />
+    
+</LinearLayout>

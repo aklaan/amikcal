@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_equivalence_list_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_amikcal"
+    android:gravity="fill_horizontal"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/equivalence_list_view_menubar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_menu_bar"
+            android:baselineAligned="false" >
+
+            <Button
+                android:id="@+id/equivalence_list_view_menubar_bt_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:background="@drawable/ic_menu_home"
+                android:gravity="left|center_vertical|clip_vertical|clip_horizontal" />
+
+            <Button
+                android:id="@+id/equivalence_list_view_menubar_bt_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:background="@drawable/ic_menu_back"
+                android:gravity="left|center_vertical" />
+
+            <Button
+                android:id="@+id/equivalence_list_view_menubar_bt_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:background="@drawable/ic_menu_btn_add"
+                android:gravity="left|center_vertical"
+                android:onClick="onClickAdd" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/equivalence_list_view_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="equivalence_list_view_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/equivalence_list_view_tv_comment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text=".."
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="5dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filtre :" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <include
+                android:id="@+id/equivalence_list_view_customizedlist"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                layout="@layout/customizedlist" />
+
+        </TableRow>
+    </TableLayout>
+
+</TableLayout>
