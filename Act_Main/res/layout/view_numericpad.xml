@@ -32,7 +32,7 @@
 
         <fragment
             android:id="@+id/NumericPadFragment"
-            android:name="com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment"
+            android:name="com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
@@ -40,16 +40,7 @@
 
         </fragment>
 
-        <fragment
-            android:id="@+id/NumericPadFragment2"
-            android:name="com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <!-- Preview: layout=@layout/padnumber -->
-
-        </fragment>
-
+      
     </LinearLayout>
     </LinearLayout>
    </android.support.v4.view.ViewPager>

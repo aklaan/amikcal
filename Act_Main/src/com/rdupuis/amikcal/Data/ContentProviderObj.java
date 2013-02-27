@@ -135,7 +135,7 @@ public class ContentProviderObj extends ContentProvider {
 		SQLiteDatabase db = AmikcalDb.getReadableDatabase();
 		
 		final int match = ContentDescriptorObj.URI_MATCHER.match(uri);
-		  Log.i("Query Match token code", String.valueOf(match));
+		 // Log.i("Query Match token code", String.valueOf(match));
 		switch(match){
 			// retrieve Amikcal list
 			case ContentDescriptorObj.ActivityComponent.SELECT_ACTIVITY_COMPONENTS_TOKEN:{
@@ -240,7 +240,7 @@ public class ContentProviderObj extends ContentProvider {
 						ContentDescriptorObj.UserActivities.NAME 
 						+ "." + ContentDescriptorObj.UserActivities.Columns.DATE + " LIKE '" +uri.getLastPathSegment() + "%'";
 			
-				Log.i("where",whereClause);
+				//Log.i("where",whereClause);
 				return builder.query(db, projection, whereClause,null, null, null, "datetime("+ContentDescriptorObj.UserActivities.Columns.DATE + ")");
 			
 			}			
@@ -331,7 +331,7 @@ public class ContentProviderObj extends ContentProvider {
 						
 				
 				
-			Log.i("where",whereClause + sortorder);
+			//Log.i("where",whereClause + sortorder);
 			
 				return builder.query(db, selectClause , whereClause,null, null, null, sortorder);
 			}
@@ -394,7 +394,7 @@ public class ContentProviderObj extends ContentProvider {
 				
 				String[] selectClause = new String[]{"SUM("
 						+ ContentDescriptorObj.ActivityComponent.NAME + "."
-						+ ContentDescriptorObj.ActivityComponent.Columns.MNT_ENERGY + ") as mysomme"};
+						+ ContentDescriptorObj.ActivityComponent.Columns.MNT_ENERGY + ") as SUM_MT_ENERGY"};
 				
 				String whereClause = 
 						ContentDescriptorObj.UserActivities.NAME + "."
@@ -436,7 +436,7 @@ public class ContentProviderObj extends ContentProvider {
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
 		
-		Log.i("update URI : ",uri.getEncodedPath());
+		//Log.i("update URI : ",uri.getEncodedPath());
 		
 		SQLiteDatabase db = AmikcalDb.getWritableDatabase();
 		int token = ContentDescriptorObj.URI_MATCHER.match(uri);
@@ -509,7 +509,7 @@ public class ContentProviderObj extends ContentProvider {
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		
 		
-Log.i("Delete URI : ",uri.getEncodedPath());
+//Log.i("Delete URI : ",uri.getEncodedPath());
 		
 		SQLiteDatabase db = AmikcalDb.getWritableDatabase();
 		int token = ContentDescriptorObj.URI_MATCHER.match(uri);

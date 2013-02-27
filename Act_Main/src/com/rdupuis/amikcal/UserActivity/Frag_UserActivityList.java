@@ -8,9 +8,9 @@ import java.util.HashMap;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.Commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.Commons.ToolBox;
+import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment;
+import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment.OnClickButtonOK;
 import com.rdupuis.amikcal.Data.ContentDescriptorObj;
-import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment;
-import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment.OnClickButtonOK;
 import com.rdupuis.amikcal.UserActivity.Frag_UserActivityList;
 
 import android.app.AlertDialog;
@@ -58,34 +58,44 @@ public class Frag_UserActivityList extends Fragment {
 	private long selectedItemId;
 	private Resources   mResources;
 	
-	
+
     /** Called when the activity is first created. */
     @Override
     
     public View onCreateView(LayoutInflater inflater , ViewGroup container, Bundle savedInstanceState) {
     	
-    	View mainView = inflater.inflate(R.layout.customizedlist, container, false);  
+    	View mainView = inflater.inflate(R.layout.user_activity_list_view_by_day, container, false);  
     	
+   	 
         mCustomListView = (ListView) mainView.findViewById(R.id.listviewperso);
         mResources = getActivity().getResources();
         mIntent = getActivity().getIntent();
        
-       
       
+       // String page ="";
         //* on tente de récupérer une date si l'intent nous en a envoyé une
         try {
         	//currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES)));
          	currentDay=ToolBox.parseCalendar(getArguments().getString("date"));
-         	Log.i("date reçue ",getArguments().getString("date"));
+         //	page=getArguments().getString("page");
+         	//mainView.setId(getArguments().getInt("id"));
+         	//Log.i("date reçue ",getArguments().getString("date"));
          
         }
         catch (Exception e){
         	currentDay  =Calendar.getInstance();
         };
         
-    	TextView ed = (TextView)mainView.findViewById(R.id.fragtextView);
-     	ed.setText(ToolBox.getSqlDate(currentDay));
         
+     
+        // Afficher la somme totale des calories "Aliments" du jour. 
+        TextView tv = (TextView) mainView.findViewById(R.id.synth_food_nbKcal);
+  		tv.setText(ToolBox.getSumOfFoodEnergyForDay(getActivity(),(ToolBox.getSqlDate(currentDay))));
+
+        // Afficher la date du jour. 
+    	tv= (TextView)mainView.findViewById(R.id.fragtextView);
+     	//ed.setText("Page " + page + " - " + ToolBox.getSqlDate(currentDay));
+    	tv.setText( ToolBox.getSqlDate(currentDay) + " / n°Fragment: " + getArguments().getString("page"));       
         
         //* on tente de récupérer le type de liste à afficher si l'intent nous en a envoyé un
         try {
@@ -185,8 +195,10 @@ public class Frag_UserActivityList extends Fragment {
      			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
      				//on récupère la HashMap contenant les infos de notre item (titre, description, img)
      				HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
-				
-     				//onClickActivity(map.get("id"));
+				    
+     				UserActivityList_FragmentsSliderActivity ua = (UserActivityList_FragmentsSliderActivity) Frag_UserActivityList.this.getActivity();
+     				ua.setmCurrentPage(Integer.parseInt(getArguments().getString("page")));
+     				ua.onClickActivity(map.get("id"));
      				
      			}
      		}
@@ -312,25 +324,13 @@ private HashMap<String, String> computeEnergy(long UserActivityId){
 }
 
 
-public void onClickButtonPrev(View v){
-	this.currentDay.add(Calendar.DATE,-1);
-	//refreshScreen();
-	
-	
-}
-
-
-public void onClickButtonNext(View v){
-	this.currentDay.add(Calendar.DATE,+1);
-	//refreshScreen();
-	
-	
-}
-
-
 
 
 public void refreshScreen(){
+	
+	
+	
+	
 	cleanList();
 		generateList();
 	}

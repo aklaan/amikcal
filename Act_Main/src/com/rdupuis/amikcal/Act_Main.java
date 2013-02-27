@@ -8,11 +8,11 @@ import com.rdupuis.amikcal.Commons.Act_Techinfo;
 import com.rdupuis.amikcal.Commons.AmiKcalFactory;
 import com.rdupuis.amikcal.Commons.FragmentsSliderActivity;
 import com.rdupuis.amikcal.Commons.ToolBox;
+import com.rdupuis.amikcal.Commons.NumericPad.FragAct_NumericPad;
 import com.rdupuis.amikcal.Data.DatabaseObj;
 import com.rdupuis.amikcal.Day.Act_Day;
 import com.rdupuis.amikcal.Energy.Act_EnergyList;
 import com.rdupuis.amikcal.Equivalence.Act_EquivalenceList;
-import com.rdupuis.amikcal.Tools.NumericPad.FragAct_NumericPad;
 
 import com.rdupuis.amikcal.UserActivity.UserActivityList_FragmentsSliderActivity;
 
@@ -47,8 +47,8 @@ public class Act_Main extends Activity {
 	ContentResolver contentResolver;
 	Cursor cur;
 	SimpleCursorAdapter adapter;
-	private static Context mContext;
-	static ProgressDialog mProgressDialog ;
+	private Context mContext;
+	private ProgressDialog mProgressDialog ;
 	  
 	    
 	public static final int MSG_ERR = 0;
@@ -60,34 +60,35 @@ public class Act_Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+		//setContentView(R.layout.fragment_day_user_activities_synthese);
         contentResolver = this.getContentResolver();
-       // verifierMiseAJourDB();
+        verifierMiseAJourDB();
     }
     
 	
-	final static Handler mHandler = new Handler() {
+	private  Handler mHandler = new Handler() {
 	    public void handleMessage(Message msg) {
 	        String text2display = null;
 	        switch (msg.what) {
 	        case MSG_IND:
-	            if (mProgressDialog.isShowing()) {
-	                mProgressDialog.setMessage(((String) msg.obj));
+	            if (Act_Main.this.mProgressDialog.isShowing()) {
+	            	Act_Main.this.mProgressDialog.setMessage(((String) msg.obj));
 	            }
 	            break;
 	        case MSG_ERR:
 	            text2display = (String) msg.obj;
-	            Toast.makeText(mContext, "Error: " + text2display,
+	            Toast.makeText(Act_Main.this.mContext, "Error: " + text2display,
 	                    Toast.LENGTH_LONG).show();
-	            if (mProgressDialog.isShowing()) {
-	                mProgressDialog.dismiss();
+	            if (Act_Main.this.mProgressDialog.isShowing()) {
+	            	Act_Main.this.mProgressDialog.dismiss();
 	            }
 	            break;
 	        case MSG_CNF:
 	            text2display = (String) msg.obj;
-	            Toast.makeText(mContext, "Info: " + text2display,
+	            Toast.makeText(Act_Main.this.mContext, "Info: " + text2display,
 	                    Toast.LENGTH_LONG).show();
-	            if (mProgressDialog.isShowing()) {
-	                mProgressDialog.dismiss();
+	            if (Act_Main.this.mProgressDialog.isShowing()) {
+	            	Act_Main.this.mProgressDialog.dismiss();
 	            }
 	            break;
 	        default: // should never happen
@@ -118,12 +119,12 @@ public class Act_Main extends Activity {
 	* verifierMiseAJourDB
 	* 
 	* la mise à jour de la database est une opération qui peu être longue.
-	* ici, on prévient d'utilisateur qu'il faut petienter si une mise 
+	* ici, on prévient d'utilisateur qu'il faut patienter si une mise 
 	* à jour est necessaire.
     *	
 	**********************************************/
 	public void verifierMiseAJourDB(){
-	
+	try {
 		if (ToolBox.getAmikcalDbVersion()<DatabaseObj.DATABASE_VERSION){
 		
 	       mProgressDialog = ProgressDialog.show(this, "Veuillez-patienter",
@@ -150,6 +151,7 @@ public class Act_Main extends Activity {
 	            }
 	        })).start();
 		}
+	} catch (Exception e){};
 	}
 	
 	/**

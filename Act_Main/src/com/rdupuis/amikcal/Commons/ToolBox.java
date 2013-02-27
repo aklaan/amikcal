@@ -1,13 +1,18 @@
 package com.rdupuis.amikcal.Commons;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.Activity;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
+import com.rdupuis.amikcal.Data.ContentDescriptorObj;
 import com.rdupuis.amikcal.Data.DatabaseObj;
 /**
  * <b>Boîte à outils.</b>
@@ -141,9 +146,31 @@ public final class ToolBox {
 			+	decimalFormat.format(seconds);
 	
 	
-}
+	}
 
-
+	public static String getSumOfFoodEnergyForDay(Activity activity, String DateToSelect){
+		 String result ="";
+	   	
+		Uri selectUri;
+	   	selectUri = ContentDescriptorObj.CustomQuery.URI_SUM_ENERGY_OF_DAY.buildUpon().appendPath(DateToSelect).build();
+	     
+	    Cursor cur = activity.getContentResolver().query(selectUri, null, null, null, null);
+	           
+	    final int indexOfColumn_SUM_MT_ENERGY = cur.getColumnIndex("SUM_MT_ENERGY");
+	            
+	    if (cur.moveToFirst()) {
+	           
+	    	DecimalFormat decimalFormat = (DecimalFormat)DecimalFormat.getInstance();
+	        decimalFormat.applyPattern("####0");
+	        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+	        dfs.setDecimalSeparator('.');
+	        decimalFormat.setDecimalFormatSymbols( dfs );
+	           	 
+	        result = decimalFormat.format(cur.getFloat(indexOfColumn_SUM_MT_ENERGY));
+	    }
+	    cur.close();
+	    return result;
+	}
 
 
 

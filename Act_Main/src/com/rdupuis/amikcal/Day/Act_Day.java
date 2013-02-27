@@ -159,7 +159,7 @@ public class Act_Day extends Activity{
       
         Cursor cur = this.getContentResolver().query(selectUri, null, null, null, null);
             
-        final int INDX_COL_ID = cur.getColumnIndex("mysomme");
+        final int INDX_COL_ID = cur.getColumnIndex("SUM_MT_ENERGY");
              
              if (cur.moveToFirst()) {
             

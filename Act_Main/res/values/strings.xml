@@ -17,7 +17,33 @@
         
     <string name="default_unit" >g</string>    
     <string name="default_quantity" >100</string>
-        
+    
+    <!-- listes des mots pour l'onglet synthèse en français-->
+    <string name="FOOD" >Aliments</string>
+    <string name="ACTIVITY" >Activitées</string>
+    <string name="WEIGHT" >Poids</string>
+    <string name="RANKING" >Rang </string>
+    <string name="AJR" >AJR</string>
+    <string name="Kcal" >Kcal</string>
+    <string name="LIPIDS" >Lipides</string>
+    <string name="GLUCIDS" >Glucides</string>
+    <string name="PROTEINS" >Proteines</string>    
+    <string name="PREVIOUS" >Précédent</string> 
+    <string name="NEW" >Nouveau</string>
+    <string name="KG" >Kg</string>
+    <string name="POINTS" >Pt</string>
+    <string name="TOTAL" >Total</string>
+    <string name="SCORE" >Score Total</string>
+    <string name="VARIATION" >Variation</string>
+    
+    <!-- sample -->
+    <string name="N99" >99</string>
+    <string name="N999" >999</string>
+    <string name="N999d99" >999.99</string>
+    <string name="N99d99" >99.99</string>
+    <string name="N99999" >99999</string>
+    
+    
     <item name="CALENDAR"   type="integer" format="integer">0</item>
     <item name="NUMERICPAD" type="integer" format="integer">1</item>
     <item name="EQUIVALENCE_EDITOR" type="integer" format="integer">2</item>

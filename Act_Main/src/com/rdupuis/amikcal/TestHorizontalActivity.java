@@ -1,8 +1,12 @@
 package com.rdupuis.amikcal;
 
+import com.rdupuis.amikcal.Commons.NumericPad.FragAct_NumericPad;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;

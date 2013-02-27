@@ -5,7 +5,9 @@ package com.rdupuis.amikcal.Commons;
 
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment;
+import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,7 +29,7 @@ NumericPadFragment.OnClickButtonCancel{
 		super.setContentView(R.layout.viewpager);
 
 		// Création de la liste de Fragments que fera défiler le PagerAdapter
-		List<Fragment> fragments = new Vector<Fragment>();
+		ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
 		// Ajout des Fragments dans la liste
 		fragments.add(Fragment.instantiate(this,NumericPadFragment.class.getName()));
