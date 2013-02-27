@@ -1,6 +1,7 @@
 package com.rdupuis.amikcal;
 
 import java.io.File;
+import java.util.ArrayList;
 //import com.rdupuis.amikcal.ContentDescriptor;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.Commons.Act_Calendar;
@@ -23,6 +24,7 @@ import android.content.Context;
 //import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -62,7 +64,32 @@ public class Act_Main extends Activity {
         setContentView(R.layout.main);
 		//setContentView(R.layout.fragment_day_user_activities_synthese);
         contentResolver = this.getContentResolver();
-        verifierMiseAJourDB();
+      //  verifierMiseAJourDB();
+        
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/BIRDMAN_.TTF");
+        TextView tv = (TextView) findViewById(R.id.main_tv_titre);
+       
+        ArrayList<Integer> button_list = new ArrayList<Integer>();
+        button_list.add(R.id.main_tv_titre);
+        button_list.add(R.id.main_btn_journee);
+        button_list.add(R.id.main_btn_equiv);
+        button_list.add(R.id.main_btn_recettes);
+        button_list.add(R.id.main_btn_param);
+        button_list.add(R.id.main_bt_calorie_table);
+        button_list.add(R.id.main_bt_techinfo);
+        button_list.add(R.id.main_btn_profil);
+        button_list.add(R.id.main_btn_test);
+        
+        for (Integer i:button_list){
+        	tv = (TextView) findViewById(i);	
+        	tv.setTypeface(tf);
+        }
+       
+       
+        
+        
+        
     }
     
 	

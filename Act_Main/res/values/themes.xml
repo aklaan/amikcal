@@ -4,7 +4,7 @@
     herite du style  android:style/Theme.NoTitleBar -->
     
     <style name="CustomButton" parent="android:style/Theme.NoTitleBar">
-        <item name="android:buttonStyle">@style/Button</item>
+        <item name="android:buttonStyle">@style/Button_amikcal</item>
         
     </style>
     

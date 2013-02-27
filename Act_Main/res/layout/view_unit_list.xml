@@ -47,7 +47,7 @@
             android:onClick="onClickAdd" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/main_btn_equiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickViewAll"

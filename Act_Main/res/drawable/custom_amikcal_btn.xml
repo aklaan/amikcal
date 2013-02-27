@@ -5,12 +5,12 @@
     <item 
     	android:state_pressed="true" 
     	android:state_enabled="true"
-        android:drawable="@drawable/btn_cal_yellow" />
+        android:drawable="@drawable/bouton_amikcal_down" />
     <item 
     	android:state_focused="true" 
     	android:state_enabled="true"
         android:drawable="@drawable/btn_red" />
     <item 
     	android:state_enabled="true"
-        android:drawable="@drawable/btn_cal_black" />
+        android:drawable="@drawable/bouton_amikcal" />
 </selector>

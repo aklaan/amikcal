@@ -6,4 +6,5 @@
     <color name="GREEN">#ff00ff00</color>
     
     <color name="SCORE_COLOR">#ff00ff55</color>
+    <color name="RED">#FF0000</color>
 </resources>

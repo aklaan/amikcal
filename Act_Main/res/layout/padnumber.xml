@@ -4,13 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:stretchColumns="1" >
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-         >
-
+        android:layout_marginLeft="5dp" >
+
         <TextView
             android:id="@+id/padnumber_entry"
             android:layout_width="wrap_content"
@@ -18,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:textSize="30dp" />
-
+
         <Button
             android:id="@+id/btnOK"
             android:layout_width="wrap_content"
@@ -29,7 +28,6 @@
             android:textColor="#ffffffff"
             android:textSize="30dp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <View
@@ -45,7 +43,7 @@
         android:layout_margin="2dp"
         android:layout_weight="1"
         android:orientation="horizontal" >
-
+
         <Button
             android:id="@+id/btnOne"
             android:layout_width="0dp"
@@ -215,7 +213,7 @@
             android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
