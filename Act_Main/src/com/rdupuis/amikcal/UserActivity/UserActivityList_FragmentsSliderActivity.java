@@ -48,17 +48,15 @@ NumericPadFragment.OnClickButtonCancel{
 
 	private final static int  ACTY_COMPONENT_LIST = 0;
 	private final static int  ACTY_USER_ACTIVITY_EDITOR = 1;
-   private ViewPager mViewPager; 
+  	private ViewPager mViewPager; 
 	
 	public int getmCurrentPage() {
 	return mCurrentPage;
-}
+	}
 
-
-
-public void setmCurrentPage(int mCurrentPage) {
+	public void setmCurrentPage(int mCurrentPage) {
 	this.mCurrentPage = mCurrentPage;
-}
+	}
 
 
 
@@ -67,15 +65,19 @@ public void setmCurrentPage(int mCurrentPage) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.viewpager);
 
-		// Création de la liste de Fragments que fera défiler le PagerAdapter
+		//Tableau des dates Ã  afficher
 		mArrayCalendar = new ArrayList<Calendar>();
+		
+		//tableau des bunble Ã  affecter aux fragments
 		mArrayBundle = new ArrayList<Bundle> ();
+		
+		// tableau des Fragments a faire dÃ©filer dans le PagerAdapter
 		mArrayfragments = new ArrayList<Fragment>();
  		
-	    mIntent = getIntent();
-	    mResources = getResources();
+	    	mIntent = getIntent();
+	    	mResources = getResources();
 	        
-	        //* on tente de récupérer une date si l'intent nous en a envoyé une
+	        //* on tente de rÃ©cupÃ©rer une date si l'intent nous en a envoyÃ© une
 	    try {
 	      	currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES)));
 	    }
@@ -84,7 +86,7 @@ public void setmCurrentPage(int mCurrentPage) {
 	    };
 	        
 	            
-	            // initialisation dates des 9 pages qui représentent les 3 groupes de cas possibles 
+	            // initialisation dates des 9 pages qui reprÃ©sentent les 3 groupes de cas possibles 
 	        	
 	        	//      Group A           Group B           Group C
 	            //  0  |  1  | 2 |      3 | 4 |  5  |     6 |  7  |  8  |
@@ -109,38 +111,36 @@ public void setmCurrentPage(int mCurrentPage) {
 	            }
 	           
 	            
-	           // Pour chaques fragments, on prépare un bundle qui contient la date à afficher et le n° de page
-	            mArrayBundle.get(i).putString("date", ToolBox.getSqlDate(mArrayCalendar.get(i)));
-	            mArrayBundle.get(i).putString("page", String.valueOf(i));
+	        // Pour chaques fragments, on prepare un bundle qui contient la date Ã  afficher et le numero de page
+	        mArrayBundle.get(i).putString("date", ToolBox.getSqlDate(mArrayCalendar.get(i)));
+	        mArrayBundle.get(i).putString("page", String.valueOf(i));
 	            
-	            // On instancie les 9 fragments avec leur bundle respectifs. 
-	            // ces fragments sont insérés dans un tableau.
-	            mArrayfragments.add(Fragment.instantiate(this,Frag_UserActivityList.class.getName(),mArrayBundle.get(i)));
-	            };
+	        // On instancie les 9 fragments avec leur bundle respectifs. 
+	        // Ces fragments sont insÃ©rÃ©s dans le tableau mArrayfragments.
+	        mArrayfragments.add(Fragment.instantiate(this,Frag_UserActivityList.class.getName(),mArrayBundle.get(i)));
+	        };
 	           
-
-	    mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
+		//instanciation d'un ViewPager
+	    	mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
 	
-		
-		// Création de l'adapter qui s'occupera de l'affichage de la liste de
-		// Fragments
+		// Creation de l'adapter qui s'occupera de l'affichage des fragments dans le ViewPager
 		this.mPagerAdapter = new MyFragmentPagerAdapter(super.getSupportFragmentManager(), mArrayfragments);
 
-		// Affectation de l'adapter au ViewPager
+		// Attribution de l'adapter au ViewPager
 		 mViewPager.setAdapter(this.mPagerAdapter);
 				 
 				 
-		// au démarrage le focus doit être sur la page 4
+		//Au dÃ©marrage le focus doit Ãªtre sur la page 4, c'est la page centrale
 		 mViewPager.setCurrentItem(4,false);
 		 
-		 // on souhaites conserver en mémoire 9 pages en même temps.
+		 //On souhaites conserver en mÃ©moire 9 pages en mÃªme temps.
 		 mViewPager.setOffscreenPageLimit(9);
 				 
-		 //ajout d'un ecouteur sur le changement de page
+		 //Ajout d'un Ã©couteur sur le changement de page
 		 mViewPager.setOnPageChangeListener(new OnPageChangeListener(){
 			 
-			 boolean isPageDown = false;
-			 boolean isPageUp = false;
+			boolean isPageDown = false;
+			boolean isPageUp = false;
 			 
 			public void onPageScrollStateChanged(int state) {
 				
@@ -153,19 +153,22 @@ public void setmCurrentPage(int mCurrentPage) {
 				            	
 			        		   if (mViewPager.getCurrentItem()==5) {
 			        			   mViewPager.setCurrentItem(7,false);
-			        			  // mettre à jour les pages 0,1,2
+			        			  // mettre Ã  jour les pages 0,1,2
+			        			  // on ajoute 3 jours
 			        			   updateGroup(Groupe.A,+3);
 			        		   }
 			        		   
 			        		   if (mViewPager.getCurrentItem()==8) {
 			        			   mViewPager.setCurrentItem(1,false);
-			        			   // mettre à jour les pages 3,4,5
+			        			   // mettre Ã  jour les pages 3,4,5
+			        			   // on ajoute 3 jours
 			        			   updateGroup(Groupe.B,+3);
 			        		   }
 			        		   
 			        		   if (mViewPager.getCurrentItem()==2) {
 			        			   mViewPager.setCurrentItem(4,false);
-			        			   // mettre à jour les pages 6,7,8
+			        			   // mettre Ã  jour les pages 6,7,8
+			        			   // on ajoute 3 jours
 			        			   updateGroup(Groupe.C,+3);
 			        		   }
 			        		   isPageUp = false;
@@ -176,19 +179,22 @@ public void setmCurrentPage(int mCurrentPage) {
 				            	
 			        		   if (mViewPager.getCurrentItem()==0) {
 			        			   mViewPager.setCurrentItem(7,false);
-			        			  // mettre à jour les pages 3,4,5
+			        			  // mettre Ã  jour les pages 3,4,5
+			        			  // on retire 3 jours
 			        			   updateGroup(Groupe.B,-3);
 			        		   }
 			        		   
 			        		   if (mViewPager.getCurrentItem()==3) {
 			        			   mViewPager.setCurrentItem(1,false);
-			        			   // mettre à jour les pages 6,7,8
+			        			   // mettre Ã  jour les pages 6,7,8
+			        			   // on retire 3 jours
 			        			   updateGroup(Groupe.C,-3);
 			        		   }
 			        		   
 			        		   if (mViewPager.getCurrentItem()==6) {
 			        			   mViewPager.setCurrentItem(4,false);
-			        			   // mettre à jour les pages 0,1,2
+			        			   // mettre Ã  jour les pages 0,1,2
+			        			   // on retire 3 jours
 			        			   updateGroup(Groupe.A,-3);
 			        		   }
 			        		   isPageDown = false;
@@ -203,14 +209,15 @@ public void setmCurrentPage(int mCurrentPage) {
 			        }
 			}
 			
-			private void updateGroup(Groupe a ,int value){
+			private void updateGroup(Groupe groupe ,int value){
 				int page1=0;
 				int page2=0;
 				int page3=0;
 				
 				FragmentManager fm  = UserActivityList_FragmentsSliderActivity.this.getSupportFragmentManager();
-
-				switch(a){
+				
+				//on dÃ©termine les index oÃ¹ se trouvent les dates du groupe Ã  modifier.
+				switch(groupe){
 				case A: page1=0;break;
 				case B: page1=3;break;
 				case C: page1=6;break;
@@ -219,33 +226,48 @@ public void setmCurrentPage(int mCurrentPage) {
 				page2 = page1 + 1;
 				page3 = page2 + 1;
 				
-                mArrayCalendar.get(page1).add(Calendar.DATE, value);
-                mArrayCalendar.get(page2).add(Calendar.DATE, value);
-                mArrayCalendar.get(page3).add(Calendar.DATE, value);
+				//on ajoute le nombre de jour souhaitÃ© aux 3 dates du groupe. 
+                		mArrayCalendar.get(page1).add(Calendar.DATE, value);
+                		mArrayCalendar.get(page2).add(Calendar.DATE, value);
+                		mArrayCalendar.get(page3).add(Calendar.DATE, value);
                 
-                mPagerAdapter.getItem(page1).getArguments().putString("date",ToolBox.getSqlDate(mArrayCalendar.get(page1)));
-                mPagerAdapter.getItem(page2).getArguments().putString("date",ToolBox.getSqlDate(mArrayCalendar.get(page2)));
-                mPagerAdapter.getItem(page3).getArguments().putString("date",ToolBox.getSqlDate(mArrayCalendar.get(page3)));
-                //mPagerAdapter.notifyDataSetChanged();
+                		//On redÃ©finit la prorpiÃ©tÃ© "date" des fragments. 
+                		mPagerAdapter.getItem(page1).getArguments().putString("date",ToolBox.getSqlDate(mArrayCalendar.get(page1)));
+                		mPagerAdapter.getItem(page2).getArguments().putString("date",ToolBox.getSqlDate(mArrayCalendar.get(page2)));
+                		mPagerAdapter.getItem(page3).getArguments().putString("date",ToolBox.getSqlDate(mArrayCalendar.get(page3)));
+              
+              			//l'utilisation d'un notifyDataSetChanged provoque un blink dÃ©sagrÃ©able
+               			//car la fonction efface tout et rÃ©affiche tout.
+                          	//mPagerAdapter.notifyDataSetChanged();
 				
-               // je détache les vue et je les réattaches pour acutliser les données
-               // si j'utilise notifyDataSetChanged cela provoque un blink désagréable
-               // car la fonction efface tout et réaffiche tout.
-                FragmentTransaction ft = fm.beginTransaction();
-            	ft.detach(mPagerAdapter.getItem(page1));
-            	ft.attach(mPagerAdapter.getItem(page1));
-            	ft.detach(mPagerAdapter.getItem(page2));
-            	ft.attach(mPagerAdapter.getItem(page2));
-            	ft.detach(mPagerAdapter.getItem(page3));
-            	ft.attach(mPagerAdapter.getItem(page3));
-			    ft.commit();
-	   
-				
+               			//Pour actualiser la vue sans Blink, je dÃ©tache les vues de fragments
+               			//et je les rÃ©attaches
+                		
+                		//dÃ©but de l'opÃ©ration on fige l'affichage.
+                		FragmentTransaction ft = fm.beginTransaction();
+            		
+            			// je dÃ©tache et rÃ©attache le premier fragment
+            			ft.detach(mPagerAdapter.getItem(page1));
+            			ft.attach(mPagerAdapter.getItem(page1));
+            			
+            			// je dÃ©tache et rÃ©attache le second fragment
+            			ft.detach(mPagerAdapter.getItem(page2));
+            			ft.attach(mPagerAdapter.getItem(page2));
+            			
+            			// je dÃ©tache et rÃ©attache le troisiÃ¨me fragment
+            			ft.detach(mPagerAdapter.getItem(page3));
+            			ft.attach(mPagerAdapter.getItem(page3));
+			    	
+			    	//Commit pour prendre en compte les modification dans la vue.
+			    	ft.commit();
+	   			
 			}
 			
-			
+			//Lorsque l'on change de page, on regarde si l'utilisateur a Ã©tÃ© 
+			// vers la droite (avance dans le temps -> UP) 
+			//ou  vers la gauche (recul dans le temps -> DOWN)
 			public void onPageSelected(int pageNumber) {
-		//		Log.i("onPageSelected", String.valueOf(pageNumber));
+				//Log.i("onPageSelected", String.valueOf(pageNumber));
 				  switch (pageNumber) {
 			        case 0: case 3: case 6:
 			        	isPageDown = true;
@@ -257,15 +279,14 @@ public void setmCurrentPage(int mCurrentPage) {
 			}
 
 			/**
-			 * onPageScrolled est appelé lorsque la page est en mouvement
+			 * onPageScrolled est appelÃ© lorsque la page est en mouvement
+			 * aucune acion n'est prÃ©vue pour le moment.
 			 */
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-			
 			//	Log.i("onPageScrolled", "yes");
-				
 			}
 				
-			});
+		}); // fin du listener.
 	
 	
 	}
@@ -284,7 +305,7 @@ public void setmCurrentPage(int mCurrentPage) {
 	
 	
 	 /**
-     * Gérer les retours d'appels aux autres activitées
+     * GÃ©rer les retours d'appels aux autres activitÃ©es
      * @param requestCode
      * @param resultCode
      * @param intent
@@ -318,7 +339,7 @@ public void setmCurrentPage(int mCurrentPage) {
     
     /**
   	* 
-  	* @param id Identifiant de l'activitée utilisateur séléctionée
+  	* @param id Identifiant de l'activitï¿½e utilisateur sï¿½lï¿½ctionï¿½e
   	*/
   	public void onClickActivity(String id){
   		Intent intent = new Intent(this,Act_UserActivityComponentList.class);
@@ -329,7 +350,7 @@ public void setmCurrentPage(int mCurrentPage) {
  
   	/**
   	 * 
-  	 * @param id Identifiant de l'activitée utilisateur à éditer
+  	 * @param id Identifiant de l'activitï¿½e utilisateur ï¿½ ï¿½diter
   	 */
   	public void onClickEdit(Fragment f, String id){
 	    Intent intent = new Intent(this,Act_UserActivityEditor.class);
@@ -341,11 +362,11 @@ public void setmCurrentPage(int mCurrentPage) {
   	}
   	/**
   	  * 
-  	  * @param id Identifiant de l'activitée utilisateur à supprimer
+  	  * @param id Identifiant de l'activitï¿½e utilisateur ï¿½ supprimer
   	  */
   	 public void onClickDelete(String id){
   		 
-  		 // vérifier s'il y a des enfants
+  		 // vï¿½rifier s'il y a des enfants
   		 // s'il y a des enfant alerter et demander une confirmation
   		
   	    	Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.UserActivities.URI_DELETE_USER_ACTIVITIES,Long.parseLong(id));
