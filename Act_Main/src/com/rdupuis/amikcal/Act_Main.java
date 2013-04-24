@@ -9,7 +9,7 @@ import com.rdupuis.amikcal.Commons.Act_Techinfo;
 import com.rdupuis.amikcal.Commons.AmiKcalFactory;
 import com.rdupuis.amikcal.Commons.FragmentsSliderActivity;
 import com.rdupuis.amikcal.Commons.ToolBox;
-import com.rdupuis.amikcal.Commons.NumericPad.FragAct_NumericPad;
+import com.rdupuis.amikcal.Tools.NumericPad.FragAct_NumericPad;
 import com.rdupuis.amikcal.Data.DatabaseObj;
 import com.rdupuis.amikcal.Day.Act_Day;
 import com.rdupuis.amikcal.Energy.Act_EnergyList;
@@ -293,8 +293,7 @@ public class Act_Main extends Activity {
     	//Intent intent = new Intent(this,FragAct_NumericPad.class);
     	//Intent intent = new Intent(this,FragmentsSliderActivity.class);
     	Intent intent = new Intent(this,UserActivityList_FragmentsSliderActivity.class);
-    	
-    	
+    	   	
     
     	startActivity(intent);
     }

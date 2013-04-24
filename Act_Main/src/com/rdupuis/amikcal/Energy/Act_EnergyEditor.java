@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.Commons.AmiKcalFactory;
-import com.rdupuis.amikcal.Commons.NumericPad.FragAct_NumericPad;
+import com.rdupuis.amikcal.Tools.NumericPad.FragAct_NumericPad;
 import com.rdupuis.amikcal.Data.ContentDescriptorObj;
 import com.rdupuis.amikcal.UnitOfMeasure.Act_UnitOfMeasureList;
 

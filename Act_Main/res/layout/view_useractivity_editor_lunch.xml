@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -27,57 +27,58 @@
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <RadioButton
                 android:id="@+id/view_ua_editor_rdio_breakfast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="Petit-déjeuner" android:onClick="onClickRdioBreakfast"/>
-
+                android:onClick="onClickRdioBreakfast"
+                android:text="Petit-déjeuner" />
+
             <RadioButton
                 android:id="@+id/view_ua_editor_rdio_lunch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="Déjeuner" android:onClick="onClickRdioLunch"/>
-
+                android:onClick="onClickRdioLunch"
+                android:text="Déjeuner" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
+
             <RadioButton
                 android:id="@+id/view_ua_editor_rdio_diner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="Dîner" android:onClick="onClickRdioDiner"/>
-
+                android:onClick="onClickRdioDiner"
+                android:text="Dîner" />
+
             <RadioButton
                 android:id="@+id/view_ua_editor_rdio_snack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="Pause" android:onClick="onClickRdioSnack"/>
-
+                android:onClick="onClickRdioSnack"
+                android:text="Pause" />
         </TableRow>
-
     </TableLayout>
-
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Libellé" />
-
+
     <EditText
         android:id="@+id/useractivity_view_edTxt_name"
         android:layout_width="fill_parent"
@@ -89,15 +90,12 @@
 
         <requestFocus />
     </EditText>
-
-    
 
     <TimePicker
         android:id="@+id/timePicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
-
 
     <Button
         android:id="@+id/useractivity_view_btn_Next"

@@ -7,7 +7,7 @@ package com.rdupuis.amikcal.UserActivity;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.Commons.MyFragmentPagerAdapter;
 import com.rdupuis.amikcal.Commons.ToolBox;
-import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment;
+import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment;
 
 import com.rdupuis.amikcal.Data.ContentDescriptorObj;
 import com.rdupuis.amikcal.UserActivityComponent.Act_UserActivityComponentList;

@@ -5,7 +5,7 @@ package com.rdupuis.amikcal.Commons;
 
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment;
+import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment;
 
 import java.util.ArrayList;
 import java.util.List;

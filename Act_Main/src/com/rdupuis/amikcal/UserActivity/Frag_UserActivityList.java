@@ -8,8 +8,8 @@ import java.util.HashMap;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.Commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.Commons.ToolBox;
-import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment;
-import com.rdupuis.amikcal.Commons.NumericPad.NumericPadFragment.OnClickButtonOK;
+import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment;
+import com.rdupuis.amikcal.Tools.NumericPad.NumericPadFragment.OnClickButtonOK;
 import com.rdupuis.amikcal.Data.ContentDescriptorObj;
 import com.rdupuis.amikcal.UserActivity.Frag_UserActivityList;
 
@@ -64,7 +64,7 @@ public class Frag_UserActivityList extends Fragment {
     
     public View onCreateView(LayoutInflater inflater , ViewGroup container, Bundle savedInstanceState) {
     	
-    	View mainView = inflater.inflate(R.layout.user_activity_list_view_by_day, container, false);  
+    	View mainView = inflater.inflate(R.layout.view_useractivity_list, container, false);  
     	
    	 
         mCustomListView = (ListView) mainView.findViewById(R.id.listviewperso);
@@ -89,11 +89,11 @@ public class Frag_UserActivityList extends Fragment {
         
      
         // Afficher la somme totale des calories "Aliments" du jour. 
-        TextView tv = (TextView) mainView.findViewById(R.id.synth_food_nbKcal);
-  		tv.setText(ToolBox.getSumOfFoodEnergyForDay(getActivity(),(ToolBox.getSqlDate(currentDay))));
+    //    TextView tv = (TextView) mainView.findViewById(R.id.synth_food_nbKcal);
+  	//	tv.setText(ToolBox.getSumOfFoodEnergyForDay(getActivity(),(ToolBox.getSqlDate(currentDay))));
 
         // Afficher la date du jour. 
-    	tv= (TextView)mainView.findViewById(R.id.fragtextView);
+        TextView tv= (TextView)mainView.findViewById(R.id.fragtextView);
      	//ed.setText("Page " + page + " - " + ToolBox.getSqlDate(currentDay));
     	tv.setText( ToolBox.getSqlDate(currentDay) + " / n°Fragment: " + getArguments().getString("page"));       
         

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.Commons.AmiKcalFactory;
-import com.rdupuis.amikcal.Commons.NumericPad.FragAct_NumericPad;
+import com.rdupuis.amikcal.Tools.NumericPad.FragAct_NumericPad;
 import com.rdupuis.amikcal.Data.ContentDescriptorObj;
 import com.rdupuis.amikcal.Energy.Act_EnergyList;
 import com.rdupuis.amikcal.UnitOfMeasure.Act_UnitOfMeasureList;

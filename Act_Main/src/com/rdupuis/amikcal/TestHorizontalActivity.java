@@ -1,6 +1,6 @@
 package com.rdupuis.amikcal;
 
-import com.rdupuis.amikcal.Commons.NumericPad.FragAct_NumericPad;
+import com.rdupuis.amikcal.Tools.NumericPad.FragAct_NumericPad;
 
 import android.app.Activity;
 import android.graphics.Color;
