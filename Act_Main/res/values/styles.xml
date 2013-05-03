@@ -57,6 +57,9 @@
           <item name="android:maxHeight">20dip</item>
 	</style>
 
-       
+    <style name="Text_button_style">
+    	<item name="android:textSize">12sp</item>
+    	<item name="android:textColor">#FFFF</item>
+</style>
        
 </resources>

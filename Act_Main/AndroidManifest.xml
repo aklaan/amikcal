@@ -25,32 +25,31 @@
         </activity>
         
         
-        <activity android:name=".Commons.MultipleItemsActivityList">	</activity>
-        <activity android:name=".Commons.NumericPad.Act_NumericPad">	</activity>
-        <activity android:name=".Commons.NumericPad.FragAct_NumericPad"></activity>
-        <activity android:name=".Commons.Act_Techinfo"></activity> 
-        <activity android:name=".Commons.Act_Calendar"></activity>
-        <activity android:name=".UserActivity.Act_UserActivityList"></activity>
-        <activity android:name=".UserActivity.Act_UserActivityEditor"></activity>
-        <activity android:name=".Day.Act_Day"></activity>
-        <activity android:name=".UserActivityComponent.Act_UserActivityComponentList"></activity>
-        <activity android:name=".UserActivityComponent.Act_UserActivityComponentEditor"></activity>
-        <activity android:name=".UnitOfMeasure.Act_UnitOfMeasureList"></activity>
-        <activity android:name=".UnitOfMeasure.Act_UnitOfMeasureEditor"></activity>
-        <activity android:name=".Energy.Act_EnergyEditor"></activity>
-        <activity android:name=".Energy.Act_EnergyList"></activity>
-        <provider android:name=".Data.ContentProviderObj" 
+        <activity android:name="com.rdupuis.amikcal.commons.MultipleItemsActivityList">	</activity>
+        <activity android:name="com.rdupuis.amikcal.commons.numericpad.Act_NumericPad">	</activity>
+        <activity android:name="com.rdupuis.amikcal.commons.numericpad.FragAct_NumericPad"></activity>
+        <activity android:name="com.rdupuis.amikcal.commons.Act_Techinfo"></activity> 
+        <activity android:name="com.rdupuis.amikcal.commons.Act_Calendar"></activity>
+        <activity android:name="com.rdupuis.amikcal.useractivity.Act_UserActivityList"></activity>
+        <activity android:name="com.rdupuis.amikcal.useractivity.Act_UserActivityEditor"></activity>
+        <activity android:name="com.rdupuis.amikcal.day.Act_Day"></activity>
+        <activity android:name="com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList"></activity>
+        <activity android:name="com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentEditor"></activity>
+        <activity android:name="com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList"></activity>
+        <activity android:name="com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureEditor"></activity>
+        <activity android:name="com.rdupuis.amikcal.energy.Act_EnergyEditor"></activity>
+        <activity android:name="com.rdupuis.amikcal.energy.Act_EnergyList"></activity>
+        <provider android:name="com.rdupuis.amikcal.data.ContentProviderObj" 
                   android:authorities="com.rdupuis.amikcal.AmikcalContentProvider">
         	 <data android:mimeType="vnd.android.cursor.item/vnd.rdupuis.amikcal.AmikcalContentProvider" />
         </provider>
         
-        <activity android:name=".Equivalence.Act_EquivalenceEditor"></activity> 
-        <activity android:name=".Equivalence.Act_EquivalenceList"></activity>
-         
-         <activity android:name=".ScrollView2"></activity>
-         <activity android:name=".TestHorizontalActivity"></activity>
-         <activity android:name=".Commons.FragmentsSliderActivity"></activity>
-         <activity android:name=".UserActivity.UserActivityList_FragmentsSliderActivity"></activity>
+        <activity android:name="com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor"></activity> 
+        <activity android:name="com.rdupuis.amikcal.equivalence.Act_EquivalenceList"></activity>
+       
+       
+         <activity android:name="com.rdupuis.amikcal.commons.FragmentsSliderActivity"></activity>
+         <activity android:name="com.rdupuis.amikcal.useractivity.UserActivityList_FragmentsSliderActivity"></activity>
     
 	</application>
 

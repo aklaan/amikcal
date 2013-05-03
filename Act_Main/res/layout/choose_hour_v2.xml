@@ -10,20 +10,20 @@
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:background="#FFFFFF" />
-
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Débuté dans la tranche horaire :" />
-
+
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1" >
-
+
         <TableRow
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:onClick="onClickRdioRange_3_6"
                 android:text="@string/espacevide" />
         </TableRow>
-
+
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
@@ -102,7 +102,6 @@
                 android:onClick="onClickRdioRange_9_12"
                 android:text="@string/espacevide" />
         </TableRow>
-
     </TableLayout>
 
 </LinearLayout>

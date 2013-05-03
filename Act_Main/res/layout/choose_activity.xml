@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
@@ -14,38 +14,32 @@
         android:gravity="center_vertical|center_horizontal"
         android:text="Quel type d&apos;activité souhaitez-vous saisir ?"
         android:textSize="25dp" />
-
+
     <Button
-       
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:layout_weight="1"
-       
         android:onClick="onClickLunch"
         android:text="Repas" />
-
+
     <Button
-      
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:layout_weight="1"
-     
         android:onClick="onClickPhysicalActivity"
         android:text="Activité physique" />
 
-     <Button
-       
+    <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:layout_weight="1"
-      
         android:onClick="onClickWeight"
         android:text="Pesée" />
-    
+
 </LinearLayout>

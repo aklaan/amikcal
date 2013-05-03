@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/main_tv_titre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="Amikcal"
+        android:textColor="#FF0000"
+        android:textSize="@android:dimen/app_icon_size" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/main_btn_journee"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:fitsSystemWindows="true"
+                android:onClick="callDay"
+                android:text="journee"
+                
+                
+                 />
+
+            <Button
+                android:id="@+id/main_btn_equiv"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:onClick="onClickEquivalence"
+                android:text="equivalences"
+                
+                
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/main_btn_recettes"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="Recettes"
+                   />
+
+            <Button
+                android:id="@+id/main_btn_param"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:onClick="callDay"
+                android:text="parametres"
+                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/main_btn_profil"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="Profil"
+                 />
+
+            <Button
+                android:id="@+id/main_btn_test"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:onClick="test"
+                android:text="test"
+                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/main_bt_calorie_table"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:onClick="callEnergyList"
+                android:text="Table des calories"
+                 />
+
+            <Button
+                android:id="@+id/main_bt_techinfo"
+                style="@style/Button_amikcal"
+                android:textAppearance="@style/Text_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:onClick="callTechinfo"
+                android:text="A propos..."
+                 />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

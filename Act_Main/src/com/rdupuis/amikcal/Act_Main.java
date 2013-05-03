@@ -4,18 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 //import com.rdupuis.amikcal.ContentDescriptor;
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.Commons.Act_Calendar;
-import com.rdupuis.amikcal.Commons.Act_Techinfo;
-import com.rdupuis.amikcal.Commons.AmiKcalFactory;
-import com.rdupuis.amikcal.Commons.FragmentsSliderActivity;
-import com.rdupuis.amikcal.Commons.ToolBox;
-import com.rdupuis.amikcal.Tools.NumericPad.FragAct_NumericPad;
-import com.rdupuis.amikcal.Data.DatabaseObj;
-import com.rdupuis.amikcal.Day.Act_Day;
-import com.rdupuis.amikcal.Energy.Act_EnergyList;
-import com.rdupuis.amikcal.Equivalence.Act_EquivalenceList;
 
-import com.rdupuis.amikcal.UserActivity.UserActivityList_FragmentsSliderActivity;
+import com.rdupuis.amikcal.commons.Act_Calendar;
+import com.rdupuis.amikcal.commons.Act_Techinfo;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
+
+import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.data.DatabaseObj;
+import com.rdupuis.amikcal.day.Act_Day;
+import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
+import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+
+import com.rdupuis.amikcal.useractivity.UserActivityList_FragmentsSliderActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -61,7 +62,7 @@ public class Act_Main extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.mainview);
 		//setContentView(R.layout.fragment_day_user_activities_synthese);
         contentResolver = this.getContentResolver();
       //  verifierMiseAJourDB();
@@ -215,8 +216,8 @@ public class Act_Main extends Activity {
     	
        // ça ça marche en utilisant les class
        // je jn'ai pas réussi via une URL.
-    	//Intent intent = new Intent(this,Act_NumericPad.class);
-    	Intent intent = new Intent(this,FragAct_NumericPad.class);
+    	Intent intent = new Intent(this,Act_NumericPad.class);
+    	
        // on passe la variable result=0 en paramètre
        // ici ça ne sert à rien sinon pour l'exemple.
        // intent.putExtra("result", "0"); 
