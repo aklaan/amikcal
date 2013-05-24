@@ -32,7 +32,7 @@ public class Act_Day extends Activity{
         super.onCreate(savedInstanceState);
         mResources = getResources();
         
-        setContentView(R.layout.view_day);
+        setContentView(R.layout.view_ua_statistics_of_day);
         init();
         
     }
@@ -59,12 +59,9 @@ public class Act_Day extends Activity{
     //	TextView tv  = (TextView)findViewById(R.id.dayview_navbar_tv_DayLabel);
    // 	tv.setText(mDay.getSqlDate()); 
     		
-    	TextView tv = (TextView)findViewById(R.id.dayview_total_kcal);
+    	TextView tv = (TextView)findViewById(R.id.view_ua_statistic_of_day_tv_total_kcal);
     	tv.setText(getTotalEnergyOfDay(mDay.getSqlDate()));
-    
-    	tv = (TextView)findViewById(R.id.dayview_last_weight);
-    
-    	tv.setText(getLastWeight(mDay.getSqlDate()) +"Kg");
+        	
     	
     }
     
@@ -119,7 +116,7 @@ public class Act_Day extends Activity{
      
     public void onClickActivities(View v){
     	Intent intent = new Intent(this,Act_UserActivityList.class);
-    	intent.putExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES), mDay.getSqlDate()); 
+    	intent.putExtra(mResources.getString(R.string.INTENT_INPUTNAME_FOR_UA_FRAGMENTSLIDER_DAY), mDay.getSqlDate()); 
     	startActivityForResult(intent,0);
     }
     

@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.recipe;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -10,7 +10,8 @@ import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
+import com.rdupuis.amikcal.recipe.Frag_Recipe;
+import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -35,20 +36,30 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 /**
- * <b>Liste des activitées de l'utilisateur.</b>
- * <p> les activitées sont : 
- * <ul> 
- * 		<li> les repas </li>
- * 	<li> les activitées physiques </li>
- * <li> les pesées </li>
- * <li> les recettes </li>
- * </ul>
+ * <b>Fragment Recette.</b>
+ * <p> On affiche le nom de la recette et la liste des ingrédients
+ * les ingrédients peuvent être des aliments ou des recettes. 
  * </p>
  * @author Rodolphe Dupuis
  * @version 0.1
  */
 
-public class Frag_UserActivityList extends Fragment {
+
+
+/**
+ * 
+ * 
+ *   j'ai repris la base du frag-user_activity-list
+ *   il faut adapter au besoins RECETTE
+ *   
+ * 
+ * 
+ * @author DUPUISRO
+ *
+ */
+
+
+public class Frag_Recipe extends Fragment {
  
 	private ListView    mCustomListView;
 	private Calendar    currentDay;
@@ -69,22 +80,6 @@ public class Frag_UserActivityList extends Fragment {
         mResources = getActivity().getResources();
         mIntent = getActivity().getIntent();
        
-      
-       // String page ="";
-        //* on tente de récupérer une date si l'intent nous en a envoyé une
-        try {
-        	//currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES)));
-         	currentDay=ToolBox.parseCalendar(getArguments().getString("date"));
-         //	page=getArguments().getString("page");
-         	//mainView.setId(getArguments().getInt("id"));
-         	//Log.i("date Bundle frag",getArguments().getString("date"));
-         	//Log.i("date intent",mIntent.getStringExtra("date"));
-         	
-        }
-        catch (Exception e){
-        	currentDay  =Calendar.getInstance();
-        };
-        
     
         // Afficher la date du jour. 
         TextView tv= (TextView)mainView.findViewById(R.id.fragtextView);
@@ -189,7 +184,7 @@ public class Frag_UserActivityList extends Fragment {
      				//on récupère la HashMap contenant les infos de notre item (titre, description, img)
      				HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
 				    
-     				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this.getActivity();
+     				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_Recipe.this.getActivity();
      				ua.setCurrentPage(Integer.parseInt(getArguments().getString("page")));
      				ua.onClickActivity(map.get("id"));
      				
@@ -208,7 +203,7 @@ public class Frag_UserActivityList extends Fragment {
      			{
                  
      				HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position); 
-     				Frag_UserActivityList.this.selectedItemId = Long.parseLong(map.get("id"));
+     				Frag_Recipe.this.selectedItemId = Long.parseLong(map.get("id"));
      				
      				
      				//	int ilaposition=position;
@@ -223,8 +218,8 @@ public class Frag_UserActivityList extends Fragment {
                     adb.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
                   
                     	public void onClick(DialogInterface dialog, int whichButton){
-                    		UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this.getActivity();
-                            ua.onClickEdit(Frag_UserActivityList.this,String.valueOf(Frag_UserActivityList.this.selectedItemId));
+                    		UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_Recipe.this.getActivity();
+                            ua.onClickEdit(Frag_Recipe.this,String.valueOf(Frag_Recipe.this.selectedItemId));
                     		}								
                     	}
                     );

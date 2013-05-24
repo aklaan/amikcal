@@ -3,41 +3,41 @@
     android:id="@+id/layout_dayview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background_amikcal"
+    
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/dayview_tv_title"
+        android:id="@+id/view_ua_statistic_of_day_tv_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:text="@string/dayview_head_label"
+        android:text="Synthèse de la journée du :"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
+        <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+         />
+    
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/view_ua_statistic_of_day_tv_title_nb_kcal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Nombre de K calories du jour" />
 
     <TextView
-        android:id="@+id/dayview_total_kcal"
+        android:id="@+id/view_ua_statistic_of_day_tv_total_kcal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="TextView"
         android:textSize="40dp" />
 
-    <TextView
-        android:id="@+id/dayview_last_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="TextView"
-        android:textSize="40dp" />
-
+    
    
     </LinearLayout>

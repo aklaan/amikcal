@@ -68,7 +68,7 @@ public class Act_UserActivityList extends Activity {
         
         //* on tente de récupérer une date si l'intent nous en a envoyé une
         try {
-        	currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES)));
+        	currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_INPUTNAME_FOR_UA_FRAGMENTSLIDER_DAY)));
         }
         catch (Exception e){
         	currentDay  =Calendar.getInstance();

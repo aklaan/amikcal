@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, AmikcalActivity!</string>
-    <string name="app_name">Amikcal</string>
+    <string name="app_name">app</string>
     <string name="file_refactivity_name">refactivity.xml</string>
     <string name="file_calendar_name">calendar.xml</string>
     <string name="clear">eff</string>
@@ -56,6 +56,7 @@
  	<item name="ACTY_ENERGIES_LIST"   type="integer" format="integer">60</item>
  	    
  	<item name="ACTY_USER_ACTIVITY"        type="integer" format="integer">70</item>
+ 	<item name="ACTY_USER_ACTIVITY_EDITOR"        type="integer" format="integer">71</item>
  	<item name="ACTY_USER_ACTIVITIES_LIST" type="integer" format="integer">80</item>
  	    
     <item name="BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD"     type="integer" format="integer">100</item>
@@ -78,7 +79,7 @@
     <string name="INTENT_IN_USER_ACTIVITY_EDITOR_DAY_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_DayYYY_MM_DD</string>
     <string name="INTENT_IN_USER_ACTIVITY_EDITOR_ID_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_id</string>
     
-    <string name="INTENT_IN_USER_ACTIVITY_LIST_DAY_OF_ACTIVITIES">UserActivityList_IN_DayYYY_MM_DD</string>
+    <string name="INTENT_INPUTNAME_FOR_UA_FRAGMENTSLIDER_DAY">IN_UA_FragmentSlider_DayYYY_MM_DD</string>
     <string name="INTENT_IN_USER_ACTIVITY_LIST_TYPE_OF_LIST">UserActivityList_IN_TypeOfList</string>
   
     <string name="INTENT_IN_USER_ACTIVITY_COMPONENT_LIST_ID_OF_USER_ACTIVITY">UserActivityComponentList_IN_UserActivityId</string>    

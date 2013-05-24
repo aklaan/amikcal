@@ -7,11 +7,12 @@
    
     >
 
-    <uses-sdk android:minSdkVersion="7" />
+    <uses-sdk android:minSdkVersion="11" />
 
     <application
         android:icon="@drawable/logo_amikcal"
         android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light"
         >
       
         <activity
@@ -49,8 +50,15 @@
        
        
          <activity android:name="com.rdupuis.amikcal.commons.FragmentsSliderActivity"></activity>
-         <activity android:name="com.rdupuis.amikcal.useractivity.UserActivityList_FragmentsSliderActivity"></activity>
-    
+         <activity android:name="com.rdupuis.amikcal.commons.Generic_FragmentsSlider"
+             android:theme="@style/MyTheme"
+         
+             ></activity>
+    <activity android:name="com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider"
+             android:theme="@style/MyTheme"
+         
+             ></activity>
+     
 	</application>
 
         

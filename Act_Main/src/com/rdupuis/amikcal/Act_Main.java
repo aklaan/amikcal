@@ -8,15 +8,14 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.Act_Calendar;
 import com.rdupuis.amikcal.commons.Act_Techinfo;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
-
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.DatabaseObj;
 import com.rdupuis.amikcal.day.Act_Day;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
+import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 
-import com.rdupuis.amikcal.useractivity.UserActivityList_FragmentsSliderActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -293,9 +292,8 @@ public class Act_Main extends Activity {
     	//Intent intent = new Intent(this,TestHorizontalActivity.class);
     	//Intent intent = new Intent(this,FragAct_NumericPad.class);
     	//Intent intent = new Intent(this,FragmentsSliderActivity.class);
-    	Intent intent = new Intent(this,UserActivityList_FragmentsSliderActivity.class);
-    	   	
-    
+    	Intent intent = new Intent(this,UserActivities_FragmentsSlider.class);
+   
     	startActivity(intent);
     }
     

@@ -10,7 +10,7 @@ import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
+import com.rdupuis.amikcal.useractivity.Frag_UserActivity_StatisticsOfDay;
 
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -48,7 +48,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
  * @version 0.1
  */
 
-public class Frag_UserActivityList extends Fragment {
+public class Frag_UserActivity_StatisticsOfDay extends Fragment {
  
 	private ListView    mCustomListView;
 	private Calendar    currentDay;
@@ -63,9 +63,8 @@ public class Frag_UserActivityList extends Fragment {
     
     public View onCreateView(LayoutInflater inflater , ViewGroup container, Bundle savedInstanceState) {
     	
-    	View mainView = inflater.inflate(R.layout.view_useractivities_list, container, false);  
-       	 
-        mCustomListView = (ListView) mainView.findViewById(R.id.listviewperso);
+    	View mainView = inflater.inflate(R.layout.view_ua_statistics_of_day, container, false);  
+     
         mResources = getActivity().getResources();
         mIntent = getActivity().getIntent();
        
@@ -77,18 +76,23 @@ public class Frag_UserActivityList extends Fragment {
          	currentDay=ToolBox.parseCalendar(getArguments().getString("date"));
          //	page=getArguments().getString("page");
          	//mainView.setId(getArguments().getInt("id"));
-         	//Log.i("date Bundle frag",getArguments().getString("date"));
-         	//Log.i("date intent",mIntent.getStringExtra("date"));
-         	
+         	//Log.i("date reçue ",getArguments().getString("date"));
+         
         }
         catch (Exception e){
         	currentDay  =Calendar.getInstance();
         };
         
-    
+        
+     
+        // Afficher la somme totale des calories "Aliments" du jour. 
+    //    TextView tv = (TextView) mainView.findViewById(R.id.synth_food_nbKcal);
+  	//	tv.setText(ToolBox.getSumOfFoodEnergyForDay(getActivity(),(ToolBox.getSqlDate(currentDay))));
+
         // Afficher la date du jour. 
-        TextView tv= (TextView)mainView.findViewById(R.id.fragtextView);
-       	tv.setText( ToolBox.getSqlDate(currentDay) + " / n°Fragment: " + getArguments().getString("page"));       
+        TextView tv= (TextView)mainView.findViewById(R.id.view_ua_statistic_of_day_tv_date);
+     	//ed.setText("Page " + page + " - " + ToolBox.getSqlDate(currentDay));
+    	tv.setText( ToolBox.getSqlDate(currentDay));        
         
         //* on tente de récupérer le type de liste à afficher si l'intent nous en a envoyé un
         try {
@@ -100,7 +104,7 @@ public class Frag_UserActivityList extends Fragment {
             };
         
         
-            refreshScreen();
+          //  refreshScreen();
      return mainView;
     };
     
@@ -189,7 +193,7 @@ public class Frag_UserActivityList extends Fragment {
      				//on récupère la HashMap contenant les infos de notre item (titre, description, img)
      				HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
 				    
-     				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this.getActivity();
+     				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivity_StatisticsOfDay.this.getActivity();
      				ua.setCurrentPage(Integer.parseInt(getArguments().getString("page")));
      				ua.onClickActivity(map.get("id"));
      				
@@ -208,7 +212,7 @@ public class Frag_UserActivityList extends Fragment {
      			{
                  
      				HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position); 
-     				Frag_UserActivityList.this.selectedItemId = Long.parseLong(map.get("id"));
+     				Frag_UserActivity_StatisticsOfDay.this.selectedItemId = Long.parseLong(map.get("id"));
      				
      				
      				//	int ilaposition=position;
@@ -223,8 +227,8 @@ public class Frag_UserActivityList extends Fragment {
                     adb.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
                   
                     	public void onClick(DialogInterface dialog, int whichButton){
-                    		UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this.getActivity();
-                            ua.onClickEdit(Frag_UserActivityList.this,String.valueOf(Frag_UserActivityList.this.selectedItemId));
+                    		UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivity_StatisticsOfDay.this.getActivity();
+                            ua.onClickEdit(Frag_UserActivity_StatisticsOfDay.this,String.valueOf(Frag_UserActivity_StatisticsOfDay.this.selectedItemId));
                     		}								
                     	}
                     );

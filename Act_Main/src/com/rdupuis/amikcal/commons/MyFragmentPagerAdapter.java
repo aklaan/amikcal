@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 
-public class MyFragmentPagerAdapter extends FragmentPagerAdapter  
+public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter  
 
 {
  
@@ -37,10 +38,21 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter
 	@Override
 	public int getItemPosition(Object object)
 	{
-	  /*  if (object instanceof FirstPageFragment && mFragmentAtPos0 instanceof NextFragment)
+	  
+		/*
+		 * By default, getItemPosition() returns POSITION_UNCHANGED,
+		 * which means, "This object is fine where it is, don't destroy or remove it."
+		 * Returning POSITION_NONE fixes the problem by instead saying,
+		 * "This object is no longer an item I'm displaying, remove it." 
+		 * So it has the effect of removing and recreating every single item 
+		 * in your adapter.
+		 */
+		
+		/*  if (object instanceof FirstPageFragment && mFragmentAtPos0 instanceof NextFragment)
 	        return POSITION_NONE;
-	    return POSITION_UNCHANGED;
-	    */
+	    return POSITION_UNCHANGED;*/
+		
+	    
 		return POSITION_NONE;
 	
 	}
