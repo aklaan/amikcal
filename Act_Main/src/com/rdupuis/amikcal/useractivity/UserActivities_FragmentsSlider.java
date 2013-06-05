@@ -42,7 +42,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 	private int mZoomLevel;
 	private final int MIN_ZOOM_LEVEL = 0;
 	private final int MAX_ZOOM_LEVEL = 1;
-	
+
 	public void setCurrentDay(Calendar calendar) {
 		mCurrentDay = calendar;
 	}
@@ -67,16 +67,17 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 				// On restaure le mode vue
 				mCurrentViewMode = ViewMode.valueOf(savedInstanceState
 						.getString("savedViewMode"));
-			} else 
-				//* s'il n'y a pas d'information sauvee, on va tenter le récupérer une 
-				// date dans l'Intent
-				if (mIntent != null) {
+			} else
+			// * s'il n'y a pas d'information sauvee, on va tenter le récupérer
+			// une
+			// date dans l'Intent
+			if (mIntent != null) {
 				mCurrentDay = (ToolBox
 						.parseCalendar(mIntent.getStringExtra(mProjectResources
 								.getString(R.string.INTENT_INPUTNAME_FOR_UA_FRAGMENTSLIDER_DAY))));
 			}
 		} catch (Exception e) {
-			//Sinon par défaut, on prend la date du jour.
+			// Sinon par défaut, on prend la date du jour.
 			mCurrentDay = (Calendar.getInstance());
 		}
 		;
@@ -86,7 +87,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		if (mCurrentViewMode == null) {
 			mZoomLevel = 1;
 			mCurrentViewMode = getViewMode(mZoomLevel);
-			}
+		}
 		;
 
 		// On souhaites conserver en memoire 9 pages en meme temps.
@@ -96,62 +97,60 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		// Au demarrage le focus doit etre sur la page 4, c'est la page
 		// centrale
 		getViewPager().setCurrentItem(4, false);
-	
-	
+
 		/**
-		 * Ajout d'un listener pour modifier la date courante a chaque changement de page
+		 * Ajout d'un listener pour modifier la date courante a chaque
+		 * changement de page
 		 */
-		    super.getViewPager().setOnPageChangeListener(new OnPageChangeListener() {
 
-			public void onPageScrollStateChanged(int state) {
-		
-				if (state ==  ViewPager.SCROLL_STATE_IDLE){
-					
-				UserActivities_FragmentsSlider.this.setCurrentDay( 
-						UserActivities_FragmentsSlider.this.getArrayCalendar().get(
-						getViewPager().getCurrentItem()));		
-				}
-			Log.i("nouvelle date courante",ToolBox.getSqlDate(UserActivities_FragmentsSlider.this.getCurrentDay()));	
-			}
-					
-			public void onPageSelected(int pageNumber) {
-				}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-			});
-
-	
-	
 	}
 
-	/**
-	 * Cette fonction va retourner le nom de la classe de fragment a afficher
-	 * selon le type de la vue souhaitee.
+	/* on override la méthode onUpdateGroup pour mémoriser la date a laquelle l'utilisateur
+	 * s'est positioné.  
+	 * (non-Javadoc)
+	 * @see com.rdupuis.amikcal.commons.Generic_FragmentsSlider#onUpdateGroup()
 	 */
-	private ViewMode getViewMode(int level) {
+	@Override
+	protected void onUpdateGroup(){
+		UserActivities_FragmentsSlider.this
+		.setCurrentDay(UserActivities_FragmentsSlider.this
+				.getArrayCalendar().get(
+						getViewPager()
+								.getCurrentItem()));
 
-		switch (level) {
+/*Log.i("nouvelle date courante", ToolBox
+	.getSqlDate(UserActivities_FragmentsSlider.this
+			.getCurrentDay()));
+*/
+	}
+	
+	
+	/**
+	 * Cette fonction va retourner le nom de la vue a afficher
+	 * selon le niveau de zoom sur lequel on se trouve.
+	 */
+	private ViewMode getViewMode(int zoomLevel) {
 
-		case 0: 
-				return ViewMode.VIEW_ACTIVITIES_OF_DAY;
-		case 1: 
+		switch (zoomLevel) {
+
+		case 0:
+			getActionBar().setTitle("Jounée");
+			return ViewMode.VIEW_ACTIVITIES_OF_DAY;
+		case 1:
+			getActionBar().setTitle("jour");
 			return ViewMode.STATISTIC_VIEW_OF_DAY;
-		case 2: 
+		case 2:
 			return ViewMode.STATISTIC_VIEW_OF_WEEK;
-		case 3: 
+		case 3:
 			return ViewMode.STATISTIC_VIEW_OF_MONTH;
-		default : 
+		default:
 		}
 		return ViewMode.STATISTIC_VIEW_OF_DAY;
 	};
-	
+
 	/**
-	 * Cette fonction va retourner le nom de la classe de fragment a afficher
-	 * selon le type de la vue souhaitee.
+	 * Cette fonction va retourner le nom de la classe de fragment a utiliser
+	 * pour afficher le type de la vue souhaitee.
 	 */
 	private String getFagmentClassName() {
 
@@ -166,8 +165,6 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		}
 		return "";
 	};
-
-	
 
 	/**
 	 * 
@@ -184,10 +181,6 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		startActivityForResult(intent,
 				mProjectResources.getInteger(R.integer.ACTY_COMPONENT_LIST));
 	};
-
-	
-	
-
 
 	/**
 	 * 
@@ -248,16 +241,16 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		// lorsque l'on monte d'un niveau, le bouton ADD n'est plus utile, alors
 		// on ne l'affiche plus.
 		case MIN_ZOOM_LEVEL:
-			Log.i("case","MIN_ZOOM_LEVEL");
+			Log.i("case", "MIN_ZOOM_LEVEL");
 			menu.findItem(R.id.menu_add).setShowAsAction(
 					MenuItem.SHOW_AS_ACTION_ALWAYS);
 			break;
-		default :
+		default:
 			menu.findItem(R.id.menu_add).setShowAsAction(
 					MenuItem.SHOW_AS_ACTION_NEVER);
 			break;
 		}
-	
+
 		return super.onPrepareOptionsMenu(menu);
 
 	}
@@ -269,34 +262,49 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		case R.id.menu_zoom_in:
 			// Si le niveau de zoom n'est pas déja au plus bas
 			// on décrémente le niveau
-			if (mZoomLevel>MIN_ZOOM_LEVEL){
+			if (mZoomLevel > MIN_ZOOM_LEVEL) {
 				mZoomLevel--;
-				iSrefreshViewNeeded=true;
-				}
+				iSrefreshViewNeeded = true;
+			}
 			break;
 		case R.id.menu_zoom_out:
-			if (mZoomLevel<MAX_ZOOM_LEVEL){
+			if (mZoomLevel < MAX_ZOOM_LEVEL) {
 				mZoomLevel++;
-				iSrefreshViewNeeded=true;
-				}
+				iSrefreshViewNeeded = true;
+			}
+			break;
+		case R.id.menu_add:
+			onClickEdit(null, null);
 			break;
 			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	
-		if (iSrefreshViewNeeded){
+
+		if (iSrefreshViewNeeded) {
 			mCurrentViewMode = getViewMode(mZoomLevel);
 			createFragmentsGroups(getCurrentDay(), getFagmentClassName());
 			// switchFragment();
 			getViewPager().setCurrentItem(4, false);
 		}
-		Log.i("zoomLevel",String.valueOf(mZoomLevel));
-		//invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
+		Log.i("zoomLevel", String.valueOf(mZoomLevel));
+		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
 		invalidateOptionsMenu();
 		return true;
 	}
 
+	/*
+	 * Si la classe a lancé une activité, on rafraichit l'écran au retour
+	 * afin de tenir compte des éventuelles mise à jours
+	 * (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int, android.content.Intent)
+	 */
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+		UserActivities_FragmentsSlider.this.getViewPager().getAdapter().notifyDataSetChanged();
+		
+	}
+	
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 		//
@@ -327,8 +335,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		// mémorier la date à laquelle l'utilisateur s'est arrêté.
 		//
 		savedInstanceState.clear();
-		savedInstanceState.putString(
-				"savedCurrentDay",
+		savedInstanceState.putString("savedCurrentDay",
 				ToolBox.getSqlDate(getCurrentDay()));
 
 		savedInstanceState.putString("savedViewMode", mCurrentViewMode.name());

@@ -59,7 +59,7 @@ public class Act_Day extends Activity{
     //	TextView tv  = (TextView)findViewById(R.id.dayview_navbar_tv_DayLabel);
    // 	tv.setText(mDay.getSqlDate()); 
     		
-    	TextView tv = (TextView)findViewById(R.id.view_ua_statistic_of_day_tv_total_kcal);
+    	TextView tv = (TextView)findViewById(R.id.view_ua_statistic_of_day_tv_data_total_cube_energy);
     	tv.setText(getTotalEnergyOfDay(mDay.getSqlDate()));
         	
     	

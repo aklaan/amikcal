@@ -18,6 +18,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -40,7 +42,7 @@ public class Act_UnitOfMeasureList extends Activity {
         setContentView(R.layout.view_unit_list);
         mIntent = getIntent();
         mResources = getResources();
-        
+        getActionBar().setTitle("Unitées");        
     
         try{
         	energyId=Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_UNITS_LIST_ID_OF_ENERGY)));	
@@ -269,12 +271,50 @@ public class Act_UnitOfMeasureList extends Activity {
     
     
     
-    public void onClickViewAll(View v){
-    	cleanList(); 
-    	generateList(WITH_NO_FILTER);
-    	
-    }
     
     
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.actionbar_unit_list, menu);
+		return true;
+
+	}
+
+	//rafraichir la barre de menu
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		return super.onPrepareOptionsMenu(menu);
+
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.actionbar_unitlist_item_add:
+			onClickAdd(null);
+			break;
+		case R.id.actionbar_unitlist_item_back:
+			finish();
+			break;
+
+		case R.id.actionbar_unitlist_item_showall:
+			cleanList(); 
+	    	generateList(WITH_NO_FILTER);
+			break;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
+		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
+		// qui va elle même rafraichir la barre de menu
+		invalidateOptionsMenu();
+		return true;
+	}
+
 //*************************************
 } // end class

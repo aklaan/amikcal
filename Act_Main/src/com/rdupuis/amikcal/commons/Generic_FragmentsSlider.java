@@ -110,7 +110,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 			public void onPageScrollStateChanged(int state) {
 
-				// Log.i("onPageScrollStateChanged", String.valueOf(state));
+				 Log.i("onPageScrollStateChanged", String.valueOf(state));
 				// Log.i("currentDay", ToolBox.getSqlDate(currentDay));
 
 				switch (state) {
@@ -173,7 +173,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 						isPageDown = false;
 					}
 					;
-
+                    onUpdateGroup();
 					break;
 				case ViewPager.SCROLL_STATE_DRAGGING:
 					break;
@@ -195,7 +195,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 			 */
 
 			public void onPageSelected(int pageNumber) {
-				// Log.i("onPageSelected", String.valueOf(pageNumber));
+				 Log.i("onPageSelected", String.valueOf(pageNumber));
 				switch (pageNumber) {
 				case 0:
 				case 3:
@@ -222,6 +222,15 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 	}
 
+	/*
+	 * la méthode onUpdateGroup est définie pour les enfants de la classe
+	 * elle va leur permettre d'éffectuer des opérations personnalisé
+	 * lorsque l'on rafraichi le groupe.
+	 */
+	
+	protected void onUpdateGroup(){
+		
+	};
 	
 	public void createFragmentsGroups(Calendar wStartingDay, String wFragmentClassName) {
 		
@@ -297,6 +306,8 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 	 * @param value
 	 */
 	private void updateGroup(FragmentGroup groupe, int addValue) {
+		
+		Log.d("debug","updateGroup");
 		int page1 = 0;
 		int page2 = 0;
 		int page3 = 0;

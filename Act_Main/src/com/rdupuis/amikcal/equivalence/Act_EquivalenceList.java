@@ -16,6 +16,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -35,7 +37,7 @@ public class Act_EquivalenceList extends Activity {
         setContentView(R.layout.view_equivalences_list);
         mIntent = getIntent();
         generateList();
-        
+        getActionBar().setTitle("Equivalences");
       //  Button bt = (Button) findViewById(R.id.btnAdd);
       //  bt.setText("Ajouter une unitée");
         }//fin du onCreate
@@ -253,6 +255,47 @@ public class Act_EquivalenceList extends Activity {
     	intent.putExtra("Id", id);
     	startActivityForResult(intent, R.integer.ACTY_UNIT);
     }
+    
+    
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.actionbar_equivalence_list, menu);
+		return true;
+
+	}
+
+	//rafraichir la barre de menu
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		return super.onPrepareOptionsMenu(menu);
+
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.actionbar_equivalencelist_item_add:
+			onClickAdd(null);
+			break;
+		case R.id.actionbar_equivalencelist_item_back:
+			finish();
+			break;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
+		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
+		// qui va elle même rafraichir la barre de menu
+		invalidateOptionsMenu();
+		return true;
+	}
+
     
     
 //*************************************

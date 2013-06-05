@@ -1,13 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/actionbar_activities" 
-    android:title="a">
+    android:id="@+id/actionbar_activities" >
 
-    <item
-        android:id="@+id/menu_home"
-        android:icon="@drawable/ic_menu_home"
-        android:showAsAction="always"
-        android:title="home"/>
-    
     <item
         android:id="@+id/menu_add"
         android:icon="@drawable/ic_menu_add"

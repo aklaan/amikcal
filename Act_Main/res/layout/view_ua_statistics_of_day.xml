@@ -3,8 +3,9 @@
     android:id="@+id/layout_dayview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    
     android:orientation="vertical" >
+
+    <!-- titre de l'Ã©cran -->
 
     <TextView
         android:id="@+id/view_ua_statistic_of_day_tv_title"
@@ -12,32 +13,144 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:text="Synthèse de la journée du :"
+        android:text="@string/title_statistic_view_of_day"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <!-- date pour laquelle on consulte la synthÃ¨se -->
 
-        <TextView
+    <TextView
         android:id="@+id/view_ua_statistic_of_day_tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-         />
-    
+        android:layout_gravity="center" />
+
+    <!-- Affichage du nombre de Kcalories AbsorbÃ©es -->
+
     <TextView
-        android:id="@+id/view_ua_statistic_of_day_tv_title_nb_kcal"
+        android:id="@+id/view_ua_statistic_of_day_tv_title_nbcal_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Nombre de K calories du jour" />
+        android:text="@string/title_nbcal_in"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/view_ua_statistic_of_day_tv_total_kcal"
+        android:id="@+id/view_ua_statistic_of_day_tv_nbcal_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="TextView"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
-    
-   
-    </LinearLayout>
+    <!-- Affichage du nombre de proteines AbsorbÃ©es -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_nbprot_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_nbprot_in" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_nbprot_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Affichage du nombre de glucides AbsorbÃ©s -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_nbglu_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_nbglu_in" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_nbglu_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Affichage du nombre de lipides AbsorbÃ©s -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_nblip_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_nblip_in" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_nblip_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Affichage du nombre de Kcalories DÃ©pensÃ©es -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_nbcal_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_nbcal_out" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_nbcal_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Affichage du bonus alimentation -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_eat_bonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_nbcal_out" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_eat_bonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- Affichage du bonus activitÃ© physique -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_phys_activity_bonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_nbcal_out" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_phys_activity_bonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <!-- libellÃ© pour l'affichage du montant d'Ã©gergie cumulÃ© pour le cube -->
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_title_total_cube_energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/title_total_cube_energy" />
+
+    <TextView
+        android:id="@+id/view_ua_statistic_of_day_tv_data_total_cube_energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>

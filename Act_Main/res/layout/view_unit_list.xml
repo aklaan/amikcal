@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_unit_list_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/background_amikcal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="fill_horizontal"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/unit_list_view_tv_title"
         android:layout_width="wrap_content"
@@ -14,64 +13,24 @@
         android:layout_gravity="center_vertical"
         android:text="liste des unitées"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TableRow
-        android:id="@+id/unit_list_view_menubar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false" >
 
-        <Button
-            android:id="@+id/unit_list_view_menubar_bt_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="0"
-            android:background="@drawable/ic_menu_home" />
-
-        <Button
-            android:id="@+id/unit_list_view_menubar_bt_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="0"
-            android:background="@drawable/ic_menu_back" />
-
-        <Button
-            android:id="@+id/unit_list_view_menubar_bt_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="0"
-            android:background="@drawable/ic_menu_btn_add"
-            android:onClick="onClickAdd" />
-
-        <Button
-            android:id="@+id/main_btn_equiv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickViewAll"
-            android:text="Afficher tout" />
-
-    </TableRow>
-
     <TextView
         android:id="@+id/unit_list_view_tv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="5dp" />
-
-    <TableRow android:layout_weight="1" >
-
-      <include
-          android:id="@+id/unit_list_view_customizedlist"
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
-          android:layout_gravity="fill_horizontal"
-          android:layout_weight="1"
-          layout="@layout/customizedlist" />
+        android:textSize="12sp" />
 
-    </TableRow>
+    
 
-</TableLayout>
+        <include
+            android:id="@+id/unit_list_view_customizedlist"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="1"
+            layout="@layout/customizedlist" />
+    
+
+    
+    </LinearLayout>
