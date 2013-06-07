@@ -98,5 +98,7 @@
     <string name="title_nbprot_in">nb proteines</string>
     <string name="title_nbglu_in">nb glucides</string>
     <string name="title_nblip_in">nb lipides</string>
+        <string name="title_eat_bonus">bonus aliments</string>
+    <string name="title_phys_activity_bonus">bonus activité physique</string>
 
 </resources>

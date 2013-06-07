@@ -2,6 +2,7 @@ package com.rdupuis.amikcal.useractivity;
 
 import com.rdupuis.amikcal.R;
 
+import com.rdupuis.amikcal.animation.fadeOut;
 import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.Generic_FragmentsSlider.FragmentGroup;
@@ -112,6 +113,8 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 	 */
 	@Override
 	protected void onUpdateGroup(){
+
+		
 		UserActivities_FragmentsSlider.this
 		.setCurrentDay(UserActivities_FragmentsSlider.this
 				.getArrayCalendar().get(
