@@ -2,7 +2,9 @@ package com.rdupuis.amikcal.useractivity;
 
 import com.rdupuis.amikcal.R;
 
-import com.rdupuis.amikcal.animation.fadeOut;
+import com.rdupuis.amikcal.animation.FadeIn;
+import com.rdupuis.amikcal.animation.FadeOut;
+
 import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.Generic_FragmentsSlider.FragmentGroup;
@@ -285,10 +287,18 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		}
 
 		if (iSrefreshViewNeeded) {
+		
+	
+			
 			mCurrentViewMode = getViewMode(mZoomLevel);
 			createFragmentsGroups(getCurrentDay(), getFagmentClassName());
 			// switchFragment();
+			View v = getViewPager();
+
 			getViewPager().setCurrentItem(4, false);
+			//v.startAnimation(new FadeOut(v));
+			v.startAnimation(new FadeIn(v));
+		
 		}
 		Log.i("zoomLevel", String.valueOf(mZoomLevel));
 		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();

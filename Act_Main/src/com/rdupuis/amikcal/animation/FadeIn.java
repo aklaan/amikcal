@@ -6,7 +6,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 
-public class fadeOut extends Animation implements Animation.AnimationListener {
+public class FadeIn extends Animation implements Animation.AnimationListener {
 	  
 
 		private View view;
@@ -14,7 +14,7 @@ public class fadeOut extends Animation implements Animation.AnimationListener {
 		
 		
 		
-		public fadeOut(View v) {
+		public FadeIn(View v) {
 			
 	       view = v;		
 			delta  = 1/10f;
@@ -32,14 +32,15 @@ public class fadeOut extends Animation implements Animation.AnimationListener {
 
 		public void onAnimationRepeat(Animation anim) {
 			// TODO Auto-generated method stub
-			Log.i("alpha",String.valueOf(view.getAlpha()));
+			Log.i("alpha-in",String.valueOf(view.getAlpha()));
 			Log.i("delta",String.valueOf(delta));
-			view.setAlpha(view.getAlpha()-delta);
+			view.setAlpha(view.getAlpha()+delta);
+	
 					}
 
 		public void onAnimationStart(Animation anim) {
 			// TODO Auto-generated method stub
-			
+			view.setAlpha(0f);	
 			
 		}
 		

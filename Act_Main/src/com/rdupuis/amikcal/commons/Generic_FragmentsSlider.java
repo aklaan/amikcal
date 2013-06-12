@@ -2,7 +2,9 @@ package com.rdupuis.amikcal.commons;
 
 import com.rdupuis.amikcal.R;
 
-import com.rdupuis.amikcal.animation.fadeOut;
+
+import com.rdupuis.amikcal.animation.FadeIn;
+import com.rdupuis.amikcal.animation.FadeOut;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 import com.rdupuis.amikcal.useractivity.Act_UserActivityEditor;
@@ -235,9 +237,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 	};
 	
 	public void createFragmentsGroups(Calendar wStartingDay, String wFragmentClassName) {
-		View v = this.getViewPager();
-		v.startAnimation(new fadeOut(v));
-		
+	
 		//Log.d("creatFragment",wFragmentClassName);
 		mArrayCalendar.clear();
 		mArrayBundle.clear();
@@ -298,11 +298,13 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 		mPagerAdapter = new MyFragmentPagerAdapter(
 				super.getSupportFragmentManager(), mArrayfragments);
 		
+		
+		
+		
 		// Attribution de l'adapter au ViewPager
 				mViewPager.setAdapter(mPagerAdapter);
 		//mViewPager.setSaveEnabled(false);
 		//mPagerAdapter.notifyDataSetChanged();
-				v.startAnimation(new fadeIn(v));
 	}
 	/**
 	 * 
