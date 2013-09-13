@@ -1,5 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/actionbar_activities" >
+    android:id="@+id/actionbar_componentlist" >
 
     <item
         android:id="@+id/actionbar_componentlist_item_add"

@@ -71,7 +71,10 @@ public class Act_UserActivityComponentList extends Activity {
 	 */
 
 	public void onClickComponent(String componentId, String activityId) {
-		Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
+		//Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
+	
+		Intent intent = new Intent(this, Act_UserActivityComponentSlider.class);
+		
 		intent.putExtra(
 				mResources
 						.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_COMPONENT),

@@ -1,7 +1,10 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
 
-
+/**
+ * commentaires
+ * 2013-08-23 : ajout de la barre de menu pour remplacer le bouton valider
+ */
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -13,6 +16,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,6 +35,7 @@ import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 
 import com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
+import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 
 
  
@@ -72,6 +79,36 @@ public class Act_UserActivityComponentEditor extends Activity {
     }//fin du onCreate
     
     
+    
+    
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.actionbar_component_editor, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	/* Called whenever we call invalidateOptionsMenu() */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		// Handle action buttons
+		switch (item.getItemId()) {
+		case R.id.actionbar_component_editor_item_validate:
+			onClick_Validate();
+			
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
     
     /***************************************************************************************
      * 
@@ -126,7 +163,7 @@ public class Act_UserActivityComponentEditor extends Activity {
      * Mettre à jour les informations saisies dans la base de donnée. 
      * @param v View
      */
-    public void onClick_Validate(View v) {
+    public void onClick_Validate() {
 
     	computeEnegy();
     	// on prépare les informations à mettre à jour

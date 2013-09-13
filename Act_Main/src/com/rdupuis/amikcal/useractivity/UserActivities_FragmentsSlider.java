@@ -9,6 +9,7 @@ import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.Generic_FragmentsSlider.FragmentGroup;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.energy.Frag_EnergyList;
 
 import com.rdupuis.amikcal.useractivity.Act_UserActivityEditor;
 import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
@@ -163,7 +164,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 
 		case VIEW_ACTIVITIES_OF_DAY:
 			return Frag_UserActivityList.class.getName();
-
+			
 		case STATISTIC_VIEW_OF_DAY:
 			return Frag_UserActivity_StatisticsOfDay.class.getName();
 

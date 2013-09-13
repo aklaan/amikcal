@@ -59,7 +59,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 			P3FT2FR4FVertex v = new P3FT2FR4FVertex();
 
 			v.setPos(getRamdom() * 80.f, getRamdom() * 80.f, 0);
-			v.setColor(getRamdom(), getRamdom(), getRamdom(), 1.f);
+			v.setColor(getRamdom(), getRamdom(), 1.f, 1.f);
 			mVertices.putVertice(i, v);
 			mVertices.putIndice(i, i);
 		}

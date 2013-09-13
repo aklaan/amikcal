@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionbar_component_editor" >
+
+    <item
+        android:id="@+id/actionbar_component_editor_item_validate"
+        
+        android:showAsAction="always"
+        android:title="OK"/>
+    
+</menu>

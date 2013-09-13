@@ -45,6 +45,9 @@
         </activity>
         <activity android:name="com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentEditor" >
         </activity>
+        <activity android:name="com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentSlider" >
+        </activity>
+     
         <activity android:name="com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureEditor" >
@@ -66,8 +69,12 @@
         </activity>
         <activity android:name="com.rdupuis.amikcal.equivalence.Act_EquivalenceList" >
         </activity>
+
+        
         <activity android:name="com.rdupuis.amikcal.commons.FragmentsSliderActivity" >
         </activity>
+        
+          
         <activity
             android:name="com.rdupuis.amikcal.commons.Generic_FragmentsSlider"
             android:theme="@style/MyTheme" >
