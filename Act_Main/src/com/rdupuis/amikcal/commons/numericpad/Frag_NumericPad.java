@@ -35,12 +35,37 @@ public class Frag_NumericPad extends Fragment {
 		return mMainView;
 	}
 
+	//interface devant obliger les utilsateurs du fragement d'implémenter les méthodes 
+	// exploitées par le NuméricPad
+	public interface Frag_NumericPadListeners {
+		public void NumericPadListener_OnClick_btn_Number(View view);
+		public void NumericPadListener_OnClick_btn_Erase(View view);
+		public void NumericPadListener_OnClick_btn_Back(View view);
+		public void NumericPadListener_OnClick_btn_Ok(View view);
+		public void NumericPadListener_OnClick_btn_Cancel(View view);
+	  }
+
+	
+	  @Override
+	  public void onAttach(Activity activity) {
+	    super.onAttach(activity);
+	    if (!(activity instanceof Frag_NumericPadListeners)) {
+	      	      throw new ClassCastException(activity.toString()
+	          + " must implemenet Frag_NumericPad.Frag_NumericPadListeners");
+	    }
+	  }
+
+	
+
+	
+	
 	/**
 	 * 
 	 * @param v
 	 */
-	public void OnClickAdd(View v) {
-		Button button = (Button) mMainView.findViewById(v.getId());
+	public void OnClick_Btn_Number(int buttonId) {
+		
+		Button button = (Button) mMainView.findViewById(buttonId);
 		ed.setText(ed.getText() + button.getText().toString());
 	}
 
@@ -48,7 +73,7 @@ public class Frag_NumericPad extends Fragment {
 	 * 
 	 * @param v
 	 */
-	public void OnClickErase(View v) {
+	public void OnClick_Btn_Erase() {
 		ed.setText("");
 	}
 
@@ -56,8 +81,8 @@ public class Frag_NumericPad extends Fragment {
 	 * 
 	 * @param v
 	 */
-	public void OnClickBack(View v) {
-		ed = (TextView) mMainView.findViewById(R.id.padnumber_entry);
+	public void OnClick_Btn_Back() {
+		
 		if (ed.getText().length() > 0) {
 			ed.setText(((String) ed.getText()).substring(0, ed.getText()
 					.length() - 1));
@@ -68,7 +93,7 @@ public class Frag_NumericPad extends Fragment {
 	 * 
 	 * @param v
 	 */
-	public void OnClickOk(View v) {
+	public void OnClick_Btn_Ok() {
 
 		// si l'utilisateur a saisi un nombre
 		// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
@@ -93,7 +118,7 @@ public class Frag_NumericPad extends Fragment {
 	 * 
 	 * @param v
 	 */
-	public void OnClickCancel(View v) {
+	public void OnClick_Btn_Cancel() {
 
 		// On termine l'Actvity
 		getActivity().finish();
