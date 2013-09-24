@@ -121,7 +121,7 @@ public class GLSLProgram {
         GLES20.glUseProgram(mProgramObject);
 
         if (mMvpLoc != -1) {
-            Log.d("this.getClass().getName()","setMvp");
+            //Log.d(this.getClass().getName(),"setMvp");
             counter += 1.f;
             // on calcule la matrice "mRotation" a utiliser pour pivoter
             // d'un angle de x radian 
@@ -158,25 +158,102 @@ public class GLSLProgram {
         }
     }
 
-    public void draw(Vertices vertices, int type, int size) {
-        enableVertexAttribArray(vertices);
-        vertices.getIndices().position(0);
-        GLES20.glDrawElements(type, size, GLES20.GL_UNSIGNED_SHORT, vertices.getIndices());
+    public void draw(Vertices vertices, int mode, int count) {
+        //appel la fonction qui passe à enable toutes les variables
+    	enableVertexAttribArray(vertices);
+        
+    	//on se positionne au debut du Buffer
+    	  	vertices.getIndices().position(0);
+        
+        
+        
+        /**
+         * void glDrawElements(	GLenum mode,				Specifies what kind of primitives to render. 
+         * 													 Symbolic constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, 
+         * 													 and GL_TRIANGLES are accepted.
+ 								GLsizei count,				Specifies the number of elements to be rendered.
+ 								GLenum type,				Specifies the type of the values in indices. Must be GL_UNSIGNED_BYTE or GL_UNSIGNED_SHORT.
+ 								const GLvoid * indices		Specifies a pointer to the location where the indices are stored.
+ 								);
+ 								
+ 			Prototype de la fonction	Description
+
+			
+				on Crée une géométrie avec le type de primitive "mode",
+				 cette géométrie est composée de n vertex
+				 les vertex à utiliser sont spécifié dans le tableau des indices
+				 
+				  par exemple :  on veut dessiner un carré, pour cela on va faire 2 triangles côte à côte
+				  on utilise le mode GL_TRIANGLES
+				  pour dessiner un triangle, il faut 3 sommets, 
+				  on demande donc a dessiner la forme avec les groupe de 3 vertex, on va donc
+				  lire notre tableau des indices par groupe de 3. 
+				  pour savoir quels vertex sont à utiliser, on récupère les n° de vertex
+				  référencé dans le tableau des indices
+				  (pour simplifier les coordonées sont en 2D)
+				  indice 0 - vertex 0 (-1,1)
+				  indice 1 - vertex 1 (-1,-1)
+				  indice 2 - vertex 2 (1,1)
+				  --fin du premier triange
+				  indice 3 - vertex 2 (1,1)
+				  indice 4 - vertex 1 (-1,-1)
+				  indice 5 - vertex 3 (1,-1) 
+				  --fin du second triange					
+ 								
+			on appel cette fonction avec : 
+			mProgramme1.draw(mVertices, GLES20.GL_POINTS, MAX_POINTS);
+         */
+        
+        
+        GLES20.glDrawElements(mode, 3, GLES20.GL_UNSIGNED_SHORT, vertices.getIndices());
         disableVertexAttribArray();
     }
 
     private void enableVertexAttribArray(Vertices vertices) {
-        if (mPositionLoc != -1) {
-            vertices.getVertices().position(0);
+        //si l'adresse mémoire de l'objet désigné par mPositionLoc n'est pas vide
+    	if (mPositionLoc != -1) {
+           
+    		// on va chercher le FloatBuffer où sont stocké les coordonnées des sommets
+           // on se positionne au début du Buffer
+        	vertices.getVertices().position(0);
             
+             
+  /**
+   * define an array of generic vertex attribute data
+   * void glVertexAttribPointer(	GLuint index,		-Specifies the index of the generic vertex attribute to be modified.
+								GLint size,   			-Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, 4.
+					               							Additionally, the symbolic constant GL_BGRA is accepted by glVertexAttribPointer.
+ 											        		The initial value is 4.
+ 								GLenum type,			-Specifies the data type of each component in the array.
+ 								GLboolean normalized,	- For glVertexAttribPointer, specifies whether fixed-point data values should be normalized (GL_TRUE) 
+ 															or converted directly as fixed-point values (GL_FALSE) when they are accessed
+ 								GLsizei stride,			-Specifies the byte offset between consecutive generic vertex attributes. If stride is 0,
+ 								 							the generic vertex attributes are understood to be tightly packed in the array.
+ 								 							The initial value is 0
+ 								const GLvoid * pointer	-Specifies a offset of the first component of the first generic vertex attribute in the array in the 
+ 															data store of the buffer currently bound to the GL_ARRAY_BUFFER target. The initial value is 0
+ 								);
+             * 
+             * 
+             */
+            // on souhaite passer à opengl un tableaux de coordonées pour alimenter la aPosition des vertex.
+            // dans l'objet désigné par l'adresse mPositionLoc (càd aPosition), on va écrire le contenu du FloatBuffer contenant les coordonées des sommets
+        	// on spécifie comment OPENGL doit interpréter le buffer en spécifiant que chaque index du tableau comporte 3 Float d'une longeur P3FT2FR4FVertex_SIZE_BYTES
+        	// autrement dit, a la lecture du Buffer, au bout de 3 Float d'une longeur P3FT2FR4FVertex_SIZE_BYTES, opengl cree un nouvel index.
             GLES20.glVertexAttribPointer(mPositionLoc, 3, GLES20.GL_FLOAT, false, P3FT2FR4FVertex.P3FT2FR4FVertex_SIZE_BYTES, vertices.getVertices());
-            // on rend l'utilisation de mPositionLoc possible par le moteur de rendu
-            // s'il est disable le moteur ne le prend pas en compte ??
+            
+            // on rend l'utilisation de mPositionLoc (càd aPosition) possible par le moteur de rendu
+            // dans le cas contraire, OPENGL n'utilisera pas les données passée à aPosition et le fragment
+            // se comporte comme si aPosition vaut 0.
+            
             GLES20.glEnableVertexAttribArray(mPositionLoc);
         }
         if (mColorLoc != -1) {
-            vertices.getVertices().position(5);
+            vertices.getVertices().position(0);
             GLES20.glVertexAttribPointer(mColorLoc, 4, GLES20.GL_FLOAT, false, P3FT2FR4FVertex.P3FT2FR4FVertex_SIZE_BYTES, vertices.getVertices());
+           
+            // ici, si on n'active pas le lien entre le programme java et le programme OPENGL, dans le programme OpenGL, aColor serra à zéro 
+            // et les formes seront noires / sans couleur.
             GLES20.glEnableVertexAttribArray(mColorLoc);
         }
         if (mTexCoordLoc != -1) {

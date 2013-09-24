@@ -68,7 +68,7 @@ public class Vertices {
         mVertices.put(vertex.mU).put(vertex.mV);
         mVertices.put(vertex.mR).put(vertex.mG).put(vertex.mB).put(vertex.mA);
         
-        // on se repositionne en 0 sans doute pour éviter d'écraser des byte par erreur ?
+        // on se repositionne en 0 , prêt pour la relecture
        
         mVertices.position(0);
     }

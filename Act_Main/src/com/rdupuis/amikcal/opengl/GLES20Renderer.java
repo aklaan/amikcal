@@ -23,7 +23,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 
 	public final static String TAG_ERROR = "CRITICAL ERROR";
 
-	public final static int MAX_POINTS = 30;
+	public final static int MAX_POINTS = 6;
 
 	public static int mTex0;
 
@@ -61,6 +61,9 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 			v.setPos(getRamdom() * 80.f, getRamdom() * 80.f, 0);
 			v.setColor(getRamdom(), getRamdom(), 1.f, 1.f);
 			mVertices.putVertice(i, v);
+			//tel quel , les vertex serront affiché dans le même ordre que leur création
+			// mais on peut très biens définir un autre ordre
+			// exemple dire que pour faire un carré, on fait 2 triangle avec vertex 0,1,2 et ,2,1,3
 			mVertices.putIndice(i, i);
 		}
 
@@ -152,10 +155,10 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 
 	// @Override
 	public void onDrawFrame(GL10 gl) {
-		mTimer.addMark();
-		mTimer.logFPS(); // on veut mesurer les fps
+		//mTimer.addMark();
+		//mTimer.logFPS(); // on veut mesurer les fps
 
-		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		GLES20.glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
 		mProgramme1.use();
@@ -163,7 +166,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 		// ici on demande à dessiner
 		// en mode points GL_POINTS
 		// on peu aussi le faire en mode line
-		mProgramme1.draw(mVertices, GLES20.GL_POINTS, MAX_POINTS);
+		mProgramme1.draw(mVertices, GLES20.GL_TRIANGLES, MAX_POINTS);
 	}
 
 	private void checkGlError(String op) {
