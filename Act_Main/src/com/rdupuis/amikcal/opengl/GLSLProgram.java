@@ -59,6 +59,8 @@ public class GLSLProgram {
 
         // set MVP to Identity
         //float mProjMatrix[] = new float[16];
+        
+        // on fabrique une matrice orthogonale qui va servir de matrice de projection
         Matrix.orthoM (mProjection, 0, -100, 100, -100, 100, -10.f, 100000.f);
         //Matrix.setIdentityM(mMvp, 0);
 
@@ -80,12 +82,13 @@ public class GLSLProgram {
         }
     }
 
+    
     public boolean make() {
         String vShaderFilename = mProgramName + ".vsh";
         String fShaderFilename = mProgramName + ".fsh";
         // load and compile Shaders
         if (loadShaders(vShaderFilename, fShaderFilename)==false) {
-            Log.e("EllisMarkov", "Cannot load shaders");
+            Log.e(this.getClass().getName(), "Cannot load shaders");
             return false;
         }
         // link
@@ -95,52 +98,62 @@ public class GLSLProgram {
         mPositionLoc = GLES20.glGetAttribLocation(mProgramObject, "aPosition");
         mColorLoc = GLES20.glGetAttribLocation(mProgramObject, "aColor");
         mTexCoordLoc = GLES20.glGetAttribLocation(mProgramObject, "aTexCoord");
+    
         // uniforms
         mMvpLoc = GLES20.glGetUniformLocation(mProgramObject, "uMvp");
         mScreenSizeLoc = GLES20.glGetUniformLocation(mProgramObject, "uScreenSize");
         mTimeLoc = GLES20.glGetUniformLocation(mProgramObject, "uTime");
+        
         // samplers
         mTex0Loc = GLES20.glGetUniformLocation(mProgramObject, "tex0");
         mTex1Loc = GLES20.glGetUniformLocation(mProgramObject, "tex1");
         mTex2Loc = GLES20.glGetUniformLocation(mProgramObject, "tex2");
         mTex3Loc = GLES20.glGetUniformLocation(mProgramObject, "tex3");
 
-        Log.i("EllisMarkov", "program compiled & linked: " + mProgramName);
+        Log.i(this.getClass().getName(), "program compiled & linked: " + mProgramName);
         return true;
     }
 
     static float counter = 0;
+    
     void use() {
         // use program
         GLES20.glUseProgram(mProgramObject);
 
         if (mMvpLoc != -1) {
-            //Log.d("EllisMarkov","setMvp");
+            Log.d("this.getClass().getName()","setMvp");
             counter += 1.f;
-            // on calcule la matrice mRotation a utiliser pour pivoter
+            // on calcule la matrice "mRotation" a utiliser pour pivoter
             // d'un angle de x radian 
             // ici l'angle c'est counter
             // le pivot est au centre à 0,0,0
             Matrix.setRotateEulerM(mRotation,0, 0.f, 0.f, counter);
+            
+            // on calcule la nouvelle matrice de projection mMvp
             Matrix.multiplyMM(mMvp, 0, mProjection, 0, mRotation, 0);
+            
+            //on alimente la donnée UNIFORM mMvpLoc du programme OpenGL avec une matrice de 4 flotant
             GLES20.glUniformMatrix4fv(mMvpLoc, 1, false, mMvp, 0);
         }
+        
         if (mScreenSizeLoc != -1) {
             float width = 480;
             float height = 800;
-            Log.e("EllisMarkov", "To be done");
             GLES20.glUniform2f(mScreenSizeLoc, width, height);
         }
+        
         if (mTimeLoc != -1) {
             float time = 0;
-            Log.e("EllisMarkov", "To be done");
+            // on alimente la donnée UNIFORM mTimeLoc avec un flotant time 
             GLES20.glUniform1f(mTimeLoc, time);
         }
 
         if (mTex0Loc != -1) {
             //GLES20.glEnable(GLES20.GL_TEXTURE_2D);
+        	
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, GLES20Renderer.mTex0);
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+            // on alimente la donnée UNIFORM mTex0Loc avc un integer 0
             GLES20.glUniform1i(mTex0Loc, 0);
         }
     }
@@ -155,7 +168,10 @@ public class GLSLProgram {
     private void enableVertexAttribArray(Vertices vertices) {
         if (mPositionLoc != -1) {
             vertices.getVertices().position(0);
+            
             GLES20.glVertexAttribPointer(mPositionLoc, 3, GLES20.GL_FLOAT, false, P3FT2FR4FVertex.P3FT2FR4FVertex_SIZE_BYTES, vertices.getVertices());
+            // on rend l'utilisation de mPositionLoc possible par le moteur de rendu
+            // s'il est disable le moteur ne le prend pas en compte ??
             GLES20.glEnableVertexAttribArray(mPositionLoc);
         }
         if (mColorLoc != -1) {
@@ -172,7 +188,8 @@ public class GLSLProgram {
 
     private void disableVertexAttribArray() {
         if (mPositionLoc != -1) {
-            GLES20.glDisableVertexAttribArray(mPositionLoc);
+            //on a plus besoin des variables, on les retire du moteur de rendu
+        	GLES20.glDisableVertexAttribArray(mPositionLoc);
         }
         if (mColorLoc != -1) {
             GLES20.glDisableVertexAttribArray(mColorLoc);
@@ -184,15 +201,15 @@ public class GLSLProgram {
 
     private boolean link() {
         if (mProgramObject==0) {
-            Log.e("EllisMarkov", "No GLSL Program created!");
+            Log.e(this.getClass().getName(), "Please create a GL program before Link shaders!");
             return false;
         }
         GLES20.glLinkProgram(mProgramObject);
         int[] linkStatus = new int[1];
         GLES20.glGetProgramiv(mProgramObject, GLES20.GL_LINK_STATUS, linkStatus, 0);
         if (linkStatus[0] != GLES20.GL_TRUE) {
-            Log.e("EllisMarkov", "Could not link program: ");
-            Log.e("EllisMarkov", "logs:" + GLES20.glGetProgramInfoLog(mProgramObject));
+            Log.e(this.getClass().getName(), "Could not link program: ");
+            Log.e(this.getClass().getName(), "logs:" + GLES20.glGetProgramInfoLog(mProgramObject));
             GLES20.glDeleteProgram(mProgramObject);
             mProgramObject = 0;
             return false;
@@ -202,7 +219,7 @@ public class GLSLProgram {
 
     private boolean loadShaders(String vertexFilename, String fragmentFilename) {
         if (mProgramObject==0) {
-            Log.e("EllisMarkov", "No GLSL Program created!");
+            Log.e(this.getClass().getName(), "No GLSL Program created!");
             return false;
         }
 
@@ -212,7 +229,7 @@ public class GLSLProgram {
 
         // if one of shader cannot be read return false
         if (mVertexShader==0 || mFragmentShader==0) {
-            Log.e("EllisMarkov", "Shader doesn' compile");
+            Log.e(this.getClass().getName(), "Shader doesn' compile");
             return false;
         }
 
@@ -231,13 +248,13 @@ public class GLSLProgram {
             int[] compiled = new int[1];
             GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
             if (compiled[0] == 0) {
-                Log.e("", "Could not compile shader " + shaderType + ":");
-                Log.e("", GLES20.glGetShaderInfoLog(shader));
+                Log.e(this.getClass().getName(), "Could not compile shader " + shaderType + ":");
+                Log.e(this.getClass().getName(), GLES20.glGetShaderInfoLog(shader));
                 GLES20.glDeleteShader(shader);
                 shader = 0;
             }
         }
-        Log.i("EllisMarkov", "shader compiled:" + filename);
+        Log.i(this.getClass().getName(), "shader compiled:" + filename);
         return shader;
     }
 

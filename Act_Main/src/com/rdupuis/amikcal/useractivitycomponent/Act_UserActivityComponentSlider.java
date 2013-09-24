@@ -4,6 +4,7 @@ import com.rdupuis.amikcal.R;
 
 import com.rdupuis.amikcal.commons.MyAdapter;
 import com.rdupuis.amikcal.commons.MyFragmentPagerAdapter;
+import com.rdupuis.amikcal.commons.ZoomOutPageTransformer;
 import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad;
 import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad.Frag_NumericPadListeners;
 import com.rdupuis.amikcal.energy.Frag_EnergyList;
@@ -27,9 +28,14 @@ import android.view.View;
 
 public class Act_UserActivityComponentSlider extends FragmentActivity implements Frag_NumericPadListeners{
 
+	final int ENERGY_LIST_POSITION = 0;
+	final int UNITS_LIST_POSITION = 1;
+	final int NUMERICPAD_POSITION = 2;
+	
 	ViewPager mViewPager;
 	MyFragmentPagerAdapter mPagerAdapter;
 	ArrayList<Fragment> mArrayfragments;
+	int currentItem = 0;
 	/**
 	 * Par cet intent, on va recevoir les infos des items a éditer (id
 	 * energy,qté,id unit)
@@ -41,23 +47,19 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.view_choose_energy_for_uac_fragment_slider);
-		
 
 		// assignation du viewpager
 		mViewPager = (ViewPager) findViewById(R.id.view_uac_fragment_slider_viewpager);
-
-		// On souhaite conserver en memoire 3 pages en meme temps.
-		//mViewPager.setOffscreenPageLimit(3);
+		mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
 		// Initialisation du tableau des Fragments a faire défiler dans le
 		// PagerAdapter
 		
 		mArrayfragments = new ArrayList<Fragment>();
-		mArrayfragments.add(Fragment.instantiate(this,Frag_EnergyList.class.getName()));
-		mArrayfragments.add(Fragment.instantiate(this,Frag_UnitOfMeasureList.class.getName()));
-		mArrayfragments.add(Fragment.instantiate(this,Frag_NumericPad.class.getName()));
+		mArrayfragments.add(ENERGY_LIST_POSITION,Fragment.instantiate(this,Frag_EnergyList.class.getName()));
+		mArrayfragments.add(UNITS_LIST_POSITION,Fragment.instantiate(this,Frag_UnitOfMeasureList.class.getName()));
+		mArrayfragments.add(NUMERICPAD_POSITION,Fragment.instantiate(this,Frag_NumericPad.class.getName()));
 		
-	
 		mPagerAdapter = new MyFragmentPagerAdapter(
 				super.getSupportFragmentManager(), mArrayfragments);
 		
@@ -65,10 +67,11 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 		mViewPager.setAdapter(mPagerAdapter);
 		
 		//positioner le viewpager sur le premier fragment à afficher
-		mViewPager.setCurrentItem(0, false);
+		// le second paramètre de la fonction à TRUE indique que le Viewpager doit jouer l'animation
+		// de transition. lorqu'il est à FALSE, on passe d'une vue à l'autre tout de suite.
+		mViewPager.setCurrentItem(currentItem, true);
 
-		
-		
+			
 	
 		/**
 		 * Ajout d'un listener pour modifier la date courante a chaque
@@ -113,16 +116,25 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 	 *
 	 */
 	
+	
+	/**
+	 * Si appui sur un bouton "nombre" on appel la fonction OnClick_Btn_Number du fragment NumericPad
+	 */
 	public void NumericPadListener_OnClick_btn_Number(View v) {
-		Frag_NumericPad fragment = (Frag_NumericPad) mPagerAdapter.getItem(2);
-	        if (fragment != null && fragment.isVisible()) {
-	          fragment.OnClick_Btn_Number(v.getId());
+		Frag_NumericPad numericPad = (Frag_NumericPad) mPagerAdapter.getItem(NUMERICPAD_POSITION);
+	        if (numericPad != null && numericPad.isVisible()) {
+	        	numericPad.OnClick_Btn_Number(v.getId());
 	        } 
 	}
 
-	
+	/**
+	 * Si appui sur un bouton "Erase" on appel la fonction OnClick_Btn_Erase du fragment NumericPad
+	 */
 	public void NumericPadListener_OnClick_btn_Erase(View v) {
-		// TODO Auto-generated method stub
+		Frag_NumericPad numericPad = (Frag_NumericPad) mPagerAdapter.getItem(NUMERICPAD_POSITION);
+        if (numericPad != null && numericPad.isVisible()) {
+        	numericPad.OnClick_Btn_Erase();
+        }
 		
 	}
 
@@ -132,16 +144,34 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 		
 	}
 
-	
+	/**
+	 * Si appui sur un bouton "OK" on appel la fonction OnClick_Btn_Ok du fragment NumericPad
+	 */
 	public void NumericPadListener_OnClick_btn_Ok(View v) {
-		// TODO Auto-generated method stub
+		Frag_NumericPad numericPad = (Frag_NumericPad) mPagerAdapter.getItem(NUMERICPAD_POSITION);
+        if (numericPad != null && numericPad.isVisible()) {
+        	numericPad.OnClick_Btn_Ok();
+        }
 		
 	}
 
-	
+	/**
+	 * Si appui sur un bouton "Cancel" on appel la fonction OnClick_Btn_Cancel du fragment NumericPad
+	 */
 	public void NumericPadListener_OnClick_btn_Cancel(View view) {
-		// TODO Auto-generated method stub
+		Frag_NumericPad numericPad = (Frag_NumericPad) mPagerAdapter.getItem(NUMERICPAD_POSITION);
+        if (numericPad != null && numericPad.isVisible()) {
+        	numericPad.OnClick_Btn_Cancel();
+        }
 		
 	}
 
+	public void onclicknext(View v){
+		
+		currentItem = (currentItem+1>3)? 0:currentItem+1;
+		// le second paramètre de la fonction à TRUE indique que le Viewpager doit jouer l'animation
+		// de transition. lorqu'il est à FALSE, on passe d'une vue à l'autre tout de suite.
+		mViewPager.setCurrentItem(currentItem, true);
+	}
+	
 }

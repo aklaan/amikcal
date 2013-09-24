@@ -1,10 +1,5 @@
 package com.rdupuis.amikcal.opengl;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
 /**
  * This is not optimized (P3FT2FR4FVertex=>36octets)
  * It is should be better to use RGBA int byte (but Painful).
@@ -12,6 +7,10 @@ import java.nio.ShortBuffer;
  */
 public class P3FT2FR4FVertex {
 
+	//P3F = coordonnées de sommet x,y,z 
+	//T2F = coordonée de texture x,y
+	//R4F = couleur du sommet + alpha
+	
     public final static int P3FT2FR4FVertex_SIZE = 9;
     public final static int P3FT2FR4FVertex_SIZE_BYTES = 9*4;
 
