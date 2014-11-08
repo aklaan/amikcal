@@ -61,7 +61,7 @@ public class Act_Main extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.mainview);
 		//setContentView(R.layout.fragment_day_user_activities_synthese);
         contentResolver = this.getContentResolver();
       //  verifierMiseAJourDB();

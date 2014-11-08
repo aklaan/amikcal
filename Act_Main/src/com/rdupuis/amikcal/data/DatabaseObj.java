@@ -657,42 +657,5 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 	}
 
-	public void exportDB() {
-		File directory = new File(Environment.getExternalStorageDirectory()
-				+ "/amikcal");
-
-		// si le dossier n'existe pas
-		// la methode le crée et revoi true
-		// di le dossier existe deja la methode renvoie faux
-		directory.mkdir();
-
-		File sd = Environment.getExternalStorageDirectory();
-		File data = Environment.getDataDirectory();
-
-		if (sd.canWrite()) {
-			String currentDBPath = "//data//"
-					+ this.getClass().getPackage().getName() + "//databases//"
-					+ this.DATABASE_NAME;
-
-			String backupDBPath = directory.getAbsolutePath();
-
-			File currentDB = new File(data, currentDBPath);
-			File backupDB = new File(sd, backupDBPath);
-
-			try {
-				FileChannel src = new FileInputStream(currentDB).getChannel();
-				FileChannel dst = new FileInputStream(backupDB).getChannel();
-				dst.transferFrom(src, 0, src.size());
-				src.close();
-				dst.close();
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
-	}
-
+	
 }

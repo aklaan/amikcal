@@ -28,4 +28,26 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
+        <Button
+            android:id="@+id/techinfo_bt_exportDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Export DB"
+            android:textAppearance="?android:attr/textAppearanceMedium" 
+            android:onClick="exportDB"
+            />
+        
+        
+        <Button
+            android:id="@+id/techinfo_bt_importDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Import DB"
+            android:textAppearance="?android:attr/textAppearanceMedium" 
+            android:onClick="importDB"
+            />
+        
+        
+        
+        
 </LinearLayout>

@@ -241,6 +241,16 @@ public class MainActivity extends Activity {
 						Toast.LENGTH_LONG).show();
 			}
 			break;
+		case 4:
+			intent = new Intent(this,
+					Act_Main.class);
+			if (intent.resolveActivity(getPackageManager()) != null) {
+				startActivity(intent);
+			} else {
+				Toast.makeText(this, R.string.app_not_available,
+						Toast.LENGTH_LONG).show();
+			}
+			break;
 		default: // nothing
 		}
 

@@ -6,6 +6,7 @@
         <item>test opengel ES2.0</item>
         <item>Equivalences</item>
         <item>Unitées de mesures</item>
+        <item>Test</item>
     </string-array>
     
     <string name="drawer_open">Open navigation drawer</string>
