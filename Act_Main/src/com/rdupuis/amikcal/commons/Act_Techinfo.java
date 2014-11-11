@@ -2,6 +2,7 @@ package com.rdupuis.amikcal.commons;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 
 import android.app.Activity;
@@ -44,8 +45,8 @@ public class Act_Techinfo extends Activity {
 			File data = Environment.getDataDirectory();
 
 			if (sd.canWrite()) {
-				String currentDBPath = "//data//"
-						+ "com.rdupuis.amikcal" + "//databases//"
+				String currentDBPath = "//data/"
+						+ "com.rdupuis.amikcal" + "/databases/"
 						+ "amikcal.db";
 
 				String backupDBPath = "amikcalBK/backup";
@@ -54,11 +55,16 @@ public class Act_Techinfo extends Activity {
 				
 				File backupDB = new File(sd, backupDBPath);
 
+			
 				
 				try {
-					//backupDB.createNewFile();
+					
+								
+					
+					backupDB.createNewFile();
 					FileChannel src = new FileInputStream(currentDB).getChannel();
-					FileChannel dst = new FileInputStream(backupDB).getChannel();
+					FileChannel dst = new FileOutputStream(backupDB).getChannel();
+					
 					dst.transferFrom(src, 0, src.size());
 					src.close();
 					dst.close();

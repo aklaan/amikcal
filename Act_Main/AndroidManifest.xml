@@ -29,17 +29,21 @@
             </intent-filter>
         </activity>
 
-                <activity android:name="Act_Main" >
+                <activity android:name=".Act_Main" >
         </activity>
         
         
         <activity android:name="com.rdupuis.amikcal.commons.MultipleItemsActivityList" >
         </activity>
+   
+        
         <activity android:name="com.rdupuis.amikcal.commons.numericpad.Act_NumericPad" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.commons.numericpad.FragAct_NumericPad" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.commons.Act_Techinfo" >
+        
+       
         </activity>
         <activity android:name="com.rdupuis.amikcal.commons.Act_Calendar" >
         </activity>
