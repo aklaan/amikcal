@@ -11,10 +11,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.rdupuis.amikcal.R;
 
 public class Act_Techinfo extends Activity {
 
+	final String BACKUP_PATH = "amikcal/";
+	final String BACKUP_DATABASE_NAME = "amikcalDB.bak";
+	
 	/** Called when the activity is first created. */
 
 	@Override
@@ -29,12 +34,51 @@ public class Act_Techinfo extends Activity {
 
 	public void importDB(View v) {
 
+
+		File sd = Environment.getExternalStorageDirectory();
+		File data = Environment.getDataDirectory();
+
+		if (sd.canRead()) {
+			String projectDBPath = "//data/"
+					+ "com.rdupuis.amikcal" + "/databases/"
+					+ "amikcal.db";
+
+			String backupDBPath = this.BACKUP_PATH+ this.BACKUP_DATABASE_NAME;
+
+			File currentDB = new File(data, projectDBPath);
+			
+			File backupDB = new File(sd, backupDBPath);
+
+		
+			
+			try {
+				
+							
+				
+				backupDB.createNewFile();
+				FileChannel src = new FileInputStream(backupDB).getChannel();
+				FileChannel dst = new FileOutputStream(currentDB).getChannel();
+				
+				dst.transferFrom(src, 0, src.size());
+				src.close();
+				dst.close();
+
+				Toast.makeText(this, "Base importée", Toast.LENGTH_SHORT).show();
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		
 	}
 
 	public void exportDB(View v) {
 		
 			File directory = new File(Environment.getExternalStorageDirectory()
-					+ "/amikcalBK");
+					+ "/" + this.BACKUP_PATH);
 
 			// si le dossier n'existe pas
 			// la methode le crée et revoi true
@@ -49,7 +93,7 @@ public class Act_Techinfo extends Activity {
 						+ "com.rdupuis.amikcal" + "/databases/"
 						+ "amikcal.db";
 
-				String backupDBPath = "amikcalBK/backup";
+				String backupDBPath = this.BACKUP_PATH + this.BACKUP_DATABASE_NAME;
 
 				File currentDB = new File(data, currentDBPath);
 				
@@ -69,6 +113,8 @@ public class Act_Techinfo extends Activity {
 					src.close();
 					dst.close();
 
+					Toast.makeText(this, "Base exportée", Toast.LENGTH_SHORT).show();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
