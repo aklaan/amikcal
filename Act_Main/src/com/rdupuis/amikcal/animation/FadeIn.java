@@ -2,7 +2,6 @@ package com.rdupuis.amikcal.animation;
 
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 

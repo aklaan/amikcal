@@ -3,35 +3,23 @@ package com.rdupuis.amikcal.useractivity;
 import com.rdupuis.amikcal.R;
 
 import com.rdupuis.amikcal.animation.FadeIn;
-import com.rdupuis.amikcal.animation.FadeOut;
-
 import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.commons.Generic_FragmentsSlider.FragmentGroup;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.energy.Frag_EnergyList;
-
 import com.rdupuis.amikcal.useractivity.Act_UserActivityEditor;
 import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
 import com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import android.content.ContentUris;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 

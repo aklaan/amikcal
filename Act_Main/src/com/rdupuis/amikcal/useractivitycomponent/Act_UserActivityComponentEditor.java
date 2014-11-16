@@ -35,7 +35,6 @@ import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 
 import com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
-import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 
 
  

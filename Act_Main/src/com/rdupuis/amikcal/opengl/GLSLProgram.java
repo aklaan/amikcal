@@ -6,8 +6,6 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
-import java.nio.FloatBuffer;
-
 public class GLSLProgram {
 
     //! activity

@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -22,7 +21,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

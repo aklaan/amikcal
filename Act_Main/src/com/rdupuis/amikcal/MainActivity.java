@@ -1,7 +1,5 @@
 package com.rdupuis.amikcal;
 
-import java.util.Locale;
-
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
 import com.rdupuis.amikcal.opengl.testOpenGl2es;
 import com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList;
@@ -9,9 +7,6 @@ import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.SearchManager;
-import android.content.ClipData.Item;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.opengl.GLSurfaceView;
@@ -25,12 +20,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.support.v4.app.ActionBarDrawerToggle;
+
+
+
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget in the
@@ -77,6 +77,8 @@ public class MainActivity extends Activity {
 	// ! OpenGL SurfaceView
 	public GLSurfaceView mGLSurfaceView;
 	private GLSurfaceView mGLView;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,12 @@ public class MainActivity extends Activity {
 
 		));
 
+		
+		
+		
+		
+		
+		
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
@@ -117,9 +125,9 @@ public class MainActivity extends Activity {
 		// between the sliding drawer and the action bar app icon
 		mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
 		mDrawerLayout, /* DrawerLayout object */
-		R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
-		R.string.drawer_open, /* "open drawer" description for accessibility */
-		R.string.drawer_close /* "close drawer" description for accessibility */
+		
+		R.string.drawer_open, /* nav drawer image to replace 'Up' caret */
+		R.string.drawer_open
 		) {
 			public void onDrawerClosed(View view) {
 				getActionBar().setTitle(mTitle);

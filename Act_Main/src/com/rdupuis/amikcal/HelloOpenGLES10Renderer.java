@@ -1,6 +1,5 @@
 package com.rdupuis.amikcal;
 
-import java.io.Console;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
