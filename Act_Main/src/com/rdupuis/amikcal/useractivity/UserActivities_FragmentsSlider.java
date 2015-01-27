@@ -1,39 +1,38 @@
 package com.rdupuis.amikcal.useractivity;
 
 import com.rdupuis.amikcal.R;
-
 import com.rdupuis.amikcal.animation.FadeIn;
-import com.rdupuis.amikcal.commons.Generic_FragmentsSlider;
+import com.rdupuis.amikcal.commons.Generic_FragmentsTimeSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Act_UserActivityEditor;
 import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
 import com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList;
 
 import java.util.Calendar;
+
 import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
-public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
+public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider {
 
 	// Definition des Types de vues a afficher
 	static enum ViewMode {
 		VIEW_ACTIVITIES_OF_DAY, STATISTIC_VIEW_OF_DAY, STATISTIC_VIEW_OF_WEEK, STATISTIC_VIEW_OF_MONTH, STATISTIC_VIEW_OF_YEAR
 	};
 
-	private Intent mIntent;
 	private ViewMode mCurrentViewMode;
 	private Calendar mCurrentDay;
 	private int mZoomLevel;
 	private final int MIN_ZOOM_LEVEL = 0;
 	private final int MAX_ZOOM_LEVEL = 1;
+	private final String BUNDLE_VAR____CURRENT_DAY = "CurrentDay";
+	private final String BUNDLE_VAR____VIEWMODE = "ViewMode";
 
 	public void setCurrentDay(Calendar calendar) {
 		mCurrentDay = calendar;
@@ -43,31 +42,29 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		return mCurrentDay;
 	}
 
+	/**===============================================================
+	 * onCreate
+	 *
+	 ===============================================================*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 
-		mIntent = getIntent();
+		this.getIntent();
 
-		// * Recuperer les informations sauvees
+		// * Recuperer les informations sauvees dans le Bundle lorsque
+		// l'activité a été stopée
 		try {
 			if (savedInstanceState != null) {
 				// On restaure la date a laquelle on était
 				mCurrentDay = (ToolBox.parseCalendar(savedInstanceState
-						.getString("savedCurrentDay")));
+						.getString(BUNDLE_VAR____CURRENT_DAY)));
 				// On restaure le mode vue
 				mCurrentViewMode = ViewMode.valueOf(savedInstanceState
-						.getString("savedViewMode"));
-			} else
-			// * s'il n'y a pas d'information sauvee, on va tenter le récupérer
-			// une
-			// date dans l'Intent
-			if (mIntent != null) {
-				mCurrentDay = (ToolBox
-						.parseCalendar(mIntent.getStringExtra(mProjectResources
-								.getString(R.string.INTENT_INPUTNAME_FOR_UA_FRAGMENTSLIDER_DAY))));
+						.getString(BUNDLE_VAR____VIEWMODE));
 			}
+
 		} catch (Exception e) {
 			// Sinon par défaut, on prend la date du jour.
 			mCurrentDay = (Calendar.getInstance());
@@ -79,13 +76,18 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		if (mCurrentViewMode == null) {
 			mZoomLevel = 1;
 			mCurrentViewMode = getViewMode(mZoomLevel);
+			mCurrentDay = (Calendar.getInstance());
 		}
 		;
 
 		// On souhaites conserver en memoire 9 pages en meme temps.
+		// pour gérer correctement le timeSlide
 		getViewPager().setOffscreenPageLimit(9);
 
-		createFragmentsGroups(mCurrentDay, getFagmentClassName());
+		// on va créer le groupe de fragment à afficher
+		createFragmentsGroups(mCurrentDay,
+				getFagmentClassName(mCurrentViewMode));
+
 		// Au demarrage le focus doit etre sur la page 4, c'est la page
 		// centrale
 		getViewPager().setCurrentItem(4, false);
@@ -97,32 +99,32 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 
 	}
 
-	/* on override la méthode onUpdateGroup pour mémoriser la date a laquelle l'utilisateur
-	 * s'est positioné.  
-	 * (non-Javadoc)
+	/**===============================================================
+	 * onUpdateGroup
+	 * on override la méthode onUpdateGroup pour mémoriser la date a laquelle
+	 * l'utilisateur s'est positioné. (non-Javadoc)
+	 * 
 	 * @see com.rdupuis.amikcal.commons.Generic_FragmentsSlider#onUpdateGroup()
-	 */
+	 ===============================================================*/
 	@Override
-	protected void onUpdateGroup(){
+	protected void onUpdateGroup() {
 
-		
 		UserActivities_FragmentsSlider.this
-		.setCurrentDay(UserActivities_FragmentsSlider.this
-				.getArrayCalendar().get(
-						getViewPager()
-								.getCurrentItem()));
+				.setCurrentDay(UserActivities_FragmentsSlider.this
+						.getArrayCalendar()
+						.get(getViewPager().getCurrentItem()));
 
-/*Log.i("nouvelle date courante", ToolBox
-	.getSqlDate(UserActivities_FragmentsSlider.this
-			.getCurrentDay()));
-*/
+		/*
+		 * Log.i("nouvelle date courante", ToolBox
+		 * .getSqlDate(UserActivities_FragmentsSlider.this .getCurrentDay()));
+		 */
 	}
-	
-	
-	/**
-	 * Cette fonction va retourner le nom de la vue a afficher
-	 * selon le niveau de zoom sur lequel on se trouve.
-	 */
+
+	/**===============================================================
+	 * getViewMode
+	 * Cette fonction va retourner le nom de la vue a afficher selon le niveau
+	 * de zoom sur lequel on se trouve.
+	 ===============================================================*/
 	private ViewMode getViewMode(int zoomLevel) {
 
 		switch (zoomLevel) {
@@ -134,78 +136,63 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 			getActionBar().setTitle("jour");
 			return ViewMode.STATISTIC_VIEW_OF_DAY;
 		case 2:
+			getActionBar().setTitle("Semaine");
 			return ViewMode.STATISTIC_VIEW_OF_WEEK;
 		case 3:
+			getActionBar().setTitle("Mois");
 			return ViewMode.STATISTIC_VIEW_OF_MONTH;
 		default:
 		}
 		return ViewMode.STATISTIC_VIEW_OF_DAY;
 	};
 
-	/**
-	 * Cette fonction va retourner le nom de la classe de fragment a utiliser
+	
+	
+	/**===============================================================
+	 * getFagmentClassName
+	 *  Cette fonction va retourner le nom de la classe de fragment a utiliser
 	 * pour afficher le type de la vue souhaitee.
-	 */
-	private String getFagmentClassName() {
+	 ===============================================================*/
+	
+	private String getFagmentClassName(ViewMode viewMode) {
 
-		switch (mCurrentViewMode) {
+		switch (viewMode) {
 
 		case VIEW_ACTIVITIES_OF_DAY:
 			return Frag_UserActivityList.class.getName();
-			
+
 		case STATISTIC_VIEW_OF_DAY:
+		case STATISTIC_VIEW_OF_MONTH:
+		case STATISTIC_VIEW_OF_WEEK:
+		case STATISTIC_VIEW_OF_YEAR:
 			return Frag_UserActivity_StatisticsOfDay.class.getName();
 
 		}
 		return "";
 	};
 
-	/**
-	 * 
-	 * @param id
-	 *            Identifiant de l'activitï¿½e utilisateur sï¿½lï¿½ctionï¿½e
-	 */
+	
+	/**===============================================================
+	 * onClickActivity
+	 ===============================================================*/
 	public void onClickActivity(String id) {
 		Intent intent = new Intent(this, Act_UserActivityComponentList.class);
-		intent.putExtra(
-				mProjectResources
-						.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_LIST_ID_OF_USER_ACTIVITY),
-				id);
+		intent.putExtra(Act_UserActivityComponentList.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY,
+								id);
 		intent.putExtra("page", getCurrentPage());
-		startActivityForResult(intent,
-				mProjectResources.getInteger(R.integer.ACTY_COMPONENT_LIST));
+		startActivityForResult(intent,Act_UserActivityComponentList.ACTIVITY_ID);
+				
 	};
 
-	/**
-	 * 
-	 * @param id
-	 *            Identifiant de l'activitï¿½e utilisateur ï¿½ ï¿½diter
-	 */
-	public void onClickEdit(Fragment f, String id) {
-		Intent intent = new Intent(this, Act_UserActivityEditor.class);
-		intent.putExtra(
-				mProjectResources
-						.getString(R.string.INTENT_IN_USER_ACTIVITY_EDITOR_ID_OF_THE_USER_ACTIVITY),
-				id);
-		intent.putExtra(
-				mProjectResources
-						.getString(R.string.INTENT_IN_USER_ACTIVITY_EDITOR_DAY_OF_THE_USER_ACTIVITY),
-				ToolBox.getSqlDate(getCurrentDay()));
-		intent.putExtra("page", getCurrentPage());
 
-		startActivityForResult(intent,
-				mProjectResources
-						.getInteger(R.integer.ACTY_USER_ACTIVITY_EDITOR));
-	}
-
-	/**
-	 * 
+	/**===============================================================
+	 * onClickDelete
 	 * @param id
-	 *            Identifiant de l'activitï¿½e utilisateur ï¿½ supprimer
-	 */
+	 *            Identifiant de l'activitee utilisateur a supprimer
+	 ===============================================================*/
 	public void onClickDelete(String id) {
 
-		// vï¿½rifier s'il y a des enfants
+		// A faire : verifier s'il y a des enfants
 		// s'il y a des enfant alerter et demander une confirmation
 
 		Uri uriDelete = ContentUris.withAppendedId(
@@ -215,11 +202,30 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 
 	}
 
-	public void onClickAdd(View v) {
+	/** =============================================================================
+	* onClickAdd
+	* Action a effectuer lorsque l'on appuie sur le bouton ADD
+	* on appelle l'ecran de choix d'une activitee
+	* ============================================================================= */ 
+	
+	public void onClickAdd() {
+		// /appeler l'activité
+		Intent intent = new Intent(this,
+				Act_UserActivity_ChooseNewActivity.class);
+		
+		// en regardant si l'activité est présente dans le PackageManager, on évite de 
+		// planter si on a oublié de déclarer l'activité dans le Manifest.
+		if (intent.resolveActivity(getPackageManager()) != null) {
+			startActivity(intent);
+			
+		} else Toast.makeText(this, "Activité Act_UserActivity_ChooseNewActivity non trouvée",
+			Toast.LENGTH_SHORT).show();
 
-		onClickEdit(null, null);
 	}
 
+	/** =============================================================================
+	* onCreateOptionsMenu
+	* ============================================================================= */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.actionbar_activities, menu);
@@ -227,6 +233,9 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 
 	}
 
+	/** =============================================================================
+	* onPrepareOptionsMenu
+	* ============================================================================= */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		switch (mZoomLevel) {
@@ -235,7 +244,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		// lorsque l'on monte d'un niveau, le bouton ADD n'est plus utile, alors
 		// on ne l'affiche plus.
 		case MIN_ZOOM_LEVEL:
-			Log.i("case", "MIN_ZOOM_LEVEL");
+
 			menu.findItem(R.id.menu_add).setShowAsAction(
 					MenuItem.SHOW_AS_ACTION_ALWAYS);
 			break;
@@ -249,6 +258,9 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 
 	}
 
+	/** =============================================================================
+	* onOptionsItemSelected
+	* ============================================================================= */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean iSrefreshViewNeeded = false;
@@ -268,45 +280,57 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 			}
 			break;
 		case R.id.menu_add:
-			onClickEdit(null, null);
+			// ajout d'une nouvelle activitée
+			// il faudrait appller l'activitée de choix
+			this.onClickAdd();
+			//onClickEdit(null, null, null);
 			break;
-			
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 
 		if (iSrefreshViewNeeded) {
-		
-	
-			
+
 			mCurrentViewMode = getViewMode(mZoomLevel);
-			createFragmentsGroups(getCurrentDay(), getFagmentClassName());
+			createFragmentsGroups(getCurrentDay(),
+					getFagmentClassName(mCurrentViewMode));
 			// switchFragment();
 			View v = getViewPager();
 
 			getViewPager().setCurrentItem(4, false);
-			//v.startAnimation(new FadeOut(v));
+			// v.startAnimation(new FadeOut(v));
 			v.startAnimation(new FadeIn(v));
-		
+
 		}
-		Log.i("zoomLevel", String.valueOf(mZoomLevel));
+
 		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
+		// pour rafraichir la barre des tâches
 		invalidateOptionsMenu();
 		return true;
 	}
 
-	/*
-	 * Si la classe a lancé une activité, on rafraichit l'écran au retour
-	 * afin de tenir compte des éventuelles mise à jours
-	 * (non-Javadoc)
-	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int, android.content.Intent)
+	/**
+	 * ==========================================================================
+	 * == Si la classe a lancé une activité, on rafraichit l'écran au retour
+	 * afin de tenir compte des éventuelles mise à jours (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
+	 * android.content.Intent)
+	 * ==================================================
+	 
 	 */
 	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-		UserActivities_FragmentsSlider.this.getViewPager().getAdapter().notifyDataSetChanged();
-		
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
+		UserActivities_FragmentsSlider.this.getViewPager().getAdapter()
+				.notifyDataSetChanged();
+
 	}
 	
+	/** =============================================================================
+	* onSaveInstanceState
+	* ============================================================================= */
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 		//
@@ -337,12 +361,11 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsSlider {
 		// mémorier la date à laquelle l'utilisateur s'est arrêté.
 		//
 		savedInstanceState.clear();
-		savedInstanceState.putString("savedCurrentDay",
+		savedInstanceState.putString(BUNDLE_VAR____CURRENT_DAY,
 				ToolBox.getSqlDate(getCurrentDay()));
 
-		savedInstanceState.putString("savedViewMode", mCurrentViewMode.name());
-		Log.d("savedCurrentDay",
-				savedInstanceState.getString("savedCurrentDay"));
-		Log.d("savedViewMode", mCurrentViewMode.name());
+		savedInstanceState.putString(BUNDLE_VAR____VIEWMODE,
+				mCurrentViewMode.name());
+
 	}
 }

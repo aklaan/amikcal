@@ -45,7 +45,7 @@ public class Act_UnitOfMeasureList extends Activity {
         getActionBar().setTitle("Unitées");        
     
         try{
-        	energyId=Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_UNITS_LIST_ID_OF_ENERGY)));	
+        	energyId=Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____UNITS_LIST____ID_OF_ENERGY)));	
         	generateList(energyId);
         } catch (Exception e){
         	generateList(WITH_NO_FILTER);
@@ -58,7 +58,7 @@ public class Act_UnitOfMeasureList extends Activity {
     
     public void onClickUnit(View v, String id){
     	Intent intent = new Intent(this,Act_UnitOfMeasureEditor.class);
-    	intent.putExtra(mResources.getString(R.string.INTENT_IN_UNITS_EDITOR_ID_OF_UNIT), id);
+    	intent.putExtra(mResources.getString(R.string.INTENT_IN____UNITS_EDITOR____ID_OF_UNIT), id);
     	startActivityForResult(intent, R.integer.ACTY_UNIT);
     	
     }
@@ -238,7 +238,7 @@ public class Act_UnitOfMeasureList extends Activity {
     	
     	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
     	//récupérer la valeur. 
-    	this.mIntent.putExtra(mResources.getString(R.string.INTENT_OUT_UNITS_LIST_ID_OF_THE_UNIT), id); 
+    	this.mIntent.putExtra(mResources.getString(R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT), id); 
     	
     	//on appelle setResult pour déclancher le onActivityResult de l'activity mère. 
     	this.setResult(RESULT_OK, mIntent);

@@ -47,7 +47,7 @@ public class Act_EnergyEditor extends Activity {
         try {
         	AmiKcalFactory factory = new AmiKcalFactory();
         	factory.contentResolver = mContentResolver;
-        	mEnergy = factory.createEnergyObjFromId(Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_ENERGY_EDITOR_ID_OF_ENERGY))));
+        	mEnergy = factory.createEnergyObjFromId(Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY))));
         } catch (Exception e) {
         	mEnergy.setId(NO_ID);
         }
@@ -159,7 +159,7 @@ public class Act_EnergyEditor extends Activity {
 			
 			 	if (resultCode == RESULT_OK){
 					
-			 		this.mEnergy.setCalories(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mEnergy.setCalories(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			    }
 				break;
 				
@@ -168,7 +168,7 @@ public class Act_EnergyEditor extends Activity {
 				
 			 	if (resultCode == RESULT_OK){
 					
-			 		this.mEnergy.setGlucids(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mEnergy.setGlucids(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			    }
 			 	break;
 			 	
@@ -176,7 +176,7 @@ public class Act_EnergyEditor extends Activity {
 				
 			 	if (resultCode == RESULT_OK){
 					
-			 		this.mEnergy.setLipids(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mEnergy.setLipids(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			    } 	
 			 	break;
 			 	
@@ -184,7 +184,7 @@ public class Act_EnergyEditor extends Activity {
 				
 			 	if (resultCode == RESULT_OK){
 					
-			 		this.mEnergy.setProteins(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mEnergy.setProteins(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			    } 	
 			 	break;
 			 	
@@ -192,7 +192,7 @@ public class Act_EnergyEditor extends Activity {
 				
 			 	if (resultCode == RESULT_OK){
 					
-			 		this.mEnergy.setQuantityReference(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mEnergy.setQuantityReference(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			 		
 			 		
 			 		
@@ -205,7 +205,7 @@ public class Act_EnergyEditor extends Activity {
 					
 			 		AmiKcalFactory factory = new AmiKcalFactory();
 		        	factory.contentResolver = mContentResolver;
-		        	mEnergy.unit = factory.createUnitOfMeasureObjFromId(Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_UNITS_LIST_ID_OF_THE_UNIT))));
+		        	mEnergy.unit = factory.createUnitOfMeasureObjFromId(Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT))));
 			 		
 			    }
 			 	break;

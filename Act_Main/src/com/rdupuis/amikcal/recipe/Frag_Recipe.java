@@ -85,7 +85,7 @@ public class Frag_Recipe extends Fragment {
         
         //* on tente de récupérer le type de liste à afficher si l'intent nous en a envoyé un
         try {
-        	currentTypeOfList =Integer.parseInt(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_TYPE_OF_LIST)));
+        	currentTypeOfList =Integer.parseInt(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_LIST____TYPE_OF_LIST)));
             }
         catch (Exception e){
             	currentTypeOfList=mResources.getInteger(R.integer.USER_ACTIVITY_LIST_ACTIVITY);
@@ -217,7 +217,7 @@ public class Frag_Recipe extends Fragment {
                   
                     	public void onClick(DialogInterface dialog, int whichButton){
                     		UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_Recipe.this.getActivity();
-                            ua.onClickEdit(Frag_Recipe.this,String.valueOf(Frag_Recipe.this.selectedItemId));
+                          //  ua.onClickEdit(Frag_Recipe.this,String.valueOf(Frag_Recipe.this.selectedItemId));
                     		}								
                     	}
                     );

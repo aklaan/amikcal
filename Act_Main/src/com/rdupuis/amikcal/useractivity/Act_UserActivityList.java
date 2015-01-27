@@ -68,7 +68,7 @@ public class Act_UserActivityList extends Activity {
         
         //* on tente de récupérer une date si l'intent nous en a envoyé une
         try {
-        	currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_INPUTNAME_FOR_UA_FRAGMENTSLIDER_DAY)));
+        	currentDay=ToolBox.parseCalendar(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____NAME_FOR_UA_FRAGMENTSLIDER_DAY)));
         }
         catch (Exception e){
         	currentDay  =Calendar.getInstance();
@@ -76,7 +76,7 @@ public class Act_UserActivityList extends Activity {
         
         //* on tente de récupérer le type de liste à afficher si l'intent nous en a envoyé un
         try {
-        	currentTypeOfList =Integer.parseInt(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_LIST_TYPE_OF_LIST)));
+        	currentTypeOfList =Integer.parseInt(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_LIST____TYPE_OF_LIST)));
             }
         catch (Exception e){
             	currentTypeOfList=mResources.getInteger(R.integer.USER_ACTIVITY_LIST_ACTIVITY);
@@ -287,7 +287,7 @@ public class Act_UserActivityList extends Activity {
   	*/
   	public void onClickActivity(String id){
   		Intent intent = new Intent(this,Act_UserActivityComponentList.class);
-  		intent.putExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_LIST_ID_OF_USER_ACTIVITY), id);
+  		intent.putExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY), id);
   		startActivityForResult(intent, R.integer.ACTY_COMPONENT_LIST);
   	}
  
@@ -296,9 +296,9 @@ public class Act_UserActivityList extends Activity {
   	 * @param id Identifiant de l'activitée utilisateur à éditer
   	 */
   	public void onClickEdit(String id){
-	    Intent intent = new Intent(this,Act_UserActivityEditor.class);
-	 	intent.putExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_EDITOR_ID_OF_THE_USER_ACTIVITY), id);
-	 	intent.putExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_EDITOR_DAY_OF_THE_USER_ACTIVITY), ToolBox.getSqlDate(currentDay));
+	    Intent intent = new Intent(this,Act_UserActivity_EditorCommons.class);
+	 	intent.putExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_EDITOR____ID_OF_THE_USER_ACTIVITY), id);
+	 	intent.putExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_EDITOR____DAY_OF_THE_USER_ACTIVITY), ToolBox.getSqlDate(currentDay));
 	 	startActivityForResult(intent, R.integer.ACTY_USER_ACTIVITY);
   	}
 

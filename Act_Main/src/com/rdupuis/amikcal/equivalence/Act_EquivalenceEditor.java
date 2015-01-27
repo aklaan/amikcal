@@ -145,13 +145,13 @@ public class Act_EquivalenceEditor extends Activity {
  	if (requestCode ==mResources.getInteger(R.integer.EQUIVALENCE_EDITOR_REQUEST_QUANTITY)) {
  			
 			 	if (resultCode == RESULT_OK){
-			 		this.mEquivalence.setQuantity(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mEquivalence.setQuantity(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			    }
  	} else if (requestCode == mResources.getInteger(R.integer.EQUIVALENCE_EDITOR_REQUEST_UNIT_IN )){
 				
 			 	if (resultCode == RESULT_OK){
 			 		
-			 		Long _id = Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_UNITS_LIST_ID_OF_THE_UNIT)));
+			 		Long _id = Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT)));
 		        	
 		        	AmiKcalFactory factory = new AmiKcalFactory();
 		        	factory.contentResolver=contentResolver;
@@ -161,7 +161,7 @@ public class Act_EquivalenceEditor extends Activity {
 							
 			 	if (resultCode == RESULT_OK){
 					
-			 		Long _id = Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_UNITS_LIST_ID_OF_THE_UNIT)));
+			 		Long _id = Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT)));
 		        	
 		        	AmiKcalFactory factory = new AmiKcalFactory();
 		        	factory.contentResolver=contentResolver;
@@ -170,7 +170,7 @@ public class Act_EquivalenceEditor extends Activity {
 	} else if (requestCode == mResources.getInteger(R.integer.EQUIVALENCE_EDITOR_REQUEST_ENERGY)){ 
 			 	if (resultCode == RESULT_OK){
 					
-			 		Long _id = Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_ENERGY_LIST_ID_OF_ENERGY)));
+			 		Long _id = Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY)));
 		        	
 		        	AmiKcalFactory factory = new AmiKcalFactory();
 		        	factory.contentResolver=contentResolver;

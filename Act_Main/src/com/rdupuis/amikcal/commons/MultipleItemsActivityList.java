@@ -58,7 +58,7 @@ import android.widget.TextView;
             
             HashMap<String, String> map = (HashMap<String, String>) getItem(position);
             
-            int mType = Integer.parseInt(map.get("type"));
+            ActivityType mType = ActivityType.valueOf(map.get("type"));
            
             
             TextView tv;
@@ -68,7 +68,7 @@ import android.widget.TextView;
                 
            
                
-                case TYPE_WEIGHT:
+                case WEIGHT:
                         convertView = mInflater.inflate(R.layout.list_item_activity_weight, null);
                        
                         tv = (TextView)convertView.findViewById(R.id.item_activity_weight_hour);
@@ -88,7 +88,7 @@ import android.widget.TextView;
            
                 
                 
-                case TYPE_ACTIVITY:
+                case MOVE:
                         convertView = mInflater.inflate(R.layout.list_item_activity_physical_activity, null);
                         tv = (TextView)convertView.findViewById(R.id.item_activity_activity_title);
                         tv.setText(map.get("titre"));
@@ -103,7 +103,7 @@ import android.widget.TextView;
                    break;
                    
                    
-                case TYPE_LUNCH:
+                case LUNCH:
                 default:
                     convertView = mInflater.inflate(R.layout.list_item_activity_lunch, null);
                     tv = (TextView)convertView.findViewById(R.id.item_activity_lunch_title);

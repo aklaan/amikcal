@@ -70,12 +70,12 @@ public class Act_NumericPad extends Activity {
 		if (ed.getText() != "") {
 			this.intent
 					.putExtra(mResources
-							.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT),
+							.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT),
 							ed.getText().toString());
 
 			// on appelle setResult pour déclancher le onActivityResult de
 			// l'activity mère.
-			this.setResult(RESULT_OK, intent);
+				
 		}
 		// On termine l'Actvity
 		this.finish();

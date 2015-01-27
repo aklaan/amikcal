@@ -30,6 +30,8 @@ public class Act_UserActivityComponentList extends Activity {
 	Resources mResources;
 	public UserActivityComponentObj CurrentUAComponent;
 	private ListView maListViewPerso;
+	public static final String INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY = "ID_OF_USER_ACTIVITY";
+	public static final int ACTIVITY_ID = 0;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,7 +45,7 @@ public class Act_UserActivityComponentList extends Activity {
 		try {
 			CurrentUAComponent
 					.setParentId(Long.parseLong(mIntent.getStringExtra(mResources
-							.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_LIST_ID_OF_USER_ACTIVITY))));
+							.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY))));
 			generateUserActivityComponentList(CurrentUAComponent.getParentId());
 		} catch (Exception e) {
 			CurrentUAComponent.setParentId(0l);
@@ -70,17 +72,18 @@ public class Act_UserActivityComponentList extends Activity {
 	 */
 
 	public void onClickComponent(String componentId, String activityId) {
-		//Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
-	
+		// Intent intent = new Intent(this,
+		// Act_UserActivityComponentEditor.class);
+
 		Intent intent = new Intent(this, Act_UserActivityComponentSlider.class);
-		
+
 		intent.putExtra(
 				mResources
-						.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_COMPONENT),
+						.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_COMPONENT),
 				componentId);
 		intent.putExtra(
 				mResources
-						.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_USER_ACTIVITY),
+						.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_USER_ACTIVITY),
 				activityId);
 		startActivityForResult(intent, R.integer.ACTY_COMPONENT);
 	}
@@ -299,8 +302,6 @@ public class Act_UserActivityComponentList extends Activity {
 
 	}
 
-	
-	
 	/**
 	 * 
 	 */
@@ -314,11 +315,10 @@ public class Act_UserActivityComponentList extends Activity {
 		case R.id.actionbar_componentlist_item_back:
 			finish();
 			break;
-					
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-
 
 		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
 		invalidateOptionsMenu();

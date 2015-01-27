@@ -2,47 +2,51 @@ package com.rdupuis.amikcal.commons;
 
 import com.rdupuis.amikcal.R;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
-public class Generic_FragmentsSlider extends FragmentActivity {
+/**
+ * 
+ * @author Rodolphe
+ *
+ * cet objet est une base commune pour permettre de faire
+ * un slide de fragments au jour le jour
+ */
 
-	// Identifiant des groupes de Fragments
-	public enum FragmentGroup {
-		A, B, C
+
+public class Generic_FragmentsTimeSlider extends FragmentActivity {
+
+	// Identifiant des 3 groupes de Fragments qui vont permettre 
+	// le glissement dans le temps
+	public enum GroupName {
+		GROUP_A, GROUP_B, GROUP_C
 	};
 
-	private MyFragmentPagerAdapter mPagerAdapter;
-	
+	private TimeFragmentPagerAdapter mPagerAdapter;
+
 	private int mCurrentPage;
-	private String CurrentFragmentClassName;
 	private ArrayList<Calendar> mArrayCalendar;
 	private ArrayList<Bundle> mArrayBundle;
-	private ArrayList<Fragment> mArrayfragments;
-	private Intent mIntent;
-	public Resources mProjectResources;
+	private ArrayList<TimeSlidableFragment> mArrayfragments;
+	
 	private ViewPager mViewPager;
+	
 
-	public ViewPager getViewPager(){
+	public ViewPager getViewPager() {
 		return mViewPager;
 	}
-	
-	public ArrayList<Calendar> getArrayCalendar(){
+
+	public ArrayList<Calendar> getArrayCalendar() {
 		return mArrayCalendar;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return
@@ -50,7 +54,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 	public int getCurrentPage() {
 		return mCurrentPage;
 	}
-	
+
 	/**
 	 * 
 	 * @param mCurrentPage
@@ -67,7 +71,6 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 		super.setContentView(R.layout.view_fragment_slider);
 
 		
-		mProjectResources = getResources();
 
 		// Initialisation Tableau des dates a afficher
 		mArrayCalendar = new ArrayList<Calendar>();
@@ -77,20 +80,18 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 		// Initialisation du tableau des Fragments a faire défiler dans le
 		// PagerAdapter
-		mArrayfragments = new ArrayList<Fragment>();
+		mArrayfragments = new ArrayList<TimeSlidableFragment>();
 
 		// instanciation d'un ViewPager
 		mViewPager = (ViewPager) super.findViewById(R.id.viewpager);
-		
+
 		// Creation de l'adapter qui s'occupera de l'affichage des fragments
 		// dans le ViewPager
-		this.mPagerAdapter = new MyFragmentPagerAdapter(
+		this.mPagerAdapter = new TimeFragmentPagerAdapter(
 				super.getSupportFragmentManager(), mArrayfragments);
 
 		// Attribution de l'adapter au ViewPager
 		mViewPager.setAdapter(this.mPagerAdapter);
-
-		
 
 		// Ajout d'un ecouteur sur le changement de page
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -100,7 +101,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 			public void onPageScrollStateChanged(int state) {
 
-				 Log.i("onPageScrollStateChanged", String.valueOf(state));
+				Log.i("onPageScrollStateChanged", String.valueOf(state));
 				// Log.i("currentDay", ToolBox.getSqlDate(currentDay));
 
 				switch (state) {
@@ -108,11 +109,12 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 					if (isPageUp) {
 
 						if (mViewPager.getCurrentItem() == 5) {
+							//on change de page sans faire d'animation scroll
 							mViewPager.setCurrentItem(7, false);
-													
+
 							// mettre Ã  jour les pages 0,1,2
 							// on ajoute 3 jours
-							updateGroup(FragmentGroup.A, +3);
+							updateGroup(GroupName.GROUP_A, +3);
 						}
 						;
 
@@ -120,7 +122,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 							mViewPager.setCurrentItem(1, false);
 							// mettre Ã  jour les pages 3,4,5
 							// on ajoute 3 jours
-							updateGroup(FragmentGroup.B, +3);
+							updateGroup(GroupName.GROUP_B, +3);
 						}
 						;
 
@@ -128,7 +130,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 							mViewPager.setCurrentItem(4, false);
 							// mettre Ã  jour les pages 6,7,8
 							// on ajoute 3 jours
-							updateGroup(FragmentGroup.C, +3);
+							updateGroup(GroupName.GROUP_C, +3);
 						}
 						;
 						isPageUp = false;
@@ -141,7 +143,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 							mViewPager.setCurrentItem(7, false);
 							// mettre Ã  jour les pages 3,4,5
 							// on retire 3 jours
-							updateGroup(FragmentGroup.B, -3);
+							updateGroup(GroupName.GROUP_B, -3);
 						}
 						;
 
@@ -149,7 +151,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 							mViewPager.setCurrentItem(1, false);
 							// mettre Ã  jour les pages 6,7,8
 							// on retire 3 jours
-							updateGroup(FragmentGroup.C, -3);
+							updateGroup(GroupName.GROUP_C, -3);
 						}
 						;
 
@@ -157,13 +159,13 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 							mViewPager.setCurrentItem(4, false);
 							// mettre Ã  jour les pages 0,1,2
 							// on retire 3 jours
-							updateGroup(FragmentGroup.A, -3);
+							updateGroup(GroupName.GROUP_A, -3);
 						}
 						;
 						isPageDown = false;
 					}
 					;
-                    onUpdateGroup();
+					onUpdateGroup();
 					break;
 				case ViewPager.SCROLL_STATE_DRAGGING:
 					break;
@@ -172,20 +174,16 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 					break;
 				} // fin switch
 
-			
-				
 			} // fin onPageScrollStateChanged
 
-
-
 			/**
-			 * Lorsque l'on change de page, on regarde si l'utilisateur a Ã©tÃ©
+			 * Lorsque l'on change de page, on regarde si l'utilisateur a ete
 			 * vers la droite (avance dans le temps -> UP) ou vers la gauche
 			 * (recul dans le temps -> DOWN)
 			 */
 
 			public void onPageSelected(int pageNumber) {
-				 Log.i("onPageSelected", String.valueOf(pageNumber));
+				Log.i("onPageSelected", String.valueOf(pageNumber));
 				switch (pageNumber) {
 				case 0:
 				case 3:
@@ -202,7 +200,7 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 			/**
 			 * onPageScrolled est appele lorsque la page est en mouvement aucune
-			 * acion n'est prÃ©vue pour le moment.
+			 * acion n'est prevue pour le moment.
 			 */
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// Log.i("onPageScrolled", "yes");
@@ -213,31 +211,30 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 	}
 
 	/*
-	 * la méthode onUpdateGroup est définie pour les enfants de la classe
-	 * elle va leur permettre d'éffectuer des opérations personnalisé
-	 * lorsque l'on rafraichi le groupe.
+	 * la méthode onUpdateGroup est définie pour les enfants de la classe elle
+	 * va leur permettre d'éffectuer des opérations personnalisé lorsque l'on
+	 * rafraichi le groupe.
 	 */
-	
-	protected void onUpdateGroup(){
-		
+
+	protected void onUpdateGroup() {
+
 	};
-	
-	public void createFragmentsGroups(Calendar wStartingDay, String wFragmentClassName) {
-	
-		//Log.d("creatFragment",wFragmentClassName);
+
+	public void createFragmentsGroups(Calendar wStartingDay,
+			String wFragmentClassName) {
+
+		// Log.d("creatFragment",wFragmentClassName);
 		mArrayCalendar.clear();
 		mArrayBundle.clear();
 		mArrayfragments.clear();
-		
+
 		// initialisation dates des 9 pages qui representent les 3
 		// groupes de cas possibles
 
 		// Group A Group B Group C
-		// 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+		// _0_ | _1_ | 2 | _3_| 4 | _5_ | 6 | _7_ | _8_ |
 		// j-2 | j-1 | J | j-1| J | J+1 | J | J+1 | J+2 |
 
-		
-		
 		for (int i = 0; i <= 8; i++) {
 			mArrayCalendar.add(i, (Calendar) wStartingDay.clone());
 			mArrayBundle.add(i, new Bundle());
@@ -265,58 +262,55 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 			// Pour chaques fragments, on prepare un bundle qui contient
 			// la date a afficher et le numero de page
-			mArrayBundle.get(i).putString("date", ToolBox.getSqlDate(mArrayCalendar.get(i)));
+			mArrayBundle.get(i).putString(TimeSlidableFragment.INTENT_INPUT____DAY,
+					ToolBox.getSqlDate(mArrayCalendar.get(i)));
 			mArrayBundle.get(i).putString("page", String.valueOf(i));
 
 			// On instancie les 9 fragments avec leur bundle respectifs.
 			// Ces fragments sont inseres dans le tableau
 			// mArrayfragments.
-			 mArrayfragments.add(Fragment.instantiate(this,
-			 wFragmentClassName, mArrayBundle.get(i)));
-			 
-			
+			mArrayfragments.add((TimeSlidableFragment) TimeSlidableFragment.instantiate(this, wFragmentClassName,
+					mArrayBundle.get(i)));
+
 		}
 		;
-	
+
 		// Creation de l'adapter qui s'occupera de l'affichage des fragments
 		// dans le ViewPager
 		mPagerAdapter = null;
-		mPagerAdapter = new MyFragmentPagerAdapter(
+		mPagerAdapter = new TimeFragmentPagerAdapter(
 				super.getSupportFragmentManager(), mArrayfragments);
-		
-		
-		
-		
+
 		// Attribution de l'adapter au ViewPager
-				mViewPager.setAdapter(mPagerAdapter);
-		//mViewPager.setSaveEnabled(false);
-		//mPagerAdapter.notifyDataSetChanged();
+		mViewPager.setAdapter(mPagerAdapter);
+		// mViewPager.setSaveEnabled(false);
+		// mPagerAdapter.notifyDataSetChanged();
 	}
+
 	/**
 	 * 
 	 * @param groupe
 	 * @param value
 	 */
-	private void updateGroup(FragmentGroup groupe, int addValue) {
-		
-		Log.d("debug","updateGroup");
+	private void updateGroup(GroupName groupe, int addValue) {
+
 		int page1 = 0;
 		int page2 = 0;
 		int page3 = 0;
 
-		FragmentManager fm = Generic_FragmentsSlider.this
+		FragmentManager fm = Generic_FragmentsTimeSlider.this
 				.getSupportFragmentManager();
 
 		// on dÃ©termine les index oÃ¹ se trouvent les dates du groupe
 		// Ã  modifier.
 		switch (groupe) {
-		case A:
+		case GROUP_A:
 			page1 = 0;
 			break;
-		case B:
+		case GROUP_B:
 			page1 = 3;
 			break;
-		case C:
+		case GROUP_C:
 			page1 = 6;
 			break;
 		}
@@ -334,17 +328,17 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 		mPagerAdapter
 				.getItem(page1)
 				.getArguments()
-				.putString("date",
+				.putString(TimeSlidableFragment.INTENT_INPUT____DAY,
 						ToolBox.getSqlDate(mArrayCalendar.get(page1)));
 		mPagerAdapter
 				.getItem(page2)
 				.getArguments()
-				.putString("date",
+				.putString(TimeSlidableFragment.INTENT_INPUT____DAY,
 						ToolBox.getSqlDate(mArrayCalendar.get(page2)));
 		mPagerAdapter
 				.getItem(page3)
 				.getArguments()
-				.putString("date",
+				.putString(TimeSlidableFragment.INTENT_INPUT____DAY,
 						ToolBox.getSqlDate(mArrayCalendar.get(page3)));
 
 		// l'utilisation d'un notifyDataSetChanged provoque un blink
@@ -376,41 +370,34 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 
 	}
 
-	
 	/**
 	 * 
 	 * @param groupe
 	 * @param value
 	 */
 	public void switchFragment() {
-		
-		FragmentManager fm = Generic_FragmentsSlider.this
+
+		FragmentManager fm = Generic_FragmentsTimeSlider.this
 				.getSupportFragmentManager();
 
-		/******************************* pour plus tard
-		mPagerAdapter
-				.getItem(page3)
-				.getArguments()
-				.putString("date",
-						ToolBox.getSqlDate(mArrayCalendar.get(page3)));
-			******************			*/
-	
+		/*******************************
+		 * pour plus tard mPagerAdapter .getItem(page3) .getArguments()
+		 * .putString("date", ToolBox.getSqlDate(mArrayCalendar.get(page3)));
+		 ****************** */
+
 		// dÃ©but de l'opÃ©ration on fige l'affichage.
 		FragmentTransaction ft = fm.beginTransaction();
 
-
-		
-		
-		for (int i=0;i<mPagerAdapter.getCount();i++){
+		for (int i = 0; i < mPagerAdapter.getCount(); i++) {
 			ft.detach(mPagerAdapter.getItem(i));
 			ft.attach(mPagerAdapter.getItem(i));
 		}
- 
+
 		// Commit pour prendre en compte les modification dans la vue.
 		ft.commit();
 		mPagerAdapter.notifyDataSetChanged();
 	}
-	
+
 	public void onClickButtonCancel() {
 		// TODO Auto-generated method stub
 
@@ -420,9 +407,5 @@ public class Generic_FragmentsSlider extends FragmentActivity {
 		// TODO Auto-generated method stub
 
 	}
-
-	
-
-
 
 }

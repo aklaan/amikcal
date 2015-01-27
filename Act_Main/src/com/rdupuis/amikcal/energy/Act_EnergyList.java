@@ -95,7 +95,7 @@ public class Act_EnergyList extends Activity {
 	public void editEnergy(String id) {
 		Intent intent = new Intent(this, Act_EnergyEditor.class);
 		intent.putExtra(mResources
-				.getString(R.string.INTENT_IN_ENERGY_EDITOR_ID_OF_ENERGY), id);
+				.getString(R.string.INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY), id);
 		startActivityForResult(intent, R.integer.ACTY_ENERGY);
 	}
 
@@ -338,7 +338,7 @@ public class Act_EnergyList extends Activity {
 		// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 		// récupérer la valeur.
 		this.mIntent.putExtra(mResources
-				.getString(R.string.INTENT_OUT_ENERGY_LIST_ID_OF_ENERGY), id);
+				.getString(R.string.INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY), id);
 
 		// on appelle setResult pour déclencher le onActivityResult de
 		// l'activity mère.

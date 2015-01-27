@@ -7,23 +7,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 
-public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter  
+public class TimeFragmentPagerAdapter extends FragmentStatePagerAdapter  
 
 {
  
-	    private ArrayList<Fragment> myFragments = new ArrayList<Fragment>();
+	    private ArrayList<TimeSlidableFragment> myFragments = new ArrayList<TimeSlidableFragment>();
 	   
 	
 	
 	//On fournit à l'adapter la liste des fragments à afficher
-	public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+	public TimeFragmentPagerAdapter(FragmentManager fm, ArrayList<TimeSlidableFragment> fragments) {
 		super(fm);
        
 		myFragments = fragments;
 	
 	}
 
-	
 
 	@Override
 	public Fragment getItem(int position) {

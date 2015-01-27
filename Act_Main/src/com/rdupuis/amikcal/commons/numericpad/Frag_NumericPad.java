@@ -35,23 +35,15 @@ public class Frag_NumericPad extends Fragment {
 		return mMainView;
 	}
 
-	//interface devant obliger les utilsateurs du fragement d'implémenter les méthodes 
-	// exploitées par le NuméricPad
-	public interface Frag_NumericPadListeners {
-		public void NumericPadListener_OnClick_btn_Number(View view);
-		public void NumericPadListener_OnClick_btn_Erase(View view);
-		public void NumericPadListener_OnClick_btn_Back(View view);
-		public void NumericPadListener_OnClick_btn_Ok(View view);
-		public void NumericPadListener_OnClick_btn_Cancel(View view);
-	  }
+	
 
 	
 	  @Override
 	  public void onAttach(Activity activity) {
 	    super.onAttach(activity);
-	    if (!(activity instanceof Frag_NumericPadListeners)) {
+	    if (!(activity instanceof NumericPadListeners)) {
 	      	      throw new ClassCastException(activity.toString()
-	          + " must implemenet Frag_NumericPad.Frag_NumericPadListeners");
+	          + " must implemenet Frag_NumericPad.NumericPadListeners");
 	    }
 	  }
 
@@ -103,7 +95,7 @@ public class Frag_NumericPad extends Fragment {
 		if (ed.getText() != "") {
 			this.intent
 					.putExtra(mResources
-							.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT),
+							.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT),
 							ed.getText().toString());
 
 			// on appelle setResult pour déclancher le onActivityResult de

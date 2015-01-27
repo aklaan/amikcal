@@ -5,7 +5,7 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.MyFragmentPagerAdapter;
 import com.rdupuis.amikcal.commons.ZoomOutPageTransformer;
 import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad;
-import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad.Frag_NumericPadListeners;
+import com.rdupuis.amikcal.commons.numericpad.NumericPadListeners;
 import com.rdupuis.amikcal.energy.Frag_EnergyList;
 import com.rdupuis.amikcal.unitofmeasure.Frag_UnitOfMeasureList;
 
@@ -21,7 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class Act_UserActivityComponentSlider extends FragmentActivity implements Frag_NumericPadListeners{
+public class Act_UserActivityComponentSlider extends FragmentActivity implements NumericPadListeners{
 
 	final int ENERGY_LIST_POSITION = 0;
 	final int UNITS_LIST_POSITION = 1;

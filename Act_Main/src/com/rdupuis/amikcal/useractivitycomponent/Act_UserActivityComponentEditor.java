@@ -58,7 +58,7 @@ public class Act_UserActivityComponentEditor extends Activity {
         mUAC = new UserActivityComponentObj();
         
         try {
-        	mUAC.setParentId(Long.valueOf(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_USER_ACTIVITY))));
+        	mUAC.setParentId(Long.valueOf(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_USER_ACTIVITY))));
         }
         catch (Exception e) {Toast.makeText(this, "Activité parente inconnue", Toast.LENGTH_SHORT).show();	
         }
@@ -69,7 +69,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 
         try {
         	//On récupère l'ID du composant
-        	this.mUAC.setId(Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN_USER_ACTIVITY_COMPONENT_EDITOR_ID_OF_COMPONENT))));
+        	this.mUAC.setId(Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_COMPONENT))));
         	loadComponentFromDb(this.mUAC.getId());
         	refreshScreen();
         	} 
@@ -152,7 +152,7 @@ public class Act_UserActivityComponentEditor extends Activity {
      **************************************************************************************/
     public void callUnitListView() {
     	  	Intent intent = new Intent(this,Act_UnitOfMeasureList.class);
-    	  	intent.putExtra(mResources.getString(R.string.INTENT_IN_UNITS_LIST_ID_OF_ENERGY), String.valueOf(mUAC.getEnergyObj().getId()));
+    	  	intent.putExtra(mResources.getString(R.string.INTENT_IN____UNITS_LIST____ID_OF_ENERGY), String.valueOf(mUAC.getEnergyObj().getId()));
     	  	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
     	      	   	
     }
@@ -218,7 +218,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 			
 			 	if (resultCode == RESULT_OK){
 					
-			 		this.mUAC.setQuantity(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_NUMERICPAD_RESULT))));
+			 		this.mUAC.setQuantity(Float.parseFloat(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			 					 		
 			 		if (this.mUAC.getUnitMeasure().getId()==0l){
 			 			this.callUnitListView();
@@ -232,7 +232,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 			 	if (resultCode == RESULT_OK){
 					
 			 		// on récupère l'objet Unit.
-		        	this.mUAC.setUnitMeasure(mFactory.createUnitOfMeasureObjFromId(Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_UNITS_LIST_ID_OF_THE_UNIT)))));
+		        	this.mUAC.setUnitMeasure(mFactory.createUnitOfMeasureObjFromId(Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT)))));
 			    }
 			 	break;
 			 	
@@ -242,7 +242,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 					
 			 		// on récupère l'objet Energy d'après l'id choisi par l'utilisateur .
 
-		        	this.mUAC.setEnergyObj(mFactory.createEnergyObjFromId(Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT_ENERGY_LIST_ID_OF_ENERGY)))));
+		        	this.mUAC.setEnergyObj(mFactory.createEnergyObjFromId(Long.parseLong(intent.getStringExtra(mResources.getString(R.string.INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY)))));
 			 		
 			 		if (this.mUAC.getQuantity() == 0f){
 			 			this.callNumericPad();

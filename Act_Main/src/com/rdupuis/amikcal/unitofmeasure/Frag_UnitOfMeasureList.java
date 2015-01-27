@@ -52,7 +52,7 @@ public class Frag_UnitOfMeasureList extends Fragment {
 		// connues.
 		try {
 			energyId = Long.parseLong(mIntent.getStringExtra(mResources
-					.getString(R.string.INTENT_IN_UNITS_LIST_ID_OF_ENERGY)));
+					.getString(R.string.INTENT_IN____UNITS_LIST____ID_OF_ENERGY)));
 			generateList(energyId);
 		} catch (Exception e) {
 			generateList(WITH_NO_FILTER);
@@ -66,7 +66,7 @@ public class Frag_UnitOfMeasureList extends Fragment {
 	public void onClickUnit(View v, String id) {
 		Intent intent = new Intent(getActivity(), Act_UnitOfMeasureEditor.class);
 		intent.putExtra(mResources
-				.getString(R.string.INTENT_IN_UNITS_EDITOR_ID_OF_UNIT), id);
+				.getString(R.string.INTENT_IN____UNITS_EDITOR____ID_OF_UNIT), id);
 		startActivityForResult(intent, R.integer.ACTY_UNIT);
 
 	}
