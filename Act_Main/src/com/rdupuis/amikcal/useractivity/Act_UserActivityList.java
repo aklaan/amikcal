@@ -297,8 +297,8 @@ public class Act_UserActivityList extends Activity {
   	 */
   	public void onClickEdit(String id){
 	    Intent intent = new Intent(this,Act_UserActivity_EditorCommons.class);
-	 	intent.putExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_EDITOR____ID_OF_THE_USER_ACTIVITY), id);
-	 	intent.putExtra(mResources.getString(R.string.INTENT_IN____USER_ACTIVITY_EDITOR____DAY_OF_THE_USER_ACTIVITY), ToolBox.getSqlDate(currentDay));
+	 	intent.putExtra(mResources.getString(R.string.INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY), id);
+	 	intent.putExtra(mResources.getString(R.string.INTENT_IN____UA_EDITOR_COMMONS____DAY_OF_THE_USER_ACTIVITY), ToolBox.getSqlDate(currentDay));
 	 	startActivityForResult(intent, R.integer.ACTY_USER_ACTIVITY);
   	}
 

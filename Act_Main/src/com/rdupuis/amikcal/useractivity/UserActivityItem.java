@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.useractivity;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Intent;
 
@@ -13,6 +15,10 @@ public abstract class UserActivityItem {
 	}
 
 	public void edit() {
+
+	}
+
+	public void create(Calendar day) {
 
 	}
 

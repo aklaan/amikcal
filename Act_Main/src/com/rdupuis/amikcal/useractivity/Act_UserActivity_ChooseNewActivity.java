@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.ActivityType;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
@@ -52,8 +53,8 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	// il me semble important de référencer dans la classe les noms de variables
 	// attendues dans les INTENT. comme ça les autres classes peuvent savoir
 	// quel sont les noms de variables qui peuvent être traité.
-	static final String INTENT_IN____USER_ACTIVITY_EDITOR____ID_OF_THE_USER_ACTIVITY = "ID_OF_THE_USER_ACTIVITY";
-	static final String INTENT_IN____USER_ACTIVITY_EDITOR____DAY_OF_THE_USER_ACTIVITY = "DAY_OF_THE_USER_ACTIVITY";
+	//static final String INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY = "ID_OF_THE_USER_ACTIVITY";
+	static final String INTENT_IN____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY = "____DAY";
 	ContentResolver contentResolver;
 	UserActivity mUserActivity;
 
@@ -64,6 +65,19 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 
 		setContentView(R.layout.choose_activity);
 
+		// On tente de récupérer la date dans le bundle de l'activité si elle est présente
+		// si elle n'est pas présente, on met la date du jour.
+		try {
+
+			currentDay = ToolBox
+					.parseCalendar(getIntent().getStringExtra(Act_UserActivity_ChooseNewActivity.INTENT_IN____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
+
+		} catch (Exception e) {
+			currentDay = Calendar.getInstance();
+		}
+		;
+
+		
 	}
 
 	/**==============================================================================
@@ -81,7 +95,7 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 *******************************************************************************************/
 	public void onClickLunch(View v) {
 		UserActivityItem userActivityItem = new UserActivityLunchItem(this);
-		userActivityItem.edit();
+		userActivityItem.create(this.currentDay);
 	}
 
 	/*******************************************************************************************

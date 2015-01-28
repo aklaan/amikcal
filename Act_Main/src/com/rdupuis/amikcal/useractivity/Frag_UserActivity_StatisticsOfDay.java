@@ -3,7 +3,9 @@ package com.rdupuis.amikcal.useractivity;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
+
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.useractivity.Frag_UserActivity_StatisticsOfDay;
@@ -13,12 +15,10 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,43 +38,26 @@ import android.widget.TextView;
  * @version 0.1
  */
 
-public class Frag_UserActivity_StatisticsOfDay extends Fragment {
-
-	private ListView mCustomListView;
-	private Calendar currentDay;
-	private int currentTypeOfList;
-	private Intent mIntent;
-	private long selectedItemId;
-	private Resources mResources;
+public class Frag_UserActivity_StatisticsOfDay extends TimeSlidableFragment {
 
 	/** Called when the activity is first created. */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		// la première chose à faire est d'initialiser la date à afficher.
+		this.initCurrentDay();
+		
+		//on s'occupe de l'affichage
 		View mainView = inflater.inflate(R.layout.view_ua_statistics_of_day,
 				container, false);
-
-		mResources = getActivity().getResources();
-		mIntent = getActivity().getIntent();
-
-		// * on tente de récupérer la date dans le bundle si elle est présente
-		try {
-
-			currentDay = ToolBox
-					.parseCalendar(getArguments().getString("date"));
-
-		} catch (Exception e) {
-			currentDay = Calendar.getInstance();
-		}
-		;
-
+		
 		// Afficher la date du jour.
 		TextView tv = (TextView) mainView
 				.findViewById(R.id.view_ua_statistic_of_day_tv_date);
-		// ed.setText("Page " + page + " - " + ToolBox.getSqlDate(currentDay));
 		tv.setText(ToolBox.getSqlDate(currentDay));
 
+		//Afficher le nombre de calories du jour.
 		tv = (TextView) (TextView) mainView
 				.findViewById(R.id.view_ua_statistic_of_day_tv_nbcal_in);
 		tv.setText(getTotalEnergyOfDay(ToolBox.getSqlDate(currentDay)));
@@ -82,6 +65,12 @@ public class Frag_UserActivity_StatisticsOfDay extends Fragment {
 		return mainView;
 	};
 
+	
+	/**
+	 * Calculer le nombre total de calories pour une journée.
+	 * @param DateToSelect
+	 * @return
+	 */
 	protected String getTotalEnergyOfDay(String DateToSelect) {
 		String result = "";
 

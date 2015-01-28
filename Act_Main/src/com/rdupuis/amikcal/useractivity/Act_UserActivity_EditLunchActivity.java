@@ -20,15 +20,8 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 
 /**
- * <b>Ecran d'édition des activitées de l'utilisateur.</b>
- * <p> les activitées sont : 
- * <ul> 
- * 		<li> les repas </li>
- * 	<li> les activitées physiques </li>
- * <li> les pesées </li>
- * <li> les recettes </li>
- * </ul>
- * </p>
+ * <b>Ecran d'édition des repas de l'utilisateur.</b>
+ * 
  * @author Rodolphe Dupuis
  * @version 0.1
  */
@@ -49,7 +42,12 @@ public class Act_UserActivity_EditLunchActivity extends Act_UserActivity_EditorC
 	public void createNewUserActivity(){
 	this.mUserActivity = new UserActivityLunch();
 	this.mUserActivity.set_id(this.NO_ID);
-	};
+	this.mUserActivity.setDay(this.currentDay);
+    
+    
+    
+    
+    };
 	
   
     /******************************************************************************************

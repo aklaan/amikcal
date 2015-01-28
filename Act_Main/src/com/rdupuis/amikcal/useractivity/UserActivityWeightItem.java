@@ -24,11 +24,11 @@ public class UserActivityWeightItem extends UserActivityItem {
 		Intent intent = new Intent(this.mActivity,
 				Act_UserActivity_EditWeightActivity.class);
 		intent.putExtra(
-				Act_UserActivity_EditorCommons.INTENT_IN____USER_ACTIVITY_EDITOR____ID_OF_THE_USER_ACTIVITY,
+				Act_UserActivity_EditorCommons.INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY,
 				this.mUserActivity._id);
 		/*
 		 * intent.putExtra( Act_UserActivity_EditorCommons.
-		 * INTENT_IN____USER_ACTIVITY_EDITOR____DAY_OF_THE_USER_ACTIVITY,
+		 * INTENT_IN____UA_EDITOR_COMMONS____DAY_OF_THE_USER_ACTIVITY,
 		 * ToolBox.getSqlDate(getCurrentDay()));
 		 */
 		// intent.putExtra("page", getCurrentPage());

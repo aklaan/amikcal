@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.recipe;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -12,7 +12,9 @@ import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
+import com.rdupuis.amikcal.recipe.Frag_RecipeList;
+import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
+import com.rdupuis.amikcal.useractivity.UserActivityItem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,36 +35,45 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 /**
- * <b>Liste des activitées de l'utilisateur pour un jour donné.</b> il est aussi
- * prévu d'affichier des liste de recettes mais je pense que le découpage est à
- * revoir
- * 
+ * <b>Liste des activitées de l'utilisateur pour un jour donné.</b>
+ *    il est aussi prévu d'affichier des liste de recettes mais je pense que le découpage est à revoir
+ *    
  * @author Rodolphe Dupuis
  * @version 0.1
  */
 
-public class Frag_UserActivityList extends TimeSlidableFragment {
+
+
+
+public class Frag_RecipeList extends TimeSlidableFragment {
 
 	private ListView mCustomListView;
-	private long selectedItemId;
 	
+	private int currentTypeOfList;
+	private Intent mIntent;
+	private long selectedItemId;
+	private Resources mResources;
+
+	public final String INTENT_IN____USER_ACTIVITY_LIST____TYPE_OF_LIST = "USER_ACTIVITY_LIST____TYPE_OF_LIST";
 
 	/** Called when the activity is first created. */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		// on initialise la date a traiter
+		//on initialise la date a traiter
 		this.initCurrentDay();
-
+		
 		// On affiche le layer souhaité
 		View mainView = inflater.inflate(R.layout.view_useractivities_list,
 				container, false);
 
 		// on récupère la listView du layer
 		mCustomListView = (ListView) mainView.findViewById(R.id.listviewperso);
-		
+		mResources = getActivity().getResources();
+		mIntent = getActivity().getIntent();
 
+		
 		// Afficher la date du jour.
 		TextView tv = (TextView) mainView.findViewById(R.id.fragtextView);
 
@@ -72,6 +83,16 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		// On tente de récupérer le type de liste à afficher si l'intent nous
 		// en a envoyé un
+		try {
+			currentTypeOfList = Integer
+					.parseInt(mIntent
+							.getStringExtra(this.INTENT_IN____USER_ACTIVITY_LIST____TYPE_OF_LIST));
+		} catch (Exception e) {
+			currentTypeOfList = mResources
+					.getInteger(R.integer.USER_ACTIVITY_LIST_ACTIVITY);
+
+		}
+		;
 
 		refreshScreen();
 		return mainView;
@@ -88,23 +109,31 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		// this.setResult(Activity.RESULT_OK, mIntent);
 	}
 
-	/**
-	 * ======================================================================
+	/**======================================================================
 	 * <p>
 	 * On affiche la liste des activitées.
 	 * </p>
-	 * ======================================================================
-	 */
+	 ======================================================================*/
 
 	protected void generateList() {
 
-		// On prépare la requête pour rappatrier les activitées du jour
 		Uri request;
-		request = ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE
-				.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
 
-		// On crée une liste d'item différents selon le type d'activité à
-		// afficher (lunch / move / weight).
+		if (currentTypeOfList == mResources
+				.getInteger(R.integer.USER_ACTIVITY_LIST_RECIPE)) {
+			request = ContentUris
+					.withAppendedId(
+							ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES_BY_TYPE,
+							mResources.getInteger(R.integer.ACTIVITY_RECIPE));
+
+		} else {
+			request = ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE
+					.buildUpon().appendPath(ToolBox.getSqlDate(currentDay))
+					.build();
+		}
+		;
+
+		//on crée une liste d'item différents selon le type d'information à afficher.
 		MultipleItemsActivityList mMultipleItemsList = new MultipleItemsActivityList(
 				this);
 
@@ -112,11 +141,9 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
 
-		//Création du curseur
 		Cursor cur = getActivity().getContentResolver().query(request, null,
 				null, null, null);
 
-		//Initialisation des index où récupérer les infos
 		final int INDX_COL_ID = cur
 				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.ID);
 		final int INDX_COL_TITLE = cur
@@ -126,7 +153,6 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		final int INDX_COL_TYPE = cur
 				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.TYPE);
 
-		//Lecture du curseur
 		if (cur.moveToFirst()) {
 
 			do {
@@ -162,8 +188,6 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		this.mCustomListView.setAdapter(mMultipleItemsList);
 
 		// Enfin on met un écouteur d'évènement sur notre listView
-		// ceci va nous permetre d'interagir lorsque l'utilisateur va clicker sur
-		// un item.
 		this.mCustomListView.setOnItemClickListener(new OnItemClickListener() {
 			// @Override
 			@SuppressWarnings("unchecked")
@@ -174,7 +198,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 				HashMap<String, String> map = (HashMap<String, String>) mCustomListView
 						.getItemAtPosition(position);
 
-				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this
+				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_RecipeList.this
 						.getActivity();
 				ua.setCurrentPage(Integer.parseInt(getArguments().getString(
 						"page")));
@@ -185,7 +209,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		// Enfin on met un écouteur d'évènement long sur notre listView
 		// on crée un OnItemLongClickListener sur lequel on va redéfinir la
-		// méthode onItemLongClick
+		// méthode
+		// onItemLongClick
 		mCustomListView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 					// @Override
@@ -199,7 +224,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 								.getItemAtPosition(position);
 
 						// on alimentente l'Id de l'item selectionné
-						Frag_UserActivityList.this.selectedItemId = Long
+						Frag_RecipeList.this.selectedItemId = Long
 								.parseLong(map.get("id"));
 						// On alimente le type de l'Item séléctionné
 
@@ -232,11 +257,9 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
 
-										long item_id = Frag_UserActivityList.this.selectedItemId;
-
-										Activity currentActivity = Frag_UserActivityList.this
+										long item_id = Frag_RecipeList.this.selectedItemId;
+										Activity currentActivity = Frag_RecipeList.this
 												.getActivity();
-										
 										AmiKcalFactory factory = new AmiKcalFactory();
 
 										factory.contentResolver = currentActivity
@@ -284,22 +307,23 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 	}
 
-	
 	/**
-	 * =============================================================== 
-	 * cleanList : Efface tous les items de la liste affiché à l'écran
-	 * ===============================================================
+	 * Efface tous les items de la liste affiché à l'écran
 	 */
+	/**=======================================================
+	 * cleanList
+	 * 
+	 * ====================================================== */
 	protected void cleanList() {
 		mCustomListView.removeAllViewsInLayout();
 	}
 
-	/**
-	 * ======================================================= 
-	 * computeEnergy : Calcule l'énergie pour une activité
-	 * ======================================================
-	 */
-
+	
+	/**=======================================================
+	 * computeEnergy
+	 * 
+	 * ====================================================== */
+	 
 	private HashMap<String, String> computeEnergy(long UserActivityId) {
 
 		HashMap<String, String> map;
@@ -360,11 +384,10 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 	}
 
-	/**
-	 * ======================================================= 
-	 * refreshScreen : rafraichir l'écran
-	 * ======================================================
-	 */
+	/**=======================================================
+	 * refreshScreen
+	 * 
+	 * ====================================================== */
 	public void refreshScreen() {
 
 		cleanList();

@@ -79,8 +79,8 @@
     <string name="ONCLICKBACK">onClickBack</string>
     <string name="espacevide"></string>
     <string name="TITLE_PHYSICAL_ACTIVITY">Activitée physique</string>
-    <string name="INTENT_IN____USER_ACTIVITY_EDITOR____DAY_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_DayYYY_MM_DD</string>
-    <string name="INTENT_IN____USER_ACTIVITY_EDITOR____ID_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_id</string>
+    <string name="INTENT_IN____UA_EDITOR_COMMONS____DAY_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_DayYYY_MM_DD</string>
+    <string name="INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_id</string>
     <string name="INTENT_IN____NAME_FOR_UA_FRAGMENTSLIDER_DAY">IN_UA_FragmentSlider_DayYYY_MM_DD</string>
     <string name="INTENT_IN____USER_ACTIVITY_LIST____TYPE_OF_LIST">UserActivityList_IN_TypeOfList</string>
     <string name="INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY">UserActivityComponentList_IN_UserActivityId</string>

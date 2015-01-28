@@ -42,10 +42,11 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		return mCurrentDay;
 	}
 
-	/**===============================================================
-	 * onCreate
+	/**
+	 * =============================================================== onCreate
 	 *
-	 ===============================================================*/
+	 * ===============================================================
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -99,13 +100,14 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	}
 
-	/**===============================================================
-	 * onUpdateGroup
-	 * on override la méthode onUpdateGroup pour mémoriser la date a laquelle
-	 * l'utilisateur s'est positioné. (non-Javadoc)
+	/**
+	 * ===============================================================
+	 * onUpdateGroup on override la méthode onUpdateGroup pour mémoriser la date
+	 * a laquelle l'utilisateur s'est positioné. (non-Javadoc)
 	 * 
 	 * @see com.rdupuis.amikcal.commons.Generic_FragmentsSlider#onUpdateGroup()
-	 ===============================================================*/
+	 *      ===============================================================
+	 */
 	@Override
 	protected void onUpdateGroup() {
 
@@ -120,11 +122,12 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		 */
 	}
 
-	/**===============================================================
-	 * getViewMode
-	 * Cette fonction va retourner le nom de la vue a afficher selon le niveau
-	 * de zoom sur lequel on se trouve.
-	 ===============================================================*/
+	/**
+	 * ===============================================================
+	 * getViewMode Cette fonction va retourner le nom de la vue a afficher selon
+	 * le niveau de zoom sur lequel on se trouve.
+	 * ===============================================================
+	 */
 	private ViewMode getViewMode(int zoomLevel) {
 
 		switch (zoomLevel) {
@@ -146,14 +149,13 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		return ViewMode.STATISTIC_VIEW_OF_DAY;
 	};
 
-	
-	
-	/**===============================================================
-	 * getFagmentClassName
-	 *  Cette fonction va retourner le nom de la classe de fragment a utiliser
-	 * pour afficher le type de la vue souhaitee.
-	 ===============================================================*/
-	
+	/**
+	 * ===============================================================
+	 * getFagmentClassName Cette fonction va retourner le nom de la classe de
+	 * fragment a utiliser pour afficher le type de la vue souhaitee.
+	 * ===============================================================
+	 */
+
 	private String getFagmentClassName(ViewMode viewMode) {
 
 		switch (viewMode) {
@@ -171,25 +173,31 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		return "";
 	};
 
-	
-	/**===============================================================
+	/**
+	 * ===============================================================
 	 * onClickActivity
-	 ===============================================================*/
+	 * ===============================================================
+	 */
 	public void onClickActivity(String id) {
 		Intent intent = new Intent(this, Act_UserActivityComponentList.class);
-		intent.putExtra(Act_UserActivityComponentList.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY,
-								id);
+		intent.putExtra(
+				Act_UserActivityComponentList.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY,
+				id);
 		intent.putExtra("page", getCurrentPage());
-		startActivityForResult(intent,Act_UserActivityComponentList.ACTIVITY_ID);
-				
+		startActivityForResult(intent,
+				Act_UserActivityComponentList.ACTIVITY_ID);
+
 	};
 
-
-	/**===============================================================
+	/**
+	 * ===============================================================
 	 * onClickDelete
+	 * 
 	 * @param id
 	 *            Identifiant de l'activitee utilisateur a supprimer
-	 ===============================================================*/
+	 *            ============
+	 *            ===================================================
+	 */
 	public void onClickDelete(String id) {
 
 		// A faire : verifier s'il y a des enfants
@@ -202,30 +210,42 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	}
 
-	/** =============================================================================
-	* onClickAdd
-	* Action a effectuer lorsque l'on appuie sur le bouton ADD
-	* on appelle l'ecran de choix d'une activitee
-	* ============================================================================= */ 
-	
+	/**
+	 * ========================================================================
+	 * ===== onClickAdd Action a effectuer lorsque l'on appuie sur le bouton ADD
+	 * on appelle l'ecran de choix d'une activitee
+	 * ==============================
+	 * ===============================================
+	 */
+
 	public void onClickAdd() {
 		// /appeler l'activité
 		Intent intent = new Intent(this,
 				Act_UserActivity_ChooseNewActivity.class);
-		
-		// en regardant si l'activité est présente dans le PackageManager, on évite de 
+
+		intent.putExtra(
+				Act_UserActivity_ChooseNewActivity.INTENT_IN____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY,
+				ToolBox.getSqlDate(this.mCurrentDay));
+
+		// en regardant si l'activité est présente dans le PackageManager, on
+		// évite de
 		// planter si on a oublié de déclarer l'activité dans le Manifest.
 		if (intent.resolveActivity(getPackageManager()) != null) {
 			startActivity(intent);
-			
-		} else Toast.makeText(this, "Activité Act_UserActivity_ChooseNewActivity non trouvée",
-			Toast.LENGTH_SHORT).show();
+
+		} else
+			Toast.makeText(this,
+					"Activité Act_UserActivity_ChooseNewActivity non trouvée",
+					Toast.LENGTH_SHORT).show();
 
 	}
 
-	/** =============================================================================
-	* onCreateOptionsMenu
-	* ============================================================================= */
+	/**
+	 * ========================================================================
+	 * ===== onCreateOptionsMenu
+	 * ================================================
+	 * =============================
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.actionbar_activities, menu);
@@ -233,9 +253,12 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	}
 
-	/** =============================================================================
-	* onPrepareOptionsMenu
-	* ============================================================================= */
+	/**
+	 * ========================================================================
+	 * ===== onPrepareOptionsMenu
+	 * ================================================
+	 * =============================
+	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		switch (mZoomLevel) {
@@ -258,9 +281,12 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	}
 
-	/** =============================================================================
-	* onOptionsItemSelected
-	* ============================================================================= */
+	/**
+	 * ========================================================================
+	 * ===== onOptionsItemSelected
+	 * ==============================================
+	 * ===============================
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean iSrefreshViewNeeded = false;
@@ -283,7 +309,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 			// ajout d'une nouvelle activitée
 			// il faudrait appller l'activitée de choix
 			this.onClickAdd();
-			//onClickEdit(null, null, null);
+			// onClickEdit(null, null, null);
 			break;
 
 		default:
@@ -311,14 +337,13 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	}
 
 	/**
-	 * ==========================================================================
-	 * == Si la classe a lancé une activité, on rafraichit l'écran au retour
+	 * ========================================================================
+	 * == == Si la classe a lancé une activité, on rafraichit l'écran au retour
 	 * afin de tenir compte des éventuelles mise à jours (non-Javadoc)
 	 * 
 	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
-	 * android.content.Intent)
-	 * ==================================================
-	 
+	 *      android.content.Intent)
+	 *      ==================================================
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
@@ -327,10 +352,13 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 				.notifyDataSetChanged();
 
 	}
-	
-	/** =============================================================================
-	* onSaveInstanceState
-	* ============================================================================= */
+
+	/**
+	 * ========================================================================
+	 * ===== onSaveInstanceState
+	 * ================================================
+	 * =============================
+	 */
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 		//
