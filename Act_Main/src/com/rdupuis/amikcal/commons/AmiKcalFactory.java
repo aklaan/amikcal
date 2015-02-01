@@ -189,7 +189,7 @@ public final class AmiKcalFactory {
 	 * @param _id
 	 * @return (UserActivityObj) un objet "Activité d'utilisateur"
 	 **/
-	public UserActivity createUserActivityObjFromId(long _id) {
+	public UserActivity reloadUserActivityObjFromId(long _id) {
 
 		Uri request = ContentUris.withAppendedId(
 				ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES,
@@ -248,7 +248,8 @@ public final class AmiKcalFactory {
 	
 	
 	public UserActivityItem createUserActivityItemFromId(Activity activity, long _id){
-		UserActivity userActivity = createUserActivityObjFromId(_id);
+		UserActivity userActivity = reloadUserActivityObjFromId(_id);
+		
 		UserActivityItem userActivityItem = null;
 		
 		// en fonction du type d'activitée, on va retourner l'objet adequat

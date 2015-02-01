@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.ActivityType;
+import com.rdupuis.amikcal.commons.AmikcalVar;
 
 public class UserActivityWeightItem extends UserActivityItem {
 
@@ -23,8 +24,7 @@ public class UserActivityWeightItem extends UserActivityItem {
 	public void edit() {
 		Intent intent = new Intent(this.mActivity,
 				Act_UserActivity_EditWeightActivity.class);
-		intent.putExtra(
-				Act_UserActivity_EditorCommons.INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY,
+		intent.putExtra(AmikcalVar.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
 				this.mUserActivity._id);
 		/*
 		 * intent.putExtra( Act_UserActivity_EditorCommons.

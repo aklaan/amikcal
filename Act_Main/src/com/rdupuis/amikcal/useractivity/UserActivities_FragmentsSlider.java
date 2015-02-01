@@ -175,7 +175,10 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	/**
 	 * ===============================================================
-	 * onClickActivity
+	 * onClickActivity : Action a effectuer lorque l'utilisateur
+	 * a séléctioné un item "UserActivity" dans une liste d'Activity
+	 * 
+	 *  - On affiche la liste des composants de l'activitée
 	 * ===============================================================
 	 */
 	public void onClickActivity(String id) {
@@ -212,9 +215,9 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	/**
 	 * ========================================================================
-	 * ===== onClickAdd Action a effectuer lorsque l'on appuie sur le bouton ADD
-	 * on appelle l'ecran de choix d'une activitee
-	 * ==============================
+	 *  onClickAdd:
+	 *  Action a effectuer lorsque l'on appuie sur le bouton ADD de la barre de menu
+	 *  on appelle l'ecran de choix d'une activitee
 	 * ===============================================
 	 */
 
@@ -231,19 +234,20 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		// évite de
 		// planter si on a oublié de déclarer l'activité dans le Manifest.
 		if (intent.resolveActivity(getPackageManager()) != null) {
-			startActivity(intent);
+
+			//il faut faire un startActivityForResult pour déclancher le 
+			// onActivityResult qui va permettre le rafraichissement de l'écran
+			startActivityForResult(intent, 0);
 
 		} else
 			Toast.makeText(this,
 					"Activité Act_UserActivity_ChooseNewActivity non trouvée",
 					Toast.LENGTH_SHORT).show();
-
 	}
 
 	/**
 	 * ========================================================================
 	 * ===== onCreateOptionsMenu
-	 * ================================================
 	 * =============================
 	 */
 	@Override

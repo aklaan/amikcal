@@ -24,7 +24,6 @@ public abstract class UserActivityItem {
 
 	
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
-    
-	this.mActivity.setResult(0, intent);
+    this.mActivity.setResult(0, intent);
 	}
 }

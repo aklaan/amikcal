@@ -101,5 +101,5 @@
     <string name="title_nblip_in">nb lipides</string>
         <string name="title_eat_bonus">bonus aliments</string>
     <string name="title_phys_activity_bonus">bonus activité physique</string>
-
+    <string name="INPUT____UA_EDITOR_LUNCH____ID_OF_THE_USER_ACTIVITY">___id</string>
 </resources>

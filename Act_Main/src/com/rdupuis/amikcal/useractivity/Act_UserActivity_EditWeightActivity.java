@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AmikcalVar;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
@@ -80,7 +82,7 @@ public class Act_UserActivity_EditWeightActivity extends Act_UserActivity_Editor
     	mUserActivity.getDay().set(Calendar.MINUTE, tp.getCurrentMinute().intValue());
     		
 
-    	if (mUserActivity.get_id()==NO_ID){
+    	if (mUserActivity.get_id()==AmikcalVar.NO_ID){
     		insert();
     	} else {
     		update();
@@ -97,7 +99,7 @@ public class Act_UserActivity_EditWeightActivity extends Act_UserActivity_Editor
     	ContentValues val = new ContentValues();
         
     	
-    	val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity.get_id()==NO_ID)?null:mUserActivity.get_id());
+    	val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity.get_id()==AmikcalVar.NO_ID)?null:mUserActivity.get_id());
     	val.put(ContentDescriptorObj.UserActivities.Columns.TITLE, mUserActivity.getTitle());
     	val.put(ContentDescriptorObj.UserActivities.Columns.DATE, ToolBox.getSqlDateTime(mUserActivity.getDay()));
     	

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.ActivityType;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.AmikcalVar;
 import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -48,13 +49,6 @@ public class Act_UserActivity_EditorCommons extends Activity {
 	Calendar currentDay;
 	long currentId;
 	Resources mResources;
-	final long NO_ID = -1l;
-
-	// il me semble important de référencer dans la classe les noms de variables
-	// attendues dans les INTENT. comme ça les autres classes peuvent savoir
-	// quel sont les noms de variables qui peuvent être traité.
-	static final String INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY = "____ID";
-	static final String INTENT_IN____UA_EDITOR_COMMONS____DAY = "____DAY";
 
 	// ne doit pas servir car si on fait un nouveau, on prend la date du jour
 	// et si on edite un existant, la date est déjà connue
@@ -73,81 +67,77 @@ public class Act_UserActivity_EditorCommons extends Activity {
 		contentResolver = this.getContentResolver();
 		mResources = getResources();
 
-		// On tente de récupérer la date dans le bundle de l'activité si elle
-		// est présente
-		// si elle n'est pas présente, on met la date du jour.
-		try {
+				// on essaie de recharger l'objet à éditer
+		long _id = getIntent().getLongExtra(
+				AmikcalVar.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
+				AmikcalVar.NO_ID);
 
-			currentDay = ToolBox.parseCalendar(getIntent().getStringExtra(
-					INTENT_IN____UA_EDITOR_COMMONS____DAY));
+		if (_id != AmikcalVar.NO_ID) {
+			reloadUserActivity(_id);
 
-		} catch (Exception e) {
-			currentDay = Calendar.getInstance();
+			Toast.makeText(this, "Edition", Toast.LENGTH_LONG).show();
+		} else {
+			// si le rechargement échoue on en crée un nouveau
+
+			this.mUserActivity = new UserActivityLunch();
 		}
 		;
 
-		// On récupère de l'Intent l'ID de l'activité séléctionnée.
-		// si cet ID est null c'est que l'utilisateur souhaite créer une
-		// nouvelle activitée
-		try {
-
-			long _id = Long
-					.parseLong(mIntent
-							.getStringExtra(INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY));
-
-			reloadUserActivity(_id);
-		} catch (Exception e) {
-
-			createNewUserActivity();
-
-			// mUserActivity.setDay(currentDay);
-		}
-
-		// * choix de la vue a afficher en fonction du type d'activité choisie
-		if (this.mUserActivity.getType() == ActivityType.LUNCH) {
-			setContentView(R.layout.view_edit_lunch);
-			refreshScreen();
-
-		} else if (this.mUserActivity.getType() == ActivityType.MOVE) {
-
-			setContentView(R.layout.view_edit_physical_activity);
-			refreshScreen();
-		} else if (this.mUserActivity.getType() == ActivityType.WEIGHT) {
-
-			setContentView(R.layout.view_edit_weight);
-
-			TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-
-			tv.setText(String.valueOf(((UserActivityWeight) mUserActivity)
-					.getWeight().getInt_part()));
-			tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-			tv.setText(String.valueOf(((UserActivityWeight) mUserActivity)
-					.getWeight().getDecimalPart()));
-			refreshScreen();
-		} else {
-			setContentView(R.layout.choose_activity);
-		}
-
+		/*
+		 * // On tente de récupérer la date dans le bundle de l'activité si elle
+		 * // est présente // si elle n'est pas présente, on met la date du
+		 * jour. try {
+		 * 
+		 * currentDay = ToolBox.parseCalendar(getIntent().getStringExtra(
+		 * INTENT_IN____UA_EDITOR_COMMONS____DAY));
+		 * 
+		 * } catch (Exception e) { currentDay = Calendar.getInstance(); } ;
+		 * 
+		 * // On récupère de l'Intent l'ID de l'activité séléctionnée. // si cet
+		 * ID est null c'est que l'utilisateur souhaite créer une // nouvelle
+		 * activitée try {
+		 * 
+		 * long _id = Long .parseLong(mIntent
+		 * .getStringExtra(INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY
+		 * ));
+		 * 
+		 * reloadUserActivity(_id); } catch (Exception e) {
+		 * 
+		 * createNewUserActivity();
+		 * 
+		 * // mUserActivity.setDay(currentDay); }
+		 * 
+		 * // * choix de la vue a afficher en fonction du type d'activité
+		 * choisie if (this.mUserActivity.getType() == ActivityType.LUNCH) {
+		 * setContentView(R.layout.view_edit_lunch); refreshScreen();
+		 * 
+		 * } else if (this.mUserActivity.getType() == ActivityType.MOVE) {
+		 * 
+		 * setContentView(R.layout.view_edit_physical_activity);
+		 * refreshScreen(); } else if (this.mUserActivity.getType() ==
+		 * ActivityType.WEIGHT) {
+		 * 
+		 * setContentView(R.layout.view_edit_weight);
+		 * 
+		 * TextView tv = (TextView)
+		 * findViewById(R.id.userActivity_Editor_tv_kilos);
+		 * 
+		 * tv.setText(String.valueOf(((UserActivityWeight) mUserActivity)
+		 * .getWeight().getInt_part())); tv = (TextView)
+		 * findViewById(R.id.userActivity_Editor_tv_grammes);
+		 * tv.setText(String.valueOf(((UserActivityWeight) mUserActivity)
+		 * .getWeight().getDecimalPart())); refreshScreen(); } else {
+		 * setContentView(R.layout.choose_activity); }
+		 */
 	}
 
 	// fin du onCreate
-
-	public void createNewUserActivity() {
-		this.mUserActivity.set_id(NO_ID);
-		this.mUserActivity.setDay(this.currentDay);
-	};
-
-	/**
-	 * ========================================================================
-	 * 
-	 * ========================================================================
-	 */
 
 	public void reloadUserActivity(long _id) {
 
 		AmiKcalFactory factory = new AmiKcalFactory();
 		factory.contentResolver = this.getContentResolver();
-		this.mUserActivity = factory.createUserActivityObjFromId(_id);
+		this.mUserActivity = factory.reloadUserActivityObjFromId(_id);
 
 	}
 
@@ -179,7 +169,7 @@ public class Act_UserActivity_EditorCommons extends Activity {
 		mUserActivity.getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (mUserActivity.get_id() == NO_ID) {
+		if (mUserActivity.get_id() == AmikcalVar.NO_ID) {
 			insert();
 		} else {
 			update();
@@ -196,7 +186,7 @@ public class Act_UserActivity_EditorCommons extends Activity {
 		ContentValues val = new ContentValues();
 
 		val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity
-				.get_id() == NO_ID) ? null : mUserActivity.get_id());
+				.get_id() == AmikcalVar.NO_ID) ? null : mUserActivity.get_id());
 		val.put(ContentDescriptorObj.UserActivities.Columns.TITLE,
 				mUserActivity.getTitle());
 		val.put(ContentDescriptorObj.UserActivities.Columns.DATE,

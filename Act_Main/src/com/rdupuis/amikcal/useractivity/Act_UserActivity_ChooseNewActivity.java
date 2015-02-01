@@ -85,7 +85,9 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 * au retour de l'appel à l'écran d'édition, on ferme l'activitée
 	 ===============================================================================*/
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+		setResult(RESULT_OK, mIntent);
 		this.finish();
+	
 	}
 	
 	// fin du onCreate

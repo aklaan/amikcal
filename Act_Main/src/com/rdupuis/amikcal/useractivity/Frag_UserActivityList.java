@@ -176,8 +176,13 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this
 						.getActivity();
+				
+				//----------------------------------------------------------------
+				//A voir si c'est utile de garder la page
 				ua.setCurrentPage(Integer.parseInt(getArguments().getString(
 						"page")));
+				
+				//-----------------------------------------------------------------
 				ua.onClickActivity(map.get("id"));
 
 			}
@@ -371,4 +376,10 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		generateList();
 	}
 
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent){
+		refreshScreen();
+	}
+	
+	
 }

@@ -6,9 +6,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
+import com.rdupuis.amikcal.Act_Main;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.ActivityType;
+import com.rdupuis.amikcal.commons.AmikcalVar;
 import com.rdupuis.amikcal.commons.ToolBox;
 
 public class UserActivityLunchItem extends UserActivityItem {
@@ -21,15 +24,14 @@ public class UserActivityLunchItem extends UserActivityItem {
 	// Dans le cas d'une mise à jour on appelle l'éditeur avec l'ID de 
 	// l'activité à modifier
 	public void edit() {
+				
 		Intent intent = new Intent(this.mActivity,
 				Act_UserActivity_EditLunchActivity.class);
-		intent.putExtra(
-				Act_UserActivity_EditorCommons.INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY,
+		intent.putExtra(AmikcalVar.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
 				this.mUserActivity._id);
 		
 		this.mActivity
-				.startActivityForResult(intent, this.mActivity.getResources()
-						.getInteger(R.integer.ACTY_USER_ACTIVITY_EDITOR));
+				.startActivityForResult(intent, 0);
 	}
 
 	
@@ -38,16 +40,19 @@ public class UserActivityLunchItem extends UserActivityItem {
 	public void create(Calendar day){
 		Intent intent = new Intent(this.mActivity,
 				Act_UserActivity_EditLunchActivity.class);
-		
-		  intent.putExtra( Act_UserActivity_EditorCommons.INTENT_IN____UA_EDITOR_COMMONS____DAY
-		  , ToolBox.getSqlDate(day));
-		
-		
+				  intent.putExtra( AmikcalVar.INPUT____UA_EDITOR____DAY , ToolBox.getSqlDate(day));
+			
 		this.mActivity
-				.startActivityForResult(intent, this.mActivity.getResources()
-						.getInteger(R.integer.ACTY_USER_ACTIVITY_EDITOR));
+				.startActivityForResult(intent, 0);
 
 		
 	}
+	
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent){
+		Toast.makeText(this.mActivity, "on result lunchitem",
+                Toast.LENGTH_LONG).show();
+	}
+
 	
 }
