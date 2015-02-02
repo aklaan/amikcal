@@ -1,15 +1,17 @@
 package com.rdupuis.amikcal.useractivity;
 
-
-
-import com.rdupuis.amikcal.commons.ActivityType;
-
 public class UserActivityLunch extends UserActivity{
 
+	
+	public enum LunchType {
+		BREAKFAST,LUNCH,DINER,SNACK,UNKNOWN
+		}
+
+	
 	public UserActivityLunch() {
 		super();
 		
-		this.type = ActivityType.LUNCH;
+		this.type = UserActivity.UAType.LUNCH;
 		this.set_id(this.NO_ID);
 		
 

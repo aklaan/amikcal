@@ -3,14 +3,9 @@ package com.rdupuis.amikcal.useractivity;
 import java.util.Calendar;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-import com.rdupuis.amikcal.Act_Main;
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.ActivityType;
 import com.rdupuis.amikcal.commons.AmikcalVar;
 import com.rdupuis.amikcal.commons.ToolBox;
 

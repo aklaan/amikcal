@@ -3,9 +3,6 @@ package com.rdupuis.amikcal.useractivity;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.rdupuis.amikcal.commons.ActivityType;
-import com.rdupuis.amikcal.commons.WeightObj;
-
 import android.graphics.Picture;
 
 public abstract class UserActivity {
@@ -13,12 +10,17 @@ public abstract class UserActivity {
 	public Long _id;
 	public Calendar day;
 	private String title;
-	public ActivityType type; // moving / eating / cooking
+	public UAType type; // moving / eating / cooking
 	public int score;
 	public Picture picture;
 	public Date last_update;
 	final long NO_ID = -1l;
 
+	
+	public enum UAType {
+		LUNCH,WEIGHT,MOVE
+		}
+	
 	public UserActivity() {
 		this.day = Calendar.getInstance();
 		this.title = "";
@@ -33,17 +35,17 @@ public abstract class UserActivity {
 		this._id = _id;
 	}
 
-	public ActivityType getType() {
+	public UAType getType() {
 		return type;
 	}
 
-	public void setType(ActivityType type) {
+	public void setType(UAType type) {
 		this.type = type;
 	}
 
 	public void setTypeByName(String typeName) {
 
-		this.type = ActivityType.valueOf(typeName);
+		this.type = UserActivity.UAType.valueOf(typeName);
 		
 
 	}

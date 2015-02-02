@@ -45,12 +45,14 @@ public class Act_UserActivity_EditMoveActivity extends Act_UserActivity_EditorCo
                 
         	
         	 	setContentView(R.layout.view_edit_physical_activity);
-        		super.refreshScreen();
+        		refreshScreen();
         
     }
     //fin du onCreate
     
-  
+  public void refreshScreen(){
+	  
+  }
     /******************************************************************************************
      * onClickOk : 
      *  - Mettre à jour les informations saisies dans la base de donnée
@@ -81,7 +83,7 @@ public class Act_UserActivity_EditMoveActivity extends Act_UserActivity_EditorCo
     		updateMove();
     		}
      
-    	closeActivity();
+    	closeEditor();
     }
     
     /******************************************************************************************
@@ -122,6 +124,12 @@ public class Act_UserActivity_EditMoveActivity extends Act_UserActivity_EditorCo
     	ContentValues val = getContentValues();
     	this.getContentResolver().insert(ContentDescriptorObj.UserActivities.URI_INSERT_USER_ACTIVITIES, val);
     }
+
+	@Override
+	public ContentValues addSpecificValues(ContentValues val) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
     

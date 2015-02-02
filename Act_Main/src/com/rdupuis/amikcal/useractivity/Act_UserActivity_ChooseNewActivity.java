@@ -1,28 +1,18 @@
 package com.rdupuis.amikcal.useractivity;
 
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.ActivityType;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.commons.TimeSlidableFragment;
+import com.rdupuis.amikcal.commons.AmikcalVar;
 import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * <b>Ecran d'édition des activitées de l'utilisateur.</b>
@@ -50,11 +40,6 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	Resources mResources;
 	final long NO_ID = -1l;
 
-	// il me semble important de référencer dans la classe les noms de variables
-	// attendues dans les INTENT. comme ça les autres classes peuvent savoir
-	// quel sont les noms de variables qui peuvent être traité.
-	//static final String INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY = "ID_OF_THE_USER_ACTIVITY";
-	static final String INTENT_IN____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY = "____DAY";
 	ContentResolver contentResolver;
 	UserActivity mUserActivity;
 
@@ -70,7 +55,7 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 		try {
 
 			currentDay = ToolBox
-					.parseCalendar(getIntent().getStringExtra(Act_UserActivity_ChooseNewActivity.INTENT_IN____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
+					.parseCalendar(getIntent().getStringExtra(AmikcalVar.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
 
 		} catch (Exception e) {
 			currentDay = Calendar.getInstance();
@@ -105,7 +90,7 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 *******************************************************************************************/
 	public void onClickPhysicalActivity(View v) {
 		setContentView(R.layout.view_edit_physical_activity);
-		this.mUserActivity.setType(ActivityType.MOVE);
+		this.mUserActivity.setType(UserActivity.UAType.MOVE);
 		this.mUserActivity.setTitle(this.mResources
 				.getString(R.string.TITLE_PHYSICAL_ACTIVITY));
 	}
@@ -115,7 +100,7 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 *******************************************************************************************/
 	public void onClickWeight(View v) {
 		setContentView(R.layout.view_edit_weight);
-		this.mUserActivity.setType(ActivityType.WEIGHT);
+		this.mUserActivity.setType(UserActivity.UAType.WEIGHT);
 
 		// poids par defaut
 		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);

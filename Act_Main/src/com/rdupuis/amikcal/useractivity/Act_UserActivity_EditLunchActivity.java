@@ -8,6 +8,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
@@ -19,6 +20,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AmikcalVar;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.useractivity.UserActivityLunch.LunchType;
 
 /**
  * <b>Ecran d'édition des repas de l'utilisateur.</b>
@@ -29,15 +31,13 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 public class Act_UserActivity_EditLunchActivity extends
 		Act_UserActivity_EditorCommons {
 
-		/** Called when the activity is first created. */
+	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_edit_lunch);
-	
-		super.refreshScreen();
+		refreshScreen();
 
 	}
 
@@ -45,8 +45,7 @@ public class Act_UserActivity_EditLunchActivity extends
 
 	/******************************************************************************************
 	 * onClickOk : - Mettre à jour les informations saisies dans la base de
-	 * donnée - appeler la saisie d'un component (suivant le type moving /
-	 * eating)
+	 * donnée -
 	 * 
 	 * @param v
 	 *            vue
@@ -68,6 +67,7 @@ public class Act_UserActivity_EditLunchActivity extends
 
 		mUserActivity.getDay().set(Calendar.HOUR_OF_DAY,
 				tp.getCurrentHour().intValue());
+
 		mUserActivity.getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
@@ -76,91 +76,41 @@ public class Act_UserActivity_EditLunchActivity extends
 		// dans ce cas on l'insère dans la database
 		// dans le cas contraire, on la met à jour.
 		if (mUserActivity.get_id() == AmikcalVar.NO_ID) {
-			insertLunch();
+			insertUActivity();
 		} else {
-			updateLunch();
+			updateUActivity();
 		}
 
-		closeActivity();
+		closeEditor();
 	}
 
-	/******************************************************************************************
-	 * getContentValues
-	 ******************************************************************************************/
-	private ContentValues getLunchData() {
-
-		ContentValues val = new ContentValues();
-
-		val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity
-				.get_id() == AmikcalVar.NO_ID) ? null : mUserActivity.get_id());
-		val.put(ContentDescriptorObj.UserActivities.Columns.TITLE,
-				mUserActivity.getTitle());
-		val.put(ContentDescriptorObj.UserActivities.Columns.DATE,
-				ToolBox.getSqlDateTime(mUserActivity.getDay()));
-		val.put(ContentDescriptorObj.UserActivities.Columns.TYPE, mUserActivity
-				.getType().name());
-		val.put(ContentDescriptorObj.UserActivities.Columns.LAST_UPDATE,
-				ToolBox.getCurrentTimestamp());
-
-		return val;
-	}
-
-	/*******************************************************************************************
-	 * Méthode : update() metre à jour l'enregistrement
-	 *******************************************************************************************/
-	public void updateLunch() {
-		// On récupère la requête de mise à jour à laquelle on ajoute l'ID du
-		// repas à modifier.
-		Uri uriUpdate = ContentUris.withAppendedId(
-				ContentDescriptorObj.UserActivities.URI_UPDATE_USER_ACTIVITIES,
-				mUserActivity.get_id());
-		// on appelle la requête avec les nouvelles valeurs.
-		this.getContentResolver().update(uriUpdate, this.getLunchData(),
-				this.mUserActivity.get_id().toString(), null);
-	}
-
-	/*******************************************************************************************
-	 * Méthode : insert() insérer une nouvelle occurence
-	 *******************************************************************************************/
-	public void insertLunch() {
-		// On appelle la requête d'insert d'un nouveau repas
-		this.getContentResolver().insert(
-				ContentDescriptorObj.UserActivities.URI_INSERT_USER_ACTIVITIES,
-				getLunchData());
-	}
-
-	/*******************************************************************************************
-	 * Méthode : onClickLunch() Gestion du bouton repas
-	 *******************************************************************************************/
-
-	/*****************************************************************************************
+	/****************************************************
 	 * Gestion des radiobouton
-	 * **************************************************
-	 * *************************************
-	 */
+	 * 
+	 *****************************************************/
 
 	public void onClickRdioBreakfast(View v) {
-		setRdioLunch(1);
+		setRdioLunch(LunchType.BREAKFAST);
 	}
 
 	public void onClickRdioLunch(View v) {
-		setRdioLunch(2);
+		setRdioLunch(LunchType.LUNCH);
 	}
 
 	public void onClickRdioDiner(View v) {
-		setRdioLunch(3);
+		setRdioLunch(LunchType.DINER);
 	}
 
 	public void onClickRdioSnack(View v) {
-		setRdioLunch(4);
+		setRdioLunch(LunchType.SNACK);
 
 	}
 
 	/***********************************************************************************
-	  * 
-	  * 
-	  ************************************************************************************/
-	private void setRdioLunch(int i) {
+	 * 
+	 * 
+	 ************************************************************************************/
+	private void setRdioLunch(LunchType i) {
 
 		RadioButton rbBreakfast = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
 		RadioButton rbLunch = (RadioButton) findViewById(R.id.view_ua_editor_rdio_lunch);
@@ -174,24 +124,24 @@ public class Act_UserActivity_EditLunchActivity extends
 
 		switch (i) {
 
-		case 1:
+		case BREAKFAST:
 			rbBreakfast.setChecked(true);
-			this.mUserActivity.setTitle("Petit dejeuner");
+			this.mUserActivity.setTitle(i.name());
 			break;
 
-		case 2:
+		case LUNCH:
 			rbLunch.setChecked(true);
-			this.mUserActivity.setTitle("Déjeuner");
+			this.mUserActivity.setTitle(i.name());
 			break;
 
-		case 3:
+		case DINER:
 			rbDiner.setChecked(true);
-			this.mUserActivity.setTitle("Dîner");
+			this.mUserActivity.setTitle(i.name());
 			break;
 
-		case 4:
+		case SNACK:
 			rbSnack.setChecked(true);
-			this.mUserActivity.setTitle("Pause");
+			this.mUserActivity.setTitle(i.name());
 			break;
 		}
 
@@ -201,8 +151,13 @@ public class Act_UserActivity_EditLunchActivity extends
 	 * Méthode : refreshScreen() alimente les composants de la vue avec les
 	 * donnée de du UserActicity en cours
 	 *******************************************************************************************/
-	protected void refreshScreen() {
+	private void refreshScreen() {
+		this.refreshHour();
+		this.refreshLunchType();
 
+	}
+
+	private void refreshHour() {
 		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
 		tp.setIs24HourView(true);
 		// EditText edtxt = (EditText)
@@ -211,6 +166,51 @@ public class Act_UserActivity_EditLunchActivity extends
 		Calendar c = mUserActivity.getDay();
 		tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
 		tp.setCurrentMinute(c.get(Calendar.MINUTE));
+
+	}
+
+	private void refreshLunchType() {
+		// par defaut, le radioButton sélectionné est Breakfast
+		RadioButton radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
+		UserActivityLunch.LunchType type;
+		
+		//Au cas où le type de repas n'est pas reconnu on valorise le 
+		//type à UNKNOWN
+		try{
+		 type = UserActivityLunch.LunchType
+				.valueOf(this.mUserActivity.getTitle());
+		} catch (Exception e){
+		type = UserActivityLunch.LunchType.UNKNOWN;
+		}
+		
+		switch (type) {
+
+		case BREAKFAST:
+			radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
+			break;
+		case LUNCH:
+			radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_lunch);
+			break;
+		case DINER:
+			radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_diner);
+			break;
+		case SNACK : 
+				radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_snack);
+				break;
+		default :
+			//si le titre ne correspond pas un type connu ou est vide
+			//on initialise le titre a BREAKFAST par defaut
+			radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
+			this.mUserActivity.setTitle(UserActivityLunch.LunchType.BREAKFAST.name());
+		}
+
+		radioButton.setChecked(true);
+	}
+
+	@Override
+	public ContentValues addSpecificValues(ContentValues val) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

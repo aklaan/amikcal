@@ -2,7 +2,9 @@ package com.rdupuis.amikcal.commons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,7 +60,7 @@ import android.widget.TextView;
             
             HashMap<String, String> map = (HashMap<String, String>) getItem(position);
             
-            ActivityType mType = ActivityType.valueOf(map.get("type"));
+            UserActivity.UAType mType = UserActivity.UAType.valueOf(map.get("type"));
            
             
             TextView tv;

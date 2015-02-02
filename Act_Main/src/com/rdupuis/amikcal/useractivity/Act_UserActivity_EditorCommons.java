@@ -11,17 +11,14 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.ActivityType;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AmikcalVar;
-import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
@@ -40,7 +37,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  * @author Rodolphe Dupuis
  * @version 0.1
  */
-public class Act_UserActivity_EditorCommons extends Activity {
+public abstract class Act_UserActivity_EditorCommons extends Activity {
 
 	Intent mIntent;
 	Long mId;
@@ -63,76 +60,35 @@ public class Act_UserActivity_EditorCommons extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mIntent = getIntent();
-		contentResolver = this.getContentResolver();
-		mResources = getResources();
+		// mIntent = getIntent();
+		// contentResolver = this.getContentResolver();
+		// mResources = getResources();
 
-				// on essaie de recharger l'objet à éditer
+		
+		// dans l'Intent, on récupère l'id de l'objet à éditer
 		long _id = getIntent().getLongExtra(
 				AmikcalVar.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
 				AmikcalVar.NO_ID);
 
+		// si l'id de objet est correct, on tente de le recharger
 		if (_id != AmikcalVar.NO_ID) {
 			reloadUserActivity(_id);
 
 			Toast.makeText(this, "Edition", Toast.LENGTH_LONG).show();
 		} else {
-			// si le rechargement échoue on en crée un nouveau
-
+			// si l'id est NO_ID, c'est que l'on crée un nouvel objet depuis l'écran de choix
 			this.mUserActivity = new UserActivityLunch();
+			this.mUserActivity.setDay(ToolBox
+					.parseCalendar(getIntent().getStringExtra(AmikcalVar.INPUT____UA_EDITOR____DAY)));
+
 		}
 		;
 
-		/*
-		 * // On tente de récupérer la date dans le bundle de l'activité si elle
-		 * // est présente // si elle n'est pas présente, on met la date du
-		 * jour. try {
-		 * 
-		 * currentDay = ToolBox.parseCalendar(getIntent().getStringExtra(
-		 * INTENT_IN____UA_EDITOR_COMMONS____DAY));
-		 * 
-		 * } catch (Exception e) { currentDay = Calendar.getInstance(); } ;
-		 * 
-		 * // On récupère de l'Intent l'ID de l'activité séléctionnée. // si cet
-		 * ID est null c'est que l'utilisateur souhaite créer une // nouvelle
-		 * activitée try {
-		 * 
-		 * long _id = Long .parseLong(mIntent
-		 * .getStringExtra(INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY
-		 * ));
-		 * 
-		 * reloadUserActivity(_id); } catch (Exception e) {
-		 * 
-		 * createNewUserActivity();
-		 * 
-		 * // mUserActivity.setDay(currentDay); }
-		 * 
-		 * // * choix de la vue a afficher en fonction du type d'activité
-		 * choisie if (this.mUserActivity.getType() == ActivityType.LUNCH) {
-		 * setContentView(R.layout.view_edit_lunch); refreshScreen();
-		 * 
-		 * } else if (this.mUserActivity.getType() == ActivityType.MOVE) {
-		 * 
-		 * setContentView(R.layout.view_edit_physical_activity);
-		 * refreshScreen(); } else if (this.mUserActivity.getType() ==
-		 * ActivityType.WEIGHT) {
-		 * 
-		 * setContentView(R.layout.view_edit_weight);
-		 * 
-		 * TextView tv = (TextView)
-		 * findViewById(R.id.userActivity_Editor_tv_kilos);
-		 * 
-		 * tv.setText(String.valueOf(((UserActivityWeight) mUserActivity)
-		 * .getWeight().getInt_part())); tv = (TextView)
-		 * findViewById(R.id.userActivity_Editor_tv_grammes);
-		 * tv.setText(String.valueOf(((UserActivityWeight) mUserActivity)
-		 * .getWeight().getDecimalPart())); refreshScreen(); } else {
-		 * setContentView(R.layout.choose_activity); }
-		 */
 	}
 
 	// fin du onCreate
 
+	// Recharger une Activitée
 	public void reloadUserActivity(long _id) {
 
 		AmiKcalFactory factory = new AmiKcalFactory();
@@ -142,58 +98,48 @@ public class Act_UserActivity_EditorCommons extends Activity {
 	}
 
 	/******************************************************************************************
-	 * onClickOk : - Mettre à jour les informations saisies dans la base de
-	 * donnée - appeler la saisie d'un component (suivant le type moving /
-	 * eating)
-	 * 
-	 * @param v
-	 *            vue
-	 ******************************************************************************************/
-	public void onClickOk(View v) {
-
-		// récupérer l'heure
-		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
-
-		DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat
-				.getInstance();
-		decimalFormat.applyPattern("00");
-
-		if (tp.getCurrentHour().intValue() >= 12) {
-			mUserActivity.getDay().set(Calendar.AM_PM, Calendar.PM);
-		} else {
-			mUserActivity.getDay().set(Calendar.AM_PM, Calendar.AM);
-		}
-
-		mUserActivity.getDay().set(Calendar.HOUR_OF_DAY,
-				tp.getCurrentHour().intValue());
-		mUserActivity.getDay().set(Calendar.MINUTE,
-				tp.getCurrentMinute().intValue());
-
-		if (mUserActivity.get_id() == AmikcalVar.NO_ID) {
-			insert();
-		} else {
-			update();
-		}
-
-		closeActivity();
-	}
-
-	/******************************************************************************************
-	 * getContentValues
+	 * On prépare les données pour mla mise à jour de la base
 	 ******************************************************************************************/
 	private ContentValues getContentValues() {
-
 		ContentValues val = new ContentValues();
 
+		// ajout des infos communes à toutes les activitées
+		addGenericValues(val);
+
+		// Ajout des infos propres aux activitées
+		addSpecificValues(val);
+		return val;
+	}
+
+	/**========================================================================
+	 * Methode Abstraite pour forcer les "filles" à spécifier leur données
+	 * spécifiques si elles en ont.
+	 * ========================================================================
+	 */
+	abstract public ContentValues addSpecificValues(ContentValues val);
+
+	/**
+	 * =======================================================================
+	 * Ajout des infos communes à toutes les activitées
+	 * 
+	 * ======================================================================
+	 */
+	private ContentValues addGenericValues(ContentValues val) {
+		//id de l'activitée
 		val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity
 				.get_id() == AmikcalVar.NO_ID) ? null : mUserActivity.get_id());
+		//titre
 		val.put(ContentDescriptorObj.UserActivities.Columns.TITLE,
 				mUserActivity.getTitle());
+		//Date
 		val.put(ContentDescriptorObj.UserActivities.Columns.DATE,
 				ToolBox.getSqlDateTime(mUserActivity.getDay()));
 
+		//type
 		val.put(ContentDescriptorObj.UserActivities.Columns.TYPE, mUserActivity
 				.getType().name());
+		
+		//date de mise à jour
 		val.put(ContentDescriptorObj.UserActivities.Columns.LAST_UPDATE,
 				ToolBox.getCurrentTimestamp());
 
@@ -203,7 +149,7 @@ public class Act_UserActivity_EditorCommons extends Activity {
 	/*******************************************************************************************
 	 * Méthode : update() metre à jour l'enregistrement
 	 *******************************************************************************************/
-	public void update() {
+	public void updateUActivity() {
 		ContentValues val = getContentValues();
 		Uri uriUpdate = ContentUris.withAppendedId(
 				ContentDescriptorObj.UserActivities.URI_UPDATE_USER_ACTIVITIES,
@@ -215,7 +161,7 @@ public class Act_UserActivity_EditorCommons extends Activity {
 	/*******************************************************************************************
 	 * Méthode : insert() insérer une nouvelle occurence
 	 *******************************************************************************************/
-	public void insert() {
+	public void insertUActivity() {
 		ContentValues val = getContentValues();
 		this.getContentResolver().insert(
 				ContentDescriptorObj.UserActivities.URI_INSERT_USER_ACTIVITIES,
@@ -223,177 +169,14 @@ public class Act_UserActivity_EditorCommons extends Activity {
 	}
 
 	/*******************************************************************************************
-	 * Méthode : refreshScreen() alimente les composants de la vue avec les
-	 * donnée de du UserActicity en cours
-	 *******************************************************************************************/
-	protected void refreshScreen() {
-
-		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
-		tp.setIs24HourView(true);
-		// EditText edtxt = (EditText)
-		// findViewById(R.id.useractivity_editor_view_edTxt_name);
-		// edtxt.setText(this.mUserActivity.getTitle());
-		Calendar c = mUserActivity.getDay();
-		tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
-		tp.setCurrentMinute(c.get(Calendar.MINUTE));
-	}
-
-	/*******************************************************************************************
 	 * Méthode : closeActivity() ferme l'activité
 	 *******************************************************************************************/
-	protected void closeActivity() {
-
+	protected void closeEditor() {
 		// on appelle setResult pour déclancher le onActivityResult de
 		// l'activity mère.
 		setResult(RESULT_OK, mIntent);
 		// On termine l'Actvity
 		finish();
-	}
-
-	/*******************************************************************************************
-	 * Méthode : onClickLunch() Gestion du bouton repas
-	 *******************************************************************************************/
-
-	public void onClickLunch(View v) {
-
-		setContentView(R.layout.view_edit_lunch);
-		this.mUserActivity.setType(ActivityType.LUNCH);
-		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
-		tp.setIs24HourView(true);
-		tp.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-
-	}
-
-	/*******************************************************************************************
-	 * Méthode : onClickPhysicalActivity() Gestion du bouton activité physique
-	 *******************************************************************************************/
-	public void onClickPhysicalActivity(View v) {
-		setContentView(R.layout.view_edit_physical_activity);
-		this.mUserActivity.setType(ActivityType.MOVE);
-		this.mUserActivity.setTitle(this.mResources
-				.getString(R.string.TITLE_PHYSICAL_ACTIVITY));
-	}
-
-	/*******************************************************************************************
-	 * Méthode : onClickWeight() Gestion du bouton poids
-	 *******************************************************************************************/
-	public void onClickWeight(View v) {
-		setContentView(R.layout.view_edit_weight);
-		this.mUserActivity.setType(ActivityType.WEIGHT);
-
-		// poids par defaut
-		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-		tv.setText("40");
-		tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-		tv.setText("00");
-	}
-
-	/*****************************************************************************************
-	 * Gestion des radiobouton
-	 * **************************************************
-	 * *************************************
-	 */
-
-	public void onClickRdioBreakfast(View v) {
-		setRdioLunch(1);
-	}
-
-	public void onClickRdioLunch(View v) {
-		setRdioLunch(2);
-	}
-
-	public void onClickRdioDiner(View v) {
-		setRdioLunch(3);
-	}
-
-	public void onClickRdioSnack(View v) {
-		setRdioLunch(4);
-
-	}
-
-	/***********************************************************************************
-	  * 
-	  * 
-	  ************************************************************************************/
-	private void setRdioLunch(int i) {
-
-		RadioButton rbBreakfast = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
-		RadioButton rbLunch = (RadioButton) findViewById(R.id.view_ua_editor_rdio_lunch);
-		RadioButton rbDiner = (RadioButton) findViewById(R.id.view_ua_editor_rdio_diner);
-		RadioButton rbSnack = (RadioButton) findViewById(R.id.view_ua_editor_rdio_snack);
-
-		rbBreakfast.setChecked(false);
-		rbLunch.setChecked(false);
-		rbDiner.setChecked(false);
-		rbSnack.setChecked(false);
-
-		switch (i) {
-
-		case 1:
-			rbBreakfast.setChecked(true);
-			this.mUserActivity.setTitle("Petit dejeuner");
-			break;
-
-		case 2:
-			rbLunch.setChecked(true);
-			this.mUserActivity.setTitle("Déjeuner");
-			break;
-
-		case 3:
-			rbDiner.setChecked(true);
-			this.mUserActivity.setTitle("Dîner");
-			break;
-
-		case 4:
-			rbSnack.setChecked(true);
-			this.mUserActivity.setTitle("Pause");
-			break;
-		}
-
-	}
-
-	public void addKilo(View v) {
-		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-		tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString()) + 1));
-		setWeight();
-	}
-
-	public void removeKilo(View v) {
-		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-		tv.setText(String
-				.valueOf((Integer.parseInt(tv.getText().toString()) - 1 <= 0) ? 0
-						: Integer.parseInt(tv.getText().toString()) - 1));
-		setWeight();
-	}
-
-	public void addGramme(View v) {
-		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-		tv.setText(String
-				.valueOf((Integer.parseInt(tv.getText().toString()) + 1 > 9) ? 0
-						: Integer.parseInt(tv.getText().toString()) + 1));
-		setWeight();
-	}
-
-	public void removeGramme(View v) {
-		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-		tv.setText(String
-				.valueOf((Integer.parseInt(tv.getText().toString()) - 1 < 0) ? 9
-						: Integer.parseInt(tv.getText().toString()) - 1));
-		setWeight();
-	}
-
-	private void setWeight() {
-
-		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-		((UserActivityWeight) mUserActivity).getWeight().setInt_part(
-				Integer.parseInt(tv.getText().toString()));
-
-		tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-		((UserActivityWeight) mUserActivity).getWeight().setDecimalPart(
-				Integer.parseInt(tv.getText().toString()));
-
-		mUserActivity.setTitle(((UserActivityWeight) mUserActivity).getWeight()
-				.format());
 	}
 
 }

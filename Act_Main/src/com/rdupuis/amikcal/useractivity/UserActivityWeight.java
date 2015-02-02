@@ -1,6 +1,5 @@
 package com.rdupuis.amikcal.useractivity;
 
-import com.rdupuis.amikcal.commons.ActivityType;
 import com.rdupuis.amikcal.commons.WeightObj;
 
 public class UserActivityWeight extends UserActivity{
@@ -11,7 +10,7 @@ public class UserActivityWeight extends UserActivity{
 	public UserActivityWeight() {
 		
 		super();
-		this.type = ActivityType.WEIGHT;
+		this.type = UserActivity.UAType.WEIGHT;
 		this.weight = new WeightObj();
 		
 

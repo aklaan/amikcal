@@ -213,7 +213,7 @@ public final class AmiKcalFactory {
 		if (cur.moveToFirst()) {
 
 			// en fonction du type d'activitée, on va retourner l'objet adequat
-			switch (ActivityType.valueOf(cur.getString(ACTIVITY_TYPE))) {
+			switch (UserActivity.UAType.valueOf(cur.getString(ACTIVITY_TYPE))) {
 			case LUNCH:
 				userActivity = new UserActivityLunch();
 				break;

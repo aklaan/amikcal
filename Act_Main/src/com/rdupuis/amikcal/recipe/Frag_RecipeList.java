@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.ActivityType;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.TimeSlidableFragment;
@@ -14,6 +13,7 @@ import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.recipe.Frag_RecipeList;
 import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivityItem;
 
 import android.app.Activity;
@@ -228,7 +228,7 @@ public class Frag_RecipeList extends TimeSlidableFragment {
 								.parseLong(map.get("id"));
 						// On alimente le type de l'Item séléctionné
 
-						ActivityType.valueOf(map.get("type"));
+						UserActivity.UAType.valueOf(map.get("type"));
 
 						// int ilaposition=position;
 

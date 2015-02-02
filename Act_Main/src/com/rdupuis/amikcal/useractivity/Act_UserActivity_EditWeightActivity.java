@@ -46,18 +46,32 @@ public class Act_UserActivity_EditWeightActivity extends Act_UserActivity_Editor
             
         		setContentView(R.layout.view_edit_weight);
         		        		
-        		TextView tv =(TextView)findViewById(R.id.userActivity_Editor_tv_kilos);
+        		
+        		
+        		
+        		// poids par defaut
+        		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
+        		tv.setText("40");
+        		tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
+        		tv.setText("00");
+        	
+        		
+        		
         		
         		tv.setText(String.valueOf(((UserActivityWeight) mUserActivity).getWeight().getInt_part()));
         		tv =(TextView)findViewById(R.id.userActivity_Editor_tv_grammes);
         		tv.setText(String.valueOf(((UserActivityWeight) mUserActivity).getWeight().getDecimalPart()));
-        		super.refreshScreen();
+        		refreshScreen();
         
        
     }
     //fin du onCreate
     
   
+    private void refreshScreen(){
+    	
+    }
+    
     /******************************************************************************************
      * onClickOk : 
      *  - Mettre à jour les informations saisies dans la base de donnée
@@ -88,7 +102,7 @@ public class Act_UserActivity_EditWeightActivity extends Act_UserActivity_Editor
     		update();
     		}
      
-    	closeActivity();
+    	closeEditor();
     }
     
     /******************************************************************************************
@@ -175,6 +189,13 @@ private void setWeight(){
 	((UserActivityWeight) mUserActivity).getWeight().setDecimalPart(Integer.parseInt(tv.getText().toString()));
 	
 	mUserActivity.setTitle(((UserActivityWeight) mUserActivity).getWeight().format());
+}
+
+
+@Override
+public ContentValues addSpecificValues(ContentValues val) {
+	// TODO Auto-generated method stub
+	return null;
 }
 	    
 }
