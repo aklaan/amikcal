@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.rdupuis.amikcal.commons.AmikcalVar;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 
 public class UserActivityLunchItem extends UserActivityItem {
@@ -22,7 +22,7 @@ public class UserActivityLunchItem extends UserActivityItem {
 				
 		Intent intent = new Intent(this.mActivity,
 				Act_UserActivity_EditLunchActivity.class);
-		intent.putExtra(AmikcalVar.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
+		intent.putExtra(AppConsts.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
 				this.mUserActivity._id);
 		
 		this.mActivity
@@ -35,7 +35,7 @@ public class UserActivityLunchItem extends UserActivityItem {
 	public void create(Calendar day){
 		Intent intent = new Intent(this.mActivity,
 				Act_UserActivity_EditLunchActivity.class);
-				  intent.putExtra( AmikcalVar.INPUT____UA_EDITOR____DAY , ToolBox.getSqlDate(day));
+				  intent.putExtra( AppConsts.INPUT____UA_EDITOR____DAY , ToolBox.getSqlDate(day));
 			
 		this.mActivity
 				.startActivityForResult(intent, 0);
@@ -43,6 +43,8 @@ public class UserActivityLunchItem extends UserActivityItem {
 		
 	}
 	
+
+		
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent intent){
 		Toast.makeText(this.mActivity, "on result lunchitem",

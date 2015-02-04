@@ -2,7 +2,7 @@ package com.rdupuis.amikcal.useractivity;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.animation.FadeIn;
-import com.rdupuis.amikcal.commons.AmikcalVar;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Generic_FragmentsTimeSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -227,7 +227,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		Intent intent = new Intent(this,
 				Act_UserActivity_ChooseNewActivity.class);
 
-		intent.putExtra(AmikcalVar.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY,
+		intent.putExtra(AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY,
 								ToolBox.getSqlDate(this.mCurrentDay));
 
 		// en regardant si l'activité est présente dans le PackageManager, on

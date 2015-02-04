@@ -18,7 +18,6 @@ import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,7 +43,6 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 	private ListView mCustomListView;
 	private long selectedItemId;
-	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -60,7 +58,6 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		// on récupère la listView du layer
 		mCustomListView = (ListView) mainView.findViewById(R.id.listviewperso);
-		
 
 		// Afficher la date du jour.
 		TextView tv = (TextView) mainView.findViewById(R.id.fragtextView);
@@ -111,11 +108,11 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
 
-		//Création du curseur
+		// Création du curseur
 		Cursor cur = getActivity().getContentResolver().query(request, null,
 				null, null, null);
 
-		//Initialisation des index où récupérer les infos
+		// Initialisation des index où récupérer les infos
 		final int INDX_COL_ID = cur
 				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.ID);
 		final int INDX_COL_TITLE = cur
@@ -125,7 +122,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		final int INDX_COL_TYPE = cur
 				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.TYPE);
 
-		//Lecture du curseur
+		// Lecture du curseur
 		if (cur.moveToFirst()) {
 
 			do {
@@ -161,7 +158,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		this.mCustomListView.setAdapter(mMultipleItemsList);
 
 		// Enfin on met un écouteur d'évènement sur notre listView
-		// ceci va nous permetre d'interagir lorsque l'utilisateur va clicker sur
+		// ceci va nous permetre d'interagir lorsque l'utilisateur va clicker
+		// sur
 		// un item.
 		this.mCustomListView.setOnItemClickListener(new OnItemClickListener() {
 			// @Override
@@ -175,13 +173,13 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 				UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this
 						.getActivity();
-				
-				//----------------------------------------------------------------
-				//A voir si c'est utile de garder la page
+
+				// ----------------------------------------------------------------
+				// A voir si c'est utile de garder la page
 				ua.setCurrentPage(Integer.parseInt(getArguments().getString(
 						"page")));
-				
-				//-----------------------------------------------------------------
+
+				// -----------------------------------------------------------------
 				ua.onClickActivity(map.get("id"));
 
 			}
@@ -240,7 +238,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 										Activity currentActivity = Frag_UserActivityList.this
 												.getActivity();
-										
+
 										AmiKcalFactory factory = new AmiKcalFactory();
 
 										factory.contentResolver = currentActivity
@@ -268,7 +266,24 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
-										// UserActivityListFragment.this.onClickDelete(String.valueOf(UserActivityListFragment.selectedItemId));
+
+										long item_id = Frag_UserActivityList.this.selectedItemId;
+
+										Activity currentActivity = Frag_UserActivityList.this
+												.getActivity();
+
+										AmiKcalFactory factory = new AmiKcalFactory();
+
+										factory.contentResolver = currentActivity
+												.getContentResolver();
+
+										UserActivityItem userActivityItem = factory
+												.createUserActivityItemFromId(
+														currentActivity,
+														item_id);
+
+										userActivityItem.delete();
+										Frag_UserActivityList.this.refreshScreen();
 									}
 								});
 
@@ -288,10 +303,9 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 	}
 
-	
 	/**
-	 * =============================================================== 
-	 * cleanList : Efface tous les items de la liste affiché à l'écran
+	 * =============================================================== cleanList
+	 * : Efface tous les items de la liste affiché à l'écran
 	 * ===============================================================
 	 */
 	protected void cleanList() {
@@ -299,8 +313,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 	}
 
 	/**
-	 * ======================================================= 
-	 * computeEnergy : Calcule l'énergie pour une activité
+	 * ======================================================= computeEnergy :
+	 * Calcule l'énergie pour une activité
 	 * ======================================================
 	 */
 
@@ -365,9 +379,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 	}
 
 	/**
-	 * ======================================================= 
-	 * refreshScreen : rafraichir l'écran
-	 * ======================================================
+	 * ======================================================= refreshScreen :
+	 * rafraichir l'écran ======================================================
 	 */
 	public void refreshScreen() {
 
@@ -375,10 +388,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 		generateList();
 	}
 
-	
-	public void onActivityResult(int requestCode, int resultCode, Intent intent){
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		refreshScreen();
 	}
-	
-	
+
 }

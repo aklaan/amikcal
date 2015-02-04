@@ -16,7 +16,9 @@ import com.rdupuis.amikcal.useractivity.UserActivityItem;
 import com.rdupuis.amikcal.useractivity.UserActivityLunch;
 import com.rdupuis.amikcal.useractivity.UserActivityLunchItem;
 import com.rdupuis.amikcal.useractivity.UserActivityMove;
+import com.rdupuis.amikcal.useractivity.UserActivityMoveItem;
 import com.rdupuis.amikcal.useractivity.UserActivityWeight;
+import com.rdupuis.amikcal.useractivity.UserActivityWeightItem;
 
 public final class AmiKcalFactory {
 
@@ -223,7 +225,7 @@ public final class AmiKcalFactory {
 			case WEIGHT:
 				userActivity = new UserActivityWeight();
 				((UserActivityWeight) userActivity).setWeight(new WeightObj(
-						userActivity.getTitle()));
+						cur.getString(ACTIVITY_TITLE)));
 				break;
 			}
 
@@ -246,7 +248,6 @@ public final class AmiKcalFactory {
 	
 	
 	
-	
 	public UserActivityItem createUserActivityItemFromId(Activity activity, long _id){
 		UserActivity userActivity = reloadUserActivityObjFromId(_id);
 		
@@ -259,10 +260,10 @@ public final class AmiKcalFactory {
 			
 			break;
 		case MOVE:
-		//	userActivityItem = new UserActivityMoveItem(activity);
+			userActivityItem = new UserActivityMoveItem(activity);
 			break;
 		case WEIGHT:
-		//	userActivityItem = new UserActivityWeightItem(activity);
+			userActivityItem = new UserActivityWeightItem(activity);
 			
 			break;
 		}

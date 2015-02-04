@@ -3,9 +3,11 @@ package com.rdupuis.amikcal.useractivity;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.rdupuis.amikcal.commons.AppConsts;
+
 import android.graphics.Picture;
 
-public abstract class UserActivity {
+public class UserActivity {
 
 	public Long _id;
 	public Calendar day;
@@ -14,17 +16,16 @@ public abstract class UserActivity {
 	public int score;
 	public Picture picture;
 	public Date last_update;
-	final long NO_ID = -1l;
 
-	
 	public enum UAType {
-		LUNCH,WEIGHT,MOVE
-		}
-	
+		LUNCH, WEIGHT, MOVE
+	}
+
 	public UserActivity() {
+	//Par defaut
 		this.day = Calendar.getInstance();
 		this.title = "";
-
+		this._id = AppConsts.NO_ID;
 	}
 
 	public Long get_id() {
@@ -46,7 +47,6 @@ public abstract class UserActivity {
 	public void setTypeByName(String typeName) {
 
 		this.type = UserActivity.UAType.valueOf(typeName);
-		
 
 	}
 
@@ -93,7 +93,5 @@ public abstract class UserActivity {
 	public void setDay(int year, int month, int day, int hourOfDay, int minute) {
 		this.day.set(year, month, day, hourOfDay, minute);
 	}
-
-	
 
 }

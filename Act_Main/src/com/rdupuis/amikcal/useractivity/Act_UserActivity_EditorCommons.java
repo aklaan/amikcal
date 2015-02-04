@@ -1,6 +1,5 @@
 package com.rdupuis.amikcal.useractivity;
 
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -11,14 +10,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.commons.AmikcalVar;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
@@ -39,6 +34,10 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  */
 public abstract class Act_UserActivity_EditorCommons extends Activity {
 
+	public enum EditMode {
+		CREATE,EDIT
+		}
+
 	Intent mIntent;
 	Long mId;
 	boolean morning = true;
@@ -46,6 +45,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	Calendar currentDay;
 	long currentId;
 	Resources mResources;
+	EditMode editMode;
 
 	// ne doit pas servir car si on fait un nouveau, on prend la date du jour
 	// et si on edite un existant, la date est déjà connue
@@ -67,19 +67,19 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 		
 		// dans l'Intent, on récupère l'id de l'objet à éditer
 		long _id = getIntent().getLongExtra(
-				AmikcalVar.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
-				AmikcalVar.NO_ID);
+				AppConsts.INPUT____UA_EDITOR____USER_ACTIVITY_ID,
+				AppConsts.NO_ID);
 
 		// si l'id de objet est correct, on tente de le recharger
-		if (_id != AmikcalVar.NO_ID) {
+		if (_id != AppConsts.NO_ID) {
+			this.editMode = EditMode.EDIT;
 			reloadUserActivity(_id);
 
 			Toast.makeText(this, "Edition", Toast.LENGTH_LONG).show();
 		} else {
 			// si l'id est NO_ID, c'est que l'on crée un nouvel objet depuis l'écran de choix
-			this.mUserActivity = new UserActivityLunch();
-			this.mUserActivity.setDay(ToolBox
-					.parseCalendar(getIntent().getStringExtra(AmikcalVar.INPUT____UA_EDITOR____DAY)));
+			this.editMode = EditMode.CREATE;
+					
 
 		}
 		;
@@ -103,11 +103,11 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	private ContentValues getContentValues() {
 		ContentValues val = new ContentValues();
 
-		// ajout des infos communes à toutes les activitées
-		addGenericValues(val);
+		// Ajout des infos communes à toutes les activitées
+		setGenericValues(val);
 
 		// Ajout des infos propres aux activitées
-		addSpecificValues(val);
+		setSpecificValues(val);
 		return val;
 	}
 
@@ -116,7 +116,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	 * spécifiques si elles en ont.
 	 * ========================================================================
 	 */
-	abstract public ContentValues addSpecificValues(ContentValues val);
+	abstract public ContentValues setSpecificValues(ContentValues val);
 
 	/**
 	 * =======================================================================
@@ -124,10 +124,10 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	 * 
 	 * ======================================================================
 	 */
-	private ContentValues addGenericValues(ContentValues val) {
+	private ContentValues setGenericValues(ContentValues val) {
 		//id de l'activitée
 		val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity
-				.get_id() == AmikcalVar.NO_ID) ? null : mUserActivity.get_id());
+				.get_id() == AppConsts.NO_ID) ? null : mUserActivity.get_id());
 		//titre
 		val.put(ContentDescriptorObj.UserActivities.Columns.TITLE,
 				mUserActivity.getTitle());

@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.useractivity;
 
+import com.rdupuis.amikcal.commons.AppConsts;
+
 public class UserActivityLunch extends UserActivity{
 
 	
@@ -12,7 +14,7 @@ public class UserActivityLunch extends UserActivity{
 		super();
 		
 		this.type = UserActivity.UAType.LUNCH;
-		this.set_id(this.NO_ID);
+		this.set_id(AppConsts.NO_ID);
 		
 
 	}
