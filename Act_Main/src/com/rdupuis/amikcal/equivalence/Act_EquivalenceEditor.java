@@ -174,7 +174,7 @@ public class Act_EquivalenceEditor extends Activity {
 		        	
 		        	AmiKcalFactory factory = new AmiKcalFactory();
 		        	factory.contentResolver=contentResolver;
-		        	mEquivalence.energy= factory.createEnergyObjFromId(_id);
+		        	mEquivalence.energy= factory.createEnergyFromId(_id);
 			    }	
 		}
  

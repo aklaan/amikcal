@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 import android.app.Activity;
@@ -28,7 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class Act_UserActivityComponentList extends Activity {
 	Intent mIntent;
 	Resources mResources;
-	public UserActivityComponentObj CurrentUAComponent;
+	public UserActivityComponent CurrentUAComponent;
 	private ListView maListViewPerso;
 	public static final String INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY = "ID_OF_USER_ACTIVITY";
 	public static final int ACTIVITY_ID = 0;
@@ -37,7 +38,7 @@ public class Act_UserActivityComponentList extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		CurrentUAComponent = new UserActivityComponentObj();
+		CurrentUAComponent = new UserActivityComponent();
 		setContentView(R.layout.view_components_list);
 		mResources = getResources();
 		mIntent = getIntent();
@@ -71,25 +72,21 @@ public class Act_UserActivityComponentList extends Activity {
 	 * //On termine l'Acitvity this.finish(); }
 	 */
 
-	public void onClickComponent(String componentId, String activityId) {
-		// Intent intent = new Intent(this,
-		// Act_UserActivityComponentEditor.class);
+	public void onClickComponent(long componentId, long activityId) {
+		 Intent intent = new Intent(this,
+		 Act_UserActivityComponentEditor.class);
 
-		Intent intent = new Intent(this, Act_UserActivityComponentSlider.class);
+		//Intent intent = new Intent(this, Act_UserActivityComponentSlider.class);
 
-		intent.putExtra(
-				mResources
-						.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_COMPONENT),
+		intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID,
 				componentId);
-		intent.putExtra(
-				mResources
-						.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_USER_ACTIVITY),
+		intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY,
 				activityId);
 		startActivityForResult(intent, R.integer.ACTY_COMPONENT);
 	}
 
 	public void onClickAdd(View v) {
-		onClickComponent(null, String.valueOf(CurrentUAComponent.getParentId()));
+		onClickComponent(AppConsts.NO_ID, CurrentUAComponent.getParentId());
 	}
 
 	/**
@@ -229,7 +226,7 @@ public class Act_UserActivityComponentList extends Activity {
 				 * boite de dialogue adb.show();
 				 */
 
-				onClickComponent(map.get("componentId"), map.get("activityId"));
+				onClickComponent(Long.getLong(map.get("componentId")), Long.getLong(map.get("activityId")));
 
 			}
 		});

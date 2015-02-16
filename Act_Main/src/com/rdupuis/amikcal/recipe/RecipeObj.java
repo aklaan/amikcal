@@ -2,22 +2,22 @@ package com.rdupuis.amikcal.recipe;
 
 import java.util.List;
 
-import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponentObj;
+import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public class RecipeObj {
 
 	
-		private List<UserActivityComponentObj> ComponentList;
+		private List<UserActivityComponent> ComponentList;
 		private boolean cooking; // cuisson
 		private float massBeforeCooking; 
 		private float massAfterCooking;
 		
 		
-		public void setComponentList(List<UserActivityComponentObj> componentList) {
+		public void setComponentList(List<UserActivityComponent> componentList) {
 			ComponentList = componentList;
 		}
 
-		public List<UserActivityComponentObj> getComponentList() {
+		public List<UserActivityComponent> getComponentList() {
 			return ComponentList;
 		}
 

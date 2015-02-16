@@ -30,7 +30,7 @@ public class Act_EnergyEditor extends Activity {
 
 	Intent mIntent;
      Resources mResources;
-     EnergyObj mEnergy;
+     EnergyReference mEnergy;
      final long NO_ID = -1l; 
      ContentResolver mContentResolver;
      
@@ -41,13 +41,13 @@ public class Act_EnergyEditor extends Activity {
         setContentView(R.layout.view_edit_energy_food);
         mIntent = getIntent();
         mContentResolver = this.getContentResolver();
-        mEnergy = new EnergyObj();
+        mEnergy = new EnergyReference();
         mResources=getResources();
         
         try {
         	AmiKcalFactory factory = new AmiKcalFactory();
         	factory.contentResolver = mContentResolver;
-        	mEnergy = factory.createEnergyObjFromId(Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY))));
+        	mEnergy = factory.createEnergyFromId(Long.parseLong(mIntent.getStringExtra(mResources.getString(R.string.INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY))));
         } catch (Exception e) {
         	mEnergy.setId(NO_ID);
         }

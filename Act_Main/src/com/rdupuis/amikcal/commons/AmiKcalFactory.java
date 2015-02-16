@@ -6,9 +6,10 @@ import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.energy.EnergyObj;
+import com.rdupuis.amikcal.energy.EnergyReference;
 import com.rdupuis.amikcal.equivalence.EquivalenceObj;
 import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
 import com.rdupuis.amikcal.useractivity.UserActivity;
@@ -19,6 +20,7 @@ import com.rdupuis.amikcal.useractivity.UserActivityMove;
 import com.rdupuis.amikcal.useractivity.UserActivityMoveItem;
 import com.rdupuis.amikcal.useractivity.UserActivityWeight;
 import com.rdupuis.amikcal.useractivity.UserActivityWeightItem;
+import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public final class AmiKcalFactory {
 
@@ -30,11 +32,11 @@ public final class AmiKcalFactory {
 	 * @since 01-06-2012
 	 * @param _id
 	 *            - Identifiant
-	 * @return (EnergyObj) un objet "énergie"
+	 * @return (Energy) un objet "énergie"
 	 **/
-	public EnergyObj createEnergyObjFromId(long _id) {
+	public EnergyReference createEnergyFromId(long _id) {
 
-		EnergyObj e = new EnergyObj();
+		EnergyReference e = new EnergyReference();
 
 		e.setId(_id);
 
@@ -163,7 +165,7 @@ public final class AmiKcalFactory {
 		if (cursor.moveToFirst()) {
 
 			mEquivalence.setId(_id);
-			mEquivalence.energy = createEnergyObjFromId(cursor
+			mEquivalence.energy = createEnergyFromId(cursor
 					.getLong(INDX_FK_ENERGY));
 			mEquivalence.unitIn = createUnitOfMeasureObjFromId(cursor
 					.getLong(INDX_FK_UNIT_IN));
@@ -271,6 +273,61 @@ public final class AmiKcalFactory {
 		userActivityItem.mUserActivity = userActivity;
 	return userActivityItem;
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @param _id
+	 */
+	public UserActivityComponent loadComponent(Long _id) {
+		// On fabrique l'Uri pour le contentProvider
+		// celle-ci est du style content://xxxxx.xxxxxxxx.xxxxxxx/# où le dièse
+		// est l'Id à rechercher
+		
+		UserActivityComponent mUAC = new UserActivityComponent();
+		Uri selectUri = ContentUris
+				.withAppendedId(
+						ContentDescriptorObj.ActivityComponent.URI_SELECT_ACTIVITY_COMPONENTS,
+						_id);
+
+		// On crée un curseur pour lire la table des aliments
+		Cursor cur = contentResolver.query(selectUri, null,
+				_id.toString(), null, null);
+
+		final int INDX_ENERGY_ID = cur
+				.getColumnIndex(ContentDescriptorObj.ActivityComponent.Columns.FK_ENERGY);
+		final int INDX_QUANTITY = cur
+				.getColumnIndex(ContentDescriptorObj.ActivityComponent.Columns.QUANTITY);
+		final int INDX_UNIT_ID = cur
+				.getColumnIndex(ContentDescriptorObj.ActivityComponent.Columns.FK_UNIT);
+
+		// faire un move First pour positionner le pointeur, sinon on pointe sur
+		// null
+		if (cur.moveToFirst()) {
+
+			mUAC.getEnergy().setId(cur.getLong(INDX_ENERGY_ID));
+			// this.mUAC.getEnergy().setName(cur.getString(INDX_ENERGY_NAME));
+
+			
+			mUAC.setEnergy(this.createEnergyFromId(cur
+					.getLong(INDX_ENERGY_ID)));
+			mUAC.setUnitMeasure(this.createUnitOfMeasureObjFromId(cur
+					.getLong(INDX_UNIT_ID)));
+			mUAC
+					.setQuantity(Float.parseFloat(cur.getString(INDX_QUANTITY)));
+			
+
+		} else {
+			String message = "Composant " + String.valueOf(_id) + " non trouvé";
+			Log.e("loadComponent", message);
+
+		}
+
+		return mUAC;
+	}
+
+	
 	
 	
 } // * end-class
