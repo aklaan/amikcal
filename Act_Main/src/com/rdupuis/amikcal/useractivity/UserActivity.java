@@ -5,22 +5,23 @@ import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 
+
 import android.graphics.Picture;
 
 public class UserActivity {
-
+	public enum UA_CLASS_CD {
+		LUNCH, WEIGHT, MOVE
+	}
+	
 	public Long _id;
 	public Calendar day;
 	private String title;
-	public UAType type; // moving / eating / cooking
+	public UA_CLASS_CD type; // moving / eating / cooking
 	public int score;
 	public Picture picture;
 	public Date last_update;
 
-	public enum UAType {
-		LUNCH, WEIGHT, MOVE
-	}
-
+	
 	public UserActivity() {
 	//Par defaut
 		this.day = Calendar.getInstance();
@@ -36,21 +37,15 @@ public class UserActivity {
 		this._id = _id;
 	}
 
-	public UAType getType() {
+	public UA_CLASS_CD getType() {
 		return type;
 	}
 
-	public void setType(UAType type) {
+	public void setType(UA_CLASS_CD type) {
 		this.type = type;
 	}
 
-	public void setTypeByName(String typeName) {
-
-		this.type = UserActivity.UAType.valueOf(typeName);
-
-	}
-
-	public int getScore() {
+		public int getScore() {
 		return score;
 	}
 

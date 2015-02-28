@@ -1,19 +1,17 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
 import com.rdupuis.amikcal.R;
-
 import com.rdupuis.amikcal.commons.MyFragmentPagerAdapter;
 import com.rdupuis.amikcal.commons.ZoomOutPageTransformer;
 import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad;
 import com.rdupuis.amikcal.commons.numericpad.NumericPadListeners;
 import com.rdupuis.amikcal.energy.Frag_EnergyList;
-import com.rdupuis.amikcal.unitofmeasure.Frag_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Frag_UnityList;
 
 import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -52,7 +50,7 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 		
 		mArrayfragments = new ArrayList<Fragment>();
 		mArrayfragments.add(ENERGY_LIST_POSITION,Fragment.instantiate(this,Frag_EnergyList.class.getName()));
-		mArrayfragments.add(UNITS_LIST_POSITION,Fragment.instantiate(this,Frag_UnitOfMeasureList.class.getName()));
+		mArrayfragments.add(UNITS_LIST_POSITION,Fragment.instantiate(this,Frag_UnityList.class.getName()));
 		mArrayfragments.add(NUMERICPAD_POSITION,Fragment.instantiate(this,Frag_NumericPad.class.getName()));
 		
 		mPagerAdapter = new MyFragmentPagerAdapter(

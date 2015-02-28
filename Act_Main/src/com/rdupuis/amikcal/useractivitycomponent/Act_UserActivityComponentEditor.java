@@ -30,8 +30,8 @@ import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.energy.EnergyReference;
 import com.rdupuis.amikcal.equivalence.EquivalenceObj;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
-import com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList;
-import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
+import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Unity;
 
 public class Act_UserActivityComponentEditor extends Activity {
 
@@ -347,7 +347,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 	 */
 
 	private EquivalenceObj findEquivalence(EnergyReference energy,
-			UnitOfMeasureObj unitIn) {
+			Unity unitIn) {
 
 		EquivalenceObj mEquivalence = new EquivalenceObj();
 		String searchKey = String.valueOf(energy.getId()) + "+"

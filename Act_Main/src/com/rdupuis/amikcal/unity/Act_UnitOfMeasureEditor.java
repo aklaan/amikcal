@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.unitofmeasure;
+package com.rdupuis.amikcal.unity;
 
 
 
@@ -29,7 +29,7 @@ public class Act_UnitOfMeasureEditor extends Activity {
      
      Date last_updt;
      String unit_name;
-     UnitOfMeasureObj mUnit;
+     Unity mUnit;
      ContentResolver contentResolver;
      
     /** Called when the activity is first created. */
@@ -37,7 +37,7 @@ public class Act_UnitOfMeasureEditor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_edit_unit_of_measure);
-        mUnit = new UnitOfMeasureObj();
+        mUnit = new Unity();
         mIntent = getIntent();
         contentResolver = this.getContentResolver();
      
@@ -56,20 +56,20 @@ public class Act_UnitOfMeasureEditor extends Activity {
      * 
      * @param wrkUnit
      ***************************************************************************************/
-    private void loadUnitFromDb(UnitOfMeasureObj wrkUnit){
+    private void loadUnitFromDb(Unity wrkUnit){
     	
-        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.Units.URI_CONTENT_UNITS,wrkUnit.getId());
+        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS,wrkUnit.getId());
 
         Cursor cur = this.getContentResolver().query(request , null, null, null, null);
         
-        final int INDX_UNIT_NAME   = cur.getColumnIndex(ContentDescriptorObj.Units.Columns.NAME);
-        final int INDX_UNIT_SYMBOL = cur.getColumnIndex(ContentDescriptorObj.Units.Columns.SYMBOL);
+        final int INDX_UNIT_NAME   = cur.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.LONG_NAME);
+        final int INDX_UNIT_SYMBOL = cur.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME);
         
         // faire un move First pour positionner le pointeur, sinon on pointe sur null
         if (cur.moveToFirst()) {
          
-        	wrkUnit.setName(cur.getString(INDX_UNIT_NAME));
-        	wrkUnit.setSymbol(cur.getString(INDX_UNIT_SYMBOL));
+        	wrkUnit.setLongName(cur.getString(INDX_UNIT_NAME));
+        	wrkUnit.setShortName(cur.getString(INDX_UNIT_SYMBOL));
         	
         }
         else {
@@ -91,15 +91,15 @@ public class Act_UnitOfMeasureEditor extends Activity {
     	
     	refreshUnit();
     	
-    	val.put(ContentDescriptorObj.Units.Columns.NAME, this.mUnit.getName() );
-    	val.put(ContentDescriptorObj.Units.Columns.SYMBOL, this.mUnit.getSymbol() );
+    	val.put(ContentDescriptorObj.TB_Units.Columns.LONG_NAME, this.mUnit.getLongName() );
+    	val.put(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME, this.mUnit.getShortName() );
     	
     	
     	if (this.mUnit.getId()==0){
-    		this.getContentResolver().insert(ContentDescriptorObj.Units.URI_INSERT_UNIT, val);
+    		this.getContentResolver().insert(ContentDescriptorObj.TB_Units.URI_INSERT_UNIT, val);
     	}
     	else {
-    		this.getContentResolver().update(ContentDescriptorObj.Units.URI_UPDATE_UNIT, val, String.valueOf(this.mUnit.getId()),null);
+    		this.getContentResolver().update(ContentDescriptorObj.TB_Units.URI_UPDATE_UNIT, val, String.valueOf(this.mUnit.getId()),null);
     	};
     	
     	
@@ -117,10 +117,10 @@ public class Act_UnitOfMeasureEditor extends Activity {
      ******************************************************************************************/
     private void refreshScreen(){
     	EditText ed= (EditText)findViewById(R.id.unitview_name);
-    	ed.setText(this.mUnit.getName());
+    	ed.setText(this.mUnit.getLongName());
     
     	ed= (EditText)findViewById(R.id.unitview_symbol);
-    	ed.setText(this.mUnit.getSymbol());
+    	ed.setText(this.mUnit.getShortName());
     }
    
     
@@ -130,10 +130,10 @@ public class Act_UnitOfMeasureEditor extends Activity {
      ******************************************************************************************/
     private void refreshUnit(){
     	EditText ed= (EditText)findViewById(R.id.unitview_name);
-    	this.mUnit.setName(ed.getText().toString());
+    	this.mUnit.setLongName(ed.getText().toString());
     
     	ed= (EditText)findViewById(R.id.unitview_symbol);
-    	this.mUnit.setSymbol(ed.getText().toString());
+    	this.mUnit.setShortName(ed.getText().toString());
     }
  
     

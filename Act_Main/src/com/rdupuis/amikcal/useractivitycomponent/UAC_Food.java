@@ -1,9 +1,15 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
-import com.rdupuis.amikcal.commons.Food;
+import java.util.ArrayList;
+
+import com.rdupuis.amikcal.Food.Food;
+import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.EnergySourceQty;
+import com.rdupuis.amikcal.equivalence.EquivalenceObj;
 
 public class UAC_Food extends UserActivityComponent {
 
+	
 	/**
 	 * un composant Aliment Food c'est par exemple un bol de soupe 100 g de
 	 * chocolat 1 verre de vin
@@ -29,7 +35,7 @@ public class UAC_Food extends UserActivityComponent {
 	public UAC_Food() {
 		super();
 
-		this.getEnergySourceQty().setEnergySource(new Food());
+		this.setEnergySource(new Food());
 	}
 
 	public float getNbkcal() {

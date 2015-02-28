@@ -1,7 +1,6 @@
-package com.rdupuis.amikcal.useractivitycomponent;
+package com.rdupuis.amikcal.energy;
 
-import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
+import com.rdupuis.amikcal.unity.Unity;
 /**
  * 
  * row_id  par_row_id	  qte    unit_id      energy_id type 
@@ -190,7 +189,7 @@ public class EnergySourceQty {
 	private long id;
 	private EnergySource energySource;
 	private float quantity;
-	private UnitOfMeasureObj unitMeasure;
+	private Unity unitMeasure;
 	public EnergySource getEnergySource() {
 		return energySource;
 	}
@@ -203,10 +202,10 @@ public class EnergySourceQty {
 	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
-	public UnitOfMeasureObj getUnitMeasure() {
+	public Unity getUnitMeasure() {
 		return unitMeasure;
 	}
-	public void setUnitMeasure(UnitOfMeasureObj unitMeasure) {
+	public void setUnitMeasure(Unity unitMeasure) {
 		this.unitMeasure = unitMeasure;
 	}
 	public boolean isReference() {

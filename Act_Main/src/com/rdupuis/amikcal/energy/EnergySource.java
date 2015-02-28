@@ -1,23 +1,34 @@
 package com.rdupuis.amikcal.energy;
 
+import java.util.ArrayList;
+
+import com.rdupuis.amikcal.commons.Qty;
+
 /**
- * une source d'énergie
- *  - a un nom
- *  - peut être représenté par une quantité de calories
- *  - cette enérgie peu être absorbé ou dépensée
+ * <h1>EnergySource : une source d'énergie<h1>
+ * 
+ * <p>
+ * une source d'énergie : - possède un nom - peut être représenté par une
+ * quantité de calories - cette enérgie peu être absorbé (manger)ou dépensée
+ * (courir)
+ * </p>
  * 
  * @author Rodolphe
  *
  */
 
 public class EnergySource {
+
+	public static enum NRJ_EFFECT {
+		GIVE, BURN
+	}
+
+	private long id;
 	private String name;
-	public enum EnergyType {
-		POSITIVE, NEGATIVE
-		}
-	private EnergyType mType;
-	private float nbCal;
-		
+	private NRJ_EFFECT mEffect;
+	private Qty mQty;
+	private ArrayList<Qty> equivalences;
+
 	public String getName() {
 		return name;
 	}
@@ -26,25 +37,42 @@ public class EnergySource {
 		this.name = name;
 	}
 
-	public EnergyType getEgergyType() {
-		return mType;
+	public NRJ_EFFECT getEffect() {
+		return mEffect;
 	}
 
-	public void setEnergyType(EnergyType mType) {
-		this.mType = mType;
+	public void setEffect(NRJ_EFFECT effect) {
+		this.mEffect = effect;
 	}
 
-	public float getNbCalories() {
-		// Si la source d'énergie est négative (ex: on brule des colories)
-		// on retourne un montant de calories négatif
-		if (this.getEgergyType() == EnergyType.NEGATIVE){
-			return nbCal * -1;
-		} else 
-		return nbCal;
+	public Qty getQtyRef() {
+		return mQty;
 	}
 
-	public void setNbCalories(float nbCal) {
-		//On s'assure que la valeur energétique soit toujours positive
-		this.nbCal = (nbCal >0)? nbCal : (nbCal-1);
+	public void setQtyRef(Qty qty) {
+		this.mQty = qty;
 	}
+
+	public ArrayList<Qty> getEquivalences() {
+		return equivalences;
+	}
+
+	public void setEquivalences(ArrayList<Qty> equivalences) {
+		this.equivalences = equivalences;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Qty getQtyReference() {
+	
+		Qty result = new Qty();
+		return result;
+	}
+
 }

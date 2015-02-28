@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.unitofmeasure;
+package com.rdupuis.amikcal.unity;
 
 
 
@@ -115,7 +115,7 @@ public class Act_UnitOfMeasureList extends Activity {
     	Uri mUri;
     	
     	if (energyId==WITH_NO_FILTER){
-    		mUri = ContentDescriptorObj.Units.URI_CONTENT_UNITS;
+    		mUri = ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS;
     		
     	} else{
     		
@@ -135,9 +135,9 @@ public class Act_UnitOfMeasureList extends Activity {
         //On cré un curseur pour lire la table des unitées    
         Cursor cur = this.getContentResolver().query(mUri, null, null, null, null);
             
-        final int INDX_COL_ID = cur.getColumnIndex(ContentDescriptorObj.Units.Columns.ID);
-        final int INDX_COL_NAME = cur.getColumnIndex(ContentDescriptorObj.Units.Columns.NAME);
-        final int INDX_COL_SYMBOL = cur.getColumnIndex(ContentDescriptorObj.Units.Columns.SYMBOL);
+        final int INDX_COL_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.ID);
+        final int INDX_COL_NAME = cur.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.LONG_NAME);
+        final int INDX_COL_SYMBOL = cur.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME);
         
         // faire un move First pour positionner le pointeur
              

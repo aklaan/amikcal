@@ -174,9 +174,9 @@ public class Act_EnergyList extends Activity {
 		Uri selectUri;
 
 		if (currentFilter == null || currentFilter.length() == 0) {
-			selectUri = ContentDescriptorObj.Energies.URI_CONTENT_ENERGIES;
+			selectUri = ContentDescriptorObj.TB_Energies.URI_CONTENT_ENERGIES;
 		} else {
-			selectUri = ContentDescriptorObj.Energies.URI_ENERGIES_LIKE
+			selectUri = ContentDescriptorObj.TB_Energies.URI_ENERGIES_LIKE
 					.buildUpon().appendPath(currentFilter).build();
 		}
 
@@ -195,11 +195,11 @@ public class Act_EnergyList extends Activity {
 				null, null);
 
 		final int INDX_COL_ID = cur
-				.getColumnIndex(ContentDescriptorObj.Energies.Columns.ID);
+				.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.ID);
 		final int INDX_COL_NAME = cur
-				.getColumnIndex(ContentDescriptorObj.Energies.Columns.NAME);
-		final int INDX_COL_NBKCAL = cur
-				.getColumnIndex(ContentDescriptorObj.Energies.Columns.MNT_ENERGY);
+				.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.NAME);
+		//final int INDX_COL_NBKCAL = cur
+		//		.getColumnIndex(ContentDescriptorObj.Energies.Columns.MNT_ENERGY);
 		// final int INDX_COL_NBGLU =
 		// cur.getColumnIndex(ContentDescriptorObj.Energies.Columns.MNT_GLUCIDS);
 		// final int INDX_COL_NBLIP =
@@ -219,7 +219,7 @@ public class Act_EnergyList extends Activity {
 				map = new HashMap<String, String>();
 				map.put("id", cur.getString(INDX_COL_ID));
 				map.put("name", cur.getString(INDX_COL_NAME));
-				map.put("energy", cur.getString(INDX_COL_NBKCAL) + " Kcal");
+			//	map.put("energy", cur.getString(INDX_COL_NBKCAL) + " Kcal");
 				// map.put("lipids", cur.getString(INDX_COL_NBLIP)+"g");
 				// map.put("proteins", cur.getString(INDX_COL_NBPRO)+"g");
 				// map.put("glucids", cur.getString(INDX_COL_NBGLU) +"g");

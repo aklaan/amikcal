@@ -1,18 +1,25 @@
-package com.rdupuis.amikcal.commons;
+package com.rdupuis.amikcal.Food;
 
 import java.util.ArrayList;
-
+import com.rdupuis.amikcal.commons.FoodComponent;
 import com.rdupuis.amikcal.energy.EnergySource;
 
 public class Food extends EnergySource {
 
-	public static enum FoodComponent{
-		LIPIDS,GLUCIDS,PROTEINS,VITAMINS
+	public static enum STRUCTURE {
+		SOLID, LIQUID
 	}
-	
-    private ArrayList<FoodComponent> FoodComponentsList;
-    // boisson...
 
+	private STRUCTURE mStrucure;
+	
+		
+    // la liste des composants que je voulais mettre en place est en fait une
+	// liste d'équivalences par rapport à la quantité de référence
+	// ex :100g = 56 Lip, 45 Glu....etc
+	// cette liste d'équivalence étant universelle à toutes les NRJ je n'ai plus besoin 
+	// de créer un liste ici. elle est dans la classe mère.
+	
+	
 	// Un aliment est composé de protéine / glucide /lipide /minéraux 
 	// /vitamines..
 	// Ici on pourrait seulement dire vrai ou faux sur la présence des 
@@ -32,8 +39,17 @@ public class Food extends EnergySource {
 	// constructeur par défaut
 	public Food() {
 		//la consomation d'aliment va augmenter le nombre de calories 
-		this.setEnergyType(EnergyType.POSITIVE);
-	    this.FoodComponentsList = new ArrayList<FoodComponent>();
+		//la classe FOOD induit que ce type d'énergie va apporter de l'énergie au corp 
+		this.setEffect(EnergySource.NRJ_EFFECT.GIVE);
+	    
+	}
+
+	public STRUCTURE getStrucure() {
+		return mStrucure;
+	}
+
+	public void setStrucure(STRUCTURE mStrucure) {
+		this.mStrucure = mStrucure;
 	}
 
 	

@@ -2,7 +2,7 @@ package com.rdupuis.amikcal;
 
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
 import com.rdupuis.amikcal.opengl.testOpenGl2es;
-import com.rdupuis.amikcal.unitofmeasure.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 
 import android.app.Activity;

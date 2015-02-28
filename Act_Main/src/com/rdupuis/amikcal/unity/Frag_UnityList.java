@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.unitofmeasure;
+package com.rdupuis.amikcal.unity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 //2013-08-25 - R.Dupuis
 //Fragment permetant d'afficher une liste d'unité de mesure 
-public class Frag_UnitOfMeasureList extends Fragment {
+public class Frag_UnityList extends Fragment {
 	Intent mIntent;
 	private ListView maListViewPerso;
 	static Long currentId;
@@ -97,7 +97,7 @@ public class Frag_UnitOfMeasureList extends Fragment {
 		Uri mUri;
 
 		if (energyId == WITH_NO_FILTER) {
-			mUri = ContentDescriptorObj.Units.URI_CONTENT_UNITS;
+			mUri = ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS;
 
 		} else {
 
@@ -121,11 +121,11 @@ public class Frag_UnitOfMeasureList extends Fragment {
 				null);
 
 		final int INDX_COL_ID = cur
-				.getColumnIndex(ContentDescriptorObj.Units.Columns.ID);
+				.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.ID);
 		final int INDX_COL_NAME = cur
-				.getColumnIndex(ContentDescriptorObj.Units.Columns.NAME);
+				.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.LONG_NAME);
 		final int INDX_COL_SYMBOL = cur
-				.getColumnIndex(ContentDescriptorObj.Units.Columns.SYMBOL);
+				.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME);
 
 		// faire un move First pour positionner le pointeur
 
@@ -181,11 +181,11 @@ public class Frag_UnitOfMeasureList extends Fragment {
 							int position, long id) {
 						HashMap<String, String> map = (HashMap<String, String>) maListViewPerso
 								.getItemAtPosition(position);
-						Frag_UnitOfMeasureList.currentId = Long.parseLong(map
+						Frag_UnityList.currentId = Long.parseLong(map
 								.get("id"));
 						// création d'un boite de dialogue pour confirmer le
 						// choix
-						new AlertDialog.Builder(Frag_UnitOfMeasureList.this.getActivity())
+						new AlertDialog.Builder(Frag_UnityList.this.getActivity())
 								.setTitle("Confirmation")
 								.setMessage("Que souhaitez-vous faire ?")
 								.setPositiveButton("Editer",
@@ -251,7 +251,7 @@ public class Frag_UnitOfMeasureList extends Fragment {
 	}
 
 	public void onClick_edit() {
-		editUnit(Frag_UnitOfMeasureList.currentId.toString());
+		editUnit(Frag_UnityList.currentId.toString());
 	}
 
 	public void editUnit(String id) {

@@ -1,9 +1,13 @@
-package com.rdupuis.amikcal.unitofmeasure;
+package com.rdupuis.amikcal.unity;
 
-public class UnitOfMeasureObj {
+public class InternationalUnit extends Unity{
 private long id;
 private String name;
 private String symbol;
+
+public InternationalUnit(){
+	super.setUnityClass(UNIT_CLASS.INTERNATIONAL);
+}
 
 public long getId() {
 	return id;
@@ -22,6 +26,11 @@ public String getSymbol() {
 }
 public void setSymbol(String symbol) {
 	this.symbol = symbol;
+}
+
+@Override
+public void setUnityClass(UNIT_CLASS mClass) {
+// on override pour empêcher la modification
 }
 
 

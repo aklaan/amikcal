@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.EnergySourceQty;
 import com.rdupuis.amikcal.equivalence.EquivalenceObj;
-import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
+import com.rdupuis.amikcal.unity.Unity;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :
@@ -25,24 +27,24 @@ public class UserActivityComponent {
 
 	private long id;
 	private long parent_id;
-	private EnergySourceQty mEnergySourceQty;
-	public ArrayList<EquivalenceObj> equivalences;
+	private EnergySource mEnergySource;
+	private Qty mQty;
+	
 	
 	/**
 	 * Constructeur
 	 */
 	public UserActivityComponent() {
 		this.parent_id = AppConsts.NO_ID;
-		this.mEnergySourceQty = new EnergySourceQty();
-
+	
 	}
 
-	public void setEnergySourceQty(EnergySourceQty energySourceQty) {
-		this.mEnergySourceQty = energySourceQty;
+	public void setEnergySource(EnergySource energySource) {
+		this.mEnergySource = energySource;
 	}
 
-	public EnergySourceQty getEnergySourceQty() {
-		return mEnergySourceQty;
+	public EnergySource getEnergySource() {
+		return mEnergySource;
 	}
 
 	public long getParentId() {
@@ -105,7 +107,15 @@ public class UserActivityComponent {
 
 		// nbkcal = qty * equiv.ratio
 		
-	};
+	}
+
+public Qty getQty() {
+	return mQty;
+}
+
+public void setQty(Qty mQty) {
+	this.mQty = mQty;
+};
 
 	
 	

@@ -13,7 +13,7 @@ public class UserActivityLunch extends UserActivity{
 	public UserActivityLunch() {
 		super();
 		
-		this.type = UserActivity.UAType.LUNCH;
+		this.type = UserActivity.UA_CLASS_CD.LUNCH;
 		this.set_id(AppConsts.NO_ID);
 		
 

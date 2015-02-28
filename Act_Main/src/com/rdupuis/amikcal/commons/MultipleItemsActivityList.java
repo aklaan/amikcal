@@ -54,19 +54,16 @@ import android.widget.TextView;
         }
  
         public View getView(int position, View convertView, ViewGroup parent) {
-           
-           
-            
             
             HashMap<String, String> map = (HashMap<String, String>) getItem(position);
             
-            UserActivity.UAType mType = UserActivity.UAType.valueOf(map.get("type"));
-           
+            UserActivity.UA_CLASS_CD UA_Class = UserActivity.UA_CLASS_CD.valueOf(map.get("type"));
+            
             
             TextView tv;
             if (convertView == null) {
                 
-                switch (mType) {
+                switch (UA_Class) {
                 
            
                

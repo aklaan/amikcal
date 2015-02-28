@@ -11,7 +11,7 @@ public class UserActivityWeight extends UserActivity{
 		
 		super();
 		
-		this.type = UserActivity.UAType.WEIGHT;
+		this.type = UserActivity.UA_CLASS_CD.WEIGHT;
 		this.weight = new WeightObj();
 		
 

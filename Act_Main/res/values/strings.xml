@@ -36,7 +36,7 @@
     <string name="AJR">AJR</string>
     <string name="Kcal">Kcal</string>
     <string name="LIPIDS">Lipides</string>
-    <string name="GLUCIDS">Glucides</string>
+    <string name="GLUCIDS_LONG_NAME">Glucides</string>
     <string name="PROTEINS">Proteines</string>
     <string name="PREVIOUS">Précédent</string>
     <string name="NEW">Nouveau</string>

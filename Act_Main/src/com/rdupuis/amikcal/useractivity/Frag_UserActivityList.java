@@ -96,7 +96,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		// On prépare la requête pour rappatrier les activitées du jour
 		Uri request;
-		request = ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE
+		request = ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE
 				.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
 
 		// On crée une liste d'item différents selon le type d'activité à
@@ -114,13 +114,13 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		// Initialisation des index où récupérer les infos
 		final int INDX_COL_ID = cur
-				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.ID);
+				.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.ID);
 		final int INDX_COL_TITLE = cur
-				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.TITLE);
+				.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.TITLE);
 		final int INDX_COL_DATE = cur
-				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.DATE);
+				.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.DATE);
 		final int INDX_COL_TYPE = cur
-				.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.TYPE);
+				.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.CLASS);
 
 		// Lecture du curseur
 		if (cur.moveToFirst()) {
@@ -205,7 +205,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 								.parseLong(map.get("id"));
 						// On alimente le type de l'Item séléctionné
 
-						UserActivity.UAType.valueOf(map.get("type"));
+						UserActivity.UA_CLASS_CD.valueOf(map.get("type"));
 
 						// int ilaposition=position;
 

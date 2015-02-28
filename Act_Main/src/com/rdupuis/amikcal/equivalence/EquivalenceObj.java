@@ -1,7 +1,7 @@
 package com.rdupuis.amikcal.equivalence;
 
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.unitofmeasure.UnitOfMeasureObj;
+import com.rdupuis.amikcal.unity.Unity;
 
 /**
  * Une équivalence permet de transposer une source d'énergie d'une unitée de
@@ -22,10 +22,10 @@ public class EquivalenceObj {
 
 	private long id;
 	private float quantity_IN = 1f;
-	public UnitOfMeasureObj unit_IN;
+	public Unity unit_IN;
 	public EnergySource energySource;
 	private float quantity_OUT;
-	public UnitOfMeasureObj unit_OUT;
+	public Unity unit_OUT;
 
 	public long getId() {
 		return id;
@@ -45,8 +45,8 @@ public class EquivalenceObj {
 
 	public EquivalenceObj() {
 		this.energySource = new EnergySource();
-		this.unit_IN = new UnitOfMeasureObj();
-		this.unit_OUT = new UnitOfMeasureObj();
+		this.unit_IN = new Unity();
+		this.unit_OUT = new Unity();
 		this.setQuantityIn(1f);
 		this.setQuantityOut(0);
 
