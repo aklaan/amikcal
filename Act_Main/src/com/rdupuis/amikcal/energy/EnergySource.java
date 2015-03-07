@@ -2,6 +2,8 @@ package com.rdupuis.amikcal.energy;
 
 import java.util.ArrayList;
 
+import com.rdupuis.amikcal.commons.HasEquivalences;
+import com.rdupuis.amikcal.commons.HasQtyReference;
 import com.rdupuis.amikcal.commons.Qty;
 
 /**
@@ -17,7 +19,7 @@ import com.rdupuis.amikcal.commons.Qty;
  *
  */
 
-public class EnergySource {
+public class EnergySource implements HasEquivalences {
 
 	public static enum NRJ_EFFECT {
 		GIVE, BURN
@@ -26,9 +28,9 @@ public class EnergySource {
 	private long id;
 	private String name;
 	private NRJ_EFFECT mEffect;
-	private Qty mQty;
+	private Qty mQty_reference; // quantité de référence
 	private ArrayList<Qty> equivalences;
-
+	
 	public String getName() {
 		return name;
 	}
@@ -45,12 +47,12 @@ public class EnergySource {
 		this.mEffect = effect;
 	}
 
-	public Qty getQtyRef() {
-		return mQty;
+	public void setQtyReference(Qty qty) {
+		this.mQty_reference = qty;
 	}
 
-	public void setQtyRef(Qty qty) {
-		this.mQty = qty;
+	public Qty getQtyReference() {
+		return mQty_reference;
 	}
 
 	public ArrayList<Qty> getEquivalences() {
@@ -67,12 +69,6 @@ public class EnergySource {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Qty getQtyReference() {
-	
-		Qty result = new Qty();
-		return result;
 	}
 
 }

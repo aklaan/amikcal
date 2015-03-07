@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.data;
 
+import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -38,8 +40,10 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " ( " + ContentDescriptorObj.TB_Capacities.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ ContentDescriptorObj.TB_Capacities.Columns.CONTAINERFAMILLY
-				+ " TEXT, " + ContentDescriptorObj.TB_Capacities.Columns.CAPACITY
-				+ " TEXT, " + ContentDescriptorObj.TB_Capacities.Columns.PICTURE
+				+ " TEXT, "
+				+ ContentDescriptorObj.TB_Capacities.Columns.CAPACITY
+				+ " TEXT, "
+				+ ContentDescriptorObj.TB_Capacities.Columns.PICTURE
 				+ " TEXT, "
 				+ ContentDescriptorObj.TB_Capacities.Columns.LAST_UPDATE
 				+ " DATETIME, " + "UNIQUE ("
@@ -54,10 +58,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 * 
 		 * ====================================================================
 		 */
-		db.execSQL("CREATE TABLE "
-				+ ContentDescriptorObj.TB_Energies.NAME
-				+ " ( "
-				+ ContentDescriptorObj.TB_Energies.Columns.ID
+		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Energies.NAME
+				+ " ( " + ContentDescriptorObj.TB_Energies.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 
 				+ ContentDescriptorObj.TB_Energies.Columns.EFFECT
@@ -82,12 +84,10 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " ( " + ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " INTEGER, "
-				+ ContentDescriptorObj.TB_Party_rel.Columns.FK_PARTY_1
-				+ " INTEGER, "
-				+ ContentDescriptorObj.TB_Party_rel.Columns.FK_PARTY_2
-				+ " INTEGER, " + ContentDescriptorObj.TB_Party_rel.Columns.AMOUNT
-				+ " REAL, "
+				+ " BYTE, " + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ " STRING, "
+				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
+				+ " STRING, "
 				+ ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE
 				+ " DATETIME, " +
 
@@ -98,25 +98,26 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		// Création de la table des UserActivities
 		// Repas / pesées / activité physiques
 		// **********************************************************************************************
-		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_UserActivities.NAME
-				+ " ( " + ContentDescriptorObj.TB_UserActivities.Columns.ID
+		db.execSQL("CREATE TABLE "
+				+ ContentDescriptorObj.TB_UserActivities.NAME + " ( "
+				+ ContentDescriptorObj.TB_UserActivities.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				
+
 				+ ContentDescriptorObj.TB_UserActivities.Columns.CLASS
 				+ " INTEGER, "
-				
+
 				+ ContentDescriptorObj.TB_UserActivities.Columns.DATE
 				+ " DATETIME, "
-				
+
 				+ ContentDescriptorObj.TB_UserActivities.Columns.TITLE
 				+ " STRING, "
-				
+
 				+ ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE
 				+ " DATETIME, " +
 
 				"UNIQUE (" + ContentDescriptorObj.TB_UserActivities.Columns.ID
 				+ ") ON CONFLICT REPLACE)");
-	}
+
 		/**
 		 * ====================================================================
 		 * 
@@ -128,102 +129,158 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 * 
 		 * */
 
-		// **********************************************************************************************
-		// Création de la vue
-		// **********************************************************************************************
+		/**
+		 * *********************************************************************
+		 * ************************* Création de la vue
+		 *
+		 * select energy.id rel_nrj_qty.id rel_qty.id rel_qty.party1
+		 * rel_qty.party2
+		 * 
+		 * from energies inner join party_rel as rel_nrj_qty on energies.id =
+		 * rel_nrj_qty.id and rel_nrj_qty.rel_typ_cd = 0x00 inner join party_rel
+		 * as rel_qty
+		 *
+		 **********************************************************************************************/
 
-		/*
-		 * db.execSQL("CREATE VIEW "
-		 * 
-		 * + ContentDescriptorObj.ViewActivityComponent.NAME + " AS SELECT "
-		 * 
-		 * + ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.ID + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.ID
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.Energies.NAME + "." +
-		 * ContentDescriptorObj.Energies.Columns.ID + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.ENERGY_ID
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.Energies.NAME + "." +
-		 * ContentDescriptorObj.Energies.Columns.NAME + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.ENERGY_NAME //
-		 * ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.QUANTITY + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.QUANTITY
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.Units.NAME + "." +
-		 * ContentDescriptorObj.Units.Columns.ID + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.UNIT_ID
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.Units.NAME + "." +
-		 * ContentDescriptorObj.Units.Columns.NAME + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.UNIT_NAME
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.SCORE + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.SCORE
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.MNT_ENERGY + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_ENERGY
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.MNT_GLUCIDS + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_GLUCIDS
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.MNT_LIPIDS + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_LIPIDS
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.MNT_PROTEINS + " AS "
-		 * + ContentDescriptorObj.ViewActivityComponent.Columns.MNT_PROTEINS
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.VITAMINS + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.VITAMINS
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.FK_PARENT + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.PARENT_ID //
-		 * ----------------------------------------------------------
-		 * 
-		 * // ---------------------------------------------------------- + "," +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.LAST_UPDATE + " AS " +
-		 * ContentDescriptorObj.ViewActivityComponent.Columns.LAST_UPDATE //
-		 * ----------------------------------------------------------
-		 * 
-		 * + " FROM " + ContentDescriptorObj.ActivityComponent.NAME + " AS " +
-		 * ContentDescriptorObj.ActivityComponent.NAME + " INNER JOIN " +
-		 * ContentDescriptorObj.Energies.NAME + " AS " +
-		 * ContentDescriptorObj.Energies.NAME + " ON " +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.FK_ENERGY + " = " +
-		 * ContentDescriptorObj.Energies.NAME + "." +
-		 * ContentDescriptorObj.Energies.Columns.ID
-		 * 
-		 * + " INNER JOIN " + ContentDescriptorObj.Units.NAME + " AS " +
-		 * ContentDescriptorObj.Units.NAME + " ON " +
-		 * ContentDescriptorObj.ActivityComponent.NAME + "." +
-		 * ContentDescriptorObj.ActivityComponent.Columns.FK_UNIT + " = " +
-		 * ContentDescriptorObj.Units.NAME + "." +
-		 * ContentDescriptorObj.Units.Columns.ID);
-		 */
 		
+		db.execSQL("CREATE VIEW "
+				+ ContentDescriptorObj.VIEW_NRJ_QTY_REF.NAME
+
+				+ " AS SELECT " 
+				+ ContentDescriptorObj.TB_Energies.NAME
+				+ "." + ContentDescriptorObj.TB_Energies.Columns.ID
+				+","
+				
+				+ "rel_nrj_qty_ref." +
+				ContentDescriptorObj.TB_Party_rel.Columns.ID 
+				
+				+ "rel_qty." +
+				ContentDescriptorObj.TB_Party_rel.Columns.ID
+				
+				+ "rel_qty." +
+				ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+			
+				+ "rel_qty." +
+				ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
+			
+				
+				+ " FROM " + ContentDescriptorObj.TB_Energies.NAME
+		
+				+ " INNER JOIN " + ContentDescriptorObj.TB_Party_rel.NAME + " AS rel_nrj_ref " 
+				
+				+ " ON " 
+				+ ContentDescriptorObj.TB_Energies.NAME + "." 
+				+ ContentDescriptorObj.TB_Energies.Columns.ID
+				
+				+ " = rel_nrj_ref." + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ " AND rel_nrj_ref." + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
+				+ " = "	+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTER
+
+				
+                + " INNER JOIN " + ContentDescriptorObj.TB_Party_rel.NAME + " AS rel_qty " 
+				
+				+ " ON rel_nrj_ref." + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
+				
+				+ " = rel_qty." + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ " AND rel_qty." + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
+				+ " = "	+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.QTY
+				+")"
+				
+		);
+
+	}
+
+	/*
+	 * db.execSQL("CREATE VIEW "
+	 * 
+	 * + ContentDescriptorObj.ViewActivityComponent.NAME + " AS SELECT "
+	 * 
+	 * + ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.ID + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.ID
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.Energies.NAME + "." +
+	 * ContentDescriptorObj.Energies.Columns.ID + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.ENERGY_ID
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.Energies.NAME + "." +
+	 * ContentDescriptorObj.Energies.Columns.NAME + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.ENERGY_NAME //
+	 * ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.QUANTITY + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.QUANTITY
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.Units.NAME + "." +
+	 * ContentDescriptorObj.Units.Columns.ID + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.UNIT_ID
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.Units.NAME + "." +
+	 * ContentDescriptorObj.Units.Columns.NAME + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.UNIT_NAME
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.SCORE + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.SCORE
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.MNT_ENERGY + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_ENERGY
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.MNT_GLUCIDS + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_GLUCIDS
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.MNT_LIPIDS + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_LIPIDS
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.MNT_PROTEINS + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.MNT_PROTEINS
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.VITAMINS + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.VITAMINS
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.FK_PARENT + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.PARENT_ID //
+	 * ----------------------------------------------------------
+	 * 
+	 * // ---------------------------------------------------------- + "," +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.LAST_UPDATE + " AS " +
+	 * ContentDescriptorObj.ViewActivityComponent.Columns.LAST_UPDATE //
+	 * ----------------------------------------------------------
+	 * 
+	 * + " FROM " + ContentDescriptorObj.ActivityComponent.NAME + " AS " +
+	 * ContentDescriptorObj.ActivityComponent.NAME + " INNER JOIN " +
+	 * ContentDescriptorObj.Energies.NAME + " AS " +
+	 * ContentDescriptorObj.Energies.NAME + " ON " +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.FK_ENERGY + " = " +
+	 * ContentDescriptorObj.Energies.NAME + "." +
+	 * ContentDescriptorObj.Energies.Columns.ID
+	 * 
+	 * + " INNER JOIN " + ContentDescriptorObj.Units.NAME + " AS " +
+	 * ContentDescriptorObj.Units.NAME + " ON " +
+	 * ContentDescriptorObj.ActivityComponent.NAME + "." +
+	 * ContentDescriptorObj.ActivityComponent.Columns.FK_UNIT + " = " +
+	 * ContentDescriptorObj.Units.NAME + "." +
+	 * ContentDescriptorObj.Units.Columns.ID);
+	 */
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -284,25 +341,13 @@ public class DatabaseObj extends SQLiteOpenHelper {
 	}
 
 	private void init_Internationals_Units(SQLiteDatabase db) {
-		db.execSQL("INSERT INTO "
-				+ ContentDescriptorObj.TB_Units.NAME
-				+ " ("
-				+ ContentDescriptorObj.TB_Units.Columns.ID
-				+ ","
-				+ " "
-				+ ContentDescriptorObj.TB_Units.Columns.CLASS
-				+ ","
-				+ " "
-				+ ContentDescriptorObj.TB_Units.Columns.LONG_NAME
-				+ ","
-				+ " "
-				+ ContentDescriptorObj.TB_Units.Columns.SHORT_NAME
-				+ ","
-				+ " "
-				+ ContentDescriptorObj.TB_Units.Columns.CONTAINERFAMILLY
-				+ ","
-				+ " "
-				+ ContentDescriptorObj.TB_Units.Columns.LAST_UPDATE
+		db.execSQL("INSERT INTO " + ContentDescriptorObj.TB_Units.NAME + " ("
+				+ ContentDescriptorObj.TB_Units.Columns.ID + "," + " "
+				+ ContentDescriptorObj.TB_Units.Columns.CLASS + "," + " "
+				+ ContentDescriptorObj.TB_Units.Columns.LONG_NAME + "," + " "
+				+ ContentDescriptorObj.TB_Units.Columns.SHORT_NAME + "," + " "
+				+ ContentDescriptorObj.TB_Units.Columns.CONTAINERFAMILLY + ","
+				+ " " + ContentDescriptorObj.TB_Units.Columns.LAST_UPDATE
 				+ ") VALUES (1, 0, 'Gramme', 'g' , null, CURRENT_TIMESTAMP)");
 
 	}

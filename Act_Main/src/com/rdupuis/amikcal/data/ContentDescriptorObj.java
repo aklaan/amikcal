@@ -79,13 +79,13 @@ public class ContentDescriptorObj {
 		matcher.addURI(authority, TB_Units.UPDATE_UNIT,
 				TB_Units.UPDATE_UNIT_TOKEN);
 
-		// Match pour l'insert d'une unitée
-		matcher.addURI(authority, ViewEnergies.SELECT_VIEW_ENERGIES,
-				ViewEnergies.SELECT_VIEW_ENERGIES_TOKEN);
+		// Match pour la vue de selection des liens UA_UAC
+		matcher.addURI(authority, View_UA_UAC.VIEW_UAC_FOR_UA_PATH,
+				View_UA_UAC.VIEW_UAC_FOR_UA_TOKEN);
 
-		// Match pour l'insert d'une unitée
-		matcher.addURI(authority, ViewEnergies.SELECT_VIEW_ENERGIES_BY_ID,
-				ViewEnergies.SELECT_VIEW_ENERGIES_BY_ID_TOKEN);
+		// Match pour la vue de selection des liens UAC_QTY
+				matcher.addURI(authority, View_UAC_Qty.VIEW_QTY_FOR_UAC_PATH,
+						View_UAC_Qty.VIEW_QTY_FOR_UAC_TOKEN);
 
 		// **---- Match(s) pour la table user_activities ----->
 		matcher.addURI(authority, TB_UserActivities.SELECT_USER_ACTIVITIES,
@@ -267,6 +267,23 @@ public class ContentDescriptorObj {
 		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.party_rel";
 
+		public static final class PredefinedValues {
+			public static final class RelationsCodes {
+				public static final byte UA_UAC = 0x00;
+				public static final byte UAC_FOOD = 0x01;
+				public static final byte UAC_MOVE = 0x02;
+				public static final byte UAC_WEIGHT = 0x03;
+				public static final byte UAC_EQUIV = 0x04;
+				public static final byte NRJ_REF_INTER = 0x05;
+				public static final byte NRJ_REF_EQUIV = 0x06;
+				public static final byte CSTM_NRJ_REF = 0x07;
+				public static final byte UNIT_EQUIV = 0x08;
+				public static final byte UNIT_INTER_LINK = 0x09;
+				public static final byte QTY = 0x10;
+
+			}
+		}
+
 		// Info concernant les colones de la table
 		public static final class Columns {
 			public static final String ID = BaseColumns._ID; // on utilise la
@@ -276,9 +293,9 @@ public class ContentDescriptorObj {
 																// indiqué par
 																// BaseColumns
 			public static final String REL_TYP_CD = "rel_typ_cd";
-			public static final String FK_PARTY_1 = "fk_party_1";
-			public static final String FK_PARTY_2 = "fk_party_2";
-			public static final String AMOUNT = "amount";
+			public static final String PARTY_1 = "party_1";
+			public static final String PARTY_2 = "party_2";
+
 			public static final String LAST_UPDATE = "last_update";
 
 		}
@@ -329,6 +346,21 @@ public class ContentDescriptorObj {
 
 		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.energies";
+
+		//
+		public static final class PredefinedValues {
+			public static final class StructureCode {
+				public static final int LIQUID = 0x00;
+				public static final int SOLID = 0x01;
+
+			}
+
+			public static final class EffectCodes {
+				public static final int GIVE = 0x00;
+				public static final int BURN = 0x01;
+			}
+
+		}
 
 		// Info concernant les colones de la table
 		public static final class Columns {
@@ -392,10 +424,10 @@ public class ContentDescriptorObj {
 		//
 		public static final class PredefinedValues {
 			public static final class ClassCodes {
-				public static final int INTERNATIONAL = 0x00;
-				public static final int CUSTOM = 0x01;
-				public static final int CONTAINER = 0x02;
-				public static final int TIME = 0X03;
+				public static final byte INTERNATIONAL = 0x00;
+				public static final byte CUSTOM = 0x01;
+				public static final byte CONTAINER = 0x02;
+				public static final byte TIME = 0X03;
 			}
 		}
 
@@ -555,29 +587,26 @@ public class ContentDescriptorObj {
 	}
 
 	/***********************************************************************************
-	 * Vue pour récupérer les informations d'une source d'énergie.
+	 * Vue pour récupérer les information de la relation entre une NRJ et sa
+	 * quantité de reférence.
 	 * 
 	 * @author R.DUPUIS
 	 *
 	 **********************************************************************************/
-	public static final class VIEW_NRJ_SRC implements BaseColumns {
+	public static final class View_NRJ implements BaseColumns {
 
 		// Info concernant la table
-		public static final String VIEW_NAME = "view_nrj_src";
-
-		// Path pour l'Uri de séléction de toute la table
-		public static final String SELECT_VIEW_NRJ_SRC = VIEW_NAME;
-		public static final int SELECT_VIEW_NRJ_SRC_TOKEN = 800;
+		public static final String NAME = "view_nrj";
 
 		// Path pour l'Uri de séléction d'un enregistrement
-		public static final String SELECT_VIEW_NRJ_SRC_BY_ID = VIEW_NAME + "/#";
-		public static final int SELECT_VIEW_NRJ_SRC_BY_ID_TOKEN = 810;
+		public static final String VIEW_NRJ_ID_PATH = NAME + "/#";
+		public static final int VIEW_NRJ_ID_TOKEN = 800;
 
-		public static final Uri URI_CONTENT_VIEW_PARTY_REL = BASE_URI
-				.buildUpon().appendPath(SELECT_VIEW_NRJ_SRC).build();
+		public static final Uri VIEW_NRJ_ID_URI = BASE_URI.buildUpon()
+				.appendPath(VIEW_NRJ_ID_PATH).build();
 
 		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.view_components";
+		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal."+NAME;
 
 		public static final class Columns {
 			public static final String ID = BaseColumns._ID; // on utilise la
@@ -586,24 +615,97 @@ public class ContentDescriptorObj {
 																// colonne ID
 																// indiqué par
 																// BaseColumns
-			public static final String ENERGY_ID = "energy_id";
-			public static final String ENERGY_NAME = "energy_name";
-			public static final String QUANTITY = "quantity";
-			public static final String UNIT_ID = "unit_id";
-			public static final String UNIT_NAME = "unit_name";
-			public static final String LAST_UPDATE = "last_update";
-			public static final String PARENT_ID = "parent_ID";
+			public static final String ENERGY_ID = "nrj_id";
+			public static final String ENERGY_NAME = "nrj_name";
+			public static final String REL_NRJ_REF_ID = "rel_nrj_ref_id";
+			public static final String REL_QTY_ID = "rel_qty_id";
 
 		}
 	}
 
+	/***********************************************************************************
+	 * Vue pour récupérer les informations QTY d'une UAC
+	 * 
+	 * id rel_typ_cd party1 party2 ------ ---------- ------- ------ REL00 UA_UAC
+	 * UA uac01 (l'UAC uac01 est rattaché à l'UA) UAC01 UAC_FOOD nrj01 qty33
+	 * (uac01 est composé de l'énergie nrj01 et de la qty33) qty33 QTY 178
+	 * unit67 (la qty33 correspond à 178 g) eq88 QTY_EQUIV qty33 qty56 (la qty
+	 * 33 est évuivalente à la qty56) qty56 QTY 34 unit23 (la qty56 correspond à
+	 * 34 Kcal)
+	 * 
+	 *
+	 * la vue doit ramener
+	 * 
+	 * uac_id uac_energy_id -> pour recharger nrj la Qty id -> pour recharger la
+	 * qty (amount+unity)
+	 * 
+	 * On utilisera une fonction spécifique pour recharger les équivalences de
+	 * la Qty
+	 * 
+	 * @author R.DUPUIS
+	 *
+	 **********************************************************************************/
+	public static final class View_UAC_Qty {
+
+		// Info concernant la table
+		public static final String NAME = "view_uac_qty";
+
+		// Path pour l'Uri de séléction d'un enregistrement
+		public static final String VIEW_QTY_FOR_UAC_PATH = NAME + "/#";
+		public static final int VIEW_QTY_FOR_UAC_TOKEN = 800;
+
+		public static final Uri VIEW_QTY_FOR_UAC_URI = BASE_URI.buildUpon()
+				.appendPath(VIEW_QTY_FOR_UAC_PATH).build();
+
+		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
+		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal"
+				+ NAME;
+
+		public static final class Columns {
+			public static final String UAC_ID = "uac_id";
+			public static final String UAC_REL_TYP_CD = "uac_rel_typ_cd";
+			public static final String ENERGY_ID = "energy_id";
+			public static final String QTY_ID = "uac_qty_id";
+		}
+	}
+
+	/***************************************************************************
+	 * Vue permettant de relire les UAC d'un UA
+	 * 
+	 * @author Rodolphe
+	 *
+	 ***************************************************************************/
+	public static final class View_UA_UAC {
+
+		// Info concernant la table
+		public static final String NAME = "view_ua_uac";
+
+		// Path pour l'Uri de séléction d'un enregistrement
+		public static final String VIEW_UAC_FOR_UA_PATH = NAME + "/#";
+		public static final int VIEW_UAC_FOR_UA_TOKEN = 800;
+
+		public static final Uri VIEW_UAC_FOR_UA_URI = BASE_URI.buildUpon()
+				.appendPath(VIEW_UAC_FOR_UA_PATH).build();
+
+		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
+		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal"
+				+ NAME;
+
+		public static final class Columns {
+			public static final String UA_ID = "ua_id";
+			public static final String UAC_ID = "uac_id";
+
+		}
+	}
+
+	
 	/***********************************************************************************
 	 * Vue des aliments consommées.
 	 * 
 	 * @author R.DUPUIS
 	 *
 	 **********************************************************************************/
-	public static final class ViewEnergies implements BaseColumns {
+	public static final class View_Energies implements BaseColumns {
 
 		// Info concernant la table
 		public static final String NAME = "view_energies";
@@ -622,23 +724,34 @@ public class ContentDescriptorObj {
 		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.view_energies";
 
-		public static final class Columns {
-			public static final String ID = BaseColumns._ID; // on utilise la
-																// convention de
-																// format de
-																// colonne ID
-																// indiqué par
-																// BaseColumns
+		// si je dois mettre à jour la qty de référence, je dois connaitre l'id
+		// de la relation
+		// idem pour les équivalences
+		// la vue ne consiste donc pas à récupérer uniquement les objets lies
+		// entre eux.
+		// il faut aussi récupérer les liens pour pouvoir les mettre à jour.
 
+		/**
+		 * notes :
+		 * 
+		 * si j'ai id nrj, je peux retrouver id relation qty ref
+		 * 
+		 * energy.getQty(setAmount(199)) ==> compliqué
+		 * 
+		 * id = Relation.getId(energy,qty) si je veux mettre à jour la quantité
+		 * de calories je dois rechercher l'id de l'équivalence pour calories et
+		 * mettre à jour
+		 */
+		// _id nrj nrj_name nrj_amount_ref nrj_unit_ref
+
+		public static final class Columns {
+			public static final String ENERGY_ID = "energy_id";
 			public static final String ENERGY_NAME = "energy_name";
-			public static final String QUANTITY = "quantity";
-			public static final String UNIT_ID = "unit_id";
+			public static final String AMOUNT_REF = "amount_ref";
+			public static final String UNIT_REF_ID = "unit_ref_id";
 			public static final String UNIT_NAME = "unit_name";
-			public static final String MNT_ENERGY = "mnt_energy";
-			public static final String MNT_LIPIDS = "mnt_lipids";
-			public static final String MNT_PROTEINS = "mnt_proteins";
-			public static final String MNT_GLUCIDS = "mnt_glucids";
-			public static final String VITAMINS = "vitamins";
+			public static final String LAST_UPDATE = "last_update";
+			public static final String PARENT_ID = "parent_ID";
 
 		}
 

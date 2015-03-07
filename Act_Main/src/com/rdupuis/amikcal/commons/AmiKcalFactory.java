@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.commons;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -8,12 +10,12 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
+import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
-import com.rdupuis.amikcal.commons.AppConsts.UNIT_CLASS_MAP;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.energy.EnergyReference;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.equivalence.EquivalenceObj;
+import com.rdupuis.amikcal.energy.EnergySource.NRJ_EFFECT;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivityItem;
@@ -23,30 +25,33 @@ import com.rdupuis.amikcal.useractivity.UserActivityMove;
 import com.rdupuis.amikcal.useractivity.UserActivityMoveItem;
 import com.rdupuis.amikcal.useractivity.UserActivityWeight;
 import com.rdupuis.amikcal.useractivity.UserActivityWeightItem;
+import com.rdupuis.amikcal.useractivitycomponent.UAC_Food;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public final class AmiKcalFactory {
 
 	private ContentResolver contentResolver;
+	private Activity mActivity;
 
 	public AmiKcalFactory(Activity activity) {
+		this.mActivity = activity;
 		this.contentResolver = activity.getContentResolver();
 
 	}
 
-	/**
-	 * Retourne une énergie stocké dans la base à partir de son id.
+	/*********************************************************************************
+	 * <h1>loadEnergy()</h1>
+	 * 
+	 * Retourne une énergie stockée dans la Database à partir de son id.
 	 * 
 	 * @since 01-06-2012
 	 * @param _id
 	 *            - Identifiant
 	 * @return (Energy) un objet "énergie"
-	 **/
+	 ********************************************************************************/
 	public EnergySource loadEnergy(long _id) {
 
-		EnergySource e = new EnergySource();
-
-		e.setId(_id);
+		EnergySource energy = new EnergySource();
 
 		Uri selectUri = ContentUris.withAppendedId(
 				ContentDescriptorObj.TB_Energies.URI_CONTENT_ENERGIES, _id);
@@ -55,50 +60,40 @@ public final class AmiKcalFactory {
 
 		final int INDX_NRJ_NAME = cursor
 				.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.NAME);
-		
+
 		final int INDX_NRJ_EFFECT = cursor
 				.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.EFFECT);
-		
+
 		final int INDX_NRJ_STRUCTURE = cursor
 				.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.STRUCTURE);
+
+		final int INDX_NRJ_QTY_REF_ID = cursor
+				.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.STRUCTURE);
+
 		
-		
-		/*
-		 * final int INDX_QUANTITY = cursor
-		 * .getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.QUANTITY);
-		 * final int INDX_MNT_ENERGY = cursor
-		 * .getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.MNT_ENERGY);
-		 * final int INDX_MNT_PROTEINS = cursor
-		 * .getColumnIndex(ContentDescriptorObj
-		 * .TB_Energies.Columns.MNT_PROTEINS); final int INDX_MNT_GLUCIDS =
-		 * cursor
-		 * .getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.MNT_GLUCIDS
-		 * ); final int INDX_MNT_LIPIDS = cursor
-		 * .getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.MNT_LIPIDS);
-		 * 
-		 * final int INDX_FK_UNIT = cursor
-		 * .getColumnIndex(ContentDescriptorObj.Tb_Energies.Columns.FK_UNIT);
-		 */
 		// faire un move First pour positionner le pointeur, sinon on pointe sur
 		// null
 		if (cursor.moveToFirst()) {
 
-			e.setName(cursor.getString(INDX_ENERGY_NAME));
-			/*
-			 * e.setCalories(Float.parseFloat(cursor.getString(INDX_MNT_ENERGY)))
-			 * ;
-			 * e.setProteins(Float.parseFloat(cursor.getString(INDX_MNT_PROTEINS
-			 * )));
-			 * e.setGlucids(Float.parseFloat(cursor.getString(INDX_MNT_GLUCIDS
-			 * )));
-			 * e.setLipids(Float.parseFloat(cursor.getString(INDX_MNT_LIPIDS)));
-			 * e.setQuantityReference((Float.parseFloat(cursor
-			 * .getString(INDX_QUANTITY)))); e.unit =
-			 * this.createUnitOfMeasureObjFromId(Long.parseLong(cursor
-			 * .getString(INDX_FK_UNIT)));
-			 */
+			// on charge le mapping des NRJ_EFFECT
+			NRJ_EFFECT_MAP mapping = new NRJ_EFFECT_MAP();
+
+			energy.setId(_id);
+			energy.setName(cursor.getString(INDX_NRJ_NAME));
+			energy.setEffect(mapping._in.get(cursor.getInt(INDX_NRJ_EFFECT)));
+
+			// charger la quantitée de référence
+			Qty qtyRef = this.loadQtyReference(energy);
+			energy.setQtyReference(qtyRef);
+
+			// charger les équivalences de la qty ref
+			ArrayList<Qty> equivalences = new ArrayList<Qty>();
+			equivalences = this.loadEquiv(qtyRef);
+			energy.setEquivalences(equivalences);
+
 		} else {
-			e.setName("");
+			Toast.makeText(this.mActivity, "Energy Source inconnue",
+					Toast.LENGTH_LONG).show();
 			/*
 			 * e.setCalories(0.0f); e.setProteins(0.0f); e.setGlucids(0.0f);
 			 * e.setLipids(0.0f); e.setQuantityReference(0.0f); e.unit = new
@@ -107,8 +102,63 @@ public final class AmiKcalFactory {
 		}
 
 		cursor.close();
-		return e;
+		return energy;
 
+	}
+
+	/**
+	 * <h1>loadQtyReference(EnergySource energySource)</h1>
+	 * <p>
+	 * Permet de charger la quantité de référence d'une source d'énergie
+	 * </p>
+	 * 
+	 * @param energySource
+	 */
+	public Qty loadQtyReference(EnergySource nrj) {
+
+		//on passe par la vue VIEW_REL_NRJ_QTY_REF
+		//elle nous permet d'avoir directement des info necessaires
+		// id energy =>id relation => id relation Qty;amount;id unity
+
+		
+		Uri selectUri = ContentUris.withAppendedId(
+				ContentDescriptorObj.View_Rel_NRJ_QtyRef.VIEW_BY_NRJ_ID_URI,
+				nrj.getId());
+		Cursor cursor = this.contentResolver.query(selectUri, null, null, null,
+				null);
+
+		// id de la relation QTY
+		final int INDX_QTY_ID = cursor
+				.getColumnIndex(ContentDescriptorObj.View_Rel_NRJ_QtyRef.Columns.REL_QTY_ID);
+
+		// Id de l'unité
+		final int INDX_UNIT_ID = cursor
+				.getColumnIndex(ContentDescriptorObj.View_Rel_NRJ_QtyRef.Columns.QTY_UNITY_ID);
+
+		// Montant de la quantitée
+		final int INDX_AMOUNT = cursor
+				.getColumnIndex(ContentDescriptorObj.View_Rel_NRJ_QtyRef.Columns.QTY_AMOUNT);
+
+		
+		Qty qty = new Qty();
+
+		// faire un move First pour positionner le pointeur, sinon on pointe sur
+		// null
+		
+		if (cursor.moveToFirst()) {
+
+			qty.rel_id = cursor.getLong(INDX_QTY_ID);
+			qty.setAmount(cursor.getFloat(INDX_AMOUNT));
+			qty.setUnity(this.load_Unity(cursor.getLong(INDX_UNIT_ID)));
+
+		} else {
+			Toast.makeText(this.mActivity, "Qty référence inconnue",
+					Toast.LENGTH_LONG).show();
+		}
+
+		cursor.close();
+
+		return qty;
 	}
 
 	/**
@@ -142,60 +192,12 @@ public final class AmiKcalFactory {
 			u.setLongName(cursor.getString(INDX_NAME));
 			u.setShortName(cursor.getString(INDX_SYMBOL));
 		} else {
-			u.setLongName("");
-			u.setShortName("");
+			Toast.makeText(this.mActivity, "Unity inconnue", Toast.LENGTH_LONG)
+					.show();
 		}
 		cursor.close();
 		return u;
 
-	}
-
-	/**
-	 * Retourne une équivalence de mesure stocké dans la base à partir de son
-	 * id.
-	 * 
-	 * @since 01-06-2012
-	 * @param _id
-	 * @return (EquivalenceObj) un objet "Equivalence"
-	 **/
-	public EquivalenceObj createEquivalenceObjFromId(long _id) {
-		/*
-		 * EquivalenceObj mEquivalence = new EquivalenceObj();
-		 * 
-		 * Uri selectUri = ContentUris .withAppendedId(
-		 * ContentDescriptorObj.Equivalences.URI_CONTENT_EQUIVALENCES, _id);
-		 * 
-		 * // On crée un curseur pour lire la table des aliments Cursor cursor =
-		 * this.contentResolver.query(selectUri, null, null, null, null);
-		 * 
-		 * final int INDX_FK_ENERGY = cursor
-		 * .getColumnIndex(ContentDescriptorObj.Equivalences.Columns.FK_ENERGY);
-		 * final int INDX_FK_UNIT_IN = cursor
-		 * .getColumnIndex(ContentDescriptorObj
-		 * .Equivalences.Columns.FK_UNIT_IN); final int INDX_QUANTITY_OUT =
-		 * cursor
-		 * .getColumnIndex(ContentDescriptorObj.Equivalences.Columns.QUANTITY_OUT
-		 * ); final int INDX_FK_UNIT_OUT = cursor
-		 * .getColumnIndex(ContentDescriptorObj
-		 * .Equivalences.Columns.FK_UNIT_OUT);
-		 * 
-		 * // faire un move First pour positionner le pointeur, sinon on pointe
-		 * sur // null if (cursor.moveToFirst()) {
-		 * 
-		 * mEquivalence.setId(_id); mEquivalence.energy =
-		 * createEnergyFromId(cursor .getLong(INDX_FK_ENERGY));
-		 * mEquivalence.unitIn = createUnitOfMeasureObjFromId(cursor
-		 * .getLong(INDX_FK_UNIT_IN)); mEquivalence.unitOut =
-		 * createUnitOfMeasureObjFromId(cursor .getLong(INDX_FK_UNIT_OUT));
-		 * 
-		 * Log.i("Qté lue", String.valueOf(cursor.getFloat(INDX_QUANTITY_OUT)));
-		 * mEquivalence.setQuantity(cursor.getFloat(INDX_QUANTITY_OUT));
-		 * 
-		 * } else { Log.e("AmickalFactory.createEquivalenceObjFromId",
-		 * "Equivalence non trouvé"); }
-		 * 
-		 * cursor.close(); return mEquivalence;
-		 */
 	}
 
 	/**
@@ -206,7 +208,7 @@ public final class AmiKcalFactory {
 	 * @param _id
 	 * @return (UserActivityObj) un objet "Activité d'utilisateur"
 	 **/
-	public UserActivity reloadUserActivityObjFromId(long _id) {
+	public UserActivity loadUserActivity(long _id) {
 
 		Uri request = ContentUris
 				.withAppendedId(
@@ -258,9 +260,8 @@ public final class AmiKcalFactory {
 					.getString(ACTIVITY_DATE)));
 
 		} else {
-			// par défaut on fait une activité lunch
-			userActivity = new UserActivityLunch();
-			userActivity.setTitle("UserActivity Not Found");
+			Toast.makeText(this.mActivity, "User Acivity inconnue",
+					Toast.LENGTH_LONG).show();
 
 		}
 		return userActivity;
@@ -268,8 +269,7 @@ public final class AmiKcalFactory {
 
 	public UserActivityItem createUserActivityItemFromId(Activity activity,
 			long _id) {
-		UserActivity userActivity = reloadUserActivityObjFromId(_id);
-
+		UserActivity userActivity = loadUserActivity(_id);
 		UserActivityItem userActivityItem = null;
 
 		// en fonction du type d'activitée, on va retourner l'objet adequat
@@ -294,49 +294,92 @@ public final class AmiKcalFactory {
 	/**
 	 * <h1>loadComponent</h1>
 	 * <p>
-	 * Cette méthode permet de recharger un composant d'une activité
-	 * Utilisateur</br> le chargement s'opère en 2 phases :
+	 * 
+	 * notes on prend 'id d'une UA UA.Load() <arrayList of UAC> UA.get_UAC()
+	 * 
+	 * <arrayList of QTY> UA.get_UAC_Equiv()
+	 * 
+	 * on va rechercher les liens US_UAC
+	 * 
+	 * UA.get_AUC va utiliser la factory pour créer des objets UAC a partir de
+	 * la DATABASE il faut récupérer la liste des ID UAC de l'UA pour pouvoir
+	 * recreer les UAC
+	 * 
+	 * une fonction : récupérer la liste des ID UAC en relation avec une UA
+	 * 
+	 * on peu aussi passer par une vue :
+	 * 
+	 * select UA._id ,UAC._id ,EQUIV._id from party_rel as UA inner join
+	 * party_rel as UAC on UA.rel_typ_cd = "UA_UAC" and UA.party_2 = UAC.party_1
+	 * 
+	 * * inner join party_rel as EQUIV on UAC.rel_typ_cd = "UAC_EQV" and
+	 * UA.party_1 = UAC.party_1
+	 * 
+	 * 
+	 * le chargement s'opère en 2 phases :
 	 * <ul>
 	 * <li>1 - initialiser le composant
 	 * <li>2 - charger ses equivalences
 	 * </ul>
 	 * </p>
 	 * 
+	 * 
+	 * Quand j'utilise cette fonction, je suis déjà sur une UA et j'ai déja été
+	 * cherché ses ID d'UAC
+	 * 
 	 * @param _id
 	 *            : Identifiant du composant à recharger
 	 */
-	public UserActivityComponent load_UAComponent(Long _id) {
+	public UserActivityComponent loadUAC(Long _id) {
 		// On fabrique l'Uri pour le contentProvider
 		// celle-ci est du style content://xxxxx.xxxxxxxx.xxxxxxx/# où le dièse
 		// est l'Id à rechercher
 
+		// cette URI est générique. on ne sais pas quel type d'UAC on récupère
 		UserActivityComponent mUAC = new UserActivityComponent();
 		Uri selectUri = ContentUris.withAppendedId(
-				ContentDescriptorObj.TB_Party_rel.SEL001_PARTY_REL_BY_ID_URI,
+				ContentDescriptorObj.View_UAC_Qty.VIEW_QTY_FOR_UAC_URI,
 				_id);
 
 		// On crée un curseur pour lire la table des aliments
-		Cursor cur = contentResolver.query(selectUri, null, _id.toString(),
+		Cursor cursor = contentResolver.query(selectUri, null, _id.toString(),
 				null, null);
 
-		final int INDX_REL_TYP_CD = cur
-				.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD);
-		final int INDX_NRJ_ID = cur
-				.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.FK_PARTY_1);
-		final int INDX_UNIT_ID = cur
-				.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.FK_PARTY_2);
-		final int INDX_AMOUNT = cur
-				.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.AMOUNT);
-		// faire un move First pour positionner le pointeur, sinon on pointe sur
-		// null
-		if (cur.moveToFirst()) {
-
-			mUAC.setEnergySource(this.loadEnergy(cur.getLong(INDX_NRJ_ID)));
-			mUAC.getQty().setAmount(cur.getLong(INDX_AMOUNT));
-			mUAC.getQty().setUnity(this.load_Unity(cur.getLong(INDX_UNIT_ID));
-			);
-			
+		// On récupère les index des colonnes de pa PARTY_REL qui nous
+		// intéressent
+		final int INDX_REL_TYP_CD = cursor
+				.getColumnIndex(ContentDescriptorObj.View_UAC_Qty.Columns.UAC_REL_TYP_CD);
+		final int INDX_NRJ_ID = cursor
+				.getColumnIndex(ContentDescriptorObj.View_UAC_Qty.Columns.ENERGY_ID);
+		final int INDX_QTY_ID = cursor
+				.getColumnIndex(ContentDescriptorObj.View_UAC_Qty.Columns.QTY_ID);
 		
+
+		// faire un move First pour positionner le curseur, sinon on pointe sur
+		// null
+		if (cursor.moveToFirst()) {
+
+			// on charge le mapping des code relations
+			REL_TYP_CD_MAP mapping = new REL_TYP_CD_MAP();
+
+			// en fonction du type de relation, on va retourner le composant
+			// adequat
+			switch (mapping._in.get(INDX_REL_TYP_CD)) {
+			case UAC_FOOD:
+				mUAC = new UAC_Food();
+				mUAC.setId(_id);
+
+				break;
+			// pour le moment je ne gère que les UAC_FOOD
+			default:
+
+				break;
+			}
+
+			mUAC.setEnergySource(this.loadEnergy(cursor.getLong(INDX_NRJ_ID)));
+			mUAC.setQty(this.loadQty(cursor.getLong(INDX_QTY_ID)));
+			mUAC.setEquivalences(this.loadEquiv(mUAC.getQty()));
+
 		} else {
 			String message = "Composant " + String.valueOf(_id) + " non trouvé";
 			Log.e("loadComponent", message);
@@ -346,4 +389,24 @@ public final class AmiKcalFactory {
 		return mUAC;
 	}
 
+	/**
+	 * <h1>loadQty(long _id)</h1>
+	 * <p> Fonction de rechargement d'une quantitée à partir de sont identifiant.
+	 * </p>
+	 * @param _id
+	 * @return
+	 */
+	public Qty loadQty(long _id){
+	Qty qty = new Qty();
+		return qty;
+	}
+	
+	
+	// recharger les équivalences d'un objet
+	// QUESTION ! faut-il créer des UAC_EQUIV ou bien les recalculer ?
+	
+	public ArrayList<Qty> loadEquiv(Qty qty) {
+		return null;
+
+	}
 } // * end-class

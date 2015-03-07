@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.EnergySourceQty;
 import com.rdupuis.amikcal.equivalence.EquivalenceObj;
 import com.rdupuis.amikcal.unity.Unity;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :
@@ -23,19 +25,22 @@ import com.rdupuis.amikcal.unity.Unity;
  * @author Rodolphe
  *
  */
-public class UserActivityComponent {
+public class UserActivityComponent implements HasEquivalences{
 
 	private long id;
-	private long parent_id;
+	private UserActivity mUserActivity;
 	private EnergySource mEnergySource;
 	private Qty mQty;
+	private ArrayList<Qty> mEquivalences;
 	
 	
 	/**
 	 * Constructeur
 	 */
 	public UserActivityComponent() {
-		this.parent_id = AppConsts.NO_ID;
+		id = AppConsts.NO_ID;
+		mEnergySource = new EnergySource();
+		setEquivalences(new ArrayList<Qty>()); 
 	
 	}
 
@@ -47,12 +52,12 @@ public class UserActivityComponent {
 		return mEnergySource;
 	}
 
-	public long getParentId() {
-		return parent_id;
+	public UserActivity getUserActivity() {
+		return mUserActivity;
 	}
 
-	public void setParentId(Long parentId) {
-		this.parent_id = parentId;
+	public void setUserActivity(UserActivity UA_Parent) {
+		this.mUserActivity = UA_Parent;
 	}
 
 	public long getId() {
@@ -65,56 +70,21 @@ public class UserActivityComponent {
 
 	
 	
-/**
- * Fonction qui va calculer les équivalences par rapport à la quantité et le référentiel des équivalences
- * 
- * dans le référentiel : EnergySourceQty = 100g de pommes (id= 00001)
- * 
- *  00001 = 67 Kcal
- *  00001 = 39 Glu
- *  00001 = 01 lip
- *  etc....
- * 	
- * ici on a EnergySourceQty = 200 g de pomme
- * 
- *  Aller voir si on a une EnergySourceQty de référence qui concerne la EnergySource "Pomme"
- * si oui poursuivre
- * @return
- */
-	public void  computeEquivalences() {
-
-		//
-		
-		
-		// trouver une équivalence en kcalorie existante pour cette énergie
-		// revient à chercher l'enregistrement "pomme" avec le nombre de
-		// calories
-
-		// on récupère un
-
-		// equiv = getEquivKCalories(this.getEnergySource();
-
-		// equiv = 100g de pomme = 50kcal
-
-		// si léquivalence est exprimée dans la même unité que celle utilisée
-		// lors de la saisie
-		// si equiv.unit_IN = this.unitMeasure
-
-		// si les unitées diffères, il faut trouver une évalence entre l'unitée
-		// de référence et l'unitée saisie
-
-		// getEquivUnit(this.getUnite());
-
-		// nbkcal = qty * equiv.ratio
-		
-	}
-
+ 
 public Qty getQty() {
 	return mQty;
 }
 
 public void setQty(Qty mQty) {
 	this.mQty = mQty;
+}
+
+public ArrayList<Qty> getEquivalences() {
+	return mEquivalences;
+}
+
+public void setEquivalences(ArrayList<Qty> mEquivalences) {
+	this.mEquivalences = mEquivalences;
 };
 
 	

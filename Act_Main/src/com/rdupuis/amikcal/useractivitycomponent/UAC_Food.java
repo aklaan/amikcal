@@ -6,6 +6,7 @@ import com.rdupuis.amikcal.Food.Food;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.EnergySourceQty;
 import com.rdupuis.amikcal.equivalence.EquivalenceObj;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class UAC_Food extends UserActivityComponent {
 
@@ -63,4 +64,5 @@ public class UAC_Food extends UserActivityComponent {
 		return 0f;
 	};
 
+	
 }

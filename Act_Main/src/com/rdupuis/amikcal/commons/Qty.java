@@ -2,16 +2,26 @@ package com.rdupuis.amikcal.commons;
 
 import com.rdupuis.amikcal.unity.Unity;
 
-public class Qty {
-private float amount;
+//une Qty est une relation entre une unité et un montant
+public class Qty extends Relation{
+	private float mAmount;
+	private Unity mUnity;
 
-private Unity mUnity;
+	public Qty(){
+	this.rel_id = AppConsts.NO_ID;
+	this.rel_typ_cd = REL_TYP_CD.QTY;
+	this.mAmount = 0f;
+	this.mUnity = new Unity();
+	}
+	
+	
 public float getAmount() {
-	return amount;
+	return mAmount;
 }
 public void setAmount(float amount) {
-	this.amount = amount;
+	this.mAmount =amount;
 }
+
 public Unity getUnity() {
 	return mUnity;
 }
