@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
@@ -91,9 +92,9 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	// Recharger une Activitée
 	public void reloadUserActivity(long _id) {
 
-		AmiKcalFactory factory = new AmiKcalFactory();
-		factory.contentResolver = this.getContentResolver();
-		this.mUserActivity = factory.reloadUserActivityObjFromId(_id);
+		AmiKcalFactory factory = new AmiKcalFactory(this);
+		
+		this.mUserActivity = factory.load_UserActivity(_id);
 
 	}
 
@@ -126,21 +127,21 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	 */
 	private ContentValues setGenericValues(ContentValues val) {
 		//id de l'activitée
-		val.put(ContentDescriptorObj.UserActivities.Columns.ID, (mUserActivity
+		val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (mUserActivity
 				.get_id() == AppConsts.NO_ID) ? null : mUserActivity.get_id());
 		//titre
-		val.put(ContentDescriptorObj.UserActivities.Columns.TITLE,
+		val.put(ContentDescriptorObj.TB_UserActivities.Columns.TITLE,
 				mUserActivity.getTitle());
 		//Date
-		val.put(ContentDescriptorObj.UserActivities.Columns.DATE,
+		val.put(ContentDescriptorObj.TB_UserActivities.Columns.DATE,
 				ToolBox.getSqlDateTime(mUserActivity.getDay()));
 
-		//type
-		val.put(ContentDescriptorObj.UserActivities.Columns.TYPE, mUserActivity
-				.getType().name());
+		//class : on utilise la mapping pour transformer l'ENUM Class en Byte stoké dans la Database.
+		UA_CLASS_CD_MAP ua_cd_map = new UA_CLASS_CD_MAP();
+		val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((mUserActivity.getType())));
 		
 		//date de mise à jour
-		val.put(ContentDescriptorObj.UserActivities.Columns.LAST_UPDATE,
+		val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE,
 				ToolBox.getCurrentTimestamp());
 
 		return val;
@@ -152,7 +153,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	public void updateUActivity() {
 		ContentValues val = getContentValues();
 		Uri uriUpdate = ContentUris.withAppendedId(
-				ContentDescriptorObj.UserActivities.URI_UPDATE_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.URI_UPDATE_USER_ACTIVITIES,
 				mUserActivity.get_id());
 		this.getContentResolver().update(uriUpdate, val,
 				this.mUserActivity.get_id().toString(), null);
@@ -164,7 +165,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	public void insertUActivity() {
 		ContentValues val = getContentValues();
 		this.getContentResolver().insert(
-				ContentDescriptorObj.UserActivities.URI_INSERT_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.URI_INSERT_USER_ACTIVITIES,
 				val);
 	}
 

@@ -1,10 +1,12 @@
 package com.rdupuis.amikcal.useractivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 
+import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 import android.graphics.Picture;
 
@@ -12,21 +14,21 @@ public class UserActivity {
 	public enum UA_CLASS_CD {
 		LUNCH, WEIGHT, MOVE
 	}
-	
+
 	public Long _id;
 	public Calendar day;
 	private String title;
 	public UA_CLASS_CD type; // moving / eating / cooking
-	public int score;
-	public Picture picture;
-	public Date last_update;
 
-	
+	public Date last_update;
+	private ArrayList<UserActivityComponent> UAC_List;
+
 	public UserActivity() {
-	//Par defaut
+		// Par defaut
 		this.day = Calendar.getInstance();
 		this.title = "";
 		this._id = AppConsts.NO_ID;
+		this.setUAC_List(new ArrayList<UserActivityComponent>());
 	}
 
 	public Long get_id() {
@@ -45,22 +47,8 @@ public class UserActivity {
 		this.type = type;
 	}
 
-		public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public Picture getPicture() {
-		return picture;
-	}
-
-	public void setPicture(Picture picture) {
-		this.picture = picture;
-	}
-
+	
+	
 	public Date getLast_update() {
 		return last_update;
 	}
@@ -87,6 +75,14 @@ public class UserActivity {
 
 	public void setDay(int year, int month, int day, int hourOfDay, int minute) {
 		this.day.set(year, month, day, hourOfDay, minute);
+	}
+
+	public ArrayList<UserActivityComponent> getUAC_List() {
+		return UAC_List;
+	}
+
+	public void setUAC_List(ArrayList<UserActivityComponent> uAC_List) {
+		UAC_List = uAC_List;
 	}
 
 }

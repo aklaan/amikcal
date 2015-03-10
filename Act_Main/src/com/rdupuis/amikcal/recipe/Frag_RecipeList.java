@@ -118,7 +118,7 @@ public class Frag_RecipeList extends TimeSlidableFragment {
 	protected void generateList() {
 
 		Uri request;
-
+/*
 		if (currentTypeOfList == mResources
 				.getInteger(R.integer.USER_ACTIVITY_LIST_RECIPE)) {
 			request = ContentUris
@@ -295,7 +295,7 @@ public class Frag_RecipeList extends TimeSlidableFragment {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
-										/* User clicked Cancel so do some stuff */
+								                       
 									}
 								});
 
@@ -304,7 +304,7 @@ public class Frag_RecipeList extends TimeSlidableFragment {
 						return true;
 					}// public boolean onItemLongClick
 				}); // fin du OnItemLongClickListener
-
+*/
 	}
 
 	/**

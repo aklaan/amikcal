@@ -42,8 +42,7 @@ public class Act_EnergyEditor extends Activity {
 		try {
 			AmiKcalFactory factory = new AmiKcalFactory(this);
 
-			mEnergy = factory
-					.createEnergyFromId(Long
+			mEnergy = factory.load_Energy(Long
 							.parseLong(getIntent()
 									.getStringExtra(
 											getResources()
@@ -212,7 +211,7 @@ public class Act_EnergyEditor extends Activity {
 
 				mEnergy.getQtyReference()
 						.setUnity(
-								factory.createUnitOfMeasureObjFromId(Long.parseLong(intent
+								factory.load_Unity(Long.parseLong(intent
 										.getStringExtra(getResources()
 												.getString(
 														R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT)))));
@@ -224,7 +223,7 @@ public class Act_EnergyEditor extends Activity {
 
 		}
 
-		refreshSrceen();
+		refreshScreen();
 	}
 
 	/******************************************************************************************

@@ -1,7 +1,5 @@
 package com.rdupuis.amikcal.data;
 
-import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -142,50 +140,45 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 *
 		 **********************************************************************************************/
 
-		
 		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.VIEW_NRJ_QTY_REF.NAME
+				+ ContentDescriptorObj.View_NRJ_Qty_link.NAME
 
-				+ " AS SELECT " 
+				+ " AS SELECT "
 				+ ContentDescriptorObj.TB_Energies.NAME
-				+ "." + ContentDescriptorObj.TB_Energies.Columns.ID
-				+","
-				
-				+ "rel_nrj_qty_ref." +
-				ContentDescriptorObj.TB_Party_rel.Columns.ID 
-				
-				+ "rel_qty." +
-				ContentDescriptorObj.TB_Party_rel.Columns.ID
-				
-				+ "rel_qty." +
-				ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
-			
-				+ "rel_qty." +
-				ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
-			
-				
-				+ " FROM " + ContentDescriptorObj.TB_Energies.NAME
-		
-				+ " INNER JOIN " + ContentDescriptorObj.TB_Party_rel.NAME + " AS rel_nrj_ref " 
-				
-				+ " ON " 
-				+ ContentDescriptorObj.TB_Energies.NAME + "." 
+				+ "."
 				+ ContentDescriptorObj.TB_Energies.Columns.ID
-				
-				+ " = rel_nrj_ref." + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
-				+ " AND rel_nrj_ref." + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "	+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTER
+				+ " AS "
+				+ ContentDescriptorObj.View_NRJ_Qty_link.Columns.ENERGY_ID
 
-				
-                + " INNER JOIN " + ContentDescriptorObj.TB_Party_rel.NAME + " AS rel_qty " 
-				
-				+ " ON rel_nrj_ref." + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
-				
-				+ " = rel_qty." + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
-				+ " AND rel_qty." + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "	+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.QTY
-				+")"
-				
+				+ ","
+				+ "rel_nrj_qty."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
+				+ " AS "
+				+ ContentDescriptorObj.View_NRJ_Qty_link.Columns.LINK_NRJ_QTY_ID
+
+				+ ","
+				+ "rel_nrj_qty."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
+
+				+ " AS "
+				+ ContentDescriptorObj.View_NRJ_Qty_link.Columns.QTY_ID
+
+				+ " FROM "
+				+ ContentDescriptorObj.TB_Energies.NAME
+				// --------------------------------------------------------
+				+ " INNER JOIN "
+				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ " AS rel_nrj_qty "
+
+				+ " ON "
+				+ ContentDescriptorObj.TB_Energies.NAME
+				+ "."
+				+ ContentDescriptorObj.TB_Energies.Columns.ID
+
+				+ " = rel_nrj_qty."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ ")"
+
 		);
 
 	}

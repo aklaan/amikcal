@@ -47,10 +47,9 @@ public class Act_EquivalenceEditor extends Activity {
         try {
         	Long _id = Long.parseLong(mIntent.getStringExtra("Id"));
         	
-        	AmiKcalFactory factory = new AmiKcalFactory();
-        	factory.contentResolver=contentResolver;
-        	
-        	mEquivalence = factory.createEquivalenceObjFromId(_id);
+        	AmiKcalFactory factory = new AmiKcalFactory(this);
+        		
+        	//mEquivalence = factory.createEquivalenceObjFromId(_id);
         	
         	refreshScreen();
         } catch (Exception e) {Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();};
@@ -68,6 +67,7 @@ public class Act_EquivalenceEditor extends Activity {
     public void onClickBtnOK(View v) {
     	
     	// On prépare les informations à mettre à jour
+    	/*
     	ContentValues val = new ContentValues();
     	
     	
@@ -92,6 +92,8 @@ public class Act_EquivalenceEditor extends Activity {
 		
 		//On termine l'Actvity
 		finish();
+    
+    */
     }
     
     
@@ -100,6 +102,8 @@ public class Act_EquivalenceEditor extends Activity {
      *   
      ******************************************************************************************/
     private void refreshScreen(){
+    	
+    	/*
     	Button ed= (Button)findViewById(R.id.view_equivalence_btn_energy);
     	ed.setText(this.mEquivalence.energy.getName());
     
@@ -111,7 +115,7 @@ public class Act_EquivalenceEditor extends Activity {
     	
         ed= (Button)findViewById(R.id.view_equivalence_btn_quantity);
         ed.setText(String.valueOf(this.mEquivalence.getQuantity()));
-    	
+    	*/
     }
    
     
@@ -141,7 +145,7 @@ public class Act_EquivalenceEditor extends Activity {
 }
  
  protected void onActivityResult(int requestCode, int resultCode, Intent intent){
- 	 
+ 	 /*
  	if (requestCode ==mResources.getInteger(R.integer.EQUIVALENCE_EDITOR_REQUEST_QUANTITY)) {
  			
 			 	if (resultCode == RESULT_OK){
@@ -179,6 +183,7 @@ public class Act_EquivalenceEditor extends Activity {
 		}
  
  	refreshScreen();
+ */
  }
  
  

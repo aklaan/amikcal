@@ -110,13 +110,13 @@ public class Act_EquivalenceList extends Activity {
         map = new HashMap<String, String>();
         
         //On cré un curseur pour lire la table des equivalences    
-        Cursor cur = this.getContentResolver().query(ContentDescriptorObj.Equivalences.URI_CONTENT_EQUIVALENCES, null, null, null, null);
+        ///Cursor cur = this.getContentResolver().query(ContentDescriptorObj.Equivalences.URI_CONTENT_EQUIVALENCES, null, null, null, null);
             
         
-        final int INDX_COL_ID      = cur.getColumnIndex(ContentDescriptorObj.Equivalences.Columns.ID);
+        //final int INDX_COL_ID      = cur.getColumnIndex(ContentDescriptorObj.Equivalences.Columns.ID);
         // faire un move First pour positionner le pointeur
              
-             if (cur.moveToFirst()) {
+        /*     if (cur.moveToFirst()) {
             	            	 
             	 do {
             		 
@@ -136,7 +136,7 @@ public class Act_EquivalenceList extends Activity {
             	
             }
              cur.close();
-      
+ */     
  
         //Création d'un SimpleAdapter qui se chargera de mettre les items présent dans notre list (listItem)
         //dans la vue affichageitem

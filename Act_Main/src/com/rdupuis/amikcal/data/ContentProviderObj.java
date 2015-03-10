@@ -175,15 +175,6 @@ public class ContentProviderObj extends ContentProvider {
 		
 			
 
-			case ContentDescriptorObj.ViewEnergies.SELECT_VIEW_ENERGIES_BY_ID_TOKEN:{
-				SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-				builder.setTables(ContentDescriptorObj.ViewEnergies.NAME);
-				
-				String whereClause =  
-						ContentDescriptorObj.ViewEnergies.NAME 
-						+ "." + ContentDescriptorObj.ViewEnergies.Columns.ID + "=" +selection;
-				return builder.query(db, projection, whereClause,null, null, null, sortOrder);
-			}			
 			
 			
 			case ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_TOKEN:{

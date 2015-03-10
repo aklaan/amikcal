@@ -1,7 +1,5 @@
 package com.rdupuis.amikcal.data;
 
-import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
-
 import android.content.UriMatcher;
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -24,7 +22,7 @@ public class ContentDescriptorObj {
 	/***********************************************************************************
 	 * 
 	 **********************************************************************************/
-	private ContentDescriptorObj() {
+	ContentDescriptorObj() {
 	};
 
 	/***********************************************************************************
@@ -80,12 +78,12 @@ public class ContentDescriptorObj {
 				TB_Units.UPDATE_UNIT_TOKEN);
 
 		// Match pour la vue de selection des liens UA_UAC
-		matcher.addURI(authority, View_UA_UAC.VIEW_UAC_FOR_UA_PATH,
-				View_UA_UAC.VIEW_UAC_FOR_UA_TOKEN);
+		matcher.addURI(authority, View_UA_UAC_link.VIEW_UAC_FOR_UA_PATH,
+				View_UA_UAC_link.VIEW_UAC_FOR_UA_TOKEN);
 
 		// Match pour la vue de selection des liens UAC_QTY
-				matcher.addURI(authority, View_UAC_Qty.VIEW_QTY_FOR_UAC_PATH,
-						View_UAC_Qty.VIEW_QTY_FOR_UAC_TOKEN);
+		matcher.addURI(authority, View_UAC_Qty_link.VIEW_QTY_FOR_UAC_PATH,
+				View_UAC_Qty_link.VIEW_QTY_FOR_UAC_TOKEN);
 
 		// **---- Match(s) pour la table user_activities ----->
 		matcher.addURI(authority, TB_UserActivities.SELECT_USER_ACTIVITIES,
@@ -593,32 +591,33 @@ public class ContentDescriptorObj {
 	 * @author R.DUPUIS
 	 *
 	 **********************************************************************************/
-	public static final class View_NRJ implements BaseColumns {
+	public static final class View_NRJ_Qty_link {
 
 		// Info concernant la table
-		public static final String NAME = "view_nrj";
+		public static final String NAME = "view_nrj_qty_rel";
 
 		// Path pour l'Uri de séléction d'un enregistrement
-		public static final String VIEW_NRJ_ID_PATH = NAME + "/#";
-		public static final int VIEW_NRJ_ID_TOKEN = 800;
+		public static final String VIEW_QTY_FOR_NRJ_ID_PATH = NAME + "/#";
+		public static final int VIEW_QTY_FOR_NRJ_ID_TOKEN = 800;
 
-		public static final Uri VIEW_NRJ_ID_URI = BASE_URI.buildUpon()
-				.appendPath(VIEW_NRJ_ID_PATH).build();
+		public static final Uri VIEW_QTY_FOR_NRJ_ID_URI = BASE_URI.buildUpon()
+				.appendPath(VIEW_QTY_FOR_NRJ_ID_PATH).build();
+
+		// Path pour l'Uri de séléction d'un enregistrement
+		public static final String VIEW_QTYREF_FOR_NRJ_ID_PATH = NAME + "/REF"+ "/#";
+		public static final int VIEW_QTYREF_FOR_NRJ_ID_TOKEN = 800;
+
+		public static final Uri VIEW_QTYREF_FOR_NRJ_ID_URI = BASE_URI.buildUpon()
+				.appendPath(VIEW_QTY_FOR_NRJ_ID_PATH).build();
 
 		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal."+NAME;
+		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal."
+				+ NAME;
 
 		public static final class Columns {
-			public static final String ID = BaseColumns._ID; // on utilise la
-																// convention de
-																// format de
-																// colonne ID
-																// indiqué par
-																// BaseColumns
 			public static final String ENERGY_ID = "nrj_id";
-			public static final String ENERGY_NAME = "nrj_name";
-			public static final String REL_NRJ_REF_ID = "rel_nrj_ref_id";
-			public static final String REL_QTY_ID = "rel_qty_id";
+			public static final String LINK_NRJ_QTY_ID = "link_nrj_qty_id";
+			public static final String QTY_ID = "qty_id";
 
 		}
 	}
@@ -645,10 +644,10 @@ public class ContentDescriptorObj {
 	 * @author R.DUPUIS
 	 *
 	 **********************************************************************************/
-	public static final class View_UAC_Qty {
+	public static final class View_UAC_Qty_link {
 
 		// Info concernant la table
-		public static final String NAME = "view_uac_qty";
+		public static final String NAME = "view_uac_qty_link";
 
 		// Path pour l'Uri de séléction d'un enregistrement
 		public static final String VIEW_QTY_FOR_UAC_PATH = NAME + "/#";
@@ -675,10 +674,10 @@ public class ContentDescriptorObj {
 	 * @author Rodolphe
 	 *
 	 ***************************************************************************/
-	public static final class View_UA_UAC {
+	public static final class View_UA_UAC_link {
 
 		// Info concernant la table
-		public static final String NAME = "view_ua_uac";
+		public static final String NAME = "view_ua_uac_link";
 
 		// Path pour l'Uri de séléction d'un enregistrement
 		public static final String VIEW_UAC_FOR_UA_PATH = NAME + "/#";
@@ -698,6 +697,39 @@ public class ContentDescriptorObj {
 		}
 	}
 
+
+	/***************************************************************************
+	 * Vue permettant de relire les UAC d'un UA
+	 * 
+	 * @author Rodolphe
+	 *
+	 ***************************************************************************/
+	public static final class View_Qty {
+
+		// Info concernant la table
+		public static final String NAME = "view_qty";
+
+		// Path pour l'Uri de séléction d'un enregistrement
+		public static final String VIEW_QTY_BY_ID_PATH = NAME + "/#";
+		public static final int VIEW_QTY_BY_ID_TOKEN = 800;
+
+		public static final Uri VIEW_QTY_BY_ID_URI = BASE_URI.buildUpon()
+				.appendPath(VIEW_QTY_BY_ID_PATH).build();
+
+		public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
+		public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal"
+				+ NAME;
+
+		public static final class Columns {
+			public static final String UNITY_ID = "unity_id";
+			public static final String AMOUNT = "amount";
+
+		}
+	}
+
+	
+	
+	
 	
 	/***********************************************************************************
 	 * Vue des aliments consommées.
@@ -705,7 +737,7 @@ public class ContentDescriptorObj {
 	 * @author R.DUPUIS
 	 *
 	 **********************************************************************************/
-	public static final class View_Energies implements BaseColumns {
+	public static final class XX_View_Energies implements BaseColumns {
 
 		// Info concernant la table
 		public static final String NAME = "view_energies";

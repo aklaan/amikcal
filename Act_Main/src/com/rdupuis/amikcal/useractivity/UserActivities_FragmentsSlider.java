@@ -184,12 +184,10 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	 */
 	public void onClickActivity(String id) {
 		Intent intent = new Intent(this, Act_UserActivityComponentList.class);
-		intent.putExtra(
-				Act_UserActivityComponentList.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY,
-				id);
+		intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY,id);
 		intent.putExtra("page", getCurrentPage());
-		startActivityForResult(intent,
-				Act_UserActivityComponentList.ACTIVITY_ID);
+		startActivityForResult(intent,0);
+				
 
 	};
 
@@ -208,7 +206,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		// s'il y a des enfant alerter et demander une confirmation
 
 		Uri uriDelete = ContentUris.withAppendedId(
-				ContentDescriptorObj.UserActivities.URI_DELETE_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.URI_DELETE_USER_ACTIVITIES,
 				Long.parseLong(id));
 		this.getContentResolver().delete(uriDelete, null, null);
 

@@ -30,7 +30,9 @@ public final class AppConsts {
 	public static String DINER = "DINER";
 	public static String SNACK = "SNACK";
 
-	public static String INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY = "_PARENT_ID";
+	public static String INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY = "_PARENT_UA_ID";
+	
+	public static String INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY = "_PARENT_UA_ID";
 	public static String INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID = "COMP_ID";
 
 	/*****************************************************************************
@@ -92,10 +94,10 @@ public final class AppConsts {
 	 * </p>
 	 ****************************************************************************/
 	public static final class UNIT_CLASS_MAP {
-		public EnumMap<UNIT_CLASS, Integer> _out = new EnumMap<UNIT_CLASS, Integer>(
+		public EnumMap<UNIT_CLASS, Byte> _out = new EnumMap<UNIT_CLASS, Byte>(
 				UNIT_CLASS.class);
 
-		public HashMap<Integer, UNIT_CLASS> _in = new HashMap<Integer, UNIT_CLASS>();
+		public HashMap<Byte, UNIT_CLASS> _in = new HashMap<Byte, UNIT_CLASS>();
 
 		public UNIT_CLASS_MAP() {
 			_out.put(UNIT_CLASS.INTERNATIONAL,
@@ -150,10 +152,10 @@ public final class AppConsts {
 	 * </p>
 	 ****************************************************************************/
 	public static final class REL_TYP_CD_MAP {
-		public EnumMap<REL_TYP_CD, Integer> _out = new EnumMap<REL_TYP_CD, Integer>(
+		public EnumMap<REL_TYP_CD, Byte> _out = new EnumMap<REL_TYP_CD, Byte>(
 				REL_TYP_CD.class);
 
-		public HashMap<Integer, REL_TYP_CD> _in = new HashMap<Integer, REL_TYP_CD>();
+		public HashMap<Byte, REL_TYP_CD> _in = new HashMap<Byte, REL_TYP_CD>();
 
 		public REL_TYP_CD_MAP() {
 			_out.put(REL_TYP_CD.UA_UAC,

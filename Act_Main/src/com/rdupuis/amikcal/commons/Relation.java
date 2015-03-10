@@ -36,8 +36,8 @@ public abstract class Relation {
 	
 	}
 
-	public long rel_id;
-	public REL_TYP_CD rel_typ_cd;
+	private long rel_id;
+	private REL_TYP_CD rel_typ_cd;
 	private String Party1;  
 	private String Party2;
 	
@@ -56,5 +56,17 @@ public abstract class Relation {
 
 public void save(){
 	
+}
+public long getId() {
+	return rel_id;
+}
+public void setId(long rel_id) {
+	this.rel_id = rel_id;
+}
+public REL_TYP_CD getRel_typ_cd() {
+	return rel_typ_cd;
+}
+public void setRel_typ_cd(REL_TYP_CD rel_typ_cd) {
+	this.rel_typ_cd = rel_typ_cd;
 }
 }

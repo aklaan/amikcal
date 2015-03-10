@@ -239,11 +239,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 										Activity currentActivity = Frag_UserActivityList.this
 												.getActivity();
 
-										AmiKcalFactory factory = new AmiKcalFactory();
-
-										factory.contentResolver = currentActivity
-												.getContentResolver();
-
+										AmiKcalFactory factory = new AmiKcalFactory(Frag_UserActivityList.this.getActivity());
+									
 										UserActivityItem userActivityItem = factory
 												.createUserActivityItemFromId(
 														currentActivity,
@@ -272,10 +269,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 										Activity currentActivity = Frag_UserActivityList.this
 												.getActivity();
 
-										AmiKcalFactory factory = new AmiKcalFactory();
-
-										factory.contentResolver = currentActivity
-												.getContentResolver();
+										AmiKcalFactory factory = new AmiKcalFactory(Frag_UserActivityList.this.getActivity());
 
 										UserActivityItem userActivityItem = factory
 												.createUserActivityItemFromId(

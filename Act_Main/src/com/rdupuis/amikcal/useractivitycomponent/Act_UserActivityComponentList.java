@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,29 +29,27 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Act_UserActivityComponentList extends Activity {
-	Intent mIntent;
-	Resources mResources;
-	public UserActivityComponent CurrentUAComponent;
+	
+	public UserActivity mUA;
 	private ListView maListViewPerso;
-	public static final String INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY = "ID_OF_USER_ACTIVITY";
-	public static final int ACTIVITY_ID = 0;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		CurrentUAComponent = new UserActivityComponent();
+		mUA = new UserActivity();
 		setContentView(R.layout.view_components_list);
-		mResources = getResources();
-		mIntent = getIntent();
+		
 
 		try {
-			CurrentUAComponent
-					.setParentId(Long.parseLong(mIntent.getStringExtra(mResources
-							.getString(R.string.INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY))));
-			generateUserActivityComponentList(CurrentUAComponent.getParentId());
+			
+			AmiKcalFactory factory = new AmiKcalFactory(this);
+			long ua_id = Long.parseLong(this.getIntent().getStringExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY));
+					
+			this.mUA = factory.load_UserActivity(ua_id);
+						
 		} catch (Exception e) {
-			CurrentUAComponent.setParentId(0l);
+			//TODO
 		}
 	}// fin du onCreate
 
@@ -59,7 +59,7 @@ public class Act_UserActivityComponentList extends Activity {
 		super.onStop();
 		Toast.makeText(this, "Activité Activity Component stopée",
 				Toast.LENGTH_SHORT).show();
-		this.setResult(RESULT_OK, mIntent);
+		this.setResult(RESULT_OK, this.getIntent());
 	}
 
 	/*
@@ -85,8 +85,10 @@ public class Act_UserActivityComponentList extends Activity {
 		startActivityForResult(intent, R.integer.ACTY_COMPONENT);
 	}
 
+	//Si on veut créer une nouvelle UAC, il faut que l'éditeur puisse savoir à quel UA 
+	//l'associer
 	public void onClickAdd(View v) {
-		onClickComponent(AppConsts.NO_ID, CurrentUAComponent.getParentId());
+		onClickComponent(AppConsts.NO_ID, mUA.get_id());
 	}
 
 	/**
@@ -106,9 +108,9 @@ public class Act_UserActivityComponentList extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-				cleanList();
-				generateUserActivityComponentList(CurrentUAComponent
-						.getParentId());
+				
+				this.refreshComponentList();
+				
 
 			}
 			break;
@@ -118,22 +120,27 @@ public class Act_UserActivityComponentList extends Activity {
 		}
 	}
 
-	protected void cleanList() {
-		maListViewPerso.removeAllViewsInLayout();
-	}
-
-	protected void generateUserActivityComponentList(Long parentId) {
-
+	
+	/**
+	 * On souhaite afficher la liste des UAC d'une UA
+	 * @param parentId
+	 */
+	
+	protected void refreshComponentList() {
+		
+		
 		// Récupération de la listview créée dans le fichier customizedlist.xml
 		maListViewPerso = (ListView) findViewById(R.id.listviewperso);
-
+		maListViewPerso.removeAllViewsInLayout();
+		
+		
 		// Création de la ArrayList qui nous permettra de remplire la listView
 		ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
 		// On déclare la HashMap qui contiendra les informations pour un item
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
-
+/*
 		Uri selectionUri = ContentUris
 				.withAppendedId(
 						ContentDescriptorObj.ViewActivityComponent.URI_VIEW_ACTIVITY_COMPONENTS_BY_ACTIVITY,
@@ -170,24 +177,23 @@ public class Act_UserActivityComponentList extends Activity {
 		if (cur.moveToFirst()) {
 
 			do {
-
+*/
+		
+		for( UserActivityComponent UAC:this.mUA.getUAC_List()){
+		
+		
+		
 				map = new HashMap<String, String>();
-				map.put("componentId", cur.getString(INDX_COL_ID));
-				map.put("name", cur.getString(INDX_COL_NAME));
-				map.put("quantity",
-						cur.getString(INDX_COL_QTY) + " "
-								+ cur.getString(INDX_COL_UNIT));
-				map.put("energy", cur.getString(INDX_COL_NBKCAL) + " " + "Kcal");
-				map.put("equiv", cur.getString(INDX_COL_NBKCAL) + "g");
-				map.put("nbglu", cur.getString(INDX_COL_NBGLU) + "g");
-				map.put("nbpro", cur.getString(INDX_COL_NBPRO) + "g");
-				map.put("nblip", cur.getString(INDX_COL_NBLIP) + "g");
-				map.put("activityId", cur.getString(INDX_COL_ACTIVITY));
+				map.put("componentId", String.valueOf(UAC.getId()));
+				map.put("name", UAC.getEnergySource().getName());
+				map.put("quantity",String.valueOf(UAC.getQty().getAmount()));
+				map.put("unity",UAC.getQty().getUnity().getLongName());
+				
 				listItem.add(map);
-			} while (cur.moveToNext());
+			} 
 
-		}
-		cur.close();
+		
+		
 
 		// Création d'un SimpleAdapter qui se chargera de mettre les items
 		// présent dans notre list (listItem)

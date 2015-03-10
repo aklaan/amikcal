@@ -10,7 +10,7 @@ public class Food extends EnergySource {
 		SOLID, LIQUID
 	}
 
-	private STRUCTURE mStrucure;
+	private STRUCTURE mStructure;
 	
 		
     // la liste des composants que je voulais mettre en place est en fait une
@@ -44,12 +44,12 @@ public class Food extends EnergySource {
 	    
 	}
 
-	public STRUCTURE getStrucure() {
-		return mStrucure;
+	public STRUCTURE getStructure() {
+		return mStructure;
 	}
 
-	public void setStrucure(STRUCTURE mStrucure) {
-		this.mStrucure = mStrucure;
+	public void setStructure(STRUCTURE mStrucure) {
+		this.mStructure = mStrucure;
 	}
 
 	

@@ -8,8 +8,8 @@ public class Qty extends Relation{
 	private Unity mUnity;
 
 	public Qty(){
-	this.rel_id = AppConsts.NO_ID;
-	this.rel_typ_cd = REL_TYP_CD.QTY;
+	this.setId(AppConsts.NO_ID);
+	this.setRel_typ_cd(REL_TYP_CD.QTY);
 	this.mAmount = 0f;
 	this.mUnity = new Unity();
 	}
@@ -28,4 +28,6 @@ public Unity getUnity() {
 public void setUnity(Unity mUnity) {
 	this.mUnity = mUnity;
 }
+
+
 }

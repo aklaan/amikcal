@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.R;
-
+import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -21,12 +21,9 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -127,10 +124,10 @@ public class Act_UserActivityList extends Activity {
     	Uri request;
  
     	if (currentTypeOfList == mResources.getInteger(R.integer.USER_ACTIVITY_LIST_RECIPE)){
-    		request = ContentUris.withAppendedId(ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES_BY_TYPE,mResources.getInteger(R.integer.ACTIVITY_RECIPE));
+    		request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES_BY_TYPE,mResources.getInteger(R.integer.ACTIVITY_RECIPE));
     		
     	}else {
-    		request  = ContentDescriptorObj.UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
+    		request  = ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
     	};
     	
         	
@@ -143,10 +140,10 @@ public class Act_UserActivityList extends Activity {
      
      Cursor cur = this.getContentResolver().query(request, null, null, null, null);
          
-     final int INDX_COL_ID = cur.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.ID);
-     final int INDX_COL_TITLE = cur.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.TITLE);
-     final int INDX_COL_DATE = cur.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.DATE);
-     final int INDX_COL_TYPE = cur.getColumnIndex(ContentDescriptorObj.UserActivities.Columns.TYPE);
+     final int INDX_COL_ID = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.ID);
+     final int INDX_COL_TITLE = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.TITLE);
+     final int INDX_COL_DATE = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.DATE);
+     final int INDX_COL_CLASS = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.CLASS);
           
           if (cur.moveToFirst()) {
          	            	 
@@ -163,7 +160,10 @@ public class Act_UserActivityList extends Activity {
                	 map.put("hour", String.valueOf(decimalFormat.format(mCalendar.get(Calendar.HOUR_OF_DAY))));
                	 map.put("minute", String.valueOf(decimalFormat.format(mCalendar.get(Calendar.MINUTE))));
                	 map.put("id", cur.getString(INDX_COL_ID));
-               	 map.put("type", cur.getString(INDX_COL_TYPE));
+               	 
+               	//dans la MAP on récupère le code de la class
+               	 // il faut passer par le mapping plus tard pour savoir à quoi correspond ce code
+               	 map.put("class", cur.getString(INDX_COL_CLASS));
                	 
              	 map.putAll(computeEnergy(Long.parseLong(cur.getString(INDX_COL_ID))));
              	
@@ -312,7 +312,7 @@ public class Act_UserActivityList extends Activity {
 	 // vérifier s'il y a des enfants
 	 // s'il y a des enfant alerter et demander une confirmation
 	
-    	Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.UserActivities.URI_DELETE_USER_ACTIVITIES,Long.parseLong(id));
+    	Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.URI_DELETE_USER_ACTIVITIES,Long.parseLong(id));
     	this.getContentResolver().delete(uriDelete, null,null);
 	    refreshScreen();
 }

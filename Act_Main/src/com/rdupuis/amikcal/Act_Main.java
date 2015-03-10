@@ -132,9 +132,9 @@ public class Act_Main extends Activity {
 	protected ErrorStatus readAmikcalDB() {
 	    try {
 	        	    
-	        AmiKcalFactory factory  = new AmiKcalFactory();
-	        factory.contentResolver=this.getContentResolver();
-	        factory.createUnitOfMeasureObjFromId(1);
+	        AmiKcalFactory factory  = new AmiKcalFactory(this);
+	        
+	        factory.load_Unity(1);
 	    
 	    } catch (Exception e) {
 	    }
