@@ -123,27 +123,26 @@ public final class AmiKcalFactory {
 	/*****************************************************************************
 	 * <h1>loadQtyReference(long _id)</h1>
 	 * <p>
-	 * Permet de retourner la quantité de référence d'un objet s'il existe
+	 * Permet de retourner la quantité de référence d'une source d'énergie
 	 * </p>
 	 * 
 	 * @param energySource
 	 ****************************************************************************/
-	public Qty load_QtyReference(long _id) {
+	public Qty load_QtyReference(long NRJ_id) {
 
 		// on passe par la vue View_NRJ_Qty_link
 		// elle nous permet d'avoir directement des info necessaires
 		// id energy =>id relation => id Qty
 
-		Uri selectUri = ContentUris
-				.withAppendedId(
-						ContentDescriptorObj.View_NRJ_Qty_link.VIEW_QTYREF_FOR_NRJ_ID_URI,
-						_id);
+		Uri selectUri = ContentUris.withAppendedId(
+				ContentDescriptorObj.View_NRJ_QtyRef.VIEW_NRJ_QTYREF_URI,
+				NRJ_id);
 		Cursor cursor = this.contentResolver.query(selectUri, null, null, null,
 				null);
 
 		// id de la relation QTY
 		final int INDX_QTY_ID = cursor
-				.getColumnIndex(ContentDescriptorObj.View_NRJ_Qty_link.Columns.QTY_ID);
+				.getColumnIndex(ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID);
 
 		Qty qty = new Qty();
 
@@ -271,15 +270,12 @@ public final class AmiKcalFactory {
 
 		}
 
-		// seconde partie : recharger les UAC
-
 		return userActivity;
 	}
 
-
 	/*****************************************************************************
-	 * load_UAC_List(UserActivity)
-	 * rechar
+	 * load_UAC_List(UserActivity) rechar
+	 * 
 	 * @param UA
 	 * @return
 	 ****************************************************************************/
@@ -332,7 +328,7 @@ public final class AmiKcalFactory {
 		case MOVE:
 			userActivityItem = new UserActivityMoveItem(activity);
 			break;
-		
+
 		case WEIGHT:
 			userActivityItem = new UserActivityWeightItem(activity);
 
@@ -375,9 +371,13 @@ public final class AmiKcalFactory {
 	 * </ul>
 	 * </p>
 	 * 
-	 * 
+	 */
+
+	/**
 	 * Quand j'utilise cette fonction, je suis déjà sur une UA et j'ai déja été
-	 * cherché ses ID d'UAC
+	 * recherché ses ID d'UAC
+	 * 
+	 * 
 	 * 
 	 * @param _id
 	 *            : Identifiant du composant à recharger
@@ -391,21 +391,19 @@ public final class AmiKcalFactory {
 		// cette URI est générique. on ne sais pas quel type d'UAC on récupère
 		UserActivityComponent mUAC = new UserActivityComponent();
 		Uri selectUri = ContentUris.withAppendedId(
-				ContentDescriptorObj.View_UAC_Qty_link.VIEW_QTY_FOR_UAC_URI,
-				_id);
+				ContentDescriptorObj.View_UAC_Data.VIEW_UAC_DATA_URI, _id);
 
-		// On crée un curseur pour lire la table des aliments
+		// On crée un curseur pour lire la vue
 		Cursor cursor = contentResolver.query(selectUri, null, _id.toString(),
 				null, null);
 
-		// On récupère les index des colonnes de pa PARTY_REL qui nous
-		// intéressent
+		// On récupère les index des colonnes de la vue.
 		final int INDX_REL_TYP_CD = cursor
-				.getColumnIndex(ContentDescriptorObj.View_UAC_Qty_link.Columns.UAC_REL_TYP_CD);
+				.getColumnIndex(ContentDescriptorObj.View_UAC_Data.Columns.UAC_REL_TYP_CD);
 		final int INDX_NRJ_ID = cursor
-				.getColumnIndex(ContentDescriptorObj.View_UAC_Qty_link.Columns.ENERGY_ID);
+				.getColumnIndex(ContentDescriptorObj.View_UAC_Data.Columns.ENERGY_ID);
 		final int INDX_QTY_ID = cursor
-				.getColumnIndex(ContentDescriptorObj.View_UAC_Qty_link.Columns.QTY_ID);
+				.getColumnIndex(ContentDescriptorObj.View_UAC_Data.Columns.QTY_ID);
 
 		// faire un move First pour positionner le curseur, sinon on pointe sur
 		// null
@@ -495,4 +493,42 @@ public final class AmiKcalFactory {
 		return null;
 
 	}
+
+	/*****************************************************************************************
+	 * Enregister une UA dans la database
+	 ******************************************************************************************/
+
+	public void save(UserActivity UA) {
+
+	}
+
+	/*****************************************************************************************
+	 * Enregister une UAC dans la database
+	 ******************************************************************************************/
+
+	public void save(UserActivityComponent UAC) {
+
+	}
+
+	/*****************************************************************************************
+	 * Enregister une source d'énergie dans la database
+	 ******************************************************************************************/
+	public void save(EnergySource nrj) {
+
+	}
+
+	/*****************************************************************************************
+	 * Enregister une unitée dans la databse
+	 ******************************************************************************************/
+	public void save(Unity unity) {
+
+	}
+
+	/*****************************************************************************************
+	 * Enregister une Qty dans la database
+	 ******************************************************************************************/
+	public void save(Qty qty) {
+
+	}
+
 } // * end-class

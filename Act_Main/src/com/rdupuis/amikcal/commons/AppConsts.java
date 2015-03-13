@@ -166,8 +166,8 @@ public final class AppConsts {
 					TB_Party_rel.PredefinedValues.RelationsCodes.UAC_MOVE);
 			_out.put(REL_TYP_CD.UAC_WEIGHT,
 					TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT);
-			_out.put(REL_TYP_CD.NRJ_REF_INTER,
-					TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTER);
+			_out.put(REL_TYP_CD.NRJ_REF_INTRNL,
+					TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL);
 			_out.put(REL_TYP_CD.NRJ_REF_EQUIV,
 					TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_EQUIV);
 			_out.put(REL_TYP_CD.CSTM_NRJ_REF,
@@ -188,8 +188,8 @@ public final class AppConsts {
 					REL_TYP_CD.UAC_MOVE);
 			_in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT,
 					REL_TYP_CD.UAC_WEIGHT);
-			_in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTER,
-					REL_TYP_CD.NRJ_REF_INTER);
+			_in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL,
+					REL_TYP_CD.NRJ_REF_INTRNL);
 			_in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_EQUIV,
 					REL_TYP_CD.NRJ_REF_EQUIV);
 			_in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF,

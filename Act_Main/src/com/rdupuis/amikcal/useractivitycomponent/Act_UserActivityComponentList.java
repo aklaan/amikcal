@@ -29,32 +29,48 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Act_UserActivityComponentList extends Activity {
-	
-	public UserActivity mUA;
+
+	public UserActivity mUA; // la liste se réfère obligatoirement à une UA
 	private ListView maListViewPerso;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Etape 1 : on charge les données
+
 		mUA = new UserActivity();
-		setContentView(R.layout.view_components_list);
-		
 
 		try {
-			
+
 			AmiKcalFactory factory = new AmiKcalFactory(this);
-			long ua_id = Long.parseLong(this.getIntent().getStringExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY));
-					
+			long ua_id = Long
+					.parseLong(this
+							.getIntent()
+							.getStringExtra(
+									AppConsts.INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY));
+
 			this.mUA = factory.load_UserActivity(ua_id);
-						
+
 		} catch (Exception e) {
-			//TODO
+			// TODO
 		}
+
+		// Etape 2 : on charge l'affichage
+		setContentView(R.layout.view_components_list);
+		// Récupération de la listview créée dans le fichier customizedlist.xml
+		maListViewPerso = (ListView) findViewById(R.id.listviewperso);
+		
+		this.refreshScreen();
+
 	}// fin du onCreate
 
-	// lorsque l'activité s'arrête, il faut renvoyer le résultat à l'écran
-	// UserActivity
+	/**
+	 * lorsque l'activité s'arrête, on active le setResult pour que les
+	 * Ecran précédant puissent éventuellement se mettre à jour.
+	 */
+
 	public void onStop() {
 		super.onStop();
 		Toast.makeText(this, "Activité Activity Component stopée",
@@ -73,20 +89,23 @@ public class Act_UserActivityComponentList extends Activity {
 	 */
 
 	public void onClickComponent(long componentId, long activityId) {
-		 Intent intent = new Intent(this,
-		 Act_UserActivityComponentEditor.class);
+		Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
 
-		//Intent intent = new Intent(this, Act_UserActivityComponentSlider.class);
+		// Intent intent = new Intent(this,
+		// Act_UserActivityComponentSlider.class);
 
-		intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID,
+		intent.putExtra(
+				AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID,
 				componentId);
-		intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY,
+		intent.putExtra(
+				AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY,
 				activityId);
 		startActivityForResult(intent, R.integer.ACTY_COMPONENT);
 	}
 
-	//Si on veut créer une nouvelle UAC, il faut que l'éditeur puisse savoir à quel UA 
-	//l'associer
+	// Si on veut créer une nouvelle UAC, il faut que l'éditeur puisse savoir à
+	// quel UA
+	// l'associer
 	public void onClickAdd(View v) {
 		onClickComponent(AppConsts.NO_ID, mUA.get_id());
 	}
@@ -108,9 +127,7 @@ public class Act_UserActivityComponentList extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-				
-				this.refreshComponentList();
-				
+				this.refreshScreen();
 
 			}
 			break;
@@ -120,80 +137,76 @@ public class Act_UserActivityComponentList extends Activity {
 		}
 	}
 
-	
 	/**
 	 * On souhaite afficher la liste des UAC d'une UA
+	 * 
 	 * @param parentId
 	 */
-	
-	protected void refreshComponentList() {
-		
-		
-		// Récupération de la listview créée dans le fichier customizedlist.xml
-		maListViewPerso = (ListView) findViewById(R.id.listviewperso);
+
+	protected void refreshScreen() {
+
+		//on efface la liste actuelle
 		maListViewPerso.removeAllViewsInLayout();
-		
-		
+
 		// Création de la ArrayList qui nous permettra de remplire la listView
 		ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
 		// On déclare la HashMap qui contiendra les informations pour un item
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
-/*
-		Uri selectionUri = ContentUris
-				.withAppendedId(
-						ContentDescriptorObj.ViewActivityComponent.URI_VIEW_ACTIVITY_COMPONENTS_BY_ACTIVITY,
-						parentId);
+		/*
+		 * Uri selectionUri = ContentUris .withAppendedId(
+		 * ContentDescriptorObj.ViewActivityComponent
+		 * .URI_VIEW_ACTIVITY_COMPONENTS_BY_ACTIVITY, parentId);
+		 * 
+		 * // On cré un curseur pour lire la table des aliments consommés Cursor
+		 * cur = this.getContentResolver().query(selectionUri, null, null, null,
+		 * ContentDescriptorObj.ViewActivityComponent.Columns.LAST_UPDATE);
+		 * 
+		 * final int INDX_COL_ID = cur
+		 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent
+		 * .Columns.ID); final int INDX_COL_NAME = cur
+		 * .getColumnIndex(ContentDescriptorObj
+		 * .ViewActivityComponent.Columns.ENERGY_NAME); final int INDX_COL_QTY =
+		 * cur
+		 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns
+		 * .QUANTITY); final int INDX_COL_UNIT = cur
+		 * .getColumnIndex(ContentDescriptorObj
+		 * .ViewActivityComponent.Columns.UNIT_NAME); final int
+		 * INDX_COL_ACTIVITY = cur
+		 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent
+		 * .Columns.PARENT_ID);
+		 * 
+		 * final int INDX_COL_NBKCAL = cur
+		 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent
+		 * .Columns.MNT_ENERGY); final int INDX_COL_NBGLU = cur
+		 * .getColumnIndex(ContentDescriptorObj
+		 * .ViewActivityComponent.Columns.MNT_GLUCIDS); final int INDX_COL_NBLIP
+		 * = cur
+		 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns
+		 * .MNT_LIPIDS); final int INDX_COL_NBPRO = cur
+		 * .getColumnIndex(ContentDescriptorObj
+		 * .ViewActivityComponent.Columns.MNT_PROTEINS);
+		 * 
+		 * // faire un move First pour positionner le pointeur //
+		 * cur.moveToFirst();
+		 * 
+		 * if (cur.moveToFirst()) {
+		 * 
+		 * do {
+		 */
 
-		// On cré un curseur pour lire la table des aliments consommés
-		Cursor cur = this.getContentResolver().query(selectionUri, null, null,
-				null,
-				ContentDescriptorObj.ViewActivityComponent.Columns.LAST_UPDATE);
+		//Pour chaque UAC de L'UA
+		for (UserActivityComponent UAC : this.mUA.getUAC_List()) {
 
-		final int INDX_COL_ID = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.ID);
-		final int INDX_COL_NAME = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.ENERGY_NAME);
-		final int INDX_COL_QTY = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.QUANTITY);
-		final int INDX_COL_UNIT = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.UNIT_NAME);
-		final int INDX_COL_ACTIVITY = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.PARENT_ID);
+			map = new HashMap<String, String>();
+			map.put("componentId", String.valueOf(UAC.getId()));
+			map.put("name", UAC.getEnergySource().getName());
+			map.put("quantity", String.valueOf(UAC.getQty().getAmount()));
+			map.put("unity", UAC.getQty().getUnity().getLongName());
 
-		final int INDX_COL_NBKCAL = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.MNT_ENERGY);
-		final int INDX_COL_NBGLU = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.MNT_GLUCIDS);
-		final int INDX_COL_NBLIP = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.MNT_LIPIDS);
-		final int INDX_COL_NBPRO = cur
-				.getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns.MNT_PROTEINS);
-
-		// faire un move First pour positionner le pointeur
-		// cur.moveToFirst();
-
-		if (cur.moveToFirst()) {
-
-			do {
-*/
-		
-		for( UserActivityComponent UAC:this.mUA.getUAC_List()){
-		
-		
-		
-				map = new HashMap<String, String>();
-				map.put("componentId", String.valueOf(UAC.getId()));
-				map.put("name", UAC.getEnergySource().getName());
-				map.put("quantity",String.valueOf(UAC.getQty().getAmount()));
-				map.put("unity",UAC.getQty().getUnity().getLongName());
-				
-				listItem.add(map);
-			} 
-
-		
-		
+			listItem.add(map);
+		}
 
 		// Création d'un SimpleAdapter qui se chargera de mettre les items
 		// présent dans notre list (listItem)
@@ -232,7 +245,8 @@ public class Act_UserActivityComponentList extends Activity {
 				 * boite de dialogue adb.show();
 				 */
 
-				onClickComponent(Long.getLong(map.get("componentId")), Long.getLong(map.get("activityId")));
+				onClickComponent(Long.getLong(map.get("componentId")),
+						Long.getLong(map.get("activityId")));
 
 			}
 		});
