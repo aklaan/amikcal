@@ -153,7 +153,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	public void updateUActivity() {
 		ContentValues val = getContentValues();
 		Uri uriUpdate = ContentUris.withAppendedId(
-				ContentDescriptorObj.TB_UserActivities.URI_UPDATE_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI,
 				mUserActivity.get_id());
 		this.getContentResolver().update(uriUpdate, val,
 				this.mUserActivity.get_id().toString(), null);
@@ -165,7 +165,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	public void insertUActivity() {
 		ContentValues val = getContentValues();
 		this.getContentResolver().insert(
-				ContentDescriptorObj.TB_UserActivities.URI_INSERT_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI,
 				val);
 	}
 

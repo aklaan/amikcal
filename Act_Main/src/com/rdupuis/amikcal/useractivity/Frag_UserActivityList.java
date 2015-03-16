@@ -1,7 +1,6 @@
 package com.rdupuis.amikcal.useractivity;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -15,7 +14,6 @@ import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -316,7 +314,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
-
+/*
 		Uri selectUri = ContentUris
 				.withAppendedId(
 						ContentDescriptorObj.ViewUserActivities.URI_VIEW_USER_ACTIVITIES,
@@ -368,6 +366,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		}
 		cur.close();
+*/
 		return map;
 
 	}

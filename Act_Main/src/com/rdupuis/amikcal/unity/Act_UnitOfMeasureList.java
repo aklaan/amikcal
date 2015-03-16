@@ -115,7 +115,7 @@ public class Act_UnitOfMeasureList extends Activity {
     	Uri mUri;
     	
     	if (energyId==WITH_NO_FILTER){
-    		mUri = ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS;
+    		mUri = ContentDescriptorObj.TB_Units.URI_SELECT_UNIT;
     		
     	} else{
     		

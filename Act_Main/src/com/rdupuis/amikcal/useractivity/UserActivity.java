@@ -8,8 +8,6 @@ import com.rdupuis.amikcal.commons.AppConsts;
 
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
-import android.graphics.Picture;
-
 public class UserActivity {
 	public enum UA_CLASS_CD {
 		LUNCH, WEIGHT, MOVE

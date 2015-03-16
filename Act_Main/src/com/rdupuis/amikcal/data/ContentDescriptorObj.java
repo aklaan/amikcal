@@ -59,7 +59,7 @@ public final class ContentDescriptorObj {
      * 
      * @return UriMatcher
      **********************************************************************************/
-    private static UriMatcher buildUriMatcher() {
+    public static UriMatcher buildUriMatcher() {
 	final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 	final String authority = AUTHORITY;
 
@@ -105,6 +105,9 @@ public final class ContentDescriptorObj {
 	// Match pour la vue de selection des liens NRJ<->QtyRef
 	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_PATH, View_UAC_Data.VIEW_UAC_DATA_TOKEN);
 
+	
+	
+	
 	// **---- Match(s) pour la table user_activities ----->
 	matcher.addURI(authority, TB_UserActivities.SELECT_USER_ACTIVITIES,
 		TB_UserActivities.SELECT_USER_ACTIVITIES_TOKEN);
@@ -115,23 +118,23 @@ public final class ContentDescriptorObj {
 	matcher.addURI(authority, TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE,
 		TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_TOKEN);
 
+	
+	
+	
 	matcher.addURI(authority, TB_UserActivities.SELECT_USER_ACTIVITIES_BY_TYPE,
 		TB_UserActivities.SELECT_USER_ACTIVITIES_BY_TYPE_TOKEN);
 
-	matcher.addURI(authority, TB_UserActivities.INSERT_USER_ACTIVITIES,
-		TB_UserActivities.INSERT_USER_ACTIVITIES_TOKEN);
+	matcher.addURI(authority, TB_UserActivities.INSERT_USER_ACTIVITY_PATH,
+		TB_UserActivities.INSERT_USER_ACTIVITY_TOKEN);
 
-	matcher.addURI(authority, TB_UserActivities.UPDATE_USER_ACTIVITIES_BY_ID,
-		TB_UserActivities.UPDATE_USER_ACTIVITIES_BY_ID_TOKEN);
+	matcher.addURI(authority, TB_UserActivities.UPDATE_USER_ACTIVITY_PATH,
+		TB_UserActivities.UPDATE_USER_ACTIVITY_TOKEN);
 
-	matcher.addURI(authority, TB_UserActivities.DELETE_USER_ACTIVITY, TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN);
+	matcher.addURI(authority, TB_UserActivities.DELETE_USER_ACTIVITY_PATH, TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN);
 
-	// Match pour la séléction d'une vue userActivity
-	matcher.addURI(authority, ViewUserActivities.VIEW_USER_ACTIVITIES_BY_ID,
-		ViewUserActivities.VIEW_USER_ACTIVITIES_BY_ID_TOKEN);
 
 	matcher.addURI(authority, CustomQuery.SUM_ENERGY_OF_DAY, CustomQuery.SUM_ENERGY_OF_DAY_TOKEN);
-	matcher.addURI(authority, CustomQuery.DB_VERSION, CustomQuery.DB_VERSION_TOKEN);
+	matcher.addURI(authority, CustomQuery.DB_VERSION_PATH, CustomQuery.DB_VERSION_TOKEN);
 	matcher.addURI(authority, CustomQuery.LAST_WEIGHT_FROM, CustomQuery.LAST_WEIGHT_FROM_TOKEN);
 	matcher.addURI(authority, CustomQuery.USED_UNITS_FOR_ENERGY, CustomQuery.USED_UNITS_FOR_ENERGY_TOKEN);
 
@@ -140,19 +143,20 @@ public final class ContentDescriptorObj {
 
     public static final class CustomQuery {
 
-	public static final int SUM_ENERGY_OF_DAY_TOKEN = 1000;
+	private static final int CSTM_QUERY = 0;
+	public static final int SUM_ENERGY_OF_DAY_TOKEN = getToken(CSTM_QUERY, SQL_ORDER.SELECT, +0);
 	public static final String SUM_ENERGY_OF_DAY = "sumEnergyOfDay/*";
 	public static final Uri URI_SUM_ENERGY_OF_DAY = BASE_URI.buildUpon().appendPath("sumEnergyOfDay").build();
 
-	public static final int DB_VERSION_TOKEN = 1100;
-	public static final String DB_VERSION = "dbVersion";
-	public static final Uri URI_DB_VERSION = BASE_URI.buildUpon().appendPath(DB_VERSION).build();
+	public static final String DB_VERSION_PATH = "dbVersion";
+	public static final int DB_VERSION_TOKEN = getToken(CSTM_QUERY, SQL_ORDER.SELECT, +1);
+	public static final Uri URI_DB_VERSION = BASE_URI.buildUpon().appendPath(DB_VERSION_PATH).build();
 
-	public static final int LAST_WEIGHT_FROM_TOKEN = 1200;
+	public static final int LAST_WEIGHT_FROM_TOKEN = getToken(CSTM_QUERY, SQL_ORDER.SELECT, +2);
 	public static final String LAST_WEIGHT_FROM = "lastWeightFrom/*";
 	public static final Uri URI_LAST_WEIGHT_FROM = BASE_URI.buildUpon().appendPath("lastWeightFrom").build();
 
-	public static final int USED_UNITS_FOR_ENERGY_TOKEN = 1300;
+	public static final int USED_UNITS_FOR_ENERGY_TOKEN = getToken(CSTM_QUERY, SQL_ORDER.SELECT, +3);
 	public static final String USED_UNITS_FOR_ENERGY = "usedUnitsForEnergy/*";
 	public static final Uri URI_USED_UNITS_FOR_ENERGY = BASE_URI.buildUpon().appendPath("usedUnitsForEnergy")
 		.build();
@@ -342,6 +346,7 @@ public final class ContentDescriptorObj {
 	public static final int UPDATE_ENERGY_TOKEN = getToken(TABLE_ID, SQL_ORDER.UPDATE, +0);
 
 	public static final Uri URI_CONTENT_ENERGIES = BASE_URI.buildUpon().appendPath(SELECT_ENERGIES).build();
+	
 	public static final Uri URI_ENERGIES_LIKE = BASE_URI.buildUpon().appendPath(ENERGIES_LIKE).build();
 
 	public static final Uri URI_INSERT_ENERGY = BASE_URI.buildUpon().appendPath(INSERT_ENERGY).build();
@@ -417,7 +422,7 @@ public final class ContentDescriptorObj {
 	public static final String UPDATE_UNIT = "update_unit";
 	public static final int UPDATE_UNIT_TOKEN = getToken(TABLE_ID, SQL_ORDER.UPDATE, +0);
 
-	public static final Uri URI_CONTENT_UNITS = BASE_URI.buildUpon().appendPath(SELECT_UNITS).build();
+	public static final Uri URI_SELECT_UNIT = BASE_URI.buildUpon().appendPath(SELECT_UNITS).build();
 	public static final Uri URI_INSERT_UNIT = BASE_URI.buildUpon().appendPath(INSERT_UNIT).build();
 	public static final Uri URI_UPDATE_UNIT = BASE_URI.buildUpon().appendPath(UPDATE_UNIT).build();
 
@@ -510,48 +515,57 @@ public final class ContentDescriptorObj {
 	public static final Uri URI_BASE_USER_ACTIVITIES = BASE_URI.buildUpon().appendPath(NAME).build();
 
 	// Path pour l'Uri de séléction de toute la table
-	public static final String SELECT_USER_ACTIVITIES = NAME + "/" + SELECT;
-	public static final Uri URI_SELECT_USER_ACTIVITIES = URI_BASE_USER_ACTIVITIES.buildUpon().appendPath(SELECT)
-		.build();
+	public static final String SELECT_USER_ACTIVITIES =  SELECT;
+	
+	//URI de base pour les selections de la table
+	public static final Uri URI_SELECT_USER_ACTIVITIES =
+		URI_BASE_USER_ACTIVITIES.buildUpon().appendPath(SELECT_USER_ACTIVITIES).build();
+		
+	
 	public static final int SELECT_USER_ACTIVITIES_TOKEN = getToken(TABLE_ID, SQL_ORDER.SELECT, +0);
 
 	public static final String SELECT_USER_ACTIVITIES_BY_ID = SELECT_USER_ACTIVITIES + "/#";
 	public static final int SELECT_USER_ACTIVITIES_BY_ID_TOKEN = getToken(TABLE_ID, SQL_ORDER.SELECT, +1);
 
-	public static final String SELECT_USER_ACTIVITIES_BY_TYPE = SELECT_USER_ACTIVITIES + "type/?";
+	public static final String SELECT_USER_ACTIVITIES_BY_TYPE = SELECT_USER_ACTIVITIES + "/type/?";
 	public static final Uri URI_SELECT_USER_ACTIVITIES_BY_TYPE = URI_SELECT_USER_ACTIVITIES.buildUpon()
 		.appendPath("type").build();
 	public static final int SELECT_USER_ACTIVITIES_BY_TYPE_TOKEN = getToken(TABLE_ID, SQL_ORDER.SELECT, +2);
 
-	public static final String SELECT_USER_ACTIVITIES_BY_DATE = SELECT_USER_ACTIVITIES + "/date/*";
+	public static final String SELECT_USER_ACTIVITIES_BY_DATE =  "date/#";
 	public static final Uri URI_SELECT_USER_ACTIVITIES_BY_DATE = URI_SELECT_USER_ACTIVITIES.buildUpon()
-		.appendPath("date").build();
+		.appendPath(SELECT_USER_ACTIVITIES_BY_DATE).build();
 	public static final int SELECT_USER_ACTIVITIES_BY_DATE_TOKEN = getToken(TABLE_ID, SQL_ORDER.SELECT, +3);
 
 	// Path pour l'Uri de création d'un enregistrement
-	public static final String INSERT_USER_ACTIVITIES = NAME + "/" + INSERT;
-	public static final int INSERT_USER_ACTIVITIES_TOKEN = getToken(TABLE_ID, SQL_ORDER.INSERT, +0);
+	public static final String INSERT_USER_ACTIVITY_PATH = NAME + "/" + INSERT;
+	public static final int INSERT_USER_ACTIVITY_TOKEN = getToken(TABLE_ID, SQL_ORDER.INSERT, +0);
+	public static final Uri INSERT_USER_ACTIVITY_URI = URI_BASE_USER_ACTIVITIES.buildUpon()
+		.appendPath(INSERT_USER_ACTIVITY_PATH).build();
+
+	// Path pour l'Uri de modification de tous les enregistrements
+	public static final String UPDATE_USER_ACTIVITIES_PATH = NAME + "/" + UPDATE;
+	public static final int UPDATE_USER_ACTIVITIES_TOKEN = getToken(TABLE_ID, SQL_ORDER.UPDATE, +0);
+	public static final Uri UPDATE_USER_ACTIVITIES_URI = URI_BASE_USER_ACTIVITIES.buildUpon()
+		.appendPath(UPDATE_USER_ACTIVITIES_PATH).build();
 
 	// Path pour l'Uri de modification d'un enregistrement
-	public static final String UPDATE_USER_ACTIVITIES = NAME + "/" + UPDATE;
-	public static final int UPDATE_USER_ACTIVITIES_TOKEN = getToken(TABLE_ID, SQL_ORDER.UPDATE, +0);
+	public static final String UPDATE_USER_ACTIVITY_PATH = UPDATE_USER_ACTIVITIES_PATH + "/#";
+	public static final int UPDATE_USER_ACTIVITY_TOKEN = getToken(TABLE_ID, SQL_ORDER.UPDATE, +1);
+	public static final Uri UPDATE_USER_ACTIVITY_URI = URI_BASE_USER_ACTIVITIES.buildUpon()
+		.appendPath(UPDATE_USER_ACTIVITY_PATH).build();
 
-	public static final String UPDATE_USER_ACTIVITIES_BY_ID = UPDATE_USER_ACTIVITIES + "/#";
-	public static final int UPDATE_USER_ACTIVITIES_BY_ID_TOKEN = getToken(TABLE_ID, SQL_ORDER.UPDATE, +1);
+	// Path pour l'Uri de supression de tous les enregistrements
+	public static final String DELETE_USER_ACTIVITIES_PATH = NAME + "/" + DELETE;
+	public static final int DELETE_USER_ACTIVITIES_TOKEN = getToken(TABLE_ID, SQL_ORDER.DELETE, +0);
+	public static final Uri DELETE_USER_ACTIVITIES_URI = URI_BASE_USER_ACTIVITIES.buildUpon().appendPath(DELETE)
+		.build();
 
 	// Path pour l'Uri de supression d'un enregistrement
-	public static final String DELETE_USER_ACTIVITIES = NAME + "/" + DELETE;
-	public static final int DELETE_USER_ACTIVITIES_TOKEN = getToken(TABLE_ID, SQL_ORDER.DELETE, +0);
-
-	public static final String DELETE_USER_ACTIVITY = DELETE_USER_ACTIVITIES + "/*";
+	public static final String DELETE_USER_ACTIVITY_PATH = DELETE_USER_ACTIVITIES_PATH + "/*";
 	public static final int DELETE_USER_ACTIVITY_TOKEN = getToken(TABLE_ID, SQL_ORDER.DELETE, +1);
-
-	public static final Uri URI_INSERT_USER_ACTIVITIES = URI_BASE_USER_ACTIVITIES.buildUpon().appendPath(INSERT)
-		.build();
-	public static final Uri URI_UPDATE_USER_ACTIVITIES = URI_BASE_USER_ACTIVITIES.buildUpon().appendPath(UPDATE)
-		.build();
-	public static final Uri URI_DELETE_USER_ACTIVITIES = URI_BASE_USER_ACTIVITIES.buildUpon().appendPath(DELETE)
-		.build();
+	public static final Uri DELETE_USER_ACTIVITY_URI = URI_BASE_USER_ACTIVITIES.buildUpon()
+		.appendPath(DELETE_USER_ACTIVITY_PATH).build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.useractivities";
@@ -798,85 +812,6 @@ public final class ContentDescriptorObj {
 
     }
 
-    /***********************************************************************************
-     * Vue des activités: ViewUserActivities
-     * 
-     * @author R.DUPUIS
-     *
-     **********************************************************************************/
-    public static final class ViewUserActivities implements BaseColumns {
-
-	// Info concernant la table
-	public static final String NAME = "View_user_activities";
-	private static int VIEW_ID = 11;
-
-	// Path pour l'Uri de séléction de toute la table
-	public static final String VIEW_USER_ACTIVITIES = NAME + "/" + SELECT;
-	public static final int VIEW_USER_ACTIVITIES_TOKEN = getToken(VIEW_ID, SQL_ORDER.SELECT, +0);
-
-	public static final String VIEW_USER_ACTIVITIES_BY_ID = NAME + "/*";
-	public static final int VIEW_USER_ACTIVITIES_BY_ID_TOKEN = getToken(VIEW_ID, SQL_ORDER.SELECT, +1);
-
-	public static final Uri URI_VIEW_USER_ACTIVITIES = BASE_URI.buildUpon().appendPath(NAME).build();
-
-	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.viewuseractivities";
-
-	// Info concernant les colones de la table
-	public static final class Columns {
-	    public static final String ID = BaseColumns._ID; // on utilise la
-							     // convention de
-							     // format de
-							     // colonne ID
-							     // indiqué par
-							     // BaseColumns
-
-	    public static final String SUM_ENERGY = "sum_energy";
-	    public static final String SUM_LIPIDS = "sum_lipids";
-	    public static final String SUM_PROTEINS = "sum_proteins";
-	    public static final String SUM_GLUCIDS = "sum_glucids";
-
-	}
-
-    }
-
-    /***********************************************************************************
-     * Vue des activités: ViewDay
-     * 
-     * @author R.DUPUIS descriptif de la vue permetant d'avoir une synthèse de
-     *         la journée.
-     **********************************************************************************/
-    public static final class ViewDay implements BaseColumns {
-
-	// Info concernant la table
-	public static final String NAME = "View_day";
-	private static int VIEW_ID = 12;
-
-	// Path pour l'Uri de séléction de toute la table
-	public static final String VIEW_DAY = NAME + "/" + SELECT;
-	public static final int VIEW_DAY_TOKEN = 1100;
-
-	public static final String VIEW_DAY_BY_DATE = VIEW_DAY + "/#";
-	public static final int VIEW_USER_ACTIVITIES_BY_ID_TOKEN = getToken(VIEW_ID, SQL_ORDER.SELECT, +0);
-
-	public static final Uri URI_VIEW_DAY_SELECT = BASE_URI.buildUpon().appendPath(VIEW_DAY).build();
-
-	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.viewday";
-
-	// Info concernant les colones de la table
-	public static final class Columns {
-	    public static final String DATE = "day";
-	    public static final String TYPE = "type";
-	    public static final String SUM_ENERGY = "sum_energy";
-	    public static final String SUM_LIPIDS = "sum_lipids";
-	    public static final String SUM_PROTEINS = "sum_proteins";
-	    public static final String SUM_GLUCIDS = "sum_glucids";
-
-	}
-
-    }
-
     /**
      * Liste des requêtes prédéfinies
      * 
@@ -888,11 +823,10 @@ public final class ContentDescriptorObj {
 
 	, SELECT_ALL_UAC_OF_UA, SELECT_QTYREF_OF_NRJ, UPDATE_UNITY, SELECT_ALL_UNITS, SELECT_UNITY_BY_ID, INSERT_UNITY, INSERT_ENERGY, INSERT_USER_ACTIVITY
 
-	, SELECT_ALL_ENERGIES, SELECT_ENERGY, SELECT_ENERGIES_LIKE
+	, SELECT_ALL_ENERGIES, SELECT_ENERGY, SELECT_ENERGIES_LIKE, SELECT_DB_VERSION, UPDATE_ENERGY,
 
-    ,
-	MIME_ENERGY_DIR
-,	MIME_ENERGY_TYPE,SELECT_USER_ACTIVITIES_BY_DATE
+	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE
+    ,DELETE_USER_ACTIVITY
     }
 
     public static final class TOKEN_MAP {
@@ -917,15 +851,15 @@ public final class ContentDescriptorObj {
 	    _in.put(TB_Energies.UPDATE_ENERGY_TOKEN, REQUESTS_LIST.NONE);
 
 	    _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_ID_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_TOKEN, REQUESTS_LIST.SELECT_USER_ACTIVITIES_BY_DATE);
+	    _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_ID_TOKEN, REQUESTS_LIST.SELECT_USER_ACTIVITY);
+	    _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_TOKEN,
+		    REQUESTS_LIST.SELECT_USER_ACTIVITIES_BY_DATE);
 	    _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_TYPE_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(TB_UserActivities.INSERT_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.INSERT_USER_ACTIVITY);
+	    _in.put(TB_UserActivities.INSERT_USER_ACTIVITY_TOKEN, REQUESTS_LIST.INSERT_USER_ACTIVITY);
 	    _in.put(TB_UserActivities.DELETE_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(TB_UserActivities.UPDATE_USER_ACTIVITIES_BY_ID_TOKEN, REQUESTS_LIST.NONE);
+	    _in.put(TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.DELETE_USER_ACTIVITY);
+
 	    _in.put(TB_UserActivities.UPDATE_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(ViewDay.VIEW_DAY_TOKEN, REQUESTS_LIST.VIEW_DAY_BY_DATE);
 
 	    _in.put(TB_Units.SELECT_UNITS_TOKEN, REQUESTS_LIST.SELECT_ALL_UNITS);
 	    _in.put(TB_Units.SELECT_UNIT_BY_ID_TOKEN, REQUESTS_LIST.SELECT_UNITY_BY_ID);
@@ -938,6 +872,13 @@ public final class ContentDescriptorObj {
 	    _in.put(View_UA_UAC_link.VIEW_UAC_FOR_UA_TOKEN, REQUESTS_LIST.SELECT_ALL_UAC_OF_UA);
 	    //
 	    _in.put(View_Qty.VIEW_QTY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_QTY_BY_ID);
+
+	    //
+	    _in.put(CustomQuery.DB_VERSION_TOKEN, REQUESTS_LIST.SELECT_DB_VERSION);
+	    //
+	    _in.put(TB_Energies.UPDATE_ENERGY_TOKEN, REQUESTS_LIST.UPDATE_ENERGY);
+	    //
+	    _in.put(TB_UserActivities.UPDATE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.UPDATE_USER_ACTIVITY);
 
 	}
     }

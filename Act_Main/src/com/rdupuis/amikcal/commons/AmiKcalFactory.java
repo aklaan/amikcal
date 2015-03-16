@@ -178,7 +178,7 @@ public final class AmiKcalFactory {
 		u.setId(_id);
 
 		Uri selectUri = ContentUris.withAppendedId(
-				ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS, _id);
+				ContentDescriptorObj.TB_Units.URI_SELECT_UNIT, _id);
 		Cursor cursor = this.contentResolver.query(selectUri, null, null, null,
 				null);
 

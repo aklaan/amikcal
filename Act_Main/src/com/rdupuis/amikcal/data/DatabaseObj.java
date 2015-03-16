@@ -167,7 +167,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " = "
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL
 
-				+ ")"
+				
 
 		);
 
@@ -216,7 +216,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " = "
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_UAC
 
-				+ ")"
+				
 
 		);
 
@@ -289,7 +289,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " = "
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT
 								
-				+ ")"
+				
 
 		);
 

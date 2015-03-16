@@ -1,12 +1,10 @@
 package com.rdupuis.amikcal.data;
 
-import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -14,7 +12,7 @@ import android.net.Uri;
 
 public class ContentProviderObj extends ContentProvider {
     private DatabaseObj AmikcalDb;
-    private Resources mResources;
+//    private Resources mResources;
 
     /******************************************************************************
      * A la création de la base de donnée
@@ -22,7 +20,7 @@ public class ContentProviderObj extends ContentProvider {
     @Override
     public boolean onCreate() {
 	AmikcalDb = new DatabaseObj(getContext());
-	mResources = getContext().getResources();
+//	mResources = getContext().getResources();
 
 	return true;
 
@@ -83,7 +81,7 @@ public class ContentProviderObj extends ContentProvider {
 	    // la fonction update retourne n'Id de l'enregistrement créé.
 	    long id = db.insert(ContentDescriptorObj.TB_Units.NAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS.buildUpon().appendPath(String.valueOf(id)).build();
+	    return ContentDescriptorObj.TB_Units.URI_SELECT_UNIT.buildUpon().appendPath(String.valueOf(id)).build();
 	}
 
 	case INSERT_USER_ACTIVITY: {
@@ -120,10 +118,10 @@ public class ContentProviderObj extends ContentProvider {
 	SQLiteDatabase db = AmikcalDb.getReadableDatabase();
 
 	final int match = ContentDescriptorObj.URI_MATCHER.match(uri);
-
 	TOKEN_MAP map = new TOKEN_MAP();
-	REQUESTS_LIST request = map._in.get(token);
-
+	REQUESTS_LIST request = map._in.get(match);
+	
+	
 	switch (request) {
 
 	case SELECT_ENERGY: {
@@ -176,7 +174,8 @@ public class ContentProviderObj extends ContentProvider {
 
 	}
 
-	case ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITIES_BY_ID_TOKEN: {
+	
+	case SELECT_USER_ACTIVITY: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.TB_UserActivities.NAME);
 
@@ -185,46 +184,12 @@ public class ContentProviderObj extends ContentProvider {
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
 
-	case ContentDescriptorObj.ViewUserActivities.VIEW_USER_ACTIVITIES_BY_ID_TOKEN: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.ViewUserActivities.NAME);
 
-	    String whereClause = ContentDescriptorObj.ViewUserActivities.NAME + "."
-		    + ContentDescriptorObj.ViewUserActivities.Columns.ID + "='" + uri.getLastPathSegment() + "'";
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-	}
-
-	case ContentDescriptorObj.CustomQuery.DB_VERSION_TOKEN: {
+	case SELECT_DB_VERSION: {
 	    return db.rawQuery("PRAGMA user_version", null);
 	}
 
-	case ContentDescriptorObj.CustomQuery.LAST_WEIGHT_FROM_TOKEN: {
-
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_UserActivities.NAME);
-
-	    /*
-	     * ========================================================= SELECT
-	     * (useractivities.title) where date(useractivities.date)
-	     * <='2012-08-12'
-	     * =========================================================
-	     */
-	    String[] selectClause = new String[] { "(" + ContentDescriptorObj.TB_UserActivities.NAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.TITLE + ") as maxweight" };
-
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.NAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.CLASS + "= "
-		    + String.valueOf(mResources.getInteger(R.integer.ACTIVITY_WEIGHT)) + " AND DATE("
-		    + ContentDescriptorObj.TB_UserActivities.NAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.DATE + ") <= '" + uri.getLastPathSegment() + "'";
-
-	    String sortorder = ContentDescriptorObj.TB_UserActivities.NAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.DATE + " DESC";
-
-	    // Log.i("where",whereClause + sortorder);
-
-	    return builder.query(db, selectClause, whereClause, null, null, null, sortorder);
-	}
+		
 
 	/*
 	 * case ContentDescriptorObj.CustomQuery.SUM_ENERGY_OF_DAY_TOKEN:{
@@ -286,9 +251,13 @@ public class ContentProviderObj extends ContentProvider {
 
 	SQLiteDatabase db = AmikcalDb.getWritableDatabase();
 	int token = ContentDescriptorObj.URI_MATCHER.match(uri);
-	switch (token) {
+	TOKEN_MAP map = new TOKEN_MAP();
+	REQUESTS_LIST request = map._in.get(token);
 
-	case ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_TOKEN: {
+	
+	switch (request) {
+
+	case UPDATE_ENERGY: {
 
 	    String whereClause = ContentDescriptorObj.TB_Energies.NAME + "."
 		    + ContentDescriptorObj.TB_Energies.Columns.ID + "=" + selection;
@@ -297,7 +266,7 @@ public class ContentProviderObj extends ContentProvider {
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return 0;
 	}
-	case ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITIES_BY_ID_TOKEN: {
+	case UPDATE_USER_ACTIVITY: {
 
 	    String whereClause = ContentDescriptorObj.TB_UserActivities.NAME + "."
 		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + selection;
@@ -307,7 +276,7 @@ public class ContentProviderObj extends ContentProvider {
 	    return 0;
 	}
 
-	case ContentDescriptorObj.TB_Units.UPDATE_UNIT_TOKEN: {
+	case UPDATE_UNITY: {
 
 	    String whereClause = ContentDescriptorObj.TB_Units.NAME + "." + ContentDescriptorObj.TB_Units.Columns.ID
 		    + "=" + selection;
@@ -335,8 +304,12 @@ public class ContentProviderObj extends ContentProvider {
 
 	SQLiteDatabase db = AmikcalDb.getWritableDatabase();
 	int token = ContentDescriptorObj.URI_MATCHER.match(uri);
-	switch (token) {
-	case ContentDescriptorObj.TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN: {
+	TOKEN_MAP map = new TOKEN_MAP();
+	REQUESTS_LIST request = map._in.get(token);
+
+	
+	switch (request) {
+	case DELETE_USER_ACTIVITY: {
 
 	}
 
@@ -346,6 +319,8 @@ public class ContentProviderObj extends ContentProvider {
 	    db.delete(ContentDescriptorObj.TB_UserActivities.NAME, whereClause, null);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return 0;
+	default:
+	    break;
 	}
 
 	return 0;

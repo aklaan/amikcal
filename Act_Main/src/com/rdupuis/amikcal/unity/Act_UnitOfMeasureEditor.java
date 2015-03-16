@@ -58,7 +58,7 @@ public class Act_UnitOfMeasureEditor extends Activity {
      ***************************************************************************************/
     private void loadUnitFromDb(Unity wrkUnit){
     	
-        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS,wrkUnit.getId());
+        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_Units.URI_SELECT_UNIT,wrkUnit.getId());
 
         Cursor cur = this.getContentResolver().query(request , null, null, null, null);
         

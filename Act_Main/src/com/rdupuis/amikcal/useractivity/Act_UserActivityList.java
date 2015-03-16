@@ -1,12 +1,10 @@
 package com.rdupuis.amikcal.useractivity;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.HashMap;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -312,7 +310,7 @@ public class Act_UserActivityList extends Activity {
 	 // vérifier s'il y a des enfants
 	 // s'il y a des enfant alerter et demander une confirmation
 	
-    	Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.URI_DELETE_USER_ACTIVITIES,Long.parseLong(id));
+    	Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.DELETE_USER_ACTIVITY_URI,Long.parseLong(id));
     	this.getContentResolver().delete(uriDelete, null,null);
 	    refreshScreen();
 }
@@ -331,7 +329,7 @@ private HashMap<String, String> computeEnergy(long UserActivityId){
 	HashMap<String, String> map;
     map = new HashMap<String, String>();
 	
-    
+  /*  
     Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.ViewUserActivities.URI_VIEW_USER_ACTIVITIES,UserActivityId);
     
     Cursor cur = this.getContentResolver().query(selectUri, null, null, null, null);
@@ -366,8 +364,11 @@ private HashMap<String, String> computeEnergy(long UserActivityId){
         	
         }
          cur.close();
+        
+         */
          return map;
 	
+
 }
 
 

@@ -67,7 +67,7 @@ public class Frag_UserActivity_StatisticsOfDay extends TimeSlidableFragment {
 	 */
 	protected String getTotalEnergyOfDay(String DateToSelect) {
 		String result = "";
-
+/*
 		Uri selectUri;
 		selectUri = ContentDescriptorObj.CustomQuery.URI_SUM_ENERGY_OF_DAY
 				.buildUpon().appendPath(DateToSelect).build();
@@ -88,7 +88,9 @@ public class Frag_UserActivity_StatisticsOfDay extends TimeSlidableFragment {
 
 			result = decimalFormat.format(cur.getFloat(INDX_COL_ID));
 		}
+
 		cur.close();
+		*/
 		return result;
 	}
 

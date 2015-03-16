@@ -206,7 +206,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		// s'il y a des enfant alerter et demander une confirmation
 
 		Uri uriDelete = ContentUris.withAppendedId(
-				ContentDescriptorObj.TB_UserActivities.URI_DELETE_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.DELETE_USER_ACTIVITY_URI,
 				Long.parseLong(id));
 		this.getContentResolver().delete(uriDelete, null, null);
 

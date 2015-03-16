@@ -97,7 +97,7 @@ public class Frag_UnityList extends Fragment {
 		Uri mUri;
 
 		if (energyId == WITH_NO_FILTER) {
-			mUri = ContentDescriptorObj.TB_Units.URI_CONTENT_UNITS;
+			mUri = ContentDescriptorObj.TB_Units.URI_SELECT_UNIT;
 
 		} else {
 

@@ -22,7 +22,7 @@ public class UserActivityItem extends AbstractUserActivityItem{
 	public void delete() {
 
 		Uri uriDelete = ContentUris.withAppendedId(
-				ContentDescriptorObj.TB_UserActivities.URI_DELETE_USER_ACTIVITIES,
+				ContentDescriptorObj.TB_UserActivities.DELETE_USER_ACTIVITY_URI,
 				this.mUserActivity.get_id());
 		mActivity.getContentResolver().delete(uriDelete, null, null);
 		
