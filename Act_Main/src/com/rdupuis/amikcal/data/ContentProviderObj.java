@@ -89,7 +89,7 @@ public class ContentProviderObj extends ContentProvider {
 	    // la fonction update retourne n'Id de l'enregistrement créé.
 	    long id = db.insert(ContentDescriptorObj.TB_UserActivities.NAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES.buildUpon()
+	    return ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI.buildUpon()
 		    .appendPath(String.valueOf(id)).build();
 	}
 

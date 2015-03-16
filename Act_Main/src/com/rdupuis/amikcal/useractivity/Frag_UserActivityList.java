@@ -94,7 +94,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 		// On prépare la requête pour rappatrier les activitées du jour
 		Uri request;
-		request = ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE
+		request = ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_URI
 				.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
 
 		// On crée une liste d'item différents selon le type d'activité à

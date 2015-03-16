@@ -122,10 +122,10 @@ public class Act_UserActivityList extends Activity {
     	Uri request;
  
     	if (currentTypeOfList == mResources.getInteger(R.integer.USER_ACTIVITY_LIST_RECIPE)){
-    		request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES_BY_TYPE,mResources.getInteger(R.integer.ACTIVITY_RECIPE));
+    		request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITIES_BY_TYPE_URI,mResources.getInteger(R.integer.ACTIVITY_RECIPE));
     		
     	}else {
-    		request  = ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES_BY_DATE.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
+    		request  = ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_URI.buildUpon().appendPath(ToolBox.getSqlDate(currentDay)).build();
     	};
     	
         	

@@ -35,7 +35,7 @@
         </activity>
         <activity android:name="com.rdupuis.amikcal.commons.numericpad.Act_NumericPad" >
         </activity>
-        <activity android:name="com.rdupuis.amikcal.commons.numericpad.FragAct_NumericPad" >
+        <activity android:name="com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.commons.Act_Techinfo" >
         </activity>

@@ -217,7 +217,7 @@ public final class AmiKcalFactory {
 
 		Uri request = ContentUris
 				.withAppendedId(
-						ContentDescriptorObj.TB_UserActivities.URI_SELECT_USER_ACTIVITIES,
+						ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI,
 						_id);
 
 		Cursor cur = this.contentResolver
