@@ -121,10 +121,13 @@ public class MainActivity extends Activity {
 
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the sliding drawer and the action bar app icon
+
 		mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
 		mDrawerLayout, /* DrawerLayout object */
 		
 		R.string.drawer_open, /* nav drawer image to replace 'Up' caret */
+		
+		
 		R.string.drawer_open
 		) {
 			public void onDrawerClosed(View view) {
@@ -141,9 +144,9 @@ public class MainActivity extends Activity {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		//if (savedInstanceState == null) {
-		//	launchActivity(0);
-	//	}
+		if (savedInstanceState == null) {
+			launchActivity(0);
+		}
 	}
 
 	@Override
@@ -167,9 +170,9 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// The action bar home/up action should open or close the drawer.
 		// ActionBarDrawerToggle will take care of this.
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
+		/*if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
-		}
+		}*/
 		// Handle action buttons
 		switch (item.getItemId()) {
 		case R.id.action_websearch:
@@ -293,14 +296,14 @@ public class MainActivity extends Activity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		// Sync the toggle state after onRestoreInstanceState has occurred.
-		mDrawerToggle.syncState();
+		//mDrawerToggle.syncState();
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
-		mDrawerToggle.onConfigurationChanged(newConfig);
+		//mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
 	/**

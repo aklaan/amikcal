@@ -4,3 +4,4 @@ Act_Main/libs
 Act_Main/gen
 Act_Main/project.properties
 Act_Main/.classpath
+*.db
