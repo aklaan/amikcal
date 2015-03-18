@@ -13,15 +13,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
+import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
+import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 
  
  public class MultipleItemsActivityList extends BaseAdapter {
     	
-        final static int TYPE_LUNCH=1;
-        final static int TYPE_ACTIVITY=2;
-        final static int TYPE_WEIGHT=3;
-	 
+
 	    private ArrayList<HashMap<String, String>> mData = new ArrayList<HashMap<String, String>>();
         private LayoutInflater mInflater;
         
@@ -57,9 +58,9 @@ import com.rdupuis.amikcal.useractivity.UserActivity;
             
             HashMap<String, String> map = (HashMap<String, String>) getItem(position);
             
-            UserActivity.UA_CLASS_CD UA_Class = UserActivity.UA_CLASS_CD.valueOf(map.get("type"));
-            
-            
+        	UA_CLASS_CD_MAP UA_class_cd_map = new UA_CLASS_CD_MAP();
+        	UA_CLASS_CD UA_Class = UA_class_cd_map._in.get(Byte.parseByte(map.get("type")));
+
             TextView tv;
             if (convertView == null) {
                 

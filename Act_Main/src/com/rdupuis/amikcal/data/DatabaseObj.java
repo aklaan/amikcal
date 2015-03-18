@@ -92,7 +92,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		// ex: Repas / pesées / activité physiques
 		// **********************************************************************************************
 		db.execSQL("CREATE TABLE "
-				+ ContentDescriptorObj.TB_UserActivities.NAME + " ( "
+				+ ContentDescriptorObj.TB_UserActivities.TBNAME + " ( "
 				+ ContentDescriptorObj.TB_UserActivities.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 

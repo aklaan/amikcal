@@ -129,7 +129,7 @@ public final class AppConsts {
 		public EnumMap<UA_CLASS_CD, Integer> _out = new EnumMap<UA_CLASS_CD, Integer>(
 				UA_CLASS_CD.class);
 
-		public HashMap<Integer, UA_CLASS_CD> _in = new HashMap<Integer, UA_CLASS_CD>();
+		public HashMap<Byte, UA_CLASS_CD> _in = new HashMap<Byte, UA_CLASS_CD>();
 
 		public UA_CLASS_CD_MAP() {
 			_out.put(UA_CLASS_CD.LUNCH, 0);

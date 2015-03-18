@@ -521,21 +521,20 @@ public final class AmiKcalFactory {
 	
 	// class : on utilise la mapping pour transformer l'ENUM Class en Byte
 	// stoké dans la Database.
-	REL_TYP_CD_MAP ua_cd_map = new REL_TYP_CD_MAP();
-	val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((UA.getType())));
+	REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get((UAC.getClass())));
 
 	// date de mise à jour
-	val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
-	if (UA.get_id() == AppConsts.NO_ID) {
-	    this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI,
-		    val);
+	if (UAC.getId() == AppConsts.NO_ID) {
+	    this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI,val);
 	} else {
 
 	    Uri uriUpdate =
-
-	    ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI, UA.get_id());
-	    this.mActivity.getContentResolver().update(uriUpdate, val, UA.get_id().toString(), null);
+	    ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.UP000_PARTY_REL_URI, UAC.getId());
+	    
+	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(UAC.getId()), null);
 
 	}
 

@@ -25,6 +25,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.data.DatabaseObj;
+import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
 import com.rdupuis.amikcal.day.Act_Day;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
@@ -59,7 +60,10 @@ public class Act_Main extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainview);
+        
+		initializeStatic();
+		
+		setContentView(R.layout.mainview);
 		//setContentView(R.layout.fragment_day_user_activities_synthese);
         contentResolver = this.getContentResolver();
       //  verifierMiseAJourDB();
@@ -90,6 +94,10 @@ public class Act_Main extends Activity {
         
     }
     
+	private void initializeStatic(){
+		TB_UserActivities aa = new TB_UserActivities();
+	}
+	
 	
 	private  Handler mHandler = new Handler() {
 	    public void handleMessage(Message msg) {

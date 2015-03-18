@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
+import com.rdupuis.amikcal.data.ContentDescriptorObj.SQL_ORDER;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 
 public class ContentProviderObj extends ContentProvider {
@@ -87,7 +88,7 @@ public class ContentProviderObj extends ContentProvider {
 	case INSERT_USER_ACTIVITY: {
 	    // on fait l'insert dans la table
 	    // la fonction update retourne n'Id de l'enregistrement créé.
-	    long id = db.insert(ContentDescriptorObj.TB_UserActivities.NAME, null, values);
+	    long id = db.insert(ContentDescriptorObj.TB_UserActivities.TBNAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI.buildUpon()
 		    .appendPath(String.valueOf(id)).build();
@@ -120,6 +121,9 @@ public class ContentProviderObj extends ContentProvider {
 	final int match = ContentDescriptorObj.URI_MATCHER.match(uri);
 	TOKEN_MAP map = new TOKEN_MAP();
 	REQUESTS_LIST request = map._in.get(match);
+	
+
+	
 	
 	
 	switch (request) {
@@ -163,9 +167,9 @@ public class ContentProviderObj extends ContentProvider {
 	case SELECT_USER_ACTIVITIES_BY_DATE: {
 
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_UserActivities.NAME);
+	    builder.setTables(ContentDescriptorObj.TB_UserActivities.TBNAME);
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.NAME + "."
+	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
 		    + ContentDescriptorObj.TB_UserActivities.Columns.DATE + " LIKE '" + uri.getLastPathSegment() + "%'";
 
 	    // Log.i("where",whereClause);
@@ -177,9 +181,9 @@ public class ContentProviderObj extends ContentProvider {
 	
 	case SELECT_USER_ACTIVITY: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_UserActivities.NAME);
+	    builder.setTables(ContentDescriptorObj.TB_UserActivities.TBNAME);
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.NAME + "."
+	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
 		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + uri.getLastPathSegment();
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
@@ -268,10 +272,10 @@ public class ContentProviderObj extends ContentProvider {
 	}
 	case UPDATE_USER_ACTIVITY: {
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.NAME + "."
+	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
 		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + selection;
 
-	    db.update(ContentDescriptorObj.TB_UserActivities.NAME, values, whereClause, null);
+	    db.update(ContentDescriptorObj.TB_UserActivities.TBNAME, values, whereClause, null);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return 0;
 	}
@@ -313,10 +317,10 @@ public class ContentProviderObj extends ContentProvider {
 
 	}
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.NAME + "."
+	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
 		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + uri.getLastPathSegment();
 
-	    db.delete(ContentDescriptorObj.TB_UserActivities.NAME, whereClause, null);
+	    db.delete(ContentDescriptorObj.TB_UserActivities.TBNAME, whereClause, null);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return 0;
 	default:
