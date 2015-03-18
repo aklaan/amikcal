@@ -2,6 +2,7 @@
 package com.rdupuis.amikcal.commons;
 
 import java.util.ArrayList;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;

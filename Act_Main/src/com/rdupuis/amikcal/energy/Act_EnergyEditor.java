@@ -1,10 +1,11 @@
 package com.rdupuis.amikcal.energy;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,14 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
 /**

@@ -2,20 +2,6 @@ package com.rdupuis.amikcal;
 
 import java.io.File;
 import java.util.ArrayList;
-//import com.rdupuis.amikcal.ContentDescriptor;
-import com.rdupuis.amikcal.R;
-
-import com.rdupuis.amikcal.commons.Act_Calendar;
-import com.rdupuis.amikcal.commons.Act_Techinfo;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.data.DatabaseObj;
-import com.rdupuis.amikcal.day.Act_Day;
-import com.rdupuis.amikcal.energy.Act_EnergyList;
-import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
-import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
-import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
-
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -32,6 +18,18 @@ import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.rdupuis.amikcal.commons.Act_Calendar;
+import com.rdupuis.amikcal.commons.Act_Techinfo;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.data.DatabaseObj;
+import com.rdupuis.amikcal.day.Act_Day;
+import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
+import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
+//import com.rdupuis.amikcal.ContentDescriptor;
 
 enum ErrorStatus {
     NO_ERROR, ERROR_1, ERROR_2

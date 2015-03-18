@@ -1,13 +1,5 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.MyFragmentPagerAdapter;
-import com.rdupuis.amikcal.commons.ZoomOutPageTransformer;
-import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad;
-import com.rdupuis.amikcal.commons.numericpad.NumericPadListeners;
-import com.rdupuis.amikcal.energy.Frag_EnergyList;
-import com.rdupuis.amikcal.unity.Frag_UnityList;
-
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -18,6 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.MyFragmentPagerAdapter;
+import com.rdupuis.amikcal.commons.ZoomOutPageTransformer;
+import com.rdupuis.amikcal.commons.numericpad.Frag_NumericPad;
+import com.rdupuis.amikcal.commons.numericpad.NumericPadListeners;
+import com.rdupuis.amikcal.energy.Frag_EnergyList;
+import com.rdupuis.amikcal.unity.Frag_UnityList;
 
 public class Act_UserActivityComponentSlider extends FragmentActivity implements NumericPadListeners{
 

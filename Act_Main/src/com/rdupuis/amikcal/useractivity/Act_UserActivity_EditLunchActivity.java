@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.useractivity.UserActivityLunch.LunchType;
@@ -80,16 +81,9 @@ public class Act_UserActivity_EditLunchActivity extends
 		mUserActivity.getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		// Si l'activité n'a pas d'ID c'est qu'il s'agit d'une nouvelle
-		// Activité.
-		// dans ce cas on l'insère dans la database
-		// dans le cas contraire, on la met à jour.
-		if (mUserActivity.get_id() == AppConsts.NO_ID) {
-			insertUActivity();
-		} else {
-			updateUActivity();
-		}
-
+		
+		AmiKcalFactory factory = new AmiKcalFactory(this);
+		factory.save(mUserActivity);
 		closeEditor();
 	}
 

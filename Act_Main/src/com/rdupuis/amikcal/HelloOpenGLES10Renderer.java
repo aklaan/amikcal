@@ -3,12 +3,12 @@ package com.rdupuis.amikcal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import android.os.SystemClock;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
+import android.os.SystemClock;
 
 public class HelloOpenGLES10Renderer implements GLSurfaceView.Renderer {
 	private FloatBuffer triangleVB;

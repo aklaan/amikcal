@@ -1,7 +1,5 @@
 package com.rdupuis.amikcal.Food;
 
-import java.util.ArrayList;
-import com.rdupuis.amikcal.commons.FoodComponent;
 import com.rdupuis.amikcal.energy.EnergySource;
 
 public class Food extends EnergySource {

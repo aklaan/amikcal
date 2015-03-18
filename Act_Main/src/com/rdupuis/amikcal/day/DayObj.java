@@ -3,7 +3,6 @@ package com.rdupuis.amikcal.day;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
 import com.rdupuis.amikcal.commons.ToolBox;
 public class DayObj  {
 

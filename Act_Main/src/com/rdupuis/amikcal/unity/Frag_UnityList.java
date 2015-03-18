@@ -3,11 +3,7 @@ package com.rdupuis.amikcal.unity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-
 import android.app.AlertDialog;
-
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,10 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 //2013-08-25 - R.Dupuis
 //Fragment permetant d'afficher une liste d'unité de mesure 

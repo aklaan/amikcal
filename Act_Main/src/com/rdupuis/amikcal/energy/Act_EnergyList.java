@@ -3,9 +3,6 @@ package com.rdupuis.amikcal.energy;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,11 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * <b>Act_EnergyList est la classe qui affiche la vue liste d'aliments.</b>

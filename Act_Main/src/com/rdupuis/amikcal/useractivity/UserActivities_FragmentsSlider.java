@@ -1,14 +1,5 @@
 package com.rdupuis.amikcal.useractivity;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.animation.FadeIn;
-import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Generic_FragmentsTimeSlider;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
-import com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList;
-
 import java.util.Calendar;
 
 import android.content.ContentUris;
@@ -19,6 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.animation.FadeIn;
+import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Generic_FragmentsTimeSlider;
+import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList;
 
 public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider {
 

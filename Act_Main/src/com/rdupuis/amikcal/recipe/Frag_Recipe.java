@@ -1,6 +1,5 @@
 package com.rdupuis.amikcal.recipe;
 
-import com.rdupuis.amikcal.recipe.Frag_Recipe;
 import android.support.v4.app.Fragment;
 
 /**

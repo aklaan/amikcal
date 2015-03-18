@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public class UserActivity {

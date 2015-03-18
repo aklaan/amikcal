@@ -1,16 +1,14 @@
 package com.rdupuis.amikcal;
 
-import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
-import com.rdupuis.amikcal.opengl.testOpenGl2es;
-import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
-import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,11 +21,10 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
-
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
+import com.rdupuis.amikcal.opengl.testOpenGl2es;
+import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 
 
 /**

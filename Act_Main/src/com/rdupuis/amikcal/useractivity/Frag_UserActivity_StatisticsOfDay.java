@@ -1,20 +1,14 @@
 package com.rdupuis.amikcal.useractivity;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.TimeSlidableFragment;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivity_StatisticsOfDay;
-
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.TimeSlidableFragment;
+import com.rdupuis.amikcal.commons.ToolBox;
 
 /**
  * <b>Liste des activitées de l'utilisateur.</b>

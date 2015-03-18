@@ -3,7 +3,6 @@ package com.rdupuis.amikcal.energy;
 import java.util.ArrayList;
 
 import com.rdupuis.amikcal.commons.HasEquivalences;
-import com.rdupuis.amikcal.commons.HasQtyReference;
 import com.rdupuis.amikcal.commons.Qty;
 
 /**

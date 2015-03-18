@@ -1,6 +1,5 @@
 package com.rdupuis.amikcal.commons.numericpad;
 
-import com.rdupuis.amikcal.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.rdupuis.amikcal.R;
 
 public class Frag_NumericPad extends Fragment {
 

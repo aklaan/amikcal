@@ -1,15 +1,11 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.energy.EnergySourceQty;
-import com.rdupuis.amikcal.equivalence.EquivalenceObj;
-import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
 /**

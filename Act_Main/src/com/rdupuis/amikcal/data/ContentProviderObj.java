@@ -1,14 +1,14 @@
 package com.rdupuis.amikcal.data;
 
-import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
-import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+
+import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
+import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 
 public class ContentProviderObj extends ContentProvider {
     private DatabaseObj AmikcalDb;
@@ -151,7 +151,7 @@ public class ContentProviderObj extends ContentProvider {
 	    return builder.query(db, null, null, null, null, null, null);
 	}
 
-	case SELECT_UNITY_BY_ID: {
+	case SELECT_ONE_UNITY_BY_ID: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.TB_Units.NAME);
 

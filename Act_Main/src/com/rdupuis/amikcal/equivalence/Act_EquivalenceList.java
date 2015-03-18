@@ -6,24 +6,21 @@ package com.rdupuis.amikcal.equivalence;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.rdupuis.amikcal.R;
  
 public class Act_EquivalenceList extends Activity {
 	Intent mIntent;

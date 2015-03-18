@@ -3,9 +3,6 @@ package com.rdupuis.amikcal.commons;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.useractivity.UserActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -14,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
  
  public class MultipleItemsActivityList extends BaseAdapter {

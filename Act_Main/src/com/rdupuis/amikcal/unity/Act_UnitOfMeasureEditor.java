@@ -3,6 +3,8 @@ package com.rdupuis.amikcal.unity;
 
 
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -14,8 +16,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Date;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;

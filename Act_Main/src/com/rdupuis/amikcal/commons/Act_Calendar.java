@@ -1,9 +1,12 @@
 package com.rdupuis.amikcal.commons;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +14,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
-
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import com.rdupuis.amikcal.R;
 

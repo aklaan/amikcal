@@ -4,12 +4,6 @@ package com.rdupuis.amikcal.day;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.Act_Calendar;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Act_UserActivityList;
-
-
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +13,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.Act_Calendar;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.useractivity.Act_UserActivityList;
 
 public class Act_Day extends Activity{
 

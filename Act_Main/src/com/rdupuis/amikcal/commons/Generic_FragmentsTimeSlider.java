@@ -1,16 +1,17 @@
 package com.rdupuis.amikcal.commons;
 
-import com.rdupuis.amikcal.R;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
+
+import com.rdupuis.amikcal.R;
 
 /**
  * 

@@ -3,30 +3,25 @@ package com.rdupuis.amikcal.useractivitycomponent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.UserActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class Act_UserActivityComponentList extends Activity {
 

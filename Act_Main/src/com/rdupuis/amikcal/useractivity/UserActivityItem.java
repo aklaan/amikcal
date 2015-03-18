@@ -2,12 +2,12 @@ package com.rdupuis.amikcal.useractivity;
 
 import java.util.Calendar;
 
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
+
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 public class UserActivityItem extends AbstractUserActivityItem{
 

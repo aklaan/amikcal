@@ -4,14 +4,6 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
-import com.rdupuis.amikcal.commons.TimeSlidableFragment;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,10 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
+import com.rdupuis.amikcal.commons.TimeSlidableFragment;
+import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * <b>Liste des activitées de l'utilisateur pour un jour donné.</b> il est aussi
