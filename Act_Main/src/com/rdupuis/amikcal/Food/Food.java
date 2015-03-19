@@ -4,9 +4,7 @@ import com.rdupuis.amikcal.energy.EnergySource;
 
 public class Food extends EnergySource {
 
-	public static enum STRUCTURE {
-		SOLID, LIQUID
-	}
+	
 
 	private STRUCTURE mStructure;
 	

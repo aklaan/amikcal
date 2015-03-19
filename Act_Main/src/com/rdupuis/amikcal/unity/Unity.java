@@ -4,7 +4,7 @@ import com.rdupuis.amikcal.commons.AppConsts;
 
 public class Unity {
 	public static enum UNIT_CLASS {
-		INTERNATIONAL, CUSTOM, CONTAINER, FOOD_COMPONENT,TIME
+		INTERNATIONAL, CUSTOM, CONTAINER, FOOD_COMPONENT,TIME,UNDEFINED
 	}
 
 private long id;

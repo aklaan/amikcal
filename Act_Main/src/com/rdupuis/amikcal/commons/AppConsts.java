@@ -3,13 +3,13 @@ package com.rdupuis.amikcal.commons;
 import java.util.EnumMap;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.Food.Food.STRUCTURE;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Energies;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Units;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
 import com.rdupuis.amikcal.energy.EnergySource.NRJ_EFFECT;
+import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 
@@ -31,7 +31,7 @@ public final class AppConsts {
 	public static String SNACK = "SNACK";
 
 	public static String INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY = "_PARENT_UA_ID";
-	
+
 	public static String INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY = "_PARENT_UA_ID";
 	public static String INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID = "COMP_ID";
 
@@ -49,11 +49,16 @@ public final class AppConsts {
 		public HashMap<Integer, NRJ_EFFECT> _in = new HashMap<Integer, NRJ_EFFECT>();
 
 		public NRJ_EFFECT_MAP() {
+			
+			_out.put(NRJ_EFFECT.UNDEFINED,
+					TB_Energies.PredefinedValues.EffectCodes.UNDEFINED);
 			_out.put(NRJ_EFFECT.GIVE,
 					TB_Energies.PredefinedValues.EffectCodes.GIVE);
 			_out.put(NRJ_EFFECT.BURN,
 					TB_Energies.PredefinedValues.EffectCodes.BURN);
 
+			_in.put(TB_Energies.PredefinedValues.EffectCodes.UNDEFINED,
+					NRJ_EFFECT.UNDEFINED);
 			_in.put(TB_Energies.PredefinedValues.EffectCodes.GIVE,
 					NRJ_EFFECT.GIVE);
 			_in.put(TB_Energies.PredefinedValues.EffectCodes.BURN,
@@ -75,11 +80,16 @@ public final class AppConsts {
 		public HashMap<Integer, STRUCTURE> _in = new HashMap<Integer, STRUCTURE>();
 
 		public STRUCTURE_CD_MAP() {
+
+			_out.put(STRUCTURE.UNDEFINED,
+					TB_Energies.PredefinedValues.StructureCode.UNDEFINED);
 			_out.put(STRUCTURE.SOLID,
 					TB_Energies.PredefinedValues.StructureCode.SOLID);
 			_out.put(STRUCTURE.LIQUID,
 					TB_Energies.PredefinedValues.StructureCode.LIQUID);
-
+			// ---------------------------------------------------------
+			_in.put(TB_Energies.PredefinedValues.StructureCode.UNDEFINED,
+					STRUCTURE.UNDEFINED);
 			_in.put(TB_Energies.PredefinedValues.StructureCode.SOLID,
 					STRUCTURE.SOLID);
 			_in.put(TB_Energies.PredefinedValues.StructureCode.LIQUID,
@@ -100,6 +110,9 @@ public final class AppConsts {
 		public HashMap<Byte, UNIT_CLASS> _in = new HashMap<Byte, UNIT_CLASS>();
 
 		public UNIT_CLASS_MAP() {
+			
+			_out.put(UNIT_CLASS.UNDEFINED,
+					TB_Units.PredefinedValues.ClassCodes.UNDEFINED);
 			_out.put(UNIT_CLASS.INTERNATIONAL,
 					TB_Units.PredefinedValues.ClassCodes.INTERNATIONAL);
 			_out.put(UNIT_CLASS.CUSTOM,
@@ -107,6 +120,10 @@ public final class AppConsts {
 			_out.put(UNIT_CLASS.CONTAINER,
 					TB_Units.PredefinedValues.ClassCodes.CONTAINER);
 			_out.put(UNIT_CLASS.TIME, TB_Units.PredefinedValues.ClassCodes.TIME);
+
+
+			_in.put(TB_Units.PredefinedValues.ClassCodes.UNDEFINED,
+					UNIT_CLASS.UNDEFINED);
 
 			_in.put(TB_Units.PredefinedValues.ClassCodes.INTERNATIONAL,
 					UNIT_CLASS.INTERNATIONAL);
@@ -119,6 +136,7 @@ public final class AppConsts {
 		}
 
 	}
+
 	/*****************************************************************************
 	 * <h1>UA_CLASS_CD_MAP :</h1>
 	 * <p>
@@ -132,9 +150,12 @@ public final class AppConsts {
 		public HashMap<Byte, UA_CLASS_CD> _in = new HashMap<Byte, UA_CLASS_CD>();
 
 		public UA_CLASS_CD_MAP() {
-			_out.put(UA_CLASS_CD.LUNCH, TB_UserActivities.PredefinedValues.UACodes.LUNCH);
-			_out.put(UA_CLASS_CD.MOVE, TB_UserActivities.PredefinedValues.UACodes.MOVE);
-			_out.put(UA_CLASS_CD.WEIGHT, TB_UserActivities.PredefinedValues.UACodes.WEIGHT);
+			_out.put(UA_CLASS_CD.LUNCH,
+					TB_UserActivities.PredefinedValues.UACodes.LUNCH);
+			_out.put(UA_CLASS_CD.MOVE,
+					TB_UserActivities.PredefinedValues.UACodes.MOVE);
+			_out.put(UA_CLASS_CD.WEIGHT,
+					TB_UserActivities.PredefinedValues.UACodes.WEIGHT);
 
 			_in.put(TB_UserActivities.PredefinedValues.UACodes.LUNCH,
 					UA_CLASS_CD.LUNCH);
@@ -145,6 +166,7 @@ public final class AppConsts {
 
 		}
 	}
+
 	/*****************************************************************************
 	 * <h1>REL_TYP_CD_MAP :</h1>
 	 * <p>

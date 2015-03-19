@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
 
-public class Act_NumericPad extends Activity {
+public class Act_NumericPad extends Activity implements NumericPadListeners {
 
 	TextView ed;
 	String result;
@@ -28,41 +28,34 @@ public class Act_NumericPad extends Activity {
 		ed = (TextView) findViewById(R.id.padnumber_entry);
 	}
 
-	/**
-	 * 
-	 * @param v
-	 */
-	public void OnClickAdd(View v) {
-		Button button = (Button) findViewById(v.getId());
+		
+
+	@Override
+	public void NumericPadListener_OnClick_btn_Number(View view) {
+		Button button = (Button) findViewById(view.getId());
 		ed.setText(ed.getText() + button.getText().toString());
+		
 	}
 
-	/**
-	 * 
-	 * @param v
-	 */
-	public void OnClickErase(View v) {
+	@Override
+	public void NumericPadListener_OnClick_btn_Erase(View view) {
 		ed.setText("");
+		
 	}
 
-	/**
-	 * 
-	 * @param v
-	 */
-	public void OnClickBack(View v) {
+	@Override
+	public void NumericPadListener_OnClick_btn_Back(View view) {
 		ed = (TextView) findViewById(R.id.padnumber_entry);
 		if (ed.getText().length() > 0) {
 			ed.setText(((String) ed.getText()).substring(0, ed.getText()
 					.length() - 1));
 		}
+
+		
 	}
 
-	/**
-	 * 
-	 * @param v
-	 */
-	public void OnClickOk(View v) {
-
+	@Override
+	public void NumericPadListener_OnClick_btn_Ok(View view) {
 		// si l'utilisateur a saisi un nombre
 		// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 		// récupérer la valeur.
@@ -80,15 +73,13 @@ public class Act_NumericPad extends Activity {
 		}
 		// On termine l'Actvity
 		this.finish();
+		
 	}
 
-	/**
-	 * 
-	 * @param v
-	 */
-	public void OnClickCancel(View v) {
-
+	@Override
+	public void NumericPadListener_OnClick_btn_Cancel(View view) {
 		// On termine l'Actvity
 		this.finish();
+		
 	}
 }

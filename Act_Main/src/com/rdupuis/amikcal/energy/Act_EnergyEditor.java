@@ -17,14 +17,17 @@ import android.widget.TextView;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
+import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
 /**
  * Cette vue permet de renseigner une nouvelle energie et ses equivalences
+ * 
  * @author Rodolphe
- *
+ * 
  */
 public class Act_EnergyEditor extends Activity {
 
@@ -40,7 +43,8 @@ public class Act_EnergyEditor extends Activity {
 		try {
 			AmiKcalFactory factory = new AmiKcalFactory(this);
 
-			mEnergy = factory.load_Energy(Long
+			mEnergy = factory
+					.load_Energy(Long
 							.parseLong(getIntent()
 									.getStringExtra(
 											getResources()
@@ -154,9 +158,9 @@ public class Act_EnergyEditor extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-				//this.mEnergy.setCalories(Float.parseFloat(intent
-				//		.getStringExtra(getResources().getString(
-				//				R.string.INTENT_OUT____NUMERICPAD_RESULT))));
+				// this.mEnergy.setCalories(Float.parseFloat(intent
+				// .getStringExtra(getResources().getString(
+				// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			}
 			break;
 
@@ -164,9 +168,9 @@ public class Act_EnergyEditor extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-//				this.mEnergy.setGlucids(Float.parseFloat(intent
-//						.getStringExtra(getResources().getString(
-//								R.string.INTENT_OUT____NUMERICPAD_RESULT))));
+				// this.mEnergy.setGlucids(Float.parseFloat(intent
+				// .getStringExtra(getResources().getString(
+				// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			}
 			break;
 
@@ -174,9 +178,9 @@ public class Act_EnergyEditor extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-//				this.mEnergy.setLipids(Float.parseFloat(intent
-//						.getStringExtra(getResources().getString(
-//								R.string.INTENT_OUT____NUMERICPAD_RESULT))));
+				// this.mEnergy.setLipids(Float.parseFloat(intent
+				// .getStringExtra(getResources().getString(
+				// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			}
 			break;
 
@@ -184,9 +188,9 @@ public class Act_EnergyEditor extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-//				this.mEnergy.setProteins(Float.parseFloat(intent
-//						.getStringExtra(getResources().getString(
-//								R.string.INTENT_OUT____NUMERICPAD_RESULT))));
+				// this.mEnergy.setProteins(Float.parseFloat(intent
+				// .getStringExtra(getResources().getString(
+				// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 			}
 			break;
 
@@ -194,9 +198,13 @@ public class Act_EnergyEditor extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-				this.mEnergy.getQtyReference().setAmount(Float.parseFloat(intent
-						.getStringExtra(getResources().getString(
-								R.string.INTENT_OUT____NUMERICPAD_RESULT))));
+				this.mEnergy
+						.getQtyReference()
+						.setAmount(
+								Float.parseFloat(intent
+										.getStringExtra(getResources()
+												.getString(
+														R.string.INTENT_OUT____NUMERICPAD_RESULT))));
 
 			}
 			break;
@@ -234,35 +242,11 @@ public class Act_EnergyEditor extends Activity {
 
 		EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
 		this.mEnergy.setName(ed.getText().toString());
-
-		// On prépare les informations à mettre à jour
-		ContentValues val = new ContentValues();
-
-		val.put(ContentDescriptorObj.TB_Energies.Columns.NAME,
-				this.mEnergy.getName());
-		/*
-		val.put(ContentDescriptorObj.TB_Energies.Columns.MNT_ENERGY,
-				this.mEnergy.getCalories());
-		val.put(ContentDescriptorObj.TB_Energies.Columns.MNT_GLUCIDS,
-				this.mEnergy.getGlucids());
-		val.put(ContentDescriptorObj.TB_Energies.Columns.MNT_PROTEINS,
-				this.mEnergy.getProteins());
-		val.put(ContentDescriptorObj.TB_Energies.Columns.MNT_LIPIDS,
-				this.mEnergy.getLipids());
-		val.put(ContentDescriptorObj.TB_Energies.Columns.FK_UNIT,
-				this.mEnergy.unit.getId());
-		val.put(ContentDescriptorObj.TB_Energies.Columns.QUANTITY,
-				this.mEnergy.getQuantityReference());
-*/
-		if (this.mEnergy.getId() == AppConsts.NO_ID) {
-			this.getContentResolver().insert(
-					ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI, val);
-		} else {
-			this.getContentResolver().update(
-					ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI, val,
-					String.valueOf(this.mEnergy.getId()), null);
-		}
-
+		
+		AmiKcalFactory factory = new AmiKcalFactory(this);
+		
+		factory.save(this.mEnergy);
+		
 		// on appelle setResult pour déclancher le onActivityResult de
 		// l'activity mère.
 		setResult(RESULT_OK, getIntent());
@@ -290,23 +274,24 @@ public class Act_EnergyEditor extends Activity {
 		ed.setText(this.mEnergy.getName());
 
 		Button bt = (Button) findViewById(R.id.energyview_btn_mnt_energy);
-/*bt.setText(Float.toString(this.mEnergy.getCalories()));
-
-		bt = (Button) findViewById(R.id.energyview_btn_quantity);
-		bt.setText(Float.toString(this.mEnergy.getQuantityReference()));
-
-		bt = (Button) findViewById(R.id.energyview_btn_mnt_glucids);
-		bt.setText(Float.toString(this.mEnergy.getGlucids()));
-
-		bt = (Button) findViewById(R.id.energyview_btn_mnt_lipids);
-		bt.setText(Float.toString(this.mEnergy.getLipids()));
-
-		bt = (Button) findViewById(R.id.energyview_btn_mnt_proteins);
-		bt.setText(Float.toString(this.mEnergy.getProteins()));
-
-		bt = (Button) findViewById(R.id.energyview_btn_unit);
-		bt.setText(this.mEnergy.unit.getLongName());
-*/
+		/*
+		 * bt.setText(Float.toString(this.mEnergy.getCalories()));
+		 * 
+		 * bt = (Button) findViewById(R.id.energyview_btn_quantity);
+		 * bt.setText(Float.toString(this.mEnergy.getQuantityReference()));
+		 * 
+		 * bt = (Button) findViewById(R.id.energyview_btn_mnt_glucids);
+		 * bt.setText(Float.toString(this.mEnergy.getGlucids()));
+		 * 
+		 * bt = (Button) findViewById(R.id.energyview_btn_mnt_lipids);
+		 * bt.setText(Float.toString(this.mEnergy.getLipids()));
+		 * 
+		 * bt = (Button) findViewById(R.id.energyview_btn_mnt_proteins);
+		 * bt.setText(Float.toString(this.mEnergy.getProteins()));
+		 * 
+		 * bt = (Button) findViewById(R.id.energyview_btn_unit);
+		 * bt.setText(this.mEnergy.unit.getLongName());
+		 */
 	}
 
 	/***************************************************************************************

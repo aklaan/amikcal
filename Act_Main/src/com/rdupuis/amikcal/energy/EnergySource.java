@@ -2,6 +2,7 @@ package com.rdupuis.amikcal.energy;
 
 import java.util.ArrayList;
 
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
 
@@ -21,14 +22,28 @@ import com.rdupuis.amikcal.commons.Qty;
 public class EnergySource implements HasEquivalences {
 
 	public static enum NRJ_EFFECT {
-		GIVE, BURN
+		GIVE, BURN,UNDEFINED
 	}
 
+	public static enum STRUCTURE {
+		SOLID, LIQUID,UNDEFINED
+	}
 	private long id;
 	private String name;
 	private NRJ_EFFECT mEffect;
 	private Qty mQty_reference; // quantité de référence
 	private ArrayList<Qty> equivalences;
+	private STRUCTURE mStructure;
+	
+	public EnergySource(){
+		id = AppConsts.NO_ID;
+		name="";
+		mEffect = NRJ_EFFECT.UNDEFINED;
+		mQty_reference = new Qty();
+		equivalences = new ArrayList<Qty>();
+		setStructure(STRUCTURE.UNDEFINED);
+	}
+	
 	
 	public String getName() {
 		return name;
@@ -68,6 +83,16 @@ public class EnergySource implements HasEquivalences {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+
+	public STRUCTURE getStructure() {
+		return mStructure;
+	}
+
+
+	public void setStructure(STRUCTURE mStructure) {
+		this.mStructure = mStructure;
 	}
 
 }
