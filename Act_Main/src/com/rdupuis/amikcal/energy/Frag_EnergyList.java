@@ -185,9 +185,9 @@ public class Frag_EnergyList extends Fragment {
 		Uri selectUri;
 
 		if (currentFilter == null || currentFilter.length() == 0) {
-			selectUri = ContentDescriptorObj.TB_Energies.URI_CONTENT_ENERGIES;
+			selectUri = ContentDescriptorObj.TB_Energies.SELECT_ALL_ENERGIES_URI;
 		} else {
-			selectUri = ContentDescriptorObj.TB_Energies.URI_ENERGIES_LIKE
+			selectUri = ContentDescriptorObj.TB_Energies.SELECT_ENERGIES_LIKE_URI
 					.buildUpon().appendPath(currentFilter).build();
 		}
 

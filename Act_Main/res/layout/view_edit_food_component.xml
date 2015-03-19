@@ -66,10 +66,6 @@
             android:onClick="onClick_Unit" />
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/totogsmlkgfnmsldgkfnmsdlgnf"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.rdupuis.amikcal.unity.Frag_UnityList" />
+    
 
 </LinearLayout>

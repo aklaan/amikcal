@@ -20,6 +20,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 import com.rdupuis.amikcal.useractivity.UserActivityItem;
 import com.rdupuis.amikcal.useractivity.UserActivityLunch;
 import com.rdupuis.amikcal.useractivity.UserActivityLunchItem;
@@ -55,7 +56,7 @@ public final class AmiKcalFactory {
 
 	EnergySource energy = new EnergySource();
 
-	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.URI_CONTENT_ENERGIES, _id);
+	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.SELECT_ONE_ENERGIES_BY_ID_URI, _id);
 	Cursor cursor = this.contentResolver.query(selectUri, null, null, null, null);
 
 	final int INDX_NRJ_NAME = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.NAME);
@@ -215,10 +216,10 @@ public final class AmiKcalFactory {
 
 	    // on charge le mapping des UA CLASS
 	    UA_CLASS_CD_MAP mapping = new UA_CLASS_CD_MAP();
-
+	    UA_CLASS_CD UA_Class_cd = mapping._in.get(Byte.parseByte(cur.getString(ACTIVITY_CLASS)));
 	    // en fonction du type d'activitée, on va retourner l'objet adequat
 
-	    switch (mapping._in.get(ACTIVITY_CLASS)) {
+	    switch (UA_Class_cd) {
 	    case LUNCH:
 		userActivity = new UserActivityLunch();
 		break;
@@ -399,7 +400,7 @@ public final class AmiKcalFactory {
 	    Log.e("loadComponent", message);
 
 	}
-
+	cursor.close();
 	return mUAC;
     }
 
@@ -493,22 +494,20 @@ public final class AmiKcalFactory {
 	    this.mActivity.getContentResolver().update(uriUpdate, val, UA.get_id().toString(), null);
 
 	}
-    //si l'UA possède des UAC, on doit les sauver aussi
-	
-    if (!UA.getUAC_List().isEmpty()){
-	
-	for (UserActivityComponent UAC:UA.getUAC_List()){
-	    this.save(UAC);
+	// si l'UA possède des UAC, on doit les sauver aussi
+
+	if (!UA.getUAC_List().isEmpty()) {
+
+	    for (UserActivityComponent UAC : UA.getUAC_List()) {
+		this.save(UAC);
+	    }
 	}
-    }
-    
+
     }
 
     /*****************************************************************************************
-     * Enregister une UAC dans la database
-     * créer le lien UA_UAC
-     * créer le lien UAC_QTY
-     * Créer la QTY
+     * Enregister une UAC dans la database créer le lien UA_UAC créer le lien
+     * UAC_QTY Créer la QTY
      * 
      ******************************************************************************************/
 
@@ -516,9 +515,8 @@ public final class AmiKcalFactory {
 	ContentValues val = new ContentValues();
 
 	// id de l'activitée
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.ID,
-		(UAC.getId() == AppConsts.NO_ID) ? null : UAC.getId());
-	
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.ID, (UAC.getId() == AppConsts.NO_ID) ? null : UAC.getId());
+
 	// class : on utilise la mapping pour transformer l'ENUM Class en Byte
 	// stoké dans la Database.
 	REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
@@ -528,12 +526,12 @@ public final class AmiKcalFactory {
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
 	if (UAC.getId() == AppConsts.NO_ID) {
-	    this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI,val);
+	    this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI, val);
 	} else {
 
-	    Uri uriUpdate =
-	    ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.UP000_PARTY_REL_URI, UAC.getId());
-	    
+	    Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.UP000_PARTY_REL_URI,
+		    UAC.getId());
+
 	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(UAC.getId()), null);
 
 	}

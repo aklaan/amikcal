@@ -37,7 +37,7 @@ public class UserActivityComponent implements HasEquivalences{
 		id = AppConsts.NO_ID;
 		mEnergySource = new EnergySource();
 		setEquivalences(new ArrayList<Qty>()); 
-	
+		this.mQty = new Qty();
 	}
 
 	public void setEnergySource(EnergySource energySource) {

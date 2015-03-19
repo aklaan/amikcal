@@ -71,9 +71,9 @@ public class ContentProviderObj extends ContentProvider {
 	switch (request) {
 
 	case INSERT_ENERGY: {
-	    long id = db.insert(ContentDescriptorObj.TB_Energies.NAME, null, values);
+	    long id = db.insert(ContentDescriptorObj.TB_Energies.TBNAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_Energies.URI_CONTENT_ENERGIES.buildUpon().appendPath(String.valueOf(id))
+	    return ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI.buildUpon().appendPath(String.valueOf(id))
 		    .build();
 	}
 
@@ -128,22 +128,22 @@ public class ContentProviderObj extends ContentProvider {
 	
 	switch (request) {
 
-	case SELECT_ENERGY: {
+	case SELECT_ONE_ENERGY_BY_ID: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Energies.NAME);
+	    builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
 	    String whereClause = ContentDescriptorObj.TB_Energies.Columns.ID + "=" + uri.getLastPathSegment();
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
 
 	case SELECT_ALL_ENERGIES: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Energies.NAME);
+	    builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
 	    return builder.query(db, projection, null, null, null, null, sortOrder);
 	}
 
 	case SELECT_ENERGIES_LIKE: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Energies.NAME);
+	    builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
 	    String whereClause = ContentDescriptorObj.TB_Energies.Columns.NAME + " like '%" + uri.getLastPathSegment()
 		    + "%'";
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
@@ -189,6 +189,14 @@ public class ContentProviderObj extends ContentProvider {
 	}
 
 
+	case SELECT_ALL_UAC_OF_UA: {
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME);
+
+	    String whereClause = ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME + "."
+		    + ContentDescriptorObj.View_UA_UAC_link.Columns.UA_ID + "=" + uri.getLastPathSegment();
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+	}
 	case SELECT_DB_VERSION: {
 	    return db.rawQuery("PRAGMA user_version", null);
 	}
@@ -263,10 +271,10 @@ public class ContentProviderObj extends ContentProvider {
 
 	case UPDATE_ENERGY: {
 
-	    String whereClause = ContentDescriptorObj.TB_Energies.NAME + "."
+	    String whereClause = ContentDescriptorObj.TB_Energies.TBNAME + "."
 		    + ContentDescriptorObj.TB_Energies.Columns.ID + "=" + selection;
 
-	    db.update(ContentDescriptorObj.TB_Energies.NAME, values, whereClause, null);
+	    db.update(ContentDescriptorObj.TB_Energies.TBNAME, values, whereClause, null);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return 0;
 	}

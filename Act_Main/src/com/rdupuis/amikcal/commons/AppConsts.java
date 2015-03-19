@@ -126,15 +126,15 @@ public final class AppConsts {
 	 * </p>
 	 ****************************************************************************/
 	public static final class UA_CLASS_CD_MAP {
-		public EnumMap<UA_CLASS_CD, Integer> _out = new EnumMap<UA_CLASS_CD, Integer>(
+		public EnumMap<UA_CLASS_CD, Byte> _out = new EnumMap<UA_CLASS_CD, Byte>(
 				UA_CLASS_CD.class);
 
 		public HashMap<Byte, UA_CLASS_CD> _in = new HashMap<Byte, UA_CLASS_CD>();
 
 		public UA_CLASS_CD_MAP() {
-			_out.put(UA_CLASS_CD.LUNCH, 0);
-			_out.put(UA_CLASS_CD.MOVE, 1);
-			_out.put(UA_CLASS_CD.WEIGHT, 3);
+			_out.put(UA_CLASS_CD.LUNCH, TB_UserActivities.PredefinedValues.UACodes.LUNCH);
+			_out.put(UA_CLASS_CD.MOVE, TB_UserActivities.PredefinedValues.UACodes.MOVE);
+			_out.put(UA_CLASS_CD.WEIGHT, TB_UserActivities.PredefinedValues.UACodes.WEIGHT);
 
 			_in.put(TB_UserActivities.PredefinedValues.UACodes.LUNCH,
 					UA_CLASS_CD.LUNCH);

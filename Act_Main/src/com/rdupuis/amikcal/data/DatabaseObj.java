@@ -51,7 +51,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		// **********************************************************************************************
 		// Création de la table des énergies
 		// **********************************************************************************************
-		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Energies.NAME
+		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Energies.TBNAME
 				+ " ( " + ContentDescriptorObj.TB_Energies.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 
@@ -178,7 +178,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.View_UA_UAC_link.NAME
+				+ ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME
 
 				+ " AS SELECT "
 

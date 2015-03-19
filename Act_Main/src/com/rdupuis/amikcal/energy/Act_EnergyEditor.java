@@ -256,10 +256,10 @@ public class Act_EnergyEditor extends Activity {
 */
 		if (this.mEnergy.getId() == AppConsts.NO_ID) {
 			this.getContentResolver().insert(
-					ContentDescriptorObj.TB_Energies.URI_INSERT_ENERGY, val);
+					ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI, val);
 		} else {
 			this.getContentResolver().update(
-					ContentDescriptorObj.TB_Energies.URI_UPDATE_ENERGY, val,
+					ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI, val,
 					String.valueOf(this.mEnergy.getId()), null);
 		}
 
