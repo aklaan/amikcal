@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditorCommons;
 
 /**
  * <b>Act_EnergyList est la classe qui affiche la vue liste d'aliments.</b>
@@ -44,10 +45,10 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  */
 
 public class Frag_EnergyList extends Fragment {
-	Intent mIntent;
+	public static final String OUTPUT____ID_OF_ENERGY = "_id";
 	static Long currentId;
 	String currentFilter = "";
-	Resources mResources;
+	
 	private ListView maListViewPerso;
 	private View mainView;
 
@@ -61,8 +62,7 @@ public class Frag_EnergyList extends Fragment {
 		mainView = inflater
 				.inflate(R.layout.view_energy_list, container, false);
 
-		mIntent = getActivity().getIntent();
-		mResources = getResources();
+		
 		// temporaire.......................
 		// on alimente l'action bar de l'activité !!
 		// attention il risque de ne pas y en avoir
@@ -104,8 +104,7 @@ public class Frag_EnergyList extends Fragment {
 	 */
 	public void editEnergy(String id) {
 		Intent intent = new Intent(getActivity(), Act_EnergyEditor.class);
-		intent.putExtra(mResources
-				.getString(R.string.INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY), id);
+		intent.putExtra(Act_EnergyEditor.INPUT____ID_OF_ENERGY, id);
 		startActivityForResult(intent, R.integer.ACTY_ENERGY);
 	}
 
@@ -349,12 +348,11 @@ public class Frag_EnergyList extends Fragment {
 
 		// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 		// récupérer la valeur.
-		this.mIntent.putExtra(mResources
-				.getString(R.string.INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY), id);
+		this.getActivity().getIntent().putExtra(this.OUTPUT____ID_OF_ENERGY, id);
 
 		// on appelle setResult pour déclencher le onActivityResult de
 		// l'activity mère.
-		getActivity().setResult(Activity.RESULT_OK, mIntent);
+		getActivity().setResult(Activity.RESULT_OK, this.getActivity().getIntent());
 
 		// On termine l'Activity
 		getActivity().finish();

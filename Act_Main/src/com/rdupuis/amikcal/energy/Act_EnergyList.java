@@ -46,7 +46,7 @@ public class Act_EnergyList extends Activity {
     static Long currentId;
     String currentFilter = "";
     private ListView maListViewPerso;
-
+final static String OUTPUT____ID_OF_ENERGY = "_id";
     /**
      * This function is Called when the activity is first created.
      */
@@ -87,7 +87,7 @@ public class Act_EnergyList extends Activity {
      */
     public void editEnergy(String id) {
 	Intent intent = new Intent(this, Act_EnergyEditor.class);
-	intent.putExtra(this.getResources().getString(R.string.INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY), id);
+	intent.putExtra(Act_EnergyEditor.INPUT____ID_OF_ENERGY, id);
 	startActivityForResult(intent, R.integer.ACTY_ENERGY);
     }
 
@@ -306,7 +306,7 @@ public class Act_EnergyList extends Activity {
 
 	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 	// récupérer la valeur.
-	this.getIntent().putExtra(this.getResources().getString(R.string.INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY), id);
+	this.getIntent().putExtra(this.OUTPUT____ID_OF_ENERGY, id);
 
 	// on appelle setResult pour déclencher le onActivityResult de
 	// l'activity mère.

@@ -39,15 +39,16 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 		CREATE,EDIT
 		}
 
-	Intent mIntent;
 	Long mId;
 	boolean morning = true;
 	int timeRange;
 	Calendar currentDay;
 	long currentId;
-	Resources mResources;
 	EditMode editMode;
+public static final String INPUT____DAY = "_day";
+public static final String INPUT____UA_ID = "ua_id";
 
+	
 	// ne doit pas servir car si on fait un nouveau, on prend la date du jour
 	// et si on edite un existant, la date est déjà connue
 	// static final String
@@ -175,7 +176,7 @@ public abstract class Act_UserActivity_EditorCommons extends Activity {
 	protected void closeEditor() {
 		// on appelle setResult pour déclancher le onActivityResult de
 		// l'activity mère.
-		setResult(RESULT_OK, mIntent);
+		setResult(RESULT_OK, this.getIntent());
 		// On termine l'Actvity
 		finish();
 	}

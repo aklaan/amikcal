@@ -27,7 +27,7 @@ public class Act_UserActivityComponentList extends Activity {
 
     public UserActivity mUA; // la liste se réfère obligatoirement à une UA
     private ListView maListViewPerso;
-
+public static final String INPUT____UA_ID = "ua_id";
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {

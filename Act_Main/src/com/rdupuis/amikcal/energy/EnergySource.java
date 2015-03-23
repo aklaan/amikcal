@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -26,7 +27,7 @@ public class EnergySource implements HasEquivalences {
 	}
 
 	public static enum STRUCTURE {
-		SOLID, LIQUID,UNDEFINED
+		SOLID, LIQUID,POWDER,UNDEFINED
 	}
 	private long id;
 	private String name;
@@ -40,6 +41,9 @@ public class EnergySource implements HasEquivalences {
 		name="";
 		mEffect = NRJ_EFFECT.UNDEFINED;
 		mQty_reference = new Qty();
+		//par defaut la qyté de référence est en unité internationale
+		//mais ça peut être changé ensuite
+		mQty_reference.setRel_typ_cd(REL_TYP_CD.NRJ_REF_INTRNL);
 		equivalences = new ArrayList<Qty>();
 		setStructure(STRUCTURE.UNDEFINED);
 	}
@@ -58,7 +62,7 @@ public class EnergySource implements HasEquivalences {
 	}
 
 	public void setEffect(NRJ_EFFECT effect) {
-		this.mEffect = effect;
+		this.mEffect = (effect !=null)?effect:NRJ_EFFECT.UNDEFINED;
 	}
 
 	public void setQtyReference(Qty qty) {
@@ -92,7 +96,9 @@ public class EnergySource implements HasEquivalences {
 
 
 	public void setStructure(STRUCTURE mStructure) {
-		this.mStructure = mStructure;
+		
+		    
+	    this.mStructure = (mStructure !=null)?mStructure:STRUCTURE.UNDEFINED;
 	}
 
 }

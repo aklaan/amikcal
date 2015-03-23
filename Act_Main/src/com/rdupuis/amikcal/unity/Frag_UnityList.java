@@ -27,12 +27,13 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 //2013-08-25 - R.Dupuis
 //Fragment permetant d'afficher une liste d'unité de mesure 
 public class Frag_UnityList extends Fragment {
-	Intent mIntent;
+	
 	private ListView maListViewPerso;
 	static Long currentId;
 	static Long energyId = 0l;
 	private static Long WITH_NO_FILTER = 0l;
-	private Resources mResources;
+	public static final String INPUT____ENERGY_ID  ="nrj_id";
+	
     private View mainView;
 	//Création de la vue
 	@Override
@@ -41,17 +42,13 @@ public class Frag_UnityList extends Fragment {
 
 		mainView = inflater.inflate(R.layout.view_unit_list,
 				container, false);
-
-		mIntent = getActivity().getIntent();
-		mResources = getActivity().getResources();
-
+		
 		// si on demande une liste des unités avec un ID d'énergy en entrée
 		// on n'affiche que les unités qui on été utilisé pour cet ID
 		// dans le cas contraire, on affiche la liste de toutes les unitées
 		// connues.
 		try {
-			energyId = Long.parseLong(mIntent.getStringExtra(mResources
-					.getString(R.string.INTENT_IN____UNITS_LIST____ID_OF_ENERGY)));
+			energyId = Long.parseLong(this.getActivity().getIntent().getStringExtra(this.INPUT____ENERGY_ID));
 			generateList(energyId);
 		} catch (Exception e) {
 			generateList(WITH_NO_FILTER);
@@ -64,8 +61,7 @@ public class Frag_UnityList extends Fragment {
 	// on lance l'éditeur d'unité
 	public void onClickUnit(View v, String id) {
 		Intent intent = new Intent(getActivity(), Act_UnitOfMeasureEditor.class);
-		intent.putExtra(mResources
-				.getString(R.string.INTENT_IN____UNITS_EDITOR____ID_OF_UNIT), id);
+		intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY_ID, id);
 		startActivityForResult(intent, R.integer.ACTY_UNIT);
 
 	}

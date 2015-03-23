@@ -79,19 +79,7 @@
     <string name="ONCLICKBACK">onClickBack</string>
     <string name="espacevide"></string>
     <string name="TITLE_PHYSICAL_ACTIVITY">Activitée physique</string>
-    <string name="INTENT_IN____UA_EDITOR_COMMONS____DAY_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_DayYYY_MM_DD</string>
-    <string name="INTENT_IN____UA_EDITOR_COMMONS____ID_OF_THE_USER_ACTIVITY">UserActivityEditor_IN_id</string>
-    <string name="INTENT_IN____NAME_FOR_UA_FRAGMENTSLIDER_DAY">IN_UA_FragmentSlider_DayYYY_MM_DD</string>
-    <string name="INTENT_IN____USER_ACTIVITY_LIST____TYPE_OF_LIST">UserActivityList_IN_TypeOfList</string>
-    <string name="INTENT_IN____USER_ACTIVITY_COMPONENT_LIST____ID_OF_USER_ACTIVITY">UserActivityComponentList_IN_UserActivityId</string>
-    <string name="INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_COMPONENT">UserActivityComponentEditor_IN_ComponentId</string>
-    <string name="INTENT_IN____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_USER_ACTIVITY">UserActivityComponentEditor_IN_UserActivityId</string>
-    <string name="INTENT_IN____UNITS_LIST____ID_OF_ENERGY">UnitsLits_IN_EnergyId</string>
-    <string name="INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT">UnitsList_out_UnitId</string>
-    <string name="INTENT_IN____UNITS_EDITOR____ID_OF_UNIT">UnitsEditor_IN_UnitId</string>
-    <string name="INTENT_IN____ENERGY_EDITOR____ID_OF_ENERGY">EnergyEditor_IN_EnergyId</string>
-    <string name="INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY">EnergyList_OUT_EnergyId</string>
-    <string name="INTENT_OUT____NUMERICPAD_RESULT">NumericPad_OUT_Result</string>
+    
     <string name="title_total_cube_energy">Energie cumulée pour le Cube</string>
     <string name="title_nbcal_in">Nombre de calories absorbées</string>
     <string name="title_nbcal_out">Nombre de calories dépensées</string>
@@ -101,5 +89,5 @@
     <string name="title_nblip_in">nb lipides</string>
         <string name="title_eat_bonus">bonus aliments</string>
     <string name="title_phys_activity_bonus">bonus activité physique</string>
-    <string name="INPUT____UA_EDITOR_LUNCH____ID_OF_THE_USER_ACTIVITY">___id</string>
+    
 </resources>

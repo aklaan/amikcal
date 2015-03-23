@@ -73,7 +73,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		// **********************************************************************************************
 		// Création de la table des relations 
 		// **********************************************************************************************
-		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Party_rel.NAME
+		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ " ( " + ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
@@ -129,12 +129,12 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.View_NRJ_QtyRef.NAME
+				+ ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME
 
 				+ " AS SELECT "
 
 				// ID de la relation NRJ<->QtyRef
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " AS "
@@ -142,7 +142,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ","
 
 				// ID de la source d'énergie
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
 				+ " AS "
@@ -150,18 +150,18 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ","
 
 				// ID de la QtyRef
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
 				+ " AS "
 				+ ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID
 
 				+ " FROM "
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
 				// On séléctionne les liens de type NRJ_REF_INTRNL
 				+ " WHERE "
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = "
@@ -183,7 +183,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " AS SELECT "
 
 				// ID de la relation UA<->UAC
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " AS "
@@ -191,7 +191,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ","
 
 				// ID de la source d'énergie
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
 				+ " AS "
@@ -199,18 +199,18 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ","
 
 				// ID de la QtyRef
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
 				+ " AS "
 				+ ContentDescriptorObj.View_UA_UAC_link.Columns.UAC_ID
 
 				+ " FROM "
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
 				// On séléctionne les liens de type NRJ_REF_INTRNL
 				+ " WHERE "
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = "
@@ -232,7 +232,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " AS SELECT "
 
 				// ID de l'UAC = Id de la relation de type UAC
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " AS "
@@ -240,7 +240,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ","
 
 				// type de l'UAC = type de la relation
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " AS "
@@ -250,7 +250,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 				
 				// ID de la source d'énergie
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
 				+ " AS "
@@ -258,32 +258,32 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ","
 
 				// ID de la Qty
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
 				+ " AS "
 				+ ContentDescriptorObj.View_UAC_Data.Columns.QTY_ID
 
 				+ " FROM "
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
 				// On séléctionne les liens de type NRJ_REF_INTRNL
 				+ " WHERE "
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = "
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_FOOD
 
 				+ " OR " 
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = "
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_MOVE
 				
 				+ " OR " 
-				+ ContentDescriptorObj.TB_Party_rel.NAME
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = "

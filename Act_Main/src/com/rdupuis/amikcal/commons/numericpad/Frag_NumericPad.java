@@ -17,8 +17,8 @@ public class Frag_NumericPad extends Fragment {
 
 	TextView ed;
 	String result;
-	Intent intent;
-	Resources mResources;
+	public final static String OUTPUT____AMOUNT = "_amount";
+	
 	View mMainView;
 
 	/** Called when the fragment is created. */
@@ -28,8 +28,7 @@ public class Frag_NumericPad extends Fragment {
 
 		mMainView = inflater.inflate(R.layout.view_numericpad, container, false);
 		// getIntent récupère l'Intent qui a déclanché l'Activity
-		intent = getActivity().getIntent();
-		mResources = getResources();
+		
 		
 		ed = (TextView) mMainView.findViewById(R.id.padnumber_entry);
 
@@ -94,14 +93,13 @@ public class Frag_NumericPad extends Fragment {
 		// s'il n'a rien saisi, on
 
 		if (ed.getText() != "") {
-			this.intent
-					.putExtra(mResources
-							.getString(R.string.INTENT_OUT____NUMERICPAD_RESULT),
+			this.getActivity().getIntent()
+					.putExtra(this.OUTPUT____AMOUNT,
 							ed.getText().toString());
 
 			// on appelle setResult pour déclancher le onActivityResult de
 			// l'activity mère.
-			getActivity().setResult(Activity.RESULT_OK, intent);
+			getActivity().setResult(Activity.RESULT_OK, this.getActivity().getIntent());
 		}
 		// On termine l'Actvity
 		getActivity().finish();

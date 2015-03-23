@@ -9,6 +9,7 @@ import android.net.Uri;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.SQL_ORDER;
+import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 
 public class ContentProviderObj extends ContentProvider {
@@ -94,8 +95,18 @@ public class ContentProviderObj extends ContentProvider {
 		    .appendPath(String.valueOf(id)).build();
 	}
 
+	
+	case INSERT_PARTY_REL: {
+	    // on fait l'insert dans la table
+	    // la fonction update retourne n'Id de l'enregistrement créé.
+	    long id = db.insert(ContentDescriptorObj.TB_Party_rel.TBNAME, null, values);
+	    getContext().getContentResolver().notifyChange(uri, null);
+	    return ContentDescriptorObj.TB_Party_rel.S00_PARTY_REL_URI.buildUpon()
+		    .appendPath(String.valueOf(id)).build();
+	}
+	
 	default: {
-	    throw new UnsupportedOperationException("URI: " + uri + " pour UPDATE non supportée.");
+	    throw new UnsupportedOperationException("URI: " + uri + " pour INSERT non supportée.");
 	}
 	}
     }
@@ -188,6 +199,59 @@ public class ContentProviderObj extends ContentProvider {
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
 
+	case SELECT_REL_NRJ_QTYREF:{
+	
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
+
+	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + uri.getLastPathSegment()
+		    +" and ( "
+		    +ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "=" 
+		    + TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL
+		    + "or "
+		    +ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "=" 
+		    + TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF
+		    + ")";
+	    
+	    
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+	
+
+	}
+	
+	case SELECT_QTYREF_OF_NRJ:{
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME);
+
+	    String whereClause = ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME + "."
+		    + ContentDescriptorObj.View_NRJ_QtyRef.Columns.ENERGY_ID + "=" + uri.getLastPathSegment();
+		    	    	    
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+
+	    
+	}
+	case SELECT_QTYREF_RELATION:{
+		
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME);
+
+	    String delims = "x"; 
+	    String[] params = uri.getLastPathSegment().split(delims);
+	    
+	    String whereClause = ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME + "."
+		    + ContentDescriptorObj.View_NRJ_QtyRef.Columns.ENERGY_ID + "=" + params[0]
+		    +" and ( "
+		    + ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID + "=" +  params[1]
+		    + ")";
+	    
+	    
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+	
+
+	}
 
 	case SELECT_ALL_UAC_OF_UA: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
@@ -298,6 +362,21 @@ public class ContentProviderObj extends ContentProvider {
 	    return 0;
 	}
 
+	
+	case UPDATE_PARTY_REL: {
+
+	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "." 
+	    + ContentDescriptorObj.TB_Party_rel.Columns.ID
+		    + "=" + selection;
+
+	    db.update(ContentDescriptorObj.TB_Party_rel.TBNAME, values, whereClause, null);
+	    getContext().getContentResolver().notifyChange(uri, null);
+	    return 0;
+	}
+
+	
+	
+	
 	default: {
 	    throw new UnsupportedOperationException("URI: " + uri + " pour UPDATE non supportée.");
 	}

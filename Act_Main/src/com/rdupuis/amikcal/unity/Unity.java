@@ -16,6 +16,7 @@ public Unity(){
     this.id = AppConsts.NO_ID;
     this.longName="";
     this.shortName="";
+    this.mUnityClass = UNIT_CLASS.UNDEFINED;
     
 }
 

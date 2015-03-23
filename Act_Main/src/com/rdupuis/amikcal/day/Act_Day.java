@@ -115,7 +115,7 @@ public class Act_Day extends Activity{
      
     public void onClickActivities(View v){
     	Intent intent = new Intent(this,Act_UserActivityList.class);
-    	intent.putExtra(mResources.getString(R.string.INTENT_IN____NAME_FOR_UA_FRAGMENTSLIDER_DAY), mDay.getSqlDate()); 
+    	intent.putExtra(Act_UserActivityList.INPUT____DAY, mDay.getSqlDate()); 
     	startActivityForResult(intent,0);
     }
     

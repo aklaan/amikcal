@@ -163,7 +163,7 @@ public class Act_UserActivityComponentEditor extends Activity {
      **************************************************************************************/
     public void callUnitListView() {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(this.getResources().getString(R.string.INTENT_IN____UNITS_LIST____ID_OF_ENERGY),
+	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
 		String.valueOf(mUAC.getEnergySource().getId()));
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
@@ -247,8 +247,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 	    if (resultCode == RESULT_OK) {
 
 		this.mUAC.getQty().setAmount(
-			Float.parseFloat(intent.getStringExtra(this.getResources().getString(
-				R.string.INTENT_OUT____NUMERICPAD_RESULT))));
+			Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
 
 		if (this.mUAC.getQty().getUnity().getId() == 0l) {
 		    /* this.callUnitListView(); */
