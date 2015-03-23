@@ -27,7 +27,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 public class Act_UnitOfMeasureList extends Activity {
     private ListView maListViewPerso;
     static Long currentId;
-    static Long energyId = 0l;
+    static Long energyId = 0l; // pour lister les unités en rapport avec une energie
     private static Long WITH_NO_FILTER = 0l;
     public static final String INPUT____ENERGY_ID = "nrj_id";
     public static final String OUTPUT____UNIT_ID = "unity_id";
@@ -240,7 +240,7 @@ public class Act_UnitOfMeasureList extends Activity {
 
     public void editUnit(String id) {
 	Intent intent = new Intent(this, Act_UnitOfMeasureEditor.class);
-	intent.putExtra("UnitId", id);
+	intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY_ID, id);
 	startActivityForResult(intent, R.integer.ACTY_UNIT);
     }
 

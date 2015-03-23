@@ -207,7 +207,8 @@ public final class ContentDescriptorObj {
 	// Path pour l'Uri pour l'UPDATE d'un enregistrement
 	public static final String UPDATE_ENERGY_ID_PATH = TBNAME + "/" + UPDATE + "_id/#";
 	public static final int UPDATE_ENERGY_ID_TOKEN = 2300;
-	public static final Uri UPDATE_ENERGY_ID_URI = URI_BASE_ENERGIES.buildUpon().appendPath(UPDATE + "_id").build();
+	public static final Uri UPDATE_ENERGY_ID_URI = 
+			URI_BASE_ENERGIES.buildUpon().appendPath(UPDATE + "_id").build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.energies";
@@ -615,20 +616,23 @@ public final class ContentDescriptorObj {
     public static final class View_Qty {
 
 	// Info concernant la table
-	public static final String NAME = "view_qty";
+	public static final String VIEWNAME = "view_qty";
 	private static int VIEW_ID = 9;
+	public static final Uri URI_BASE_VIEW_QTY = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
 
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_QTY_BY_ID_PATH = NAME + "/#";
+	public static final String VIEW_QTY_BY_ID_PATH = VIEWNAME + "/"+SELECT+"_id/#";
 	public static final int VIEW_QTY_BY_ID_TOKEN = 9100;
 
-	public static final Uri VIEW_QTY_BY_ID_URI = BASE_URI.buildUpon().appendPath(VIEW_QTY_BY_ID_PATH).build();
+	public static final Uri VIEW_QTY_BY_ID_URI = 
+			URI_BASE_VIEW_QTY.buildUpon().appendPath(SELECT + "_id").build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + NAME;
+	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
 
 	public static final class Columns {
-	    public static final String UNITY_ID = "unity_id";
+		public static final String QTY_ID = "qty_id";
+		public static final String UNITY_ID = "unity_id";
 	    public static final String AMOUNT = "amount";
 
 	}
@@ -815,6 +819,8 @@ public final class ContentDescriptorObj {
 	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_PATH, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_TOKEN);
 	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_PATH, View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_TOKEN);
 
+	
+	matcher.addURI(authority, View_Qty.VIEW_QTY_BY_ID_PATH, View_Qty.VIEW_QTY_BY_ID_TOKEN);
 	// Match(s) pour la table user_activities
 	// ----------------------------------------------------------------
 	matcher.addURI(authority, TB_UserActivities.S00_USER_ACTIVITIES_PATH,

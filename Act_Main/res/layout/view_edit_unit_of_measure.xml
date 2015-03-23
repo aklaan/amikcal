@@ -134,14 +134,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Internationale" />
+            android:text="Internationale" 
+            android:onClick="onClickRdioInternational"/>
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Personalisée" />
+            android:text="Personalisée" 
+            android:onClick="onClickRdioCustom"/>
     </LinearLayout>
 
     <CheckBox

@@ -221,6 +221,58 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		);
 
 
+		
+		
+		 //*********************************************************************
+		 // Création de la vue permettant de faire le lien entre une activité et
+		 // ses UAC composantes.
+		 //***********************************************************************/
+
+		db.execSQL("CREATE VIEW "
+				+ ContentDescriptorObj.View_Qty.VIEWNAME
+
+				+ " AS SELECT "
+
+				// ID de la relation Qty
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
+				+ " AS "
+				+ ContentDescriptorObj.View_Qty.Columns.QTY_ID
+				+ ","
+
+				// Montant de la qty
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ " AS "
+				+ ContentDescriptorObj.View_Qty.Columns.AMOUNT
+				+ ","
+
+				// ID de l'unitée
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
+				+ " AS "
+				+ ContentDescriptorObj.View_Qty.Columns.UNITY_ID
+
+				+ " FROM "
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+
+				// On séléctionne les liens de type QTY
+				+ " WHERE "
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
+				+ " = "
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.QTY
+
+				
+
+		);
+
+		
+		
 		 //*********************************************************************
 		 // Création de la vue permettant de faire le lien entre les composant 
 		 // d'une UAC.

@@ -21,9 +21,11 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 
 /**
  * Cette vue permet de renseigner une nouvelle energie et ses equivalences
@@ -43,6 +45,8 @@ public class Act_EnergyEditor extends Activity {
 	setContentView(R.layout.view_edit_energy_food);
 	mEnergy = new EnergySource();
 
+	
+	
 	try {
 	    AmiKcalFactory factory = new AmiKcalFactory(this);
 	    mEnergy = factory.load_Energy(Long.parseLong(getIntent().getStringExtra(INPUT____ID_OF_ENERGY)));
@@ -205,6 +209,17 @@ public class Act_EnergyEditor extends Activity {
 			factory.load_Unity(Long.parseLong(intent
 				.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID))));
 
+		
+		switch (mEnergy.getQtyReference().getUnity().getUnityClass()){
+		case INTERNATIONAL :
+			mEnergy.getQtyReference().setRel_typ_cd(REL_TYP_CD.NRJ_REF_INTRNL);
+			break;
+		case CUSTOM:
+		mEnergy.getQtyReference().setRel_typ_cd(REL_TYP_CD.CSTM_NRJ_REF);
+		break;
+		}
+				
+		
 	    }
 	    break;
 	default:
@@ -255,12 +270,18 @@ public class Act_EnergyEditor extends Activity {
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
 	ed.setText(this.mEnergy.getName());
 
-	Button bt = (Button) findViewById(R.id.energyview_btn_mnt_energy);
+	Button bt = (Button) findViewById(R.id.energyview_btn_quantity);
+	  bt.setText(String.valueOf(this.mEnergy.getQtyReference().getAmount()));
+	 
+	  bt = (Button) findViewById(R.id.energyview_btn_unit);
+		bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
+	  
+	
 	/*
+	 * 
+	 * Button bt = (Button) findViewById(R.id.energyview_btn_mnt_energy);
 	 * bt.setText(Float.toString(this.mEnergy.getCalories()));
 	 * 
-	 * bt = (Button) findViewById(R.id.energyview_btn_quantity);
-	 * bt.setText(Float.toString(this.mEnergy.getQuantityReference()));
 	 * 
 	 * bt = (Button) findViewById(R.id.energyview_btn_mnt_glucids);
 	 * bt.setText(Float.toString(this.mEnergy.getGlucids()));
@@ -271,8 +292,7 @@ public class Act_EnergyEditor extends Activity {
 	 * bt = (Button) findViewById(R.id.energyview_btn_mnt_proteins);
 	 * bt.setText(Float.toString(this.mEnergy.getProteins()));
 	 */
-	bt = (Button) findViewById(R.id.energyview_btn_unit);
-	bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
+	
 
     }
 
