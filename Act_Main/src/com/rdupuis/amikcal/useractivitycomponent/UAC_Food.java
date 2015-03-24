@@ -1,10 +1,10 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
 import com.rdupuis.amikcal.Food.Food;
+import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
 public class UAC_Food extends UserActivityComponent {
 
-	
 	/**
 	 * un composant Aliment Food c'est par exemple un bol de soupe 100 g de
 	 * chocolat 1 verre de vin
@@ -20,7 +20,7 @@ public class UAC_Food extends UserActivityComponent {
 	 * 
 	 * exemple : 100g de pommes = w kcal 100g de pommes = x lip 100g de pommes =
 	 * y glu 100g de pommes = z pro
-	 *
+	 * 
 	 * on remarque que 100g de pomme c'est comme une UAC mais sans parent
 	 */
 
@@ -29,7 +29,7 @@ public class UAC_Food extends UserActivityComponent {
 	 */
 	public UAC_Food() {
 		super();
-
+		this.setUAC_Class(REL_TYP_CD.UAC_FOOD);
 		this.setEnergySource(new Food());
 	}
 
@@ -58,5 +58,4 @@ public class UAC_Food extends UserActivityComponent {
 		return 0f;
 	};
 
-	
 }

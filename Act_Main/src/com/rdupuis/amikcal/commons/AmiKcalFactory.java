@@ -187,7 +187,7 @@ public final class AmiKcalFactory {
 	    u.setShortName(cursor.getString(INDX_SYMBOL));
 
 	    UNIT_CLASS_MAP unit_class_map = new UNIT_CLASS_MAP();
-	    u.setUnityClass(unit_class_map._in.get(Byte.parseByte(cursor.getString(INDX_CLASS))));
+	    u.setUnityClass(unit_class_map._in.get(cursor.getString(INDX_CLASS)));
 
 	} else {
 	    Toast.makeText(this.mActivity, "Unity inconnue", Toast.LENGTH_LONG).show();
@@ -248,7 +248,7 @@ public final class AmiKcalFactory {
 	    userActivity.setDay(ToolBox.parseSQLDatetime(cur.getString(ACTIVITY_DATE)));
 
 	    // recharger les UAC
-	    this.load_UAC_List(userActivity);
+	    userActivity.setUAC_List(this.load_UAC_List(userActivity));
 
 	} else {
 	    Toast.makeText(this.mActivity, "User Activity inconnue", Toast.LENGTH_LONG).show();
@@ -390,7 +390,7 @@ public final class AmiKcalFactory {
 
 	    // en fonction du type de relation, on va retourner le composant
 	    // adequat
-	    switch (mapping._in.get(INDX_REL_TYP_CD)) {
+	    switch (mapping._in.get(cursor.getString(INDX_REL_TYP_CD))) {
 	    case UAC_FOOD:
 		mUAC = new UAC_Food();
 		mUAC.setId(_id);
@@ -511,7 +511,7 @@ public final class AmiKcalFactory {
 	if (!UA.getUAC_List().isEmpty()) {
 
 	    for (UserActivityComponent UAC : UA.getUAC_List()) {
-		this.save_UAC(UA, UAC);
+		this.save_UAC(UAC);
 		save_UA_UAC_Relation(UA,UAC);
 	    }
 	}
@@ -524,9 +524,10 @@ public final class AmiKcalFactory {
      * 
      ******************************************************************************************/
 
-    public void save_UAC(UserActivity UA, UserActivityComponent UAC) {
+    public void save_UAC(UserActivityComponent UAC) {
 	
-	//On va recharger la qty avec un id si elle n'existait pas dans la DB.
+	//On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
+    //si elle n'existait pas dans la DB.
 	UAC.setQty(save(UAC.getQty())); 
 		
 	ContentValues val = new ContentValues();
@@ -540,8 +541,8 @@ public final class AmiKcalFactory {
 	REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get((UAC.getUAC_Class())));
 
-	// id de l'activitée mère
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, String.valueOf(UA.get_id()));
+	// id de l'énergie
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, String.valueOf(UAC.getEnergySource().getId()));
 
 	// id de la qty
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, String.valueOf(UAC.getQty().getId()));

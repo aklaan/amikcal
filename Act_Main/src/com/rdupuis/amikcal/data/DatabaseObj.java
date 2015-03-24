@@ -97,7 +97,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 
 				+ ContentDescriptorObj.TB_UserActivities.Columns.CLASS
-				+ " INTEGER, "
+				+ " STRING, "
 
 				+ ContentDescriptorObj.TB_UserActivities.Columns.DATE
 				+ " DATETIME, "
@@ -164,8 +164,9 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "
+				+ " = '"
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL
+				+"'"
 
 				
 
@@ -213,8 +214,9 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "
+				+ " = '"
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_UAC
+				+"'"
 
 				
 
@@ -264,8 +266,9 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "
+				+ " = '"
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.QTY
+				+"'"
 
 				
 
@@ -279,7 +282,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.View_UAC_Data.NAME
+				+ ContentDescriptorObj.View_UAC_Data.VIEWNAME
 
 				+ " AS SELECT "
 
@@ -324,22 +327,22 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "
+				+ " = '"
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_FOOD
 
-				+ " OR " 
+				+ "' OR " 
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "
+				+ " = '"
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_MOVE
-				
-				+ " OR " 
+				+ "' OR " 
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = "
+				+ " = '"
 				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT
+				+"'"
 								
 				
 

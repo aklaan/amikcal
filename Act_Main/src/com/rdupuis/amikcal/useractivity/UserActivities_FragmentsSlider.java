@@ -183,7 +183,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	 */
 	public void onClickActivity(String id) {
 		Intent intent = new Intent(this, Act_UserActivityComponentList.class);
-		intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_LIST____ID_OF_PARENT_USER_ACTIVITY,id);
+		intent.putExtra(Act_UserActivityComponentList.INPUT____UA_ID,id);
 		intent.putExtra("page", getCurrentPage());
 		startActivityForResult(intent,0);
 				

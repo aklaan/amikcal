@@ -286,6 +286,16 @@ public class ContentProviderObj extends ContentProvider {
 	
 
 	}
+	
+	case SELECT_UAC:{
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_UAC_Data.VIEWNAME);
+
+	    String whereClause = ContentDescriptorObj.View_UAC_Data.VIEWNAME + "."
+		    + ContentDescriptorObj.View_UAC_Data.Columns.UAC_ID + "=" + uri.getLastPathSegment();
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+		
+	}
 
 	case SELECT_ALL_UAC_OF_UA: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();

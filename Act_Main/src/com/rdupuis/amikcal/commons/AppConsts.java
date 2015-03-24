@@ -95,9 +95,9 @@ public final class AppConsts {
      * </p>
      ****************************************************************************/
     public static final class UNIT_CLASS_MAP {
-	public EnumMap<UNIT_CLASS, Byte> _out = new EnumMap<UNIT_CLASS, Byte>(UNIT_CLASS.class);
+	public EnumMap<UNIT_CLASS, String> _out = new EnumMap<UNIT_CLASS, String>(UNIT_CLASS.class);
 
-	public HashMap<Byte, UNIT_CLASS> _in = new HashMap<Byte, UNIT_CLASS>();
+	public HashMap<String, UNIT_CLASS> _in = new HashMap<String, UNIT_CLASS>();
 
 	public UNIT_CLASS_MAP() {
 
@@ -125,9 +125,9 @@ public final class AppConsts {
      * </p>
      ****************************************************************************/
     public static final class UA_CLASS_CD_MAP {
-	public EnumMap<UA_CLASS_CD, Byte> _out = new EnumMap<UA_CLASS_CD, Byte>(UA_CLASS_CD.class);
+	public EnumMap<UA_CLASS_CD, String> _out = new EnumMap<UA_CLASS_CD, String>(UA_CLASS_CD.class);
 
-	public HashMap<Byte, UA_CLASS_CD> _in = new HashMap<Byte, UA_CLASS_CD>();
+	public HashMap<String, UA_CLASS_CD> _in = new HashMap<String, UA_CLASS_CD>();
 
 	public UA_CLASS_CD_MAP() {
 	    _out.put(UA_CLASS_CD.LUNCH, TB_UserActivities.PredefinedValues.UACodes.LUNCH);

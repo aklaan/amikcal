@@ -59,7 +59,7 @@ import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
             HashMap<String, String> map = (HashMap<String, String>) getItem(position);
             
         	UA_CLASS_CD_MAP UA_class_cd_map = new UA_CLASS_CD_MAP();
-        	UA_CLASS_CD UA_Class = UA_class_cd_map._in.get(Byte.parseByte(map.get("type")));
+        	UA_CLASS_CD UA_Class = UA_class_cd_map._in.get(map.get("type"));
 
             TextView tv;
             if (convertView == null) {

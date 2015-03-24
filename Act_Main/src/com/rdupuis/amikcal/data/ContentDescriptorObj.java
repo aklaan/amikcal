@@ -290,11 +290,11 @@ public final class ContentDescriptorObj {
 	//
 	public static final class PredefinedValues {
 	    public static final class ClassCodes {
-		public static final byte UNDEFINED = 0x00;
-		public static final byte INTERNATIONAL = 0x01;
-		public static final byte CUSTOM = 0x02;
-		public static final byte CONTAINER = 0x03;
-		public static final byte TIME = 0X04;
+		public static final String UNDEFINED = "UNDF";
+		public static final String INTERNATIONAL = "INT";
+		public static final String CUSTOM = "CSTM";
+		public static final String CONTAINER = "CONT";
+		public static final String TIME = "TIME";
 	    }
 	}
 
@@ -446,9 +446,9 @@ public final class ContentDescriptorObj {
 	//
 	public static final class PredefinedValues {
 	    public static final class UACodes {
-		public static final byte LUNCH = 0x00;
-		public static final byte MOVE = 0x01;
-		public static final byte WEIGHT = 0x02;
+		public static final String LUNCH = "LUNCH";
+		public static final String MOVE = "MOVE";
+		public static final String WEIGHT = "WEIGHT";
 
 	    }
 	}
@@ -561,16 +561,19 @@ public final class ContentDescriptorObj {
     public static final class View_UAC_Data {
 
 	// Info concernant la table
-	public static final String NAME = "view_uac_data";
+	public static final String VIEWNAME = "view_uac_data";
 	private static int VIEW_ID = 7;
+	public static final Uri URI_BASE_VIEW_UAC_DATA = 
+			BASE_URI.buildUpon().appendPath(VIEWNAME).build();
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_UAC_DATA_PATH = NAME + "/#";
+	public static final String VIEW_UAC_DATA_PATH = VIEWNAME + "/"+SELECT+"/#";
 	public static final int VIEW_UAC_DATA_TOKEN = 7100;
 
-	public static final Uri VIEW_UAC_DATA_URI = BASE_URI.buildUpon().appendPath(VIEW_UAC_DATA_PATH).build();
+	public static final Uri VIEW_UAC_DATA_URI = 
+			URI_BASE_VIEW_UAC_DATA.buildUpon().appendPath(SELECT).build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + NAME;
+	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
 
 	public static final class Columns {
 	    public static final String UAC_ID = "uac_id";
@@ -723,7 +726,7 @@ public final class ContentDescriptorObj {
 
 	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE, DELETE_USER_ACTIVITY, SELECT_DB_VERSION, SELECT_REL_NRJ_QTYREF
     
-    ,INSERT_PARTY_REL,UPDATE_PARTY_REL,UPDATE_ENERGY_ID,SEARCH_REL_UA_UAC
+    ,INSERT_PARTY_REL,UPDATE_PARTY_REL,UPDATE_ENERGY_ID,SEARCH_REL_UA_UAC,SELECT_UAC
     }
 
     public static final class TOKEN_MAP {
@@ -769,6 +772,10 @@ public final class ContentDescriptorObj {
 	    _in.put(View_Qty.VIEW_QTY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_QTY_BY_ID);
 	    _in.put(View_UA_UAC_link.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_REL_UA_UAC);
 
+	    
+	    _in.put(View_UAC_Data.VIEW_UAC_DATA_TOKEN, REQUESTS_LIST.SELECT_UAC);
+	    
+	    
 	    //
 	    _in.put(CustomQuery.DB_VERSION_TOKEN, REQUESTS_LIST.SELECT_DB_VERSION);
 	    //
