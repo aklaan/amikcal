@@ -25,6 +25,7 @@ public final class AppConsts {
     public static String INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY = "_DAY";
 
     public static long NO_ID = -1l;
+    public static int NO_INDEX = -1;
     public static String BREAKFAST = "BREAKFAST";
     public static String LUNCH = "LUNCH";
     public static String DINER = "DINER";
@@ -147,9 +148,9 @@ public final class AppConsts {
      * </p>
      ****************************************************************************/
     public static final class REL_TYP_CD_MAP {
-	public EnumMap<REL_TYP_CD, Byte> _out = new EnumMap<REL_TYP_CD, Byte>(REL_TYP_CD.class);
+	public EnumMap<REL_TYP_CD, String> _out = new EnumMap<REL_TYP_CD, String>(REL_TYP_CD.class);
 
-	public HashMap<Byte, REL_TYP_CD> _in = new HashMap<Byte, REL_TYP_CD>();
+	public HashMap<String, REL_TYP_CD> _in = new HashMap<String, REL_TYP_CD>();
 
 	public REL_TYP_CD_MAP() {
 	    _out.put(REL_TYP_CD.UNDEFINED, TB_Party_rel.PredefinedValues.RelationsCodes.UNDEFINED);
@@ -163,6 +164,8 @@ public final class AppConsts {
 	    _out.put(REL_TYP_CD.UNIT_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_EQUIV);
 	    _out.put(REL_TYP_CD.UNIT_INTER_LINK, TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_INTER_LINK);
 	    _out.put(REL_TYP_CD.UAC_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.UAC_EQUIV);
+	    _out.put(REL_TYP_CD.QTY, TB_Party_rel.PredefinedValues.RelationsCodes.QTY);
+
 
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNDEFINED, REL_TYP_CD.UNDEFINED);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UA_UAC, REL_TYP_CD.UA_UAC);
@@ -175,6 +178,7 @@ public final class AppConsts {
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_EQUIV, REL_TYP_CD.UNIT_EQUIV);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_INTER_LINK, REL_TYP_CD.UNIT_INTER_LINK);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UAC_EQUIV, REL_TYP_CD.UAC_EQUIV);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.QTY, REL_TYP_CD.QTY);
 	}
     }
 

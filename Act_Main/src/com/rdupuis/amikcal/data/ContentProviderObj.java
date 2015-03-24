@@ -267,6 +267,26 @@ public class ContentProviderObj extends ContentProvider {
 
 	}
 
+	case SEARCH_REL_UA_UAC:{
+		
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME);
+
+	    String delims = "x"; 
+	    String[] params = uri.getLastPathSegment().split(delims);
+	    
+	    String whereClause = ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME + "."
+		    + ContentDescriptorObj.View_UA_UAC_link.Columns.UA_ID + "=" + params[0]
+		    +" and ( "
+		    + ContentDescriptorObj.View_UA_UAC_link.Columns.UAC_ID + "=" +  params[1]
+		    + ")";
+	    
+	    
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+	
+
+	}
+
 	case SELECT_ALL_UAC_OF_UA: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME);

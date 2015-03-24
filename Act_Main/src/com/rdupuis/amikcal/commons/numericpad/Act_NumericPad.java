@@ -61,7 +61,7 @@ public class Act_NumericPad extends Activity implements NumericPadListeners {
 
 	    // on appelle setResult pour déclancher le onActivityResult de
 	    // l'activity mère.
-
+	    this.setResult(RESULT_OK, this.getIntent());
 	}
 	// On termine l'Actvity
 	this.finish();

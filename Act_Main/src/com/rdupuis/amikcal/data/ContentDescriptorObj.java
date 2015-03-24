@@ -132,18 +132,18 @@ public final class ContentDescriptorObj {
 
 	public static final class PredefinedValues {
 	    public static final class RelationsCodes {
-		public static final byte UNDEFINED = 0x00;
-		public static final byte UAC_FOOD = 0x01;
-		public static final byte UAC_MOVE = 0x02;
-		public static final byte UAC_WEIGHT = 0x03;
-		public static final byte UAC_EQUIV = 0x04;
-		public static final byte NRJ_REF_INTRNL = 0x05;
-		public static final byte NRJ_REF_EQUIV = 0x06;
-		public static final byte CSTM_NRJ_REF = 0x07;
-		public static final byte UNIT_EQUIV = 0x08;
-		public static final byte UNIT_INTER_LINK = 0x09;
-		public static final byte QTY = 0x10;
-		public static final byte UA_UAC = 0x11;
+		public static final String UNDEFINED = "UNDEF";
+		public static final String UAC_FOOD = "UAC_FD";
+		public static final String UAC_MOVE = "UAC_MV";
+		public static final String UAC_WEIGHT = "UAC_WG";
+		public static final String UAC_EQUIV = "UAC_EQV";
+		public static final String NRJ_REF_INTRNL = "REF_INT";
+		public static final String NRJ_REF_EQUIV = "REF_EQV";
+		public static final String CSTM_NRJ_REF = "REF_CTM";
+		public static final String UNIT_EQUIV = "UNIT_EQV";
+		public static final String UNIT_INTER_LINK = "UNIT_INT_REL";
+		public static final String QTY = "QTY";
+		public static final String UA_UAC = "UA_UAC_REL";
 	    }
 	}
 
@@ -590,12 +590,23 @@ public final class ContentDescriptorObj {
 
 	// Info concernant la table
 	public static final String VIEW_NAME = "view_ua_uac_link";
+	public static final Uri URI_BASE_VIEW_UA_UAC_REL = BASE_URI.buildUpon().appendPath(VIEW_NAME).build();
+
+	
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_UAC_FOR_UA_PATH = VIEW_NAME + "/#";
+	public static final String VIEW_UAC_FOR_UA_PATH = VIEW_NAME +"/" +SELECT+"/#";
 	public static final int VIEW_UAC_FOR_UA_TOKEN = 8100;
+	public static final Uri VIEW_UAC_FOR_UA_URI = 
+		URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath(SELECT).build();
 
-	public static final Uri VIEW_UAC_FOR_UA_URI = BASE_URI.buildUpon().appendPath(VIEW_NAME).build();
+	public static final String SEARCH_RELATION_PATH = VIEW_NAME + "/relation/*";
+	public static final int SEARCH_RELATION_TOKEN = 8101;
+	public static final Uri SEARCH_RELATION_URI = 
+		URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath("relation").build();
 
+
+	
+	
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEW_NAME;
 
@@ -712,7 +723,7 @@ public final class ContentDescriptorObj {
 
 	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE, DELETE_USER_ACTIVITY, SELECT_DB_VERSION, SELECT_REL_NRJ_QTYREF
     
-    ,INSERT_PARTY_REL,UPDATE_PARTY_REL,UPDATE_ENERGY_ID
+    ,INSERT_PARTY_REL,UPDATE_PARTY_REL,UPDATE_ENERGY_ID,SEARCH_REL_UA_UAC
     }
 
     public static final class TOKEN_MAP {
@@ -756,6 +767,7 @@ public final class ContentDescriptorObj {
 	    _in.put(View_UA_UAC_link.VIEW_UAC_FOR_UA_TOKEN, REQUESTS_LIST.SELECT_ALL_UAC_OF_UA);
 	    //
 	    _in.put(View_Qty.VIEW_QTY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_QTY_BY_ID);
+	    _in.put(View_UA_UAC_link.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_REL_UA_UAC);
 
 	    //
 	    _in.put(CustomQuery.DB_VERSION_TOKEN, REQUESTS_LIST.SELECT_DB_VERSION);
@@ -814,6 +826,10 @@ public final class ContentDescriptorObj {
 	// ----------------------------------------------------------------
 	matcher.addURI(authority, View_UAC_Data.VIEW_UAC_DATA_PATH, View_UAC_Data.VIEW_UAC_DATA_TOKEN);
 
+	
+	matcher.addURI(authority, View_UA_UAC_link.SEARCH_RELATION_PATH, View_UA_UAC_link.SEARCH_RELATION_TOKEN);
+
+	
 	// Match pour la vue de selection des liens NRJ<->QtyRef
 	// ----------------------------------------------------------------
 	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_PATH, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_TOKEN);

@@ -77,7 +77,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " ( " + ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " BYTE, " + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ " STRING, " + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
 				+ " STRING, "
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
 				+ " STRING, "

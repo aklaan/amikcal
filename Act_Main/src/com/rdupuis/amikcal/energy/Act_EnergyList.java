@@ -46,7 +46,7 @@ public class Act_EnergyList extends Activity {
     static Long currentId;
     String currentFilter = "";
     private ListView maListViewPerso;
-final static String OUTPUT____ID_OF_ENERGY = "_id";
+public final static String OUTPUT____ID_OF_ENERGY = "_id";
     /**
      * This function is Called when the activity is first created.
      */

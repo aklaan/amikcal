@@ -41,9 +41,6 @@ public class EnergySource implements HasEquivalences {
 		name="";
 		mEffect = NRJ_EFFECT.UNDEFINED;
 		mQty_reference = new Qty();
-		//par defaut la qyté de référence est en unité internationale
-		//mais ça peut être changé ensuite
-		mQty_reference.setRel_typ_cd(REL_TYP_CD.NRJ_REF_INTRNL);
 		equivalences = new ArrayList<Qty>();
 		setStructure(STRUCTURE.UNDEFINED);
 	}

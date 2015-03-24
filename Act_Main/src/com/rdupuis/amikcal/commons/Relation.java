@@ -66,10 +66,7 @@ public class Relation {
 	Party2 = party2;
     }
 
-    public void save() {
-
-    }
-
+    
     public long getId() {
 	return rel_id;
     }

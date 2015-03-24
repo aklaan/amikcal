@@ -21,50 +21,75 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class Act_UserActivityComponentEditor extends Activity {
 
-    UserActivityComponent mUAC;
+    UserActivity mUA;
+    UserActivityComponent edited_UAC;
     ContentResolver contentResolver;
+    AmiKcalFactory factory;
+    public static final String INPUT____UA_ID = "ua_id";
+    public static final String INPUT____UAC_INDEX = "uac_indx";
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	factory = new AmiKcalFactory(this);
 
 	/***************************************************************************
 	 * ETAPE I : on récupère les infos de l'intent
 	 ***************************************************************************/
 
-	long component_id = getIntent().getLongExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID,
-		AppConsts.NO_ID);
-
-	// si l'Id composant de l'Intent est null, c'est que l'on souhaite créer
-	// un nouveau composant
-	// dans le cas contraire, on récupère les infos de la base
-	// de données
-	if (component_id != AppConsts.NO_ID) {
-	    // chargement du composant stocké
-	    load_UAC(component_id);
-
-	} else {
-	    // Initialisation d'un nouveau composant
-	    mUAC = new UserActivityComponent();
-
-	}
+	// Récupérer l'id de UA des composants à traiter
+	long input_UA_id = getIntent().getLongExtra(this.INPUT____UA_ID, AppConsts.NO_ID);
 
 	// Un composant doit forcément appartenir à une UserActivity
-	long parent_id = getIntent().getLongExtra(
-		AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY, AppConsts.NO_ID);
-
-	if (parent_id == AppConsts.NO_ID) {
+	if (input_UA_id == AppConsts.NO_ID) {
 	    Toast.makeText(this, "Erreur ! Activité parente inconnue", Toast.LENGTH_LONG).show();
 	    this.finish();
 	} else {
-	    load_UA(parent_id);
+	    mUA = factory.load_UserActivity(input_UA_id);
+	}
+
+	int component_index = getIntent().getIntExtra(this.INPUT____UAC_INDEX, AppConsts.NO_INDEX);
+
+	// si l'indexe du composant à éditer est null, c'est que l'on souhaite
+	// créer
+	// un nouveau composant
+	// dans le cas contraire, on récupère les infos de la base
+	// de données
+	if (component_index != AppConsts.NO_INDEX) {
+	    // chargement du composant stocké
+
+	    this.edited_UAC = mUA.getUAC_List().get(component_index);
+
+	} else {
+	    // Initialisation d'un nouveau composant
+	    edited_UAC = new UserActivityComponent();
+	    switch (mUA.getType()) {
+	    case LUNCH:
+		this.edited_UAC.setUAC_Class(REL_TYP_CD.UAC_FOOD);
+		break;
+
+	    case WEIGHT:
+		this.edited_UAC.setUAC_Class(REL_TYP_CD.UAC_WEIGHT);
+		break;
+
+	    case MOVE:
+		this.edited_UAC.setUAC_Class(REL_TYP_CD.UAC_MOVE);
+		break;
+
+	    default:
+		this.edited_UAC.setUAC_Class(REL_TYP_CD.UNDEFINED);
+		break;
+	    }
+
 	}
 
 	/****************************************************************************
@@ -79,18 +104,6 @@ public class Act_UserActivityComponentEditor extends Activity {
 	refreshScreen();
 
     }// fin du onCreate
-
-    public void load_UAC(long _id) {
-	AmiKcalFactory factory = new AmiKcalFactory(this);
-	this.mUAC = factory.load_UAC(_id);
-
-    }
-
-    public void load_UA(long _id) {
-	AmiKcalFactory factory = new AmiKcalFactory(this);
-	this.mUAC.setUserActivity(factory.load_UserActivity(_id));
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,8 +176,7 @@ public class Act_UserActivityComponentEditor extends Activity {
      **************************************************************************************/
     public void callUnitListView() {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
-		String.valueOf(mUAC.getEnergySource().getId()));
+	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_UAC.getEnergySource().getId()));
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -177,44 +189,15 @@ public class Act_UserActivityComponentEditor extends Activity {
      */
     public void onClick_Validate() {
 
-	computeEnegy();
-	// on prépare les informations à mettre à jour
-	ContentValues val = new ContentValues();
-	/*
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.FK_ENERGY,
-	 * this.mUAC.getEnergySource().getId());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.FK_UNIT,
-	 * this.mUAC.getUnitMeasure().getId());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.FK_PARENT,
-	 * mUAC.getParentId());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.QUANTITY,
-	 * mUAC.getQuantity());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.MNT_ENERGY,
-	 * mUAC.getCalories());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.MNT_GLUCIDS,
-	 * mUAC.getGlucids());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.MNT_PROTEINS,
-	 * mUAC.getProteins());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.MNT_LIPIDS,
-	 * mUAC.getLipids());
-	 * val.put(ContentDescriptorObj.ActivityComponent.Columns.LAST_UPDATE,
-	 * ToolBox.getCurrentTimestamp());
-	 */
-	// si l'ID est NULL, on doit faire un INSERT sinon on fait un UPDATE
+	// computeEnegy();
 
-	/*
-	 * if (this.mUAC.getId() == 0) { this.getContentResolver()
-	 * .insert(ContentDescriptorObj
-	 * .ActivityComponent.URI_INSERT_ACTIVITY_COMPONENT, val); } else {
-	 * this.getContentResolver()
-	 * .update(ContentDescriptorObj.ActivityComponent
-	 * .URI_UPDATE_ACTIVITY_COMPONENT, val,
-	 * String.valueOf(this.mUAC.getId()), null); } ;
-	 */
-	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-	// récupérer la valeur.
-	Button bt = (Button) findViewById(R.id.componentview_btn_quantity);
-	this.getIntent().putExtra("result", bt.getText());
+	// si on a créé une nouvelle UAC i lfaut l'ajouter à l'UA
+	if (mUA.getUAC_List().indexOf(edited_UAC) == AppConsts.NO_INDEX) {
+	    mUA.getUAC_List().add(edited_UAC);
+	}
+	;
+
+	factory.save(mUA);
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.
@@ -238,53 +221,40 @@ public class Act_UserActivityComponentEditor extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-	AmiKcalFactory mFactory = new AmiKcalFactory(this);
-
+	
 	switch (requestCode) {
 
 	case R.integer.NUMERICPAD:
 
 	    if (resultCode == RESULT_OK) {
 
-		this.mUAC.getQty().setAmount(
+		this.edited_UAC.getQty().setAmount(
 			Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
-
-		if (this.mUAC.getQty().getUnity().getId() == 0l) {
-		    /* this.callUnitListView(); */
-		}
+	
 	    }
 	    break;
 
 	case R.integer.ACTY_UNITS_LIST:
 
 	    if (resultCode == RESULT_OK) {
-		/*
-		 * // on récupère l'objet Unit. this.mUAC
-		 * .setUnitMeasure(mFactory
-		 * .createUnitOfMeasureObjFromId(Long.parseLong
-		 * (intent.getStringExtra(mResources
-		 * .getString(R.string.INTENT_OUT____UNITS_LIST____ID_OF_THE_UNIT
-		 * )))));
-		 */}
+		
+		
+		 // on récupère l'objet Unit. this.mUAC
+		 this.edited_UAC.getQty().setUnity(factory.load_Unity(Long.parseLong
+		 (intent.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID))));
+		}
 	    break;
 
 	case R.integer.ACTY_ENERGIES_LIST:
 
 	    if (resultCode == RESULT_OK) {
 
-		// on récupère l'objet Energy d'après l'id choisi par
-		// l'utilisateur .
-		/*
-		 * this.mUAC
-		 * .setEnergy(mFactory.createEnergyFromId(Long.parseLong
-		 * (intent.getStringExtra(mResources
-		 * .getString(R.string.INTENT_OUT____ENERGY_LIST____ID_OF_ENERGY
-		 * )))));
-		 * 
-		 * if (this.mUAC.getQuantity() == 0f) {
-		 * 
-		 * this.callNumericPad(); }
-		 */
+		// on récupère l'Energy choisi par l'utilisateur d'après sont id
+		// .
+
+		this.edited_UAC.setEnergySource(factory.load_Energy(Long.parseLong(intent
+			.getStringExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY))));
+
 	    }
 	    break;
 	default:
@@ -307,24 +277,24 @@ public class Act_UserActivityComponentEditor extends Activity {
 	Button b = (Button) findViewById(R.id.componentview_btn_EnergyName);
 
 	// Gestion du libellé sur le bouton Energy
-	if (mUAC.getEnergySource().getName() == "") {
+	if (edited_UAC.getEnergySource().getName() == "") {
 	    b.setText(this.getResources().getString(R.string.empty));
 	} else {
-	    b.setText(this.mUAC.getEnergySource().getName());
+	    b.setText(this.edited_UAC.getEnergySource().getName());
 	}
 
 	// Gestion du libellé sur le bouton Unit
 	b = (Button) findViewById(R.id.componentview_btn_unit);
 
-	if (mUAC.getQty().getUnity().getLongName() == "") {
+	if (edited_UAC.getQty().getUnity().getLongName() == "") {
 	    b.setText(this.getResources().getString(R.string.empty));
 	} else {
-	    b.setText(this.mUAC.getQty().getUnity().getLongName());
+	    b.setText(this.edited_UAC.getQty().getUnity().getLongName());
 	}
 
 	// Gestion du libellé sur le bouton quantity
 	b = (Button) findViewById(R.id.componentview_btn_quantity);
-	b.setText(Float.toString(this.mUAC.getQty().getAmount()));
+	b.setText(Float.toString(this.edited_UAC.getQty().getAmount()));
 
     }
 

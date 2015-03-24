@@ -79,14 +79,14 @@ public static final String INPUT____UA_ID = "ua_id";
      * //On termine l'Acitvity this.finish(); }
      */
 
-    public void onClickComponent(long componentId, long activityId) {
+    public void onClickComponent(long uac_index, long activityId) {
 	Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
 
 	// Intent intent = new Intent(this,
 	// Act_UserActivityComponentSlider.class);
 
-	intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____COMPONENT_ID, componentId);
-	intent.putExtra(AppConsts.INPUT____USER_ACTIVITY_COMPONENT_EDITOR____ID_OF_PARENT_USER_ACTIVITY, activityId);
+	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UA_ID, activityId);
+	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UAC_INDEX, uac_index);
 	startActivityForResult(intent, R.integer.ACTY_COMPONENT);
     }
 
@@ -94,7 +94,7 @@ public static final String INPUT____UA_ID = "ua_id";
     // quel UA
     // l'associer
     public void onClickAdd(View v) {
-	onClickComponent(AppConsts.NO_ID, mUA.get_id());
+	onClickComponent(AppConsts.NO_INDEX, mUA.get_id());
     }
 
     /**
@@ -134,59 +134,18 @@ public static final String INPUT____UA_ID = "ua_id";
 	// on efface la liste actuelle
 	maListViewPerso.removeAllViewsInLayout();
 
-	// Création de la ArrayList qui nous permettra de remplire la listView
+	// Création de la ArrayList qui nous permettra de remplir la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
 	// On déclare la HashMap qui contiendra les informations pour un item
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
-	/*
-	 * Uri selectionUri = ContentUris .withAppendedId(
-	 * ContentDescriptorObj.ViewActivityComponent
-	 * .URI_VIEW_ACTIVITY_COMPONENTS_BY_ACTIVITY, parentId);
-	 * 
-	 * // On cré un curseur pour lire la table des aliments consommés Cursor
-	 * cur = this.getContentResolver().query(selectionUri, null, null, null,
-	 * ContentDescriptorObj.ViewActivityComponent.Columns.LAST_UPDATE);
-	 * 
-	 * final int INDX_COL_ID = cur
-	 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent
-	 * .Columns.ID); final int INDX_COL_NAME = cur
-	 * .getColumnIndex(ContentDescriptorObj
-	 * .ViewActivityComponent.Columns.ENERGY_NAME); final int INDX_COL_QTY =
-	 * cur
-	 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns
-	 * .QUANTITY); final int INDX_COL_UNIT = cur
-	 * .getColumnIndex(ContentDescriptorObj
-	 * .ViewActivityComponent.Columns.UNIT_NAME); final int
-	 * INDX_COL_ACTIVITY = cur
-	 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent
-	 * .Columns.PARENT_ID);
-	 * 
-	 * final int INDX_COL_NBKCAL = cur
-	 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent
-	 * .Columns.MNT_ENERGY); final int INDX_COL_NBGLU = cur
-	 * .getColumnIndex(ContentDescriptorObj
-	 * .ViewActivityComponent.Columns.MNT_GLUCIDS); final int INDX_COL_NBLIP
-	 * = cur
-	 * .getColumnIndex(ContentDescriptorObj.ViewActivityComponent.Columns
-	 * .MNT_LIPIDS); final int INDX_COL_NBPRO = cur
-	 * .getColumnIndex(ContentDescriptorObj
-	 * .ViewActivityComponent.Columns.MNT_PROTEINS);
-	 * 
-	 * // faire un move First pour positionner le pointeur //
-	 * cur.moveToFirst();
-	 * 
-	 * if (cur.moveToFirst()) {
-	 * 
-	 * do {
-	 */
-
+	
 	// Pour chaque UAC de L'UA
 	for (UserActivityComponent UAC : this.mUA.getUAC_List()) {
 
 	    map = new HashMap<String, String>();
-	    map.put("componentId", String.valueOf(UAC.getId()));
+	    map.put("componentId", String.valueOf(this.mUA.getUAC_List().indexOf(UAC)));
 	    map.put("name", UAC.getEnergySource().getName());
 	    map.put("quantity", String.valueOf(UAC.getQty().getAmount()));
 	    map.put("unity", UAC.getQty().getUnity().getLongName());
