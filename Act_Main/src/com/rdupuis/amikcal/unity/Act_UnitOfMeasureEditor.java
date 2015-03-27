@@ -1,14 +1,6 @@
 package com.rdupuis.amikcal.unity;
 
-import java.util.Date;
-
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,9 +9,7 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
-import com.rdupuis.amikcal.useractivity.UserActivityLunch.LunchType;
 
 public class Act_UnitOfMeasureEditor extends Activity {
 

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/energy_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:tag="@drawable/background_amikcal" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_height="fill_parent"
+            android:text="Alim:" 
+            android:layout_width="wrap_content"/>
+
+        <EditText
+            android:id="@+id/energyview_edTxt_energy_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    
+    <RadioButton
+            android:id="@+id/rdiobt_solid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Solide" 
+            android:onClick="onClick_RdioBt_Solid"/>
+    
+    
+    <RadioButton
+            android:id="@+id/rdiobt_liquid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Liquide" 
+            android:onClick="onClick_RdioBt_Liquid"/>
+    
+    <RadioButton
+            android:id="@+id/rdiobt_powder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Poudre" 
+            android:onClick="onClick_RdioBt_Powder"/>
+    
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center|clip_horizontal"
+                android:text="Quantité de référence" />
+    
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/energyview_btn_amount"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_bt_amount"
+            android:text="0.00" />
+
+        <Button
+            android:id="@+id/energyview_btn_unity"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_bt_unity"
+            android:text="choose unity" />
+
+        
+    </LinearLayout>
+    
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/energyview_btn_Validate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_Validate"
+            android:text="Valider" />
+
+        <Button
+            android:id="@+id/energyview_btn_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_Cancel"
+            android:text="Annuler" />
+
+        <Button
+            android:id="@+id/energyview_btn_add"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_edit_equiv"
+            android:text="Ajouter" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/view_components_list_customizedlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        layout="@layout/customizedlist" />
+
+</LinearLayout>

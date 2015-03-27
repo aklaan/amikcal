@@ -144,6 +144,7 @@ public final class ContentDescriptorObj {
 		public static final String UNIT_INTER_LINK = "UNIT_INT_REL";
 		public static final String QTY = "QTY";
 		public static final String UA_UAC = "UA_UAC_REL";
+		public static final String QTY_EQUIV = "QTY_EQU";
 	    }
 	}
 
@@ -207,8 +208,7 @@ public final class ContentDescriptorObj {
 	// Path pour l'Uri pour l'UPDATE d'un enregistrement
 	public static final String UPDATE_ENERGY_ID_PATH = TBNAME + "/" + UPDATE + "_id/#";
 	public static final int UPDATE_ENERGY_ID_TOKEN = 2300;
-	public static final Uri UPDATE_ENERGY_ID_URI = 
-			URI_BASE_ENERGIES.buildUpon().appendPath(UPDATE + "_id").build();
+	public static final Uri UPDATE_ENERGY_ID_URI = URI_BASE_ENERGIES.buildUpon().appendPath(UPDATE + "_id").build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.energies";
@@ -516,8 +516,8 @@ public final class ContentDescriptorObj {
 	// Energy
 	public static final String VIEW_NRJ_QTYREF_PATH = VIEWNAME + "/relation/*";
 	public static final int VIEW_NRJ_QTYREF_TOKEN = 6101;
-	public static final Uri VIEW_NRJ_QTYREF_URI = 
-		URI_BASE_VIEW_NRJ_QTYREF.buildUpon().appendPath("relation").build();
+	public static final Uri VIEW_NRJ_QTYREF_URI = URI_BASE_VIEW_NRJ_QTYREF.buildUpon().appendPath("relation")
+		.build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal." + VIEWNAME;
@@ -563,14 +563,12 @@ public final class ContentDescriptorObj {
 	// Info concernant la table
 	public static final String VIEWNAME = "view_uac_data";
 	private static int VIEW_ID = 7;
-	public static final Uri URI_BASE_VIEW_UAC_DATA = 
-			BASE_URI.buildUpon().appendPath(VIEWNAME).build();
+	public static final Uri URI_BASE_VIEW_UAC_DATA = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_UAC_DATA_PATH = VIEWNAME + "/"+SELECT+"/#";
+	public static final String VIEW_UAC_DATA_PATH = VIEWNAME + "/" + SELECT + "/#";
 	public static final int VIEW_UAC_DATA_TOKEN = 7100;
 
-	public static final Uri VIEW_UAC_DATA_URI = 
-			URI_BASE_VIEW_UAC_DATA.buildUpon().appendPath(SELECT).build();
+	public static final Uri VIEW_UAC_DATA_URI = URI_BASE_VIEW_UAC_DATA.buildUpon().appendPath(SELECT).build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
@@ -590,26 +588,21 @@ public final class ContentDescriptorObj {
      * 
      ***************************************************************************/
     public static final class View_UA_UAC_link {
-
+	// n°de vue = 8
 	// Info concernant la table
 	public static final String VIEW_NAME = "view_ua_uac_link";
 	public static final Uri URI_BASE_VIEW_UA_UAC_REL = BASE_URI.buildUpon().appendPath(VIEW_NAME).build();
 
-	
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_UAC_FOR_UA_PATH = VIEW_NAME +"/" +SELECT+"/#";
+	public static final String VIEW_UAC_FOR_UA_PATH = VIEW_NAME + "/" + SELECT + "/#";
 	public static final int VIEW_UAC_FOR_UA_TOKEN = 8100;
-	public static final Uri VIEW_UAC_FOR_UA_URI = 
-		URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath(SELECT).build();
+	public static final Uri VIEW_UAC_FOR_UA_URI = URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath(SELECT).build();
 
 	public static final String SEARCH_RELATION_PATH = VIEW_NAME + "/relation/*";
 	public static final int SEARCH_RELATION_TOKEN = 8101;
-	public static final Uri SEARCH_RELATION_URI = 
-		URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath("relation").build();
+	public static final Uri SEARCH_RELATION_URI = URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath("relation")
+		.build();
 
-
-	
-	
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEW_NAME;
 
@@ -622,93 +615,72 @@ public final class ContentDescriptorObj {
     }
 
     /***************************************************************************
+     * <h1>View_qty_equiv</h1>
+     * <p>
+     * Vue permettant de équupérer les equivalences d'une qty
+     * </p>
+     * <p>
+     * Token = <b>10</b>[x]nn
+     * </p>
+     * 
+     * @author Rodolphe
+     * 
+     ***************************************************************************/
+    public static final class View_qty_equiv {
+	//
+	// Info concernant la table
+	public static final String VIEWNAME = "view_qty_equiv";
+	public static final Uri URI_BASE_VIEW_QTY_EQUIV = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
+
+	// Path pour l'Uri de séléction d'un enregistrement
+	public static final String VIEW_ALL_QTY_EQUIV_PATH = VIEWNAME + "/" + SELECT + "/#";
+	public static final int VIEW_ALL_QTY_EQUIV_TOKEN = 10100;
+	public static final Uri VIEW_ALL_QTY_EQUIV_URI = URI_BASE_VIEW_QTY_EQUIV.buildUpon().appendPath(SELECT).build();
+
+	public static final String SEARCH_RELATION_PATH = VIEWNAME + "/relation/*";
+	public static final int SEARCH_RELATION_TOKEN = 10101;
+	public static final Uri SEARCH_RELATION_URI = URI_BASE_VIEW_QTY_EQUIV.buildUpon().appendPath("relation")
+		.build();
+
+	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
+	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
+
+	public static final class Columns {
+	    public static final String REL_ID = "rel_id";
+	    public static final String QTY_ID = "qty_id";
+	    public static final String QTY_EQUIV_ID = "qty_equiv_id";
+
+	}
+    }
+
+    /***************************************************************************
      * Vue permettant de charger une Qty
      * 
      * @author Rodolphe
      * 
      ***************************************************************************/
     public static final class View_Qty {
-
+	// n°de vue = 9
 	// Info concernant la table
 	public static final String VIEWNAME = "view_qty";
 	private static int VIEW_ID = 9;
 	public static final Uri URI_BASE_VIEW_QTY = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
 
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_QTY_BY_ID_PATH = VIEWNAME + "/"+SELECT+"_id/#";
+	public static final String VIEW_QTY_BY_ID_PATH = VIEWNAME + "/" + SELECT + "_id/#";
 	public static final int VIEW_QTY_BY_ID_TOKEN = 9100;
 
-	public static final Uri VIEW_QTY_BY_ID_URI = 
-			URI_BASE_VIEW_QTY.buildUpon().appendPath(SELECT + "_id").build();
+	public static final Uri VIEW_QTY_BY_ID_URI = URI_BASE_VIEW_QTY.buildUpon().appendPath(SELECT + "_id").build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
 
 	public static final class Columns {
-		public static final String QTY_ID = "qty_id";
-		public static final String UNITY_ID = "unity_id";
+	    public static final String QTY_ID = "qty_id";
+	    public static final String UNITY_ID = "unity_id";
 	    public static final String AMOUNT = "amount";
 
 	}
-    }
-
-    /***********************************************************************************
-     * Vue des aliments consommées.
-     * 
-     * @author R.DUPUIS
-     * 
-     **********************************************************************************/
-    public static final class XX_View_Energies implements BaseColumns {
-
-	// Info concernant la table
-	public static final String NAME = "view_energies";
-	private static int VIEW_ID = 10;
-
-	// Path pour l'Uri de séléction de toute la table
-	public static final String SELECT_VIEW_ENERGIES = "view_energies";
-	public static final int SELECT_VIEW_ENERGIES_TOKEN = 10100;
-
-	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String SELECT_VIEW_ENERGIES_BY_ID = "view_energies/#";
-	public static final int SELECT_VIEW_ENERGIES_BY_ID_TOKEN = 10101;
-
-	public static final Uri URI_CONTENT_VIEW_ENERGIES = BASE_URI.buildUpon().appendPath(SELECT_VIEW_ENERGIES)
-		.build();
-
-	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.view_energies";
-
-	// si je dois mettre à jour la qty de référence, je dois connaitre l'id
-	// de la relation
-	// idem pour les équivalences
-	// la vue ne consiste donc pas à récupérer uniquement les objets lies
-	// entre eux.
-	// il faut aussi récupérer les liens pour pouvoir les mettre à jour.
-
-	/**
-	 * notes :
-	 * 
-	 * si j'ai id nrj, je peux retrouver id relation qty ref
-	 * 
-	 * energy.getQty(setAmount(199)) ==> compliqué
-	 * 
-	 * id = Relation.getId(energy,qty) si je veux mettre à jour la quantité
-	 * de calories je dois rechercher l'id de l'équivalence pour calories et
-	 * mettre à jour
-	 */
-	// _id nrj nrj_name nrj_amount_ref nrj_unit_ref
-
-	public static final class Columns {
-	    public static final String ENERGY_ID = "energy_id";
-	    public static final String ENERGY_NAME = "energy_name";
-	    public static final String AMOUNT_REF = "amount_ref";
-	    public static final String UNIT_REF_ID = "unit_ref_id";
-	    public static final String UNIT_NAME = "unit_name";
-	    public static final String LAST_UPDATE = "last_update";
-	    public static final String PARENT_ID = "parent_ID";
-
-	}
-
     }
 
     /**
@@ -722,11 +694,12 @@ public final class ContentDescriptorObj {
 
 	, SELECT_ALL_UAC_OF_UA, SELECT_QTYREF_OF_NRJ, UPDATE_UNITY, SELECT_ALL_UNITS, SELECT_ONE_UNITY_BY_ID, INSERT_UNITY, INSERT_ENERGY, INSERT_USER_ACTIVITY
 
-	, SELECT_ALL_ENERGIES, SELECT_ONE_ENERGY_BY_ID, SELECT_ENERGIES_LIKE, UPDATE_ENERGY,SELECT_QTYREF_RELATION,
+	, SELECT_ALL_ENERGIES, SELECT_ONE_ENERGY_BY_ID, SELECT_ENERGIES_LIKE, UPDATE_ENERGY, SELECT_QTYREF_RELATION,
 
 	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE, DELETE_USER_ACTIVITY, SELECT_DB_VERSION, SELECT_REL_NRJ_QTYREF
-    
-    ,INSERT_PARTY_REL,UPDATE_PARTY_REL,UPDATE_ENERGY_ID,SEARCH_REL_UA_UAC,SELECT_UAC
+
+	, INSERT_PARTY_REL, UPDATE_PARTY_REL, UPDATE_ENERGY_ID, SEARCH_REL_UA_UAC, SELECT_UAC,SELECT_ALL_QTY_EQUIV
+    ,SEARCH_QTY_EQUIV
     }
 
     public static final class TOKEN_MAP {
@@ -765,17 +738,15 @@ public final class ContentDescriptorObj {
 	    //
 	    _in.put(View_NRJ_QtyRef.VIEW_NRJ_QTYREF_TOKEN, REQUESTS_LIST.SELECT_QTYREF_RELATION);
 	    _in.put(View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_TOKEN, REQUESTS_LIST.SELECT_QTYREF_OF_NRJ);
-	    
+
 	    //
 	    _in.put(View_UA_UAC_link.VIEW_UAC_FOR_UA_TOKEN, REQUESTS_LIST.SELECT_ALL_UAC_OF_UA);
 	    //
 	    _in.put(View_Qty.VIEW_QTY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_QTY_BY_ID);
 	    _in.put(View_UA_UAC_link.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_REL_UA_UAC);
 
-	    
 	    _in.put(View_UAC_Data.VIEW_UAC_DATA_TOKEN, REQUESTS_LIST.SELECT_UAC);
-	    
-	    
+
 	    //
 	    _in.put(CustomQuery.DB_VERSION_TOKEN, REQUESTS_LIST.SELECT_DB_VERSION);
 	    //
@@ -783,6 +754,10 @@ public final class ContentDescriptorObj {
 	    //
 	    _in.put(TB_UserActivities.UPDATE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.UPDATE_USER_ACTIVITY);
 
+	    _in.put(View_qty_equiv.VIEW_ALL_QTY_EQUIV_TOKEN, REQUESTS_LIST.SELECT_ALL_QTY_EQUIV);
+	    _in.put(View_qty_equiv.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_QTY_EQUIV);
+
+	    
 	}
     }
 
@@ -833,16 +808,14 @@ public final class ContentDescriptorObj {
 	// ----------------------------------------------------------------
 	matcher.addURI(authority, View_UAC_Data.VIEW_UAC_DATA_PATH, View_UAC_Data.VIEW_UAC_DATA_TOKEN);
 
-	
 	matcher.addURI(authority, View_UA_UAC_link.SEARCH_RELATION_PATH, View_UA_UAC_link.SEARCH_RELATION_TOKEN);
 
-	
 	// Match pour la vue de selection des liens NRJ<->QtyRef
 	// ----------------------------------------------------------------
 	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_PATH, View_NRJ_QtyRef.VIEW_NRJ_QTYREF_TOKEN);
-	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_PATH, View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_TOKEN);
+	matcher.addURI(authority, View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_PATH,
+		View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_TOKEN);
 
-	
 	matcher.addURI(authority, View_Qty.VIEW_QTY_BY_ID_PATH, View_Qty.VIEW_QTY_BY_ID_TOKEN);
 	// Match(s) pour la table user_activities
 	// ----------------------------------------------------------------
@@ -871,7 +844,12 @@ public final class ContentDescriptorObj {
 	matcher.addURI(authority, CustomQuery.DB_VERSION_PATH, CustomQuery.DB_VERSION_TOKEN);
 	matcher.addURI(authority, CustomQuery.LAST_WEIGHT_FROM, CustomQuery.LAST_WEIGHT_FROM_TOKEN);
 	matcher.addURI(authority, CustomQuery.USED_UNITS_FOR_ENERGY, CustomQuery.USED_UNITS_FOR_ENERGY_TOKEN);
+	
+	matcher.addURI(authority, View_qty_equiv.VIEW_ALL_QTY_EQUIV_PATH, View_qty_equiv.VIEW_ALL_QTY_EQUIV_TOKEN);
+	
 
+	matcher.addURI(authority, View_qty_equiv.SEARCH_RELATION_PATH, View_qty_equiv.SEARCH_RELATION_TOKEN);
+	
 	return matcher;
     }
 

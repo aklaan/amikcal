@@ -2,6 +2,8 @@ package com.rdupuis.amikcal.energy;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +12,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +25,9 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 /**
  * Cette vue permet de renseigner une nouvelle energie et ses equivalences
@@ -27,16 +35,19 @@ import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
  * @author Rodolphe
  * 
  */
-public class Act_EnergyEditor extends Activity {
+public class Act_EnergyEditor2 extends Activity {
 
     EnergySource mEnergy;
+    AmiKcalFactory factory;
+    private ListView maListViewPerso;
     public static final String INPUT____ID_OF_ENERGY = "NRJ_ID";
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.view_edit_energy_food);
+	factory = new AmiKcalFactory(this);
+	setContentView(R.layout.view_edit_energy_food2);
 	mEnergy = new EnergySource();
 
 	try {
@@ -72,7 +83,7 @@ public class Act_EnergyEditor extends Activity {
      * 
      * @param v
      **************************************************************************************/
-    public void onClick_Quantity(View v) {
+    public void onClick_bt_amount(View v) {
 	Intent intent = new Intent(this, Act_NumericPad.class);
 	intent.putExtra("question", "Entrez la quantité de référence");
 	startActivityForResult(intent, R.integer.BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD);
@@ -82,54 +93,35 @@ public class Act_EnergyEditor extends Activity {
      * 
      * @param v
      **************************************************************************************/
-    public void onClick_MntEnergy(View v) {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez le nomnre de Kilo Calories");
-	startActivityForResult(intent, R.integer.BTN_MNT_ENERGY_OF_ENERGY_VIEW_CALL_NUMERICPAD);
-    }
-
-    /***************************************************************************************
-     * 
-     * @param v
-     **************************************************************************************/
-    public void onClick_MntProteins(View v) {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez la quantité de Protéines");
-	startActivityForResult(intent, R.integer.BTN_MNT_PROTEINS_OF_ENERGY_VIEW_CALL_NUMERICPAD);
-    }
-
-    /***************************************************************************************
-     * 
-     * @param v
-     **************************************************************************************/
-    public void onClick_MntLipids(View v) {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez la quantité Lipides");
-	startActivityForResult(intent, R.integer.BTN_MNT_LIPIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD);
-    }
-
-    /***************************************************************************************
-     * 
-     * @param v
-     **************************************************************************************/
-    public void onClick_MntGlucids(View v) {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez la quantité de Glucides");
-	startActivityForResult(intent, R.integer.BTN_MNT_GLUCIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD);
-
-    }
-
-    /***************************************************************************************
-     * 
-     * @param v
-     **************************************************************************************/
-    public void onClick_Unit(View v) {
+    public void onClick_bt_unity(View v) {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
 
-    /******************************************************************************************
+    public void onClick_RdioBt_Liquid(View v) {
+	this.mEnergy.setStructure(STRUCTURE.LIQUID);
+	((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(true);
+	((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
+	((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
+    }
+
+    public void onClick_RdioBt_Solid(View v) {
+	this.mEnergy.setStructure(STRUCTURE.SOLID);
+	((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
+	((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(true);
+	((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
+    }
+
+    public void onClick_RdioBt_Powder(View v) {
+	this.mEnergy.setStructure(STRUCTURE.POWDER);
+	((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
+	((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
+	((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(true);
+    }
+
+    /*******************
+     * ***********************************************************************
      * onActivityResult : on récupère les info saisies dans le pad numérique.
      * 
      ******************************************************************************************/
@@ -137,49 +129,6 @@ public class Act_EnergyEditor extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
 	switch (requestCode) {
-
-	case R.integer.BTN_MNT_ENERGY_OF_ENERGY_VIEW_CALL_NUMERICPAD:
-
-	    if (resultCode == RESULT_OK) {
-
-		Qty nbKcal = new Qty();
-		nbKcal.setAmount(Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
-		// récupérer l'id de l'unité "Kcal"
-
-		// Ajouter l'équivalence
-		this.mEnergy.getEquivalences().add(nbKcal);
-	    }
-	    break;
-
-	case R.integer.BTN_MNT_GLUCIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD:
-
-	    if (resultCode == RESULT_OK) {
-
-		// this.mEnergy.setGlucids(Float.parseFloat(intent
-		// .getStringExtra(getResources().getString(
-		// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
-	    }
-	    break;
-
-	case R.integer.BTN_MNT_LIPIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD:
-
-	    if (resultCode == RESULT_OK) {
-
-		// this.mEnergy.setLipids(Float.parseFloat(intent
-		// .getStringExtra(getResources().getString(
-		// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
-	    }
-	    break;
-
-	case R.integer.BTN_MNT_PROTEINS_OF_ENERGY_VIEW_CALL_NUMERICPAD:
-
-	    if (resultCode == RESULT_OK) {
-
-		// this.mEnergy.setProteins(Float.parseFloat(intent
-		// .getStringExtra(getResources().getString(
-		// R.string.INTENT_OUT____NUMERICPAD_RESULT))));
-	    }
-	    break;
 
 	case R.integer.BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD:
 
@@ -246,32 +195,77 @@ public class Act_EnergyEditor extends Activity {
 	dfs.setDecimalSeparator(',');
 	decimalFormat.setDecimalFormatSymbols(dfs);
 
-	// bt.setText(decimalFormat.format(this.mnt_quantity).toString());
+	// recharger les modification qui ont pu être effectué sur l'UA
+	this.mEnergy = factory.load_Energy(this.mEnergy.getId());
 
+	Button bt = (Button) findViewById(R.id.energyview_btn_amount);
+	bt.setText(decimalFormat.format(this.mEnergy.getQtyReference().getAmount()));
+
+	bt = (Button) findViewById(R.id.energyview_btn_unity);
+	bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
+	
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
 	ed.setText(this.mEnergy.getName());
 
-	Button bt = (Button) findViewById(R.id.energyview_btn_quantity);
-	bt.setText(String.valueOf(this.mEnergy.getQtyReference().getAmount()));
+	switch (this.mEnergy.getStructure()) {
+	case LIQUID:
+	    ((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(true);
+	    ((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
+	    ((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
+	    break;
+	case SOLID:
+	    ((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
+	    ((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(true);
+	    ((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
+	    break;
+	case POWDER:
+	    ((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
+	    ((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
+	    ((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(true);
+	default:
+	    ((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
+	    ((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
+	    ((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
+	    
+	    break;
+	}
 
-	bt = (Button) findViewById(R.id.energyview_btn_unit);
-	bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
+	// Récupération de la listview créée dans le fichier customizedlist.xml
+	maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
-	/*
-	 * 
-	 * Button bt = (Button) findViewById(R.id.energyview_btn_mnt_energy);
-	 * bt.setText(Float.toString(this.mEnergy.getCalories()));
-	 * 
-	 * 
-	 * bt = (Button) findViewById(R.id.energyview_btn_mnt_glucids);
-	 * bt.setText(Float.toString(this.mEnergy.getGlucids()));
-	 * 
-	 * bt = (Button) findViewById(R.id.energyview_btn_mnt_lipids);
-	 * bt.setText(Float.toString(this.mEnergy.getLipids()));
-	 * 
-	 * bt = (Button) findViewById(R.id.energyview_btn_mnt_proteins);
-	 * bt.setText(Float.toString(this.mEnergy.getProteins()));
-	 */
+	// effacer la liste actuelle
+	maListViewPerso.removeAllViewsInLayout();
+
+	// Création de la ArrayList qui nous permettra de remplir la listView
+	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
+
+	// On déclare la HashMap qui contiendra les informations pour un item
+	HashMap<String, String> map;
+	map = new HashMap<String, String>();
+
+	// Pour chaque UAC de L'UA
+	for (Qty equiv : this.mEnergy.getEquivalences()) {
+
+	    map = new HashMap<String, String>();
+	    map.put("EQUIV_INDEX", String.valueOf(this.mEnergy.getEquivalences().indexOf(equiv)));
+
+	    map.put("quantity", String.valueOf(equiv.getAmount()));
+	    map.put("unity", equiv.getUnity().getLongName());
+
+	    listItem.add(map);
+	}
+
+	// Création d'un SimpleAdapter qui se chargera de mettre les items
+	// présent dans notre list (listItem)
+	// dans la vue affichageitem
+	SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem,
+		R.layout.list_item_activity_lunch_component, new String[] { "name", "quantity", "energy", "equiv",
+			"nbglu", "nbpro", "nblip" }, new int[] { R.id.itemfood_name, R.id.itemfood_quantity,
+			R.id.itemfood_nbkcal, R.id.itemfood_equiv, R.id.itemfood_glu, R.id.itemfood_pro,
+			R.id.itemfood_lip });
+
+	// On attribut à notre listView l'adapter que l'on vient de créer
+	maListViewPerso.setAdapter(mSchedule);
 
     }
 

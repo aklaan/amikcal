@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
-import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
-import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 
  

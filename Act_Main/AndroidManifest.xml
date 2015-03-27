@@ -59,6 +59,9 @@
         </activity>
         <activity android:name="com.rdupuis.amikcal.energy.Act_EnergyEditor" >
         </activity>
+        <activity android:name="com.rdupuis.amikcal.energy.Act_EnergyEditor2" >
+        </activity>
+        
         <activity android:name="com.rdupuis.amikcal.energy.Act_EnergyList" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.opengl.testOpenGl2es" >

@@ -130,8 +130,7 @@ public final class AmiKcalFactory {
 	// on passe par la vue View_NRJ_Qty_link
 	// elle nous permet d'avoir directement des info necessaires
 	// id energy =>id relation => id Qty
-	int a = 0;
-	a = a;
+	
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_URI,
 		NRJ_id);
 	Cursor cursor = this.contentResolver.query(selectUri, null, null, null, null);
@@ -462,7 +461,28 @@ public final class AmiKcalFactory {
     // QUESTION ! faut-il créer des UAC_EQUIV ou bien les recalculer ?
 
     public ArrayList<Qty> load_Equiv(Qty qty) {
-	return null;
+	ArrayList<Qty> equiv_list = new ArrayList<Qty>();
+	Uri request = ContentUris
+		.withAppendedId(ContentDescriptorObj.View_UA_UAC_link.VIEW_UAC_FOR_UA_URI, qty.getId());
+
+	Cursor cur = this.contentResolver.query(request, null, null, null, null);
+
+	final int QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_UA_UAC_link.Columns.UAC_ID);
+
+	// faire un move First pour positionner le pointeur, sinon on pointe sur
+	// null
+	if (cur.moveToFirst()) {
+
+	    do {
+		Qty qty_equiv = this.load_Qty(cur.getLong(QTY_ID));
+		equiv_list.add(qty_equiv);
+
+	    } while (cur.moveToNext());
+	}
+	cur.close();
+
+	
+	return equiv_list;
 
     }
 

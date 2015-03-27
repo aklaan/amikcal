@@ -7,7 +7,6 @@ import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :

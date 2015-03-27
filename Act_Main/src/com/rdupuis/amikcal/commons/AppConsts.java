@@ -165,6 +165,7 @@ public final class AppConsts {
 	    _out.put(REL_TYP_CD.UNIT_INTER_LINK, TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_INTER_LINK);
 	    _out.put(REL_TYP_CD.UAC_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.UAC_EQUIV);
 	    _out.put(REL_TYP_CD.QTY, TB_Party_rel.PredefinedValues.RelationsCodes.QTY);
+	    _out.put(REL_TYP_CD.QTY_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.QTY_EQUIV);
 
 
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNDEFINED, REL_TYP_CD.UNDEFINED);
