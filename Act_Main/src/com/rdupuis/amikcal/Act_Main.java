@@ -61,7 +61,7 @@ public class Act_Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         
-		initializeStatic();
+		
 		
 		setContentView(R.layout.mainview);
 		//setContentView(R.layout.fragment_day_user_activities_synthese);
@@ -94,9 +94,7 @@ public class Act_Main extends Activity {
         
     }
     
-	private void initializeStatic(){
-		TB_UserActivities aa = new TB_UserActivities();
-	}
+	
 	
 	
 	private  Handler mHandler = new Handler() {

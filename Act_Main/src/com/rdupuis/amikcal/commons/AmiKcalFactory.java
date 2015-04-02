@@ -20,6 +20,7 @@ import com.rdupuis.amikcal.commons.AppConsts.UNIT_CLASS_MAP;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
@@ -99,7 +100,7 @@ public final class AmiKcalFactory {
 	    energy.setQtyReference(qtyRef);
 
 	    // Charger les équivalences de la qty ref
-	    ArrayList<Qty> equivalences = new ArrayList<Qty>();
+	    ArrayList<Equivalence> equivalences = new ArrayList<Equivalence>();
 	    equivalences = this.load_Equiv(qtyRef);
 	    energy.setEquivalences(equivalences);
 
@@ -460,22 +461,26 @@ public final class AmiKcalFactory {
     // recharger les équivalences d'un objet
     // QUESTION ! faut-il créer des UAC_EQUIV ou bien les recalculer ?
 
-    public ArrayList<Qty> load_Equiv(Qty qty) {
-	ArrayList<Qty> equiv_list = new ArrayList<Qty>();
+    public ArrayList<Equivalence> load_Equiv(Qty qty) {
+	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
 	Uri request = ContentUris
-		.withAppendedId(ContentDescriptorObj.View_UA_UAC_link.VIEW_UAC_FOR_UA_URI, qty.getId());
+		.withAppendedId(ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI, qty.getId());
 
 	Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
-	final int QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_UA_UAC_link.Columns.UAC_ID);
-
+	final int QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID);
+	final int EQUIV_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.REL_ID);
+	final int EQUIV_QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.QTY_EQUIV_ID);
 	// faire un move First pour positionner le pointeur, sinon on pointe sur
 	// null
 	if (cur.moveToFirst()) {
 
 	    do {
-		Qty qty_equiv = this.load_Qty(cur.getLong(QTY_ID));
-		equiv_list.add(qty_equiv);
+		Equivalence eq = new Equivalence();
+		eq.setId(cur.getLong(EQUIV_ID));
+		eq.setQuantityIn(qty);
+		eq.setQuantityOut(this.load_Qty(cur.getLong(EQUIV_QTY_ID)));
+		equiv_list.add(eq);
 
 	    } while (cur.moveToNext());
 	}
@@ -486,6 +491,43 @@ public final class AmiKcalFactory {
 
     }
 
+    /*****************************************************************************************
+     * 
+     * @param qty
+     * @return
+     ******************************************************************************************/
+    // recharger toutes les équivalences 
+
+    public ArrayList<Equivalence> load_Equiv() {
+	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
+	Uri request = ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI;
+
+	Cursor cur = this.contentResolver.query(request, null, null, null, null);
+
+	final int QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID);
+	final int EQUIV_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.REL_ID);
+	final int EQUIV_QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.QTY_EQUIV_ID);
+	// faire un move First pour positionner le pointeur, sinon on pointe sur
+	// null
+	if (cur.moveToFirst()) {
+
+	    do {
+		Equivalence eq = new Equivalence();
+		eq.setId(cur.getLong(EQUIV_ID));
+		eq.setQuantityIn(this.load_Qty(cur.getLong(QTY_ID)));
+		eq.setQuantityOut(this.load_Qty(cur.getLong(EQUIV_QTY_ID)));
+		equiv_list.add(eq);
+
+	    } while (cur.moveToNext());
+	}
+	cur.close();
+
+	
+	return equiv_list;
+
+    }
+
+    
     /*****************************************************************************************
      * Enregister une UA dans la database
      * 
@@ -771,7 +813,7 @@ public final class AmiKcalFactory {
     /*****************************************************************************************
      * Enregister une relation dans la database
      ******************************************************************************************/
-    public Relation saveRelation(Relation relation) {
+    public ReadableRelationInterface saveRelation(ReadableRelationInterface relation) {
 
 	// On prépare les informations à mettre à jour
 	ContentValues val = new ContentValues();

@@ -308,7 +308,15 @@ public class ContentProviderObj extends ContentProvider {
 	case SELECT_DB_VERSION: {
 	    return db.rawQuery("PRAGMA user_version", null);
 	}
+	case SELECT_ALL_QTY_EQUIV:{
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);
 
+	    String whereClause = ContentDescriptorObj.View_qty_equiv.VIEWNAME + "."
+		    + ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID + "=" + uri.getLastPathSegment();
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+	    
+	}
 		
 
 	/*

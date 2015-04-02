@@ -19,6 +19,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
 /**
@@ -142,8 +143,8 @@ public class Act_EnergyEditor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		Qty nbKcal = new Qty();
-		nbKcal.setAmount(Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
+		Equivalence nbKcal = new Equivalence();
+		nbKcal.getQuantityOut().setAmount(Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
 		// récupérer l'id de l'unité "Kcal"
 
 		// Ajouter l'équivalence

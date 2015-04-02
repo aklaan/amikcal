@@ -30,7 +30,7 @@ package com.rdupuis.amikcal.commons;
  * </p>
  */
 
-public class Relation {
+public class Relation implements ReadableRelationInterface{
     public static enum REL_TYP_CD {
 	UAC_FOOD, UAC_MOVE, UAC_WEIGHT, UA_UAC, NRJ_REF_INTRNL, 
 	NRJ_REF_EQUIV, CSTM_NRJ_REF, UNIT_EQUIV, UNIT_INTER_LINK, 

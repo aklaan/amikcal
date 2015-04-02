@@ -26,6 +26,7 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
+import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
@@ -244,13 +245,13 @@ public class Act_EnergyEditor2 extends Activity {
 	map = new HashMap<String, String>();
 
 	// Pour chaque UAC de L'UA
-	for (Qty equiv : this.mEnergy.getEquivalences()) {
+	for (Equivalence equiv : this.mEnergy.getEquivalences()) {
 
 	    map = new HashMap<String, String>();
 	    map.put("EQUIV_INDEX", String.valueOf(this.mEnergy.getEquivalences().indexOf(equiv)));
 
-	    map.put("quantity", String.valueOf(equiv.getAmount()));
-	    map.put("unity", equiv.getUnity().getLongName());
+	    map.put("quantity", String.valueOf(equiv.getQuantityOut().getAmount()));
+	    map.put("unity", equiv.getQuantityOut().getUnity().getLongName());
 
 	    listItem.add(map);
 	}

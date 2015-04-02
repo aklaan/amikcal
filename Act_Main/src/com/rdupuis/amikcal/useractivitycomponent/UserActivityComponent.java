@@ -7,6 +7,7 @@ import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.equivalence.Equivalence;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :
@@ -21,13 +22,13 @@ import com.rdupuis.amikcal.energy.EnergySource;
  * @author Rodolphe
  *
  */
-public class UserActivityComponent implements HasEquivalences {
+public class UserActivityComponent  {
 
     private long id;
     // private UserActivity mUserActivity;
     private EnergySource mEnergySource;
     private Qty mQty;
-    private ArrayList<Qty> mEquivalences;
+    private ArrayList<Equivalence> mEquivalences;
     private REL_TYP_CD mUAC_Class; 
     
     /**
@@ -36,7 +37,7 @@ public class UserActivityComponent implements HasEquivalences {
     public UserActivityComponent() {
 	id = AppConsts.NO_ID;
 	mEnergySource = new EnergySource();
-	setEquivalences(new ArrayList<Qty>());
+	setEquivalences(new ArrayList<Equivalence>());
 	this.mQty = new Qty();
     }
 
@@ -72,11 +73,11 @@ public class UserActivityComponent implements HasEquivalences {
 	this.mQty = mQty;
     }
 
-    public ArrayList<Qty> getEquivalences() {
+    public ArrayList<Equivalence> getEquivalences() {
 	return mEquivalences;
     }
 
-    public void setEquivalences(ArrayList<Qty> mEquivalences) {
+    public void setEquivalences(ArrayList<Equivalence> mEquivalences) {
 	this.mEquivalences = mEquivalences;
     }
 

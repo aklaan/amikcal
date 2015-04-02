@@ -224,8 +224,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une activité et
-		 // ses UAC composantes.
+		 // Création de la vue permettant de faire le lien entre une QTY et
+		 // ses équivalences.
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
@@ -259,7 +259,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type NRJ_REF_INTRNL
+				// On séléctionne les liens de type QTY_EQUIVL
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."

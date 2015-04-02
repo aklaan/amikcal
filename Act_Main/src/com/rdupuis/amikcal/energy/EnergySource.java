@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.equivalence.Equivalence;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -19,7 +20,7 @@ import com.rdupuis.amikcal.commons.Qty;
  *
  */
 
-public class EnergySource implements HasEquivalences {
+public class EnergySource  {
 
 	public static enum NRJ_EFFECT {
 		GIVE, BURN,UNDEFINED
@@ -32,7 +33,7 @@ public class EnergySource implements HasEquivalences {
 	private String name;
 	private NRJ_EFFECT mEffect;
 	private Qty mQty_reference; // quantité de référence
-	private ArrayList<Qty> equivalences;
+	private ArrayList<Equivalence> equivalences;
 	private STRUCTURE mStructure;
 	
 	public EnergySource(){
@@ -40,7 +41,7 @@ public class EnergySource implements HasEquivalences {
 		name="";
 		mEffect = NRJ_EFFECT.UNDEFINED;
 		mQty_reference = new Qty();
-		equivalences = new ArrayList<Qty>();
+		equivalences = new ArrayList<Equivalence>();
 		setStructure(STRUCTURE.UNDEFINED);
 	}
 	
@@ -69,12 +70,12 @@ public class EnergySource implements HasEquivalences {
 		return mQty_reference;
 	}
 
-	public ArrayList<Qty> getEquivalences() {
+	public ArrayList<Equivalence> getEquivalences() {
 		return equivalences;
 	}
 
-	public void setEquivalences(ArrayList<Qty> equivalences) {
-		this.equivalences = equivalences;
+	public void setEquivalences(ArrayList<Equivalence> equivalences2) {
+		this.equivalences = equivalences2;
 	}
 
 	public long getId() {
