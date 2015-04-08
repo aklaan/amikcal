@@ -59,6 +59,10 @@ public final class AmiKcalFactory {
 
 	EnergySource energy = new EnergySource();
 
+	if (_id == AppConsts.NO_ID) {
+	    return energy;
+	}
+	
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.SELECT_ONE_ENERGIES_BY_ID_URI, _id);
 	Cursor cursor = this.contentResolver.query(selectUri, null, null, null, null);
 
@@ -128,10 +132,17 @@ public final class AmiKcalFactory {
      ****************************************************************************/
     public Qty load_QtyReference(long NRJ_id) {
 
+	Qty qty = new Qty();
+	
+	if (NRJ_id == AppConsts.NO_ID) {
+	    return qty;
+	}
+	
+	
 	// on passe par la vue View_NRJ_Qty_link
 	// elle nous permet d'avoir directement des info necessaires
 	// id energy =>id relation => id Qty
-	
+
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_URI,
 		NRJ_id);
 	Cursor cursor = this.contentResolver.query(selectUri, null, null, null, null);
@@ -139,8 +150,7 @@ public final class AmiKcalFactory {
 	// id de la relation QTY
 	final int INDX_QTY_ID = cursor.getColumnIndex(ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID);
 
-	Qty qty = new Qty();
-
+	
 	// faire un move First pour positionner le pointeur, sinon on pointe sur
 	// null
 
@@ -169,6 +179,10 @@ public final class AmiKcalFactory {
 
 	Unity u = new Unity();
 
+	if (_id == AppConsts.NO_ID) {
+	    return u;
+	}
+	
 	u.setId(_id);
 
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Units.URI_SELECT_UNIT, _id);
@@ -210,6 +224,13 @@ public final class AmiKcalFactory {
      **/
     public UserActivity load_UserActivity(long _id) {
 
+	UserActivity userActivity = new UserActivity();
+	
+	if (_id == AppConsts.NO_ID) {
+	    return userActivity;
+	}
+	
+	
 	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI,
 		_id);
 
@@ -220,7 +241,7 @@ public final class AmiKcalFactory {
 	final int ACTIVITY_CLASS = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.CLASS);
 	final int ACTIVITY_DATE = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.DATE);
 
-	UserActivity userActivity = null;
+	
 	// faire un move First pour positionner le pointeur, sinon on pointe sur
 	// null
 	if (cur.moveToFirst()) {
@@ -267,6 +288,10 @@ public final class AmiKcalFactory {
     public ArrayList<UserActivityComponent> load_UAC_List(UserActivity UA) {
 	ArrayList<UserActivityComponent> UAC_list = new ArrayList<UserActivityComponent>();
 
+	if (UA.get_id() == AppConsts.NO_ID) {
+	    return UAC_list;
+	}
+	
 	Uri request = ContentUris
 		.withAppendedId(ContentDescriptorObj.View_UA_UAC_link.VIEW_UAC_FOR_UA_URI, UA.get_id());
 
@@ -371,6 +396,13 @@ public final class AmiKcalFactory {
 
 	// cette URI est générique. on ne sais pas quel type d'UAC on récupère
 	UserActivityComponent mUAC = new UserActivityComponent();
+	
+	
+	if (_id == AppConsts.NO_ID) {
+	    return mUAC;
+	}
+	
+	
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.View_UAC_Data.VIEW_UAC_DATA_URI, _id);
 
 	// On crée un curseur pour lire la vue
@@ -426,6 +458,13 @@ public final class AmiKcalFactory {
      *****************************************************************************************/
     public Qty load_Qty(long _id) {
 	Qty qty = new Qty();
+	
+	if (_id == AppConsts.NO_ID) {
+	    return qty;
+	}
+	
+	
+	
 	qty.setId(_id);
 
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.View_Qty.VIEW_QTY_BY_ID_URI, _id);
@@ -463,8 +502,14 @@ public final class AmiKcalFactory {
 
     public ArrayList<Equivalence> load_Equiv(Qty qty) {
 	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
-	Uri request = ContentUris
-		.withAppendedId(ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI, qty.getId());
+	
+	if (qty.getId() == AppConsts.NO_ID) {
+	    return equiv_list;
+	}
+	
+	
+	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI,
+		qty.getId());
 
 	Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
@@ -486,7 +531,6 @@ public final class AmiKcalFactory {
 	}
 	cur.close();
 
-	
 	return equiv_list;
 
     }
@@ -496,10 +540,12 @@ public final class AmiKcalFactory {
      * @param qty
      * @return
      ******************************************************************************************/
-    // recharger toutes les équivalences 
+    // recharger toutes les équivalences
 
     public ArrayList<Equivalence> load_Equiv() {
 	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
+	
+	
 	Uri request = ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI;
 
 	Cursor cur = this.contentResolver.query(request, null, null, null, null);
@@ -522,12 +568,10 @@ public final class AmiKcalFactory {
 	}
 	cur.close();
 
-	
 	return equiv_list;
 
     }
 
-    
     /*****************************************************************************************
      * Enregister une UA dans la database
      * 
@@ -574,7 +618,7 @@ public final class AmiKcalFactory {
 
 	    for (UserActivityComponent UAC : UA.getUAC_List()) {
 		this.save_UAC(UAC);
-		save_UA_UAC_Relation(UA,UAC);
+		save_UA_UAC_Relation(UA, UAC);
 	    }
 	}
 
@@ -587,11 +631,11 @@ public final class AmiKcalFactory {
      ******************************************************************************************/
 
     public void save_UAC(UserActivityComponent UAC) {
-	
-	//On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
-    //si elle n'existait pas dans la DB.
-	UAC.setQty(save(UAC.getQty())); 
-		
+
+	// On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
+	// si elle n'existait pas dans la DB.
+	UAC.setQty(save(UAC.getQty()));
+
 	ContentValues val = new ContentValues();
 
 	// id de la relation composant
@@ -609,7 +653,6 @@ public final class AmiKcalFactory {
 	// id de la qty
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, String.valueOf(UAC.getQty().getId()));
 
-	
 	// date de mise à jour
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
@@ -771,14 +814,13 @@ public final class AmiKcalFactory {
 
     }
 
-
     /*****************************************************************************************
      * Enregister la relation NRJ / Qty de référence dans la database
      ******************************************************************************************/
     public void save_UA_UAC_Relation(UserActivity UA, UserActivityComponent UAC) {
 
 	Relation relation = new Relation();
-	
+
 	// rechercher si la relation existe déjà pour récupérer son ID
 	Uri request = ContentDescriptorObj.View_UA_UAC_link.SEARCH_RELATION_URI.buildUpon()
 		.appendPath(String.valueOf(UA.get_id()) + "x" + String.valueOf(UAC.getId())).build();
@@ -800,7 +842,6 @@ public final class AmiKcalFactory {
 	relation.setParty1(String.valueOf(UA.get_id()));
 	relation.setParty2(String.valueOf(UAC.getId()));
 	relation.setRel_typ_cd(REL_TYP_CD.UA_UAC);
-		
 
 	// en cas d'insert, la fonction save va retourner un ID
 	// je n'ai a prioris pas besoin de récupérer cet id
@@ -809,7 +850,6 @@ public final class AmiKcalFactory {
 
     }
 
-    
     /*****************************************************************************************
      * Enregister une relation dans la database
      ******************************************************************************************/

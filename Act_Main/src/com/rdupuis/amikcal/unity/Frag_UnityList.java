@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 //2013-08-25 - R.Dupuis
@@ -47,7 +48,7 @@ public class Frag_UnityList extends Fragment {
 		// dans le cas contraire, on affiche la liste de toutes les unitées
 		// connues.
 		try {
-			energyId = Long.parseLong(this.getActivity().getIntent().getStringExtra(this.INPUT____ENERGY_ID));
+			energyId = this.getActivity().getIntent().getLongExtra(this.INPUT____ENERGY_ID,AppConsts.NO_ID);
 			generateList(energyId);
 		} catch (Exception e) {
 			generateList(WITH_NO_FILTER);

@@ -308,7 +308,7 @@ public class ContentProviderObj extends ContentProvider {
 	case SELECT_DB_VERSION: {
 	    return db.rawQuery("PRAGMA user_version", null);
 	}
-	case SELECT_ALL_QTY_EQUIV:{
+	case SELECT_ALL_EQUIV_OF_QTY:{
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);
 

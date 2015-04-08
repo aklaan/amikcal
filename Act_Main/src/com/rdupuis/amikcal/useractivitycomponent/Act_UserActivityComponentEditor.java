@@ -226,8 +226,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.edited_UAC.getQty().setAmount(
-			Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
+		this.edited_UAC.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
 	
 	    }
 	    break;
@@ -238,8 +237,8 @@ public class Act_UserActivityComponentEditor extends Activity {
 		
 		
 		 // on récupère l'objet Unit. this.mUAC
-		 this.edited_UAC.getQty().setUnity(factory.load_Unity(Long.parseLong
-		 (intent.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID))));
+		 this.edited_UAC.getQty().setUnity(factory.load_Unity(
+			 intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID,AppConsts.NO_ID)));
 		}
 	    break;
 
@@ -250,8 +249,8 @@ public class Act_UserActivityComponentEditor extends Activity {
 		// on récupère l'Energy choisi par l'utilisateur d'après sont id
 		// .
 
-		this.edited_UAC.setEnergySource(factory.load_Energy(Long.parseLong(intent
-			.getStringExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY))));
+		this.edited_UAC.setEnergySource(factory.load_Energy(intent
+			.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY,AppConsts.NO_ID)));
 
 	    }
 	    break;

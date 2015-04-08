@@ -24,6 +24,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
@@ -43,10 +44,11 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  */
 
 public class Act_EnergyList extends Activity {
-    static Long currentId;
+    long currentId;
     String currentFilter = "";
     private ListView maListViewPerso;
-public final static String OUTPUT____ID_OF_ENERGY = "_id";
+    public final static String OUTPUT____ID_OF_ENERGY = "_id";
+
     /**
      * This function is Called when the activity is first created.
      */
@@ -85,7 +87,7 @@ public final static String OUTPUT____ID_OF_ENERGY = "_id";
     /**
      * Appel la vue d'édition d'un aliment (energy)
      */
-    public void editEnergy(String id) {
+    public void editEnergy(long id) {
 	Intent intent = new Intent(this, Act_EnergyEditor2.class);
 	intent.putExtra(Act_EnergyEditor2.INPUT____ID_OF_ENERGY, id);
 	startActivityForResult(intent, R.integer.ACTY_ENERGY);
@@ -98,7 +100,7 @@ public final static String OUTPUT____ID_OF_ENERGY = "_id";
      */
     public void onClickAdd(View v) {
 
-	editEnergy(null);
+	editEnergy(AppConsts.NO_ID);
 
     }
 
@@ -261,7 +263,7 @@ public final static String OUTPUT____ID_OF_ENERGY = "_id";
 	    public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
 
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-		Act_EnergyList.currentId = Long.parseLong(map.get("id"));
+		Act_EnergyList.this.currentId = Long.parseLong(map.get("id"));
 
 		// int ilaposition=position;
 		// création d'un boite de dialogue pour confirmer le
@@ -321,7 +323,7 @@ public final static String OUTPUT____ID_OF_ENERGY = "_id";
      * Action a effectuer lorsque l'on clique sur éditer l'énergie séléctionnée
      */
     public void onClick_edit() {
-	editEnergy(Act_EnergyList.currentId.toString());
+	editEnergy(this.currentId);
     }
 
     @Override

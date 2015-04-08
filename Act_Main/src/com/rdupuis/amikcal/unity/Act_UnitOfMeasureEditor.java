@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 
 public class Act_UnitOfMeasureEditor extends Activity {
@@ -26,8 +27,8 @@ public class Act_UnitOfMeasureEditor extends Activity {
 		try {
 			
 			AmiKcalFactory factory = new AmiKcalFactory(this);
-			mUnit = factory.load_Unity(Long.parseLong(this.getIntent().getStringExtra(
-					this.INPUT____UNITY_ID)));
+			mUnit = factory.load_Unity(this.getIntent().getLongExtra(
+					this.INPUT____UNITY_ID,AppConsts.NO_ID));
 			refreshScreen();
 		} catch (Exception e) {
 			Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();

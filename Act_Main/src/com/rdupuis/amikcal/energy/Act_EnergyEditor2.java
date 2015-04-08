@@ -51,12 +51,13 @@ public class Act_EnergyEditor2 extends Activity {
 	setContentView(R.layout.view_edit_energy_food2);
 	mEnergy = new EnergySource();
 
-	try {
-	    AmiKcalFactory factory = new AmiKcalFactory(this);
-	    mEnergy = factory.load_Energy(Long.parseLong(getIntent().getStringExtra(INPUT____ID_OF_ENERGY)));
-	} catch (Exception e) {
-	    Toast.makeText(this, "Editer Nouvelle energie", Toast.LENGTH_LONG).show();
-	    mEnergy.setId(AppConsts.NO_ID);
+	long nrj_id = getIntent().getLongExtra(INPUT____ID_OF_ENERGY, AppConsts.NO_ID);
+
+	// Si l'ID en entrée indique que l"on souhaite éditer une énergie en
+	// particulier
+	// on la recharge
+	if (nrj_id != AppConsts.NO_ID) {
+	    mEnergy = factory.load_Energy(getIntent().getLongExtra(INPUT____ID_OF_ENERGY,AppConsts.NO_ID));
 	}
 
 	((TextView) findViewById(R.id.energyview_edTxt_energy_name)).addTextChangedListener(new TextWatcher() {
@@ -135,8 +136,7 @@ public class Act_EnergyEditor2 extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.mEnergy.getQtyReference().setAmount(
-			Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
+		this.mEnergy.getQtyReference().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 
 	    }
 	    break;
@@ -148,8 +148,8 @@ public class Act_EnergyEditor2 extends Activity {
 		AmiKcalFactory factory = new AmiKcalFactory(this);
 
 		mEnergy.getQtyReference().setUnity(
-			factory.load_Unity(Long.parseLong(intent
-				.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID))));
+			factory.load_Unity(intent
+				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
 
 	    }
 	    break;
@@ -196,15 +196,18 @@ public class Act_EnergyEditor2 extends Activity {
 	dfs.setDecimalSeparator(',');
 	decimalFormat.setDecimalFormatSymbols(dfs);
 
-	// recharger les modification qui ont pu être effectué sur l'UA
-	this.mEnergy = factory.load_Energy(this.mEnergy.getId());
+	// recharger les modification qui ont pu être effectué sur l'energie
+	// sauf si c'est une nouvelle. dans ce cas
+	if (this.mEnergy.getId() != AppConsts.NO_ID) {
+	    this.mEnergy = factory.load_Energy(this.mEnergy.getId());
+	}
 
 	Button bt = (Button) findViewById(R.id.energyview_btn_amount);
 	bt.setText(decimalFormat.format(this.mEnergy.getQtyReference().getAmount()));
 
 	bt = (Button) findViewById(R.id.energyview_btn_unity);
 	bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
-	
+
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
 	ed.setText(this.mEnergy.getName());
 
@@ -227,7 +230,7 @@ public class Act_EnergyEditor2 extends Activity {
 	    ((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
 	    ((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
 	    ((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
-	    
+
 	    break;
 	}
 

@@ -42,7 +42,7 @@ public class Act_EnergyEditor extends Activity {
 
 	try {
 	    AmiKcalFactory factory = new AmiKcalFactory(this);
-	    mEnergy = factory.load_Energy(Long.parseLong(getIntent().getStringExtra(INPUT____ID_OF_ENERGY)));
+	    mEnergy = factory.load_Energy(getIntent().getLongExtra(INPUT____ID_OF_ENERGY,AppConsts.NO_ID));
 	} catch (Exception e) {
 	    Toast.makeText(this, "Editer Nouvelle energie", Toast.LENGTH_LONG).show();
 	    mEnergy.setId(AppConsts.NO_ID);
@@ -144,7 +144,7 @@ public class Act_EnergyEditor extends Activity {
 	    if (resultCode == RESULT_OK) {
 
 		Equivalence nbKcal = new Equivalence();
-		nbKcal.getQuantityOut().setAmount(Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
+		nbKcal.getQuantityOut().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
 		// récupérer l'id de l'unité "Kcal"
 
 		// Ajouter l'équivalence
@@ -186,8 +186,7 @@ public class Act_EnergyEditor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.mEnergy.getQtyReference().setAmount(
-			Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
+		this.mEnergy.getQtyReference().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
 
 	    }
 	    break;
@@ -199,8 +198,8 @@ public class Act_EnergyEditor extends Activity {
 		AmiKcalFactory factory = new AmiKcalFactory(this);
 
 		mEnergy.getQtyReference().setUnity(
-			factory.load_Unity(Long.parseLong(intent
-				.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID))));
+			factory.load_Unity(intent
+				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID,AppConsts.NO_ID)));
 
 	    }
 	    break;

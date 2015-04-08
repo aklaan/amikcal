@@ -43,9 +43,8 @@ public class Act_EquivalenceList extends Activity {
 	equivalences = new ArrayList<Equivalence>();
 	this.nrj = new EnergySource();
 	// Etape 1 : Récupérer les éventuelles informations de l'intent
-	String _id = this.getIntent().getStringExtra(this.INTPUT____NRJ_ID);
-	long nrj_id = (_id != null) ? Long.parseLong(_id) : AppConsts.NO_ID;
-
+	long nrj_id = this.getIntent().getLongExtra(this.INTPUT____NRJ_ID,AppConsts.NO_ID);
+	
 	if (nrj_id != AppConsts.NO_ID) {
 	    nrj = factory.load_Energy(nrj_id);
 	    this.equivalences = nrj.getEquivalences();

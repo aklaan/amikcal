@@ -40,11 +40,8 @@ public class Act_EquivalenceEditor extends Activity {
 	factory = new AmiKcalFactory(this);
 	nrj = new EnergySource();
 	// Etape 2 : prise en compte de l'Intent
-	String _id = this.getIntent().getStringExtra(this.INPUT____ID_NRJ);
-	long nrj_id = (_id != null) ? Long.parseLong(_id) : AppConsts.NO_ID;
-
-	String input_equiv_indx = this.getIntent().getStringExtra(this.INPUT____INDX_EQUIV);
-	int equiv_indx = (input_equiv_indx != null) ? Integer.parseInt(input_equiv_indx) : AppConsts.NO_INDEX;
+	long nrj_id = this.getIntent().getLongExtra(this.INPUT____ID_NRJ, AppConsts.NO_ID);
+	int equiv_indx = this.getIntent().getIntExtra(this.INPUT____INDX_EQUIV, AppConsts.NO_INDEX);
 
 	if (nrj_id != AppConsts.NO_ID) {
 	    nrj = factory.load_Energy(nrj_id);
@@ -166,23 +163,23 @@ public class Act_EquivalenceEditor extends Activity {
 	    case CHOOSE_QTY_OUT:
 
 		this.edited_Equivalence.getQuantityOut().setAmount(
-			Float.parseFloat(intent.getStringExtra(Act_NumericPad.OUTPUT____AMOUNT)));
+			intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 		break;
 
 	    case CHOOSE_UNITY_OUT:
-		Long unity_out_id = Long.parseLong(intent.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID));
+		long unity_out_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
 		this.edited_Equivalence.getQuantityOut().setUnity(factory.load_Unity(unity_out_id));
 		break;
 
 	    case CHOOSE_UNITY_IN:
 
-		Long unity_in_id = Long.parseLong(intent.getStringExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID));
+		long unity_in_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
 		this.edited_Equivalence.getQuantityIn().setUnity(factory.load_Unity(unity_in_id));
 		break;
 
 	    case CHOOSE_NRJ:
 
-		Long nrj_id = Long.parseLong(intent.getStringExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY));
+		long nrj_id = intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID);
 		this.nrj = factory.load_Energy(nrj_id);
 		break;
 

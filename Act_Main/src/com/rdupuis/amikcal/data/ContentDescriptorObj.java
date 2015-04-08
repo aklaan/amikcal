@@ -633,8 +633,8 @@ public final class ContentDescriptorObj {
 	public static final Uri URI_BASE_VIEW_QTY_EQUIV = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
 
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_ALL_QTY_EQUIV_PATH = VIEWNAME + "/" + SELECT + "/#";
-	public static final int VIEW_ALL_QTY_EQUIV_TOKEN = 10100;
+	public static final String VIEW_EQUIV_OF_QTY_PATH = VIEWNAME + "/" + SELECT + "/#";
+	public static final int VIEW_EQUIV_OF_QTY_TOKEN = 10100;
 	public static final Uri VIEW_ALL_QTY_EQUIV_URI = URI_BASE_VIEW_QTY_EQUIV.buildUpon().appendPath(SELECT).build();
 
 	public static final String SEARCH_RELATION_PATH = VIEWNAME + "/relation/*";
@@ -698,7 +698,7 @@ public final class ContentDescriptorObj {
 
 	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE, DELETE_USER_ACTIVITY, SELECT_DB_VERSION, SELECT_REL_NRJ_QTYREF
 
-	, INSERT_PARTY_REL, UPDATE_PARTY_REL, UPDATE_ENERGY_ID, SEARCH_REL_UA_UAC, SELECT_UAC,SELECT_ALL_QTY_EQUIV
+	, INSERT_PARTY_REL, UPDATE_PARTY_REL, UPDATE_ENERGY_ID, SEARCH_REL_UA_UAC, SELECT_UAC,SELECT_ALL_EQUIV_OF_QTY
     ,SEARCH_QTY_EQUIV
     }
 
@@ -754,7 +754,7 @@ public final class ContentDescriptorObj {
 	    //
 	    _in.put(TB_UserActivities.UPDATE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.UPDATE_USER_ACTIVITY);
 
-	    _in.put(View_qty_equiv.VIEW_ALL_QTY_EQUIV_TOKEN, REQUESTS_LIST.SELECT_ALL_QTY_EQUIV);
+	    _in.put(View_qty_equiv.VIEW_EQUIV_OF_QTY_TOKEN, REQUESTS_LIST.SELECT_ALL_EQUIV_OF_QTY);
 	    _in.put(View_qty_equiv.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_QTY_EQUIV);
 
 	    
@@ -845,7 +845,7 @@ public final class ContentDescriptorObj {
 	matcher.addURI(authority, CustomQuery.LAST_WEIGHT_FROM, CustomQuery.LAST_WEIGHT_FROM_TOKEN);
 	matcher.addURI(authority, CustomQuery.USED_UNITS_FOR_ENERGY, CustomQuery.USED_UNITS_FOR_ENERGY_TOKEN);
 	
-	matcher.addURI(authority, View_qty_equiv.VIEW_ALL_QTY_EQUIV_PATH, View_qty_equiv.VIEW_ALL_QTY_EQUIV_TOKEN);
+	matcher.addURI(authority, View_qty_equiv.VIEW_EQUIV_OF_QTY_PATH, View_qty_equiv.VIEW_EQUIV_OF_QTY_TOKEN);
 	
 
 	matcher.addURI(authority, View_qty_equiv.SEARCH_RELATION_PATH, View_qty_equiv.SEARCH_RELATION_TOKEN);
