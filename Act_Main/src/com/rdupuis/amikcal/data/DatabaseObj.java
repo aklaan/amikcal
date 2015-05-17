@@ -56,13 +56,13 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 
 				+ ContentDescriptorObj.TB_Energies.Columns.EFFECT
-				+ " INTEGER, "
+				+ " TEXT, "
 
 				+ ContentDescriptorObj.TB_Energies.Columns.NAME
 				+ " TEXT, "
 				// Top liquide Y/N
 				+ ContentDescriptorObj.TB_Energies.Columns.STRUCTURE
-				+ " INTERGER, "
+				+ " TEXT, "
 
 				+ ContentDescriptorObj.TB_Energies.Columns.LAST_UPDATE
 				+ " DATETIME, "

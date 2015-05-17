@@ -166,7 +166,7 @@ public class Act_UnitOfMeasureList extends Activity {
 		// on récupère la HashMap contenant les infos de notre item
 		// (titre, description, img)
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-		OnChooseUnit(view, map.get("id"));
+		OnChooseUnit(view, Long.parseLong(map.get("id")));
 	    }
 	});
 
@@ -209,7 +209,7 @@ public class Act_UnitOfMeasureList extends Activity {
      * 
      **********************************************************************************/
 
-    public void OnChooseUnit(View v, String id) {
+    public void OnChooseUnit(View v, Long id) {
 
 	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 	// récupérer la valeur.

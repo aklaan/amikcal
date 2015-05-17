@@ -216,17 +216,17 @@ public final class ContentDescriptorObj {
 	//
 	public static final class PredefinedValues {
 	    public static final class StructureCode {
-		public static final byte UNDEFINED = 0x00;
-		public static final byte LIQUID = 0x01;
-		public static final byte SOLID = 0x02;
-		public static final byte POWDER = 0x03;
+		public static final String UNDEFINED = "U";
+		public static final String LIQUID = "L";
+		public static final String SOLID = "S";
+		public static final String POWDER = "P";
 
 	    }
 
 	    public static final class EffectCodes {
-		public static final int UNDEFINED = 0x00;
-		public static final int GIVE = 0x01;
-		public static final int BURN = 0x02;
+		public static final String UNDEFINED = "U";
+		public static final String GIVE = "G";
+		public static final String BURN = "B";
 	    }
 
 	}

@@ -169,12 +169,12 @@ public class Act_EnergyEditor2 extends Activity {
      ******************************************************************************************/
     public void onClick_Validate(View v) {
 
+	//récupérer le libéllé de l'énergie
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
 	this.mEnergy.setName(ed.getText().toString());
 
-	AmiKcalFactory factory = new AmiKcalFactory(this);
-
-	factory.save(this.mEnergy);
+	//enregister l'énergie
+	this.factory.save(this.mEnergy);
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.

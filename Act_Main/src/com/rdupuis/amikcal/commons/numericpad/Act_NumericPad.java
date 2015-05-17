@@ -54,8 +54,7 @@ public class Act_NumericPad extends Activity implements NumericPadListeners {
 	// s'il n'a rien saisi, on
 
 	if (ed.getText() != "") {
-	    this.getIntent().putExtra(this.OUTPUT____AMOUNT,
-		    ed.getText().toString());
+	    this.getIntent().putExtra(this.OUTPUT____AMOUNT,Float.parseFloat(ed.getText().toString()));
 
 	    // on appelle setResult pour déclancher le onActivityResult de
 	    // l'activity mère.

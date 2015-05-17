@@ -78,9 +78,9 @@ public final class AmiKcalFactory {
 
 	    // on charge le mapping des NRJ_EFFECT
 	    NRJ_EFFECT_MAP map_effect = new NRJ_EFFECT_MAP();
-	    energy.setEffect(map_effect._in.get(cursor.getInt(INDX_NRJ_EFFECT)));
+	    energy.setEffect(map_effect._in.get(cursor.getString(INDX_NRJ_EFFECT)));
 
-	    switch (map_effect._in.get(cursor.getInt(INDX_NRJ_EFFECT))) {
+	    switch (map_effect._in.get(cursor.getString(INDX_NRJ_EFFECT))) {
 
 	    // si l'effet de l'énergie est de "donner", alors il s'agit d'une
 	    // énergie "Aliment" et donc elle possède une structure.
@@ -97,7 +97,7 @@ public final class AmiKcalFactory {
 
 	    // on charge le mapping des NRJ_STRUCTURE
 	    STRUCTURE_CD_MAP map_struct = new STRUCTURE_CD_MAP();
-	    energy.setStructure(map_struct._in.get(cursor.getInt(INDX_NRJ_STRUCTURE)));
+	    energy.setStructure(map_struct._in.get(cursor.getString(INDX_NRJ_STRUCTURE)));
 
 	    // Charger la quantitée de référence
 	    Qty qtyRef = this.load_QtyReference(energy.getId());

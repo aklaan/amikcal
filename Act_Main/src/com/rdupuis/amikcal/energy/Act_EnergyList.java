@@ -251,7 +251,7 @@ public class Act_EnergyList extends Activity {
 		// (titre, description, img)
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 
-		OnChooseEnergy(view, map.get("id"));
+		OnChooseEnergy(view, Long.parseLong(map.get("id")));
 
 	    }
 	});
@@ -304,7 +304,7 @@ public class Act_EnergyList extends Activity {
      * effectuer lorsque l'on séléctionne une énergie
      */
 
-    public void OnChooseEnergy(View v, String id) {
+    public void OnChooseEnergy(View v, Long id) {
 
 	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 	// récupérer la valeur.

@@ -44,9 +44,9 @@ public final class AppConsts {
      ****************************************************************************/
 
     public static final class NRJ_EFFECT_MAP {
-	public EnumMap<NRJ_EFFECT, Integer> _out = new EnumMap<NRJ_EFFECT, Integer>(NRJ_EFFECT.class);
+	public EnumMap<NRJ_EFFECT, String> _out = new EnumMap<NRJ_EFFECT, String>(NRJ_EFFECT.class);
 
-	public HashMap<Integer, NRJ_EFFECT> _in = new HashMap<Integer, NRJ_EFFECT>();
+	public HashMap<String, NRJ_EFFECT> _in = new HashMap<String, NRJ_EFFECT>();
 
 	public NRJ_EFFECT_MAP() {
 
@@ -68,9 +68,9 @@ public final class AppConsts {
      * </p>
      ****************************************************************************/
     public static final class STRUCTURE_CD_MAP {
-	public EnumMap<STRUCTURE, Byte> _out = new EnumMap<STRUCTURE, Byte>(STRUCTURE.class);
+	public EnumMap<STRUCTURE, String> _out = new EnumMap<STRUCTURE, String>(STRUCTURE.class);
 
-	public HashMap<Byte, STRUCTURE> _in = new HashMap<Byte, STRUCTURE>();
+	public HashMap<String, STRUCTURE> _in = new HashMap<String, STRUCTURE>();
 
 	public STRUCTURE_CD_MAP() {
 
