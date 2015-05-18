@@ -1,7 +1,8 @@
 package com.rdupuis.amikcal.equivalence;
 
+import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.InterfaceRelation;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.commons.ReadableRelationInterface;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
 
@@ -13,7 +14,7 @@ import com.rdupuis.amikcal.energy.EnergySource;
  * @author Rodolphe
  *
  */
-public class Equivalence implements ReadableRelationInterface{
+public class Equivalence implements InterfaceRelation{
 
     private long id;
     private Qty qty_IN;
@@ -48,7 +49,8 @@ public class Equivalence implements ReadableRelationInterface{
 
     
     public Equivalence() {
-	this.energySource = new EnergySource();
+	this.id=AppConsts.NO_ID;
+    this.energySource = new EnergySource();
 	this.qty_IN = new Qty();
 	this.qty_OUT = new Qty();
 
@@ -78,6 +80,8 @@ public class Equivalence implements ReadableRelationInterface{
 	return this.rel_typ_cd;
 	
     }
+
+	
 
     
 }

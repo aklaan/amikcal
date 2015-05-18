@@ -1,38 +1,69 @@
 package com.rdupuis.amikcal.commons;
 
+import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unité et un montant
-public class Qty extends Relation {
+public class Qty implements InterfaceRelation {
 
-    private Unity mUnity;
+	private long _id;
+	private Unity mUnity;
+	private  final REL_TYP_CD rel_typ_cd = REL_TYP_CD.QTY;
+	private float amount;
 
-    public Qty() {
-	this.setId(AppConsts.NO_ID);
-	this.setRel_typ_cd(REL_TYP_CD.QTY);
-	this.mUnity = new Unity();
-    }
+	public Qty() {
+		this.setId(AppConsts.NO_ID);
+		this.mUnity = new Unity();
+		this.amount = 0f;
+	}
 
-    public float getAmount() {
+	public float getAmount() {
+		return amount;
 
-	if (this.getParty1() == "")
+	}
+		
+	public void setAmount(float newAmount) {
+		this.amount = newAmount;
+	}
 
-	    return 0;
-	else
-	    return Float.parseFloat(this.getParty1());
-    }
+	
+	public Unity getUnity() {
+		return mUnity;
+	}
 
-    public void setAmount(float amount) {
-	this.setParty1(String.valueOf(amount));
-    }
+	public void setUnity(Unity mUnity) {
+		this.mUnity = mUnity;
+		
+	}
 
-    public Unity getUnity() {
-	return mUnity;
-    }
+	
+	public void setId(long id) {
+		this._id = id;
+	
+	}
+	
+	public long getId() {
+		
+		return this._id;
+	}
+	
+	@Override
+	public String getParty1() {
+		// TODO Auto-generated method stub
+		return String.valueOf(this.amount);
+	}
 
-    public void setUnity(Unity mUnity) {
-	this.mUnity = mUnity;
-	this.setParty2(String.valueOf(mUnity.getId()));
-    }
+	@Override
+	public String getParty2() {
+		// TODO Auto-generated method stub
+		return String.valueOf(this.getUnity().getId());
+	}
+
+
+	@Override
+	public REL_TYP_CD getRel_typ_cd() {
+		// TODO Auto-generated method stub
+		return rel_typ_cd;
+	}
 
 }

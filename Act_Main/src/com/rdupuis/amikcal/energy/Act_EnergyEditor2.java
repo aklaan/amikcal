@@ -208,9 +208,9 @@ public class Act_EnergyEditor2 extends Activity {
 
 	// recharger les modification qui ont pu être effectué sur l'energie
 	// sauf si c'est une nouvelle. dans ce cas
-	if (this.mEnergy.getId() != AppConsts.NO_ID) {
-	    this.mEnergy = factory.load_Energy(this.mEnergy.getId());
-	}
+//	if (this.mEnergy.getId() != AppConsts.NO_ID) {
+//	    this.mEnergy = factory.load_Energy(this.mEnergy.getId());
+//	}
 
 	Button bt = (Button) findViewById(R.id.energyview_btn_amount);
 	bt.setText(decimalFormat.format(this.mEnergy.getQtyReference().getAmount()));

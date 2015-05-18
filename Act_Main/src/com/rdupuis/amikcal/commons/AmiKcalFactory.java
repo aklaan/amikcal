@@ -716,7 +716,14 @@ public final class AmiKcalFactory {
 
 	
 	// Sauver les équivalences
-	
+
+	if (!nrj.getEquivalences().isEmpty()) {
+
+	    for (Equivalence equiv : nrj.getEquivalences()) {
+		this.save(equiv);
+		
+	    }
+	}
 	
     }
 
@@ -751,6 +758,32 @@ public final class AmiKcalFactory {
 
     }
 
+    
+    
+
+    /*****************************************************************************************
+     * Enregister une équivalence dans la database
+     ******************************************************************************************/
+    public Equivalence save(Equivalence equiv) {
+		
+    	//Une equivalence est une relation entre 2 QTY.
+    	//sauver une équivalence, c'est donc sauver les 2 QTY puis le liens les unisants
+    
+    	//si les Qty n'ont jamais été enregistrées, leur ID est vide (NO_ID)
+    	//Au retour de la sauvegarde, il sera alimenté.
+    	equiv.setQuantityIn(save(equiv.getQuantityIn()));
+    	equiv.setQuantityOut(save(equiv.getQuantityOut()));
+    	
+    	equiv = (Equivalence) saveRelation(equiv);
+    	    	
+    	
+    	return equiv;
+    
+       
+    
+    }
+    
+    
     /*****************************************************************************************
      * Enregister une Qty dans la database
      ******************************************************************************************/
@@ -764,7 +797,7 @@ public final class AmiKcalFactory {
 	// qty
 	qty = (Qty) saveRelation(qty);
 
-	// java ne sait pas passer des varibles par référence donc si on veut
+	// java ne sait pas passer des variables par référence donc si on veut
 	// mettre à jour la qty
 	// en entrée, il faut retourner une qty modifiée.
 	return qty;
@@ -857,7 +890,7 @@ public final class AmiKcalFactory {
     /*****************************************************************************************
      * Enregister une relation dans la database
      ******************************************************************************************/
-    public ReadableRelationInterface saveRelation(ReadableRelationInterface relation) {
+    public InterfaceRelation saveRelation(InterfaceRelation relation) {
 
 	// On prépare les informations à mettre à jour
 	ContentValues val = new ContentValues();
