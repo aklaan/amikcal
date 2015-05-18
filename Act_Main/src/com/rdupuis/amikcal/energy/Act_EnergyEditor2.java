@@ -26,6 +26,7 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
+import com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
@@ -184,6 +185,15 @@ public class Act_EnergyEditor2 extends Activity {
 	finish();
     }
 
+    
+    
+    public void onClick_Add_Equiv(View view){
+	Intent intent = new Intent(this, Act_EquivalenceEditor.class);
+	intent.putExtra(Act_EquivalenceEditor.INPUT____ID_NRJ,this.mEnergy.getId());
+	startActivityForResult(intent, R.integer.EQUIVALENCE_EDITOR);
+
+    }
+    
     /***************************************************************************************
      * 
 

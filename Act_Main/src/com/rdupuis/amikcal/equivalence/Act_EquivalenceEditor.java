@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
@@ -46,6 +47,12 @@ public class Act_EquivalenceEditor extends Activity {
 	if (nrj_id != AppConsts.NO_ID) {
 	    nrj = factory.load_Energy(nrj_id);
 
+	    //par défaut, la QTY IN pour laquelle on souhaite définir une équivalence, 
+	    //c'est la QTY de référence de l'énergie. 
+	    edited_Equivalence.setQuantityIn(nrj.getQtyReference());
+	    
+	    //si on souhaite éditer une équivalence particulière, on la séléctionne
+	    //sinon les zones sont vide pour en ajouter une nouvelle
 	    if (equiv_indx != AppConsts.NO_INDEX) {
 		this.edited_Equivalence = nrj.getEquivalences().get(equiv_indx);
 	    }
@@ -104,12 +111,14 @@ public class Act_EquivalenceEditor extends Activity {
 	 * .URI_UPDATE_EQUIVALENCE,this.mEquivalence.getId());
 	 * this.getContentResolver().update(request, val, null,null); };
 	 * 
-	 * 
-	 * //on appelle setResult pour déclancher le onActivityResult de
-	 * l'activity mère. setResult(RESULT_OK, mIntent);
-	 * 
-	 * //On termine l'Actvity finish();
-	 */
+	 * */
+	  //on appelle setResult pour déclancher le onActivityResult de
+	  //l'activity mère. 
+	  setResult(RESULT_OK, this.getIntent());
+	  
+	  //On termine l'Actvity
+	 finish();
+	 
     }
 
     /******************************************************************************************
@@ -118,6 +127,9 @@ public class Act_EquivalenceEditor extends Activity {
      ******************************************************************************************/
     private void refreshScreen() {
 
+	TextView tv = (TextView) findViewById(R.id.view_equivalence_txtview_amount_in);
+	tv.setText(String.valueOf(this.nrj.getQtyReference().getAmount()));
+	
 	Button ed = (Button) findViewById(R.id.view_equivalence_btn_energy);
 	ed.setText(this.nrj.getName());
 

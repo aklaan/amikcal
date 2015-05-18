@@ -714,6 +714,10 @@ public final class AmiKcalFactory {
 	// Sauver le lien NRJ_Qty de référence
 	save_NRj_Qtyref_Relation(nrj, nrj.getQtyReference());
 
+	
+	// Sauver les équivalences
+	
+	
     }
 
     /*****************************************************************************************
