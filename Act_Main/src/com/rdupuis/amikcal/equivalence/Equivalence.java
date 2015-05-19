@@ -14,11 +14,11 @@ import com.rdupuis.amikcal.energy.EnergySource;
  * @author Rodolphe
  *
  */
-public class Equivalence implements InterfaceRelation{
+public class Equivalence implements InterfaceRelation {
 
     private long id;
     private Qty qty_IN;
-    private final REL_TYP_CD rel_typ_cd  =REL_TYP_CD.QTY_EQUIV;
+    private final REL_TYP_CD rel_typ_cd = REL_TYP_CD.QTY_EQUIV;
     public EnergySource energySource;
     private Qty qty_OUT;
 
@@ -43,14 +43,12 @@ public class Equivalence implements InterfaceRelation{
     }
 
     public void setQuantityIn(Qty quantity) {
-   	this.qty_IN = quantity;
-       }
+	this.qty_IN = quantity;
+    }
 
-
-    
     public Equivalence() {
-	this.id=AppConsts.NO_ID;
-    this.energySource = new EnergySource();
+	this.id = AppConsts.NO_ID;
+	this.energySource = new EnergySource();
 	this.qty_IN = new Qty();
 	this.qty_OUT = new Qty();
 
@@ -63,25 +61,18 @@ public class Equivalence implements InterfaceRelation{
     @Override
     public String getParty1() {
 	return String.valueOf(qty_IN.getId());
-	
-    }
 
-    
+    }
 
     @Override
     public String getParty2() {
 	return String.valueOf(qty_OUT.getId());
     }
 
-    
-
     @Override
     public REL_TYP_CD getRel_typ_cd() {
 	return this.rel_typ_cd;
-	
+
     }
 
-	
-
-    
 }

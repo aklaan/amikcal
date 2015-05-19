@@ -434,9 +434,9 @@ public final class AmiKcalFactory {
 		break;
 	    }
 
-	    mUAC.setEnergySource(this.load_Energy(cursor.getLong(INDX_NRJ_ID)));
-	    mUAC.setQty(this.load_Qty(cursor.getLong(INDX_QTY_ID)));
-	    mUAC.setEquivalences(this.load_Equiv(mUAC.getQty()));
+	    mUAC.getComponent().setEnergySource(this.load_Energy(cursor.getLong(INDX_NRJ_ID)));
+	    mUAC.getComponent().setQty(this.load_Qty(cursor.getLong(INDX_QTY_ID)));
+	    mUAC.getComponent().setEquivalences(this.load_Equiv(mUAC.getComponent().getQty()));
 
 	} else {
 	    String message = "Composant " + String.valueOf(_id) + " non trouvé";
@@ -625,16 +625,39 @@ public final class AmiKcalFactory {
     }
 
     /*****************************************************************************************
-     * Enregister une UAC dans la database créer le lien UA_UAC créer le lien
-     * UAC_QTY Créer la QTY
+     * Sauver le composant, c'est :
+     *   - Créer/mettre à jour la QTY
+     *   - Créer/mettre à jour le lien energie/Qty (UAC_QTY)
+     *    
+    ******************************************************************/
+public void save_component(Component component){
+	// On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
+	// si elle n'existait pas dans la DB.
+	component.setQty(save(component.getQty()));
+	saveRelation(component);
+
+    
+    }
+    
+    
+    
+    /*****************************************************************************************
+     * Enregister une UAC dans la database c'est  :
+     * 
+     * - sauver la relation entre l'UA et un composant (UA_UAC) 
+     * - sauver le composant, c'est à dire :
+     *         - Créer/mettre à jour le lien energie/Qty (UAC_QTY)
+     *         - Créer/mettre à jour la QTY
      * 
      ******************************************************************************************/
 
+    
+    
     public void save_UAC(UserActivityComponent UAC) {
 
 	// On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
 	// si elle n'existait pas dans la DB.
-	UAC.setQty(save(UAC.getQty()));
+	UAC.getComponent().setQty(save(UAC.getComponent().getQty()));
 
 	ContentValues val = new ContentValues();
 
@@ -648,10 +671,10 @@ public final class AmiKcalFactory {
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get((UAC.getUAC_Class())));
 
 	// id de l'énergie
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, String.valueOf(UAC.getEnergySource().getId()));
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, String.valueOf(UAC.getComponent().getEnergySource().getId()));
 
 	// id de la qty
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, String.valueOf(UAC.getQty().getId()));
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, String.valueOf(UAC.getComponent().getQty().getId()));
 
 	// date de mise à jour
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
