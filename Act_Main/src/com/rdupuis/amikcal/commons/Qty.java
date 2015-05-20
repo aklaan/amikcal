@@ -4,11 +4,11 @@ import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unité et un montant
-public class Qty implements InterfaceRelation {
+public class Qty implements I_Relation {
 
 	private long _id;
 	private Unity mUnity;
-	private  final REL_TYP_CD rel_typ_cd = REL_TYP_CD.QTY;
+	private  final REL_TYP_CD relationClass = REL_TYP_CD.QTY;
 	private float amount;
 
 	public Qty() {
@@ -61,9 +61,9 @@ public class Qty implements InterfaceRelation {
 
 
 	@Override
-	public REL_TYP_CD getRel_typ_cd() {
+	public REL_TYP_CD getRelationClass() {
 		// TODO Auto-generated method stub
-		return rel_typ_cd;
+		return relationClass;
 	}
 
 }

@@ -631,7 +631,7 @@ public final class AmiKcalFactory {
      *    
     ******************************************************************/
 public void save_component(Component component){
-	// On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
+	// On sauve la Qty. ceci nous permet d'avoir une ID pour cette Qty
 	// si elle n'existait pas dans la DB.
 	component.setQty(save(component.getQty()));
 	saveRelation(component);
@@ -668,7 +668,7 @@ public void save_component(Component component){
 	// transformer l'ENUM Class en Byte
 	// stoké dans la Database.
 	REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get((UAC.getUAC_Class())));
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get((UAC.getRelationClass())));
 
 	// id de l'énergie
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, String.valueOf(UAC.getComponent().getEnergySource().getId()));
@@ -857,14 +857,14 @@ public void save_component(Component component){
 
 	switch (qtyref.getUnity().getUnityClass()) {
 	case INTERNATIONAL:
-	    relation.setRel_typ_cd(REL_TYP_CD.NRJ_REF_INTRNL);
+	    relation.setRelationClass(REL_TYP_CD.NRJ_REF_INTRNL);
 	    break;
 	case CUSTOM:
-	    relation.setRel_typ_cd(REL_TYP_CD.CSTM_NRJ_REF);
+	    relation.setRelationClass(REL_TYP_CD.CSTM_NRJ_REF);
 	    break;
 	default:
 	    Toast.makeText(this.mActivity, "Classe de l'unitée incorecte pour une référence", Toast.LENGTH_LONG).show();
-	    relation.setRel_typ_cd(REL_TYP_CD.UNDEFINED);
+	    relation.setRelationClass(REL_TYP_CD.UNDEFINED);
 	}
 
 	// en cas d'insert, la fonction save va retourner un ID
@@ -913,14 +913,14 @@ public void save_component(Component component){
     /*****************************************************************************************
      * Enregister une relation dans la database
      ******************************************************************************************/
-    public InterfaceRelation saveRelation(InterfaceRelation relation) {
+    public I_Relation saveRelation(I_Relation relation) {
 
 	// On prépare les informations à mettre à jour
 	ContentValues val = new ContentValues();
 
 	// Rel_typ_cd
 	REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get(relation.getRel_typ_cd()));
+	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get(relation.getRelationClass()));
 
 	// party 1
 	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, relation.getParty1());

@@ -147,9 +147,9 @@ public class Act_UserActivityComponentList extends Activity {
 
 	    map = new HashMap<String, String>();
 	    map.put("UAC_INDEX", String.valueOf(this.mUA.getUAC_List().indexOf(UAC)));
-	    map.put("name", UAC.getEnergySource().getName());
-	    map.put("quantity", String.valueOf(UAC.getQty().getAmount()));
-	    map.put("unity", UAC.getQty().getUnity().getLongName());
+	    map.put("name", UAC.getComponent().getEnergySource().getName());
+	    map.put("quantity", String.valueOf(UAC.getComponent().getQty().getAmount()));
+	    map.put("unity", UAC.getComponent().getQty().getUnity().getLongName());
 
 	    listItem.add(map);
 	}

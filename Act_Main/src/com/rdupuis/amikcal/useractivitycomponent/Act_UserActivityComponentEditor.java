@@ -72,19 +72,19 @@ public class Act_UserActivityComponentEditor extends Activity {
 	    edited_UAC = new UserActivityComponent();
 	    switch (mUA.getType()) {
 	    case LUNCH:
-		this.edited_UAC.setUAC_Class(REL_TYP_CD.UAC_FOOD);
+		this.edited_UAC.setRelationClass(REL_TYP_CD.UAC_FOOD);
 		break;
 
 	    case WEIGHT:
-		this.edited_UAC.setUAC_Class(REL_TYP_CD.UAC_WEIGHT);
+		this.edited_UAC.setRelationClass(REL_TYP_CD.UAC_WEIGHT);
 		break;
 
 	    case MOVE:
-		this.edited_UAC.setUAC_Class(REL_TYP_CD.UAC_MOVE);
+		this.edited_UAC.setRelationClass(REL_TYP_CD.UAC_MOVE);
 		break;
 
 	    default:
-		this.edited_UAC.setUAC_Class(REL_TYP_CD.UNDEFINED);
+		this.edited_UAC.setRelationClass(REL_TYP_CD.UNDEFINED);
 		break;
 	    }
 
@@ -174,7 +174,7 @@ public class Act_UserActivityComponentEditor extends Activity {
      **************************************************************************************/
     public void callUnitListView() {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_UAC.getEnergySource().getId()));
+	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_UAC.getComponent().getEnergySource().getId()));
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -226,7 +226,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.edited_UAC.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
+		this.edited_UAC.getComponent().getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
 	
 	    }
 	    break;
@@ -237,7 +237,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 		
 		
 		 // on récupère l'objet Unit. this.mUAC
-		 this.edited_UAC.getQty().setUnity(factory.load_Unity(
+		 this.edited_UAC.getComponent().getQty().setUnity(factory.load_Unity(
 			 intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID,AppConsts.NO_ID)));
 		}
 	    break;
@@ -249,7 +249,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 		// on récupère l'Energy choisi par l'utilisateur d'après sont id
 		// .
 
-		this.edited_UAC.setEnergySource(factory.load_Energy(intent
+		this.edited_UAC.getComponent().setEnergySource(factory.load_Energy(intent
 			.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY,AppConsts.NO_ID)));
 
 	    }
@@ -274,24 +274,24 @@ public class Act_UserActivityComponentEditor extends Activity {
 	Button b = (Button) findViewById(R.id.componentview_btn_EnergyName);
 
 	// Gestion du libellé sur le bouton Energy
-	if (edited_UAC.getEnergySource().getName() == "") {
+	if (edited_UAC.getComponent().getEnergySource().getName() == "") {
 	    b.setText(this.getResources().getString(R.string.empty));
 	} else {
-	    b.setText(this.edited_UAC.getEnergySource().getName());
+	    b.setText(this.edited_UAC.getComponent().getEnergySource().getName());
 	}
 
 	// Gestion du libellé sur le bouton Unit
 	b = (Button) findViewById(R.id.componentview_btn_unit);
 
-	if (edited_UAC.getQty().getUnity().getLongName() == "") {
+	if (edited_UAC.getComponent().getQty().getUnity().getLongName() == "") {
 	    b.setText(this.getResources().getString(R.string.empty));
 	} else {
-	    b.setText(this.edited_UAC.getQty().getUnity().getLongName());
+	    b.setText(this.edited_UAC.getComponent().getQty().getUnity().getLongName());
 	}
 
 	// Gestion du libellé sur le bouton quantity
 	b = (Button) findViewById(R.id.componentview_btn_quantity);
-	b.setText(Float.toString(this.edited_UAC.getQty().getAmount()));
+	b.setText(Float.toString(this.edited_UAC.getComponent().getQty().getAmount()));
 
     }
 

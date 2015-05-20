@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.commons.HasEquivalences;
-import com.rdupuis.amikcal.commons.InterfaceRelation;
+import com.rdupuis.amikcal.commons.I_Relation;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
@@ -23,71 +23,73 @@ import com.rdupuis.amikcal.useractivity.UserActivity;
  * Un composant est attaché à une activité parente dont il est composant.
  * 
  * @author Rodolphe
- *
+ * 
  */
-public class UserActivityComponent implements InterfaceRelation  {
+public class UserActivityComponent implements I_Relation {
 
-    private long id;
-    private Component mComponent;
-    private UserActivity mUserActivity;
-    private final REL_TYP_CD mUAC_Class = REL_TYP_CD.UA_UAC; 
-    
-    /**
-     * Constructeur
-     */
-    public UserActivityComponent() {
-	id = AppConsts.NO_ID;
-	mComponent = new Component();
-	mUserActivity = new UserActivity();
+	private long id;
+	private Component mComponent;
+	private UserActivity mUserActivity;
+	private REL_TYP_CD mRelationClass;
 
-    }
+	/**
+	 * Constructeur
+	 */
+	public UserActivityComponent() {
+		id = AppConsts.NO_ID;
+		mComponent = new Component();
+		mUserActivity = new UserActivity();
+		this.mRelationClass = REL_TYP_CD.UNDEFINED;
+	}
 
-    
-    public long getId() {
-	return id;
-    }
+	// ==================
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setUserActivity(UserActivity ua){
-	this.mUserActivity = ua;
-    }
-    
-    public Component getComponent(){
-	return this.mComponent;
-    }
-    
-    public UserActivity getUserActivity(){
-	return this.mUserActivity;
-    }
-    
-    public void setComponent(Component component ){
-	 this.mComponent  =component;
-    }
-    
-    
-    public void setId(long id) {
-	this.id = id;
-    }
+	// ==================
+	public long getId() {
+		return id;
+	}
 
-    public REL_TYP_CD getUAC_Class() {
-	return mUAC_Class;
-    }
+	// ==================
+	public void setUserActivity(UserActivity ua) {
+		this.mUserActivity = ua;
+	}
 
-    @Override
-    public String getParty1() {
-	return String.valueOf(mUserActivity.get_id());
-    }
+	// ==================
+	public UserActivity getUserActivity() {
+		return this.mUserActivity;
+	}
 
-    @Override
-    public String getParty2() {
-	return String.valueOf(mComponent.getId());
-    }
+	// ==================
+	public void setComponent(Component component) {
+		this.mComponent = component;
+	}
 
+	// ==================
+	public Component getComponent() {
+		return this.mComponent;
+	}
 
-    @Override
-    public REL_TYP_CD getRel_typ_cd() {
-	return this.mUAC_Class;
-    }
+	// ==================
+	public REL_TYP_CD getRelationClass() {
+		return mRelationClass;
+	}
 
-    
+	// ==================
+	public void setRelationClass(REL_TYP_CD relationClass) {
+		this.mRelationClass = relationClass;
+	}
+
+	// ==================
+	public String getParty1() {
+		return String.valueOf(mUserActivity.get_id());
+	}
+
+	// ==================
+	public String getParty2() {
+		return String.valueOf(mComponent.getId());
+	}
 
 }

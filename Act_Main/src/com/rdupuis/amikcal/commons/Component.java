@@ -20,13 +20,13 @@ import com.rdupuis.amikcal.equivalence.Equivalence;
  * @author Rodolphe
  *
  */
-public class Component implements InterfaceRelation  {
+public class Component implements I_Relation  {
 
     private long id;
     // private UserActivity mUserActivity;
     private EnergySource mEnergySource;
     private Qty mQty;
-    private REL_TYP_CD mClass = REL_TYP_CD.COMPONENT; 
+    private REL_TYP_CD mRelationClass; 
     private ArrayList<Equivalence> mEquivalences;
     /**
      * Constructeur
@@ -40,10 +40,10 @@ public class Component implements InterfaceRelation  {
     public void setEnergySource(EnergySource energySource) {
 	this.mEnergySource = energySource;
     switch (this.mEnergySource.getEffect()){
-    case BURN : this.mClass = REL_TYP_CD.UAC_MOVE;break;
+    case BURN : this.mRelationClass = REL_TYP_CD.UAC_MOVE;break;
     
-    case GIVE : this.mClass = REL_TYP_CD.UAC_FOOD;break;
-    default:this.mClass = REL_TYP_CD.UNDEFINED;
+    case GIVE : this.mRelationClass = REL_TYP_CD.UAC_FOOD;break;
+    default:this.mRelationClass = REL_TYP_CD.UNDEFINED;
 	break;
     }
 	
@@ -72,7 +72,7 @@ public class Component implements InterfaceRelation  {
 
     
     public REL_TYP_CD get_Class() {
-	return mClass;
+	return mRelationClass;
     }
 
     
@@ -102,7 +102,7 @@ public class Component implements InterfaceRelation  {
     }
 
     @Override
-    public REL_TYP_CD getRel_typ_cd() {
+    public REL_TYP_CD getRelationClass() {
 	// TODO Auto-generated method stub
 	return null;
     }

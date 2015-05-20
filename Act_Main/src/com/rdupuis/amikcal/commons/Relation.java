@@ -30,56 +30,63 @@ package com.rdupuis.amikcal.commons;
  * </p>
  */
 
-public class Relation implements InterfaceRelation {
-    public static enum REL_TYP_CD {
-	UAC_FOOD, UAC_MOVE, UAC_WEIGHT, UA_UAC, NRJ_REF_INTRNL,COMPONENT, 
-	NRJ_REF_EQUIV, CSTM_NRJ_REF, UNIT_EQUIV, UNIT_INTER_LINK, 
-	UAC_EQUIV, QTY,QTY_EQUIV,UNDEFINED;
+public class Relation implements I_Relation {
+	public static enum REL_TYP_CD {
+		UAC_FOOD,COMP_FOOD, UAC_MOVE, COMP_MOVE, UAC_WEIGHT, NRJ_REF_INTRNL,
+		COMPONENT, NRJ_REF_EQUIV, CSTM_NRJ_REF, UNIT_EQUIV, UNIT_INTER_LINK, UAC_EQUIV, QTY, QTY_EQUIV, UNDEFINED;
 
-    }
+	}
 
-    private long rel_id;
-    private REL_TYP_CD rel_typ_cd;
-    private String Party1;
-    private String Party2;
+	private long rel_id;
+	private REL_TYP_CD relationClass;
+	private String Party1;
+	private String Party2;
 
-    public Relation() {
-	this.rel_id = AppConsts.NO_ID;
-	this.rel_typ_cd = REL_TYP_CD.UNDEFINED;
-	this.Party1="";
-	this.Party2="";
-    }
+	public Relation() {
+		this.rel_id = AppConsts.NO_ID;
+		this.relationClass = REL_TYP_CD.UNDEFINED;
+		this.Party1 = "";
+		this.Party2 = "";
+	}
 
-    public String getParty1() {
-	return Party1;
-    }
+	// =============
+	public String getParty1() {
+		return Party1;
+	}
 
-    public void setParty1(String party1) {
-	Party1 = party1;
-    }
+	// =============
+	public void setParty1(String party1) {
+		Party1 = party1;
+	}
 
-    public String getParty2() {
-	return Party2;
-    }
+	// =============
+	public String getParty2() {
+		return Party2;
+	}
 
-    protected void setParty2(String party2) {
-	Party2 = party2;
-    }
+	// =============
+	protected void setParty2(String party2) {
+		Party2 = party2;
+	}
 
-    
-    public long getId() {
-	return rel_id;
-    }
+	// =============
 
-    public void setId(long rel_id) {
-	this.rel_id = rel_id;
-    }
+	public long getId() {
+		return rel_id;
+	}
 
-    public REL_TYP_CD getRel_typ_cd() {
-	return rel_typ_cd;
-    }
+	// =============
+	public void setId(long rel_id) {
+		this.rel_id = rel_id;
+	}
 
-    public void setRel_typ_cd(REL_TYP_CD rel_typ_cd) {
-	this.rel_typ_cd = rel_typ_cd;
-    }
+	// =============
+	public REL_TYP_CD getRelationClass() {
+		return relationClass;
+	}
+
+	// =============
+	public void setRelationClass(REL_TYP_CD relationClass) {
+		this.relationClass = relationClass;
+	}
 }

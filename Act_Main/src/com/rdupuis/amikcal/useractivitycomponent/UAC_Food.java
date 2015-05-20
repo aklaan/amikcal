@@ -1,6 +1,7 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
 import com.rdupuis.amikcal.Food.Food;
+import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
 public class UAC_Food extends UserActivityComponent {
@@ -29,8 +30,8 @@ public class UAC_Food extends UserActivityComponent {
 	 */
 	public UAC_Food() {
 		super();
-		this.setUAC_Class(REL_TYP_CD.UAC_FOOD);
-		this.setEnergySource(new Food());
+		this.setRelationClass(REL_TYP_CD.UAC_FOOD);
+		this.setComponent(new Component());
 	}
 
 	public float getNbkcal() {
