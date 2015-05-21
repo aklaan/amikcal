@@ -65,7 +65,7 @@ public class Act_UserActivityComponentEditor extends Activity {
 	if (component_index != AppConsts.NO_INDEX) {
 	    // chargement du composant stocké
 
-	    this.edited_Component = mUA.getUAC_List().get(component_index);
+	    this.edited_Component = mUA.getComponentsList().get(component_index);
 
 	} else {
 	    // Initialisation d'un nouveau composant
@@ -174,8 +174,8 @@ public class Act_UserActivityComponentEditor extends Activity {
 	// computeEnegy();
 
 	// si on a créé une nouvelle UAC i lfaut l'ajouter à l'UA
-	if (mUA.getUAC_List().indexOf(edited_Component) == AppConsts.NO_INDEX) {
-	    mUA.getUAC_List().add(edited_Component);
+	if (mUA.getComponentsList().indexOf(edited_Component) == AppConsts.NO_INDEX) {
+	    mUA.getComponentsList().add(edited_Component);
 	}
 	;
 

@@ -267,18 +267,18 @@ public class ContentProviderObj extends ContentProvider {
 
 	}
 
-	case SEARCH_REL_UA_UAC:{
+	case SEARCH_RELATION:{
 		
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME);
+	    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
 
 	    String delims = "x"; 
 	    String[] params = uri.getLastPathSegment().split(delims);
 	    
-	    String whereClause = ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME + "."
-		    + ContentDescriptorObj.View_UA_UAC_link.Columns.UA_ID + "=" + params[0]
+	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + params[0]
 		    +" and ( "
-		    + ContentDescriptorObj.View_UA_UAC_link.Columns.UAC_ID + "=" +  params[1]
+		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2 + "=" +  params[1]
 		    + ")";
 	    
 	    

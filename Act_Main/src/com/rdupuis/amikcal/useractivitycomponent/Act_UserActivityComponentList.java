@@ -144,10 +144,10 @@ public class Act_UserActivityComponentList extends Activity {
 	map = new HashMap<String, String>();
 
 	// Pour chaque Composant de L'UA
-	for (Component comp : this.mUA.getUAC_List()) {
+	for (Component comp : this.mUA.getComponentsList()) {
 
 	    map = new HashMap<String, String>();
-	    map.put("UAC_INDEX", String.valueOf(this.mUA.getUAC_List().indexOf(comp)));
+	    map.put("UAC_INDEX", String.valueOf(this.mUA.getComponentsList().indexOf(comp)));
 	    map.put("name", comp.getEnergySource().getName());
 	    map.put("quantity", String.valueOf(comp.getQty().getAmount()));
 	    map.put("unity", comp.getQty().getUnity().getLongName());

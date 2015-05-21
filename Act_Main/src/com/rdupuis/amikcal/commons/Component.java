@@ -10,7 +10,7 @@ import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 
 /**
- * Un composant  = une relation entre une quantité et une source d'énergie. 
+ * Un composant = une relation entre une quantité et une source d'énergie.
  * 
  * par exemple :
  * 
@@ -18,94 +18,96 @@ import com.rdupuis.amikcal.equivalence.Equivalence;
  * 
  * 
  * @author Rodolphe
- *
+ * 
  */
-public class Component implements I_Relation  {
+public class Component implements I_Relation {
 
-    private long id;
-    // private UserActivity mUserActivity;
-    private EnergySource mEnergySource;
-    private Qty mQty;
-    private REL_TYP_CD mRelationClass; 
-    private ArrayList<Equivalence> mEquivalences;
-    /**
-     * Constructeur
-     */
-    public Component() {
-	id = AppConsts.NO_ID;
-	mEnergySource = new EnergySource();
-	this.mQty = new Qty();
-    }
+	private long id;
+	// private UserActivity mUserActivity;
+	private EnergySource mEnergySource;
+	private Qty mQty;
+	private REL_TYP_CD mRelationClass;
+	private ArrayList<Equivalence> mEquivalences;
 
-    public void setEnergySource(EnergySource energySource) {
-	this.mEnergySource = energySource;
-    switch (this.mEnergySource.getEffect()){
-    case BURN : this.mRelationClass = REL_TYP_CD.UA_CMOVE;break;
-    
-    case EARN : this.mRelationClass = REL_TYP_CD.UA_CFOOD;break;
-    default:this.mRelationClass = REL_TYP_CD.UNDEFINED;
-	break;
-    }
-	
-    }
+	/**
+	 * Constructeur
+	 */
+	public Component() {
+		id = AppConsts.NO_ID;
+		mEnergySource = new EnergySource();
+		this.mQty = new Qty();
+	}
 
-    public EnergySource getEnergySource() {
-	return mEnergySource;
-    }
+	public void setEnergySource(EnergySource energySource) {
+		this.mEnergySource = energySource;
+		switch (this.mEnergySource.getEffect()) {
+		case BURN:
+			this.mRelationClass = REL_TYP_CD.UA_CMOVE;
+			break;
 
+		case EARN:
+			this.mRelationClass = REL_TYP_CD.UA_CFOOD;
+			break;
+		default:
+			this.mRelationClass = REL_TYP_CD.UNDEFINED;
+			break;
+		}
 
-    public long getId() {
-	return id;
-    }
+	}
 
-    public void setId(Long id) {
-	this.id = id;
-    }
+	public EnergySource getEnergySource() {
+		return mEnergySource;
+	}
 
-    public Qty getQty() {
-	return mQty;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setQty(Qty mQty) {
-	this.mQty = mQty;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    
-    public REL_TYP_CD get_Class() {
-	return mRelationClass;
-    }
+	public Qty getQty() {
+		return mQty;
+	}
 
-    
-    public ArrayList<Equivalence> getEquivalences() {
-	return mEquivalences;
-    }
+	public void setQty(Qty mQty) {
+		this.mQty = mQty;
+	}
 
-    public void setEquivalences(ArrayList<Equivalence> mEquivalences) {
-	this.mEquivalences = mEquivalences;
-    }
+	public REL_TYP_CD get_Class() {
+		return mRelationClass;
+	}
 
-    @Override
-    public String getParty1() {
-	return String.valueOf(this.mEnergySource.getId());
-    }
+	public ArrayList<Equivalence> getEquivalences() {
+		return mEquivalences;
+	}
 
-    @Override
-    public String getParty2() {
-	
-	return String.valueOf(this.mQty.getId());
-    }
+	public void setEquivalences(ArrayList<Equivalence> mEquivalences) {
+		this.mEquivalences = mEquivalences;
+	}
 
-    @Override
-    public void setId(long rel_id) {
-	// TODO Auto-generated method stub
-	
-    }
+	@Override
+	public String getParty1() {
+		return String.valueOf(this.mEnergySource.getId());
+	}
 
-    @Override
-    public REL_TYP_CD getRelationClass() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	@Override
+	public String getParty2() {
 
+		return String.valueOf(this.mQty.getId());
+	}
+
+	@Override
+	public void setId(long rel_id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public REL_TYP_CD getRelationClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

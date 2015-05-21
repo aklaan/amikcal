@@ -115,7 +115,17 @@ public final class ContentDescriptorObj {
 	public static final Uri S01_PARTY_REL_BY_ID_URI = URI_BASE_PARTY_REL.buildUpon().appendPath(SELECT).build();
 
 	// ----------------------------------------------------------------------------
+	// rechercher une relation
+	// Attention : '#' correspond forcément à un nombre
+	// si on souhaite une chaine de caractère on utilise '*'
+	
+		public static final String SEARCH_RELATION_PATH = TBNAME + "/" + "SELECT_RELATION/*";
+		public static final int SEARCH_RELATION_TOKEN = 1102;
+		public static final Uri SEARCH_RELATION_URI = URI_BASE_PARTY_REL.buildUpon().appendPath("SELECT_RELATION").build();
 
+	
+	
+	
 	// Path pour l'uri d'insertion et son token
 	public static final String INS000_PARTY_REL_PATH = TBNAME + "/" + INSERT;
 	public static final int INS000_PARTY_REL_TOKEN = 1200;
@@ -126,6 +136,8 @@ public final class ContentDescriptorObj {
 	public static final int UPD000_PARTY_REL_TOKEN = 1300;
 	public static final Uri UP000_PARTY_REL_URI = URI_BASE_PARTY_REL.buildUpon().appendPath(UPDATE).build();
 
+	
+	
 	// Déclaration du tye mime
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.party_rel";
@@ -702,8 +714,7 @@ public final class ContentDescriptorObj {
 	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE, DELETE_USER_ACTIVITY, SELECT_DB_VERSION, SELECT_REL_NRJ_QTYREF
 
 	, INSERT_PARTY_REL, UPDATE_PARTY_REL, UPDATE_ENERGY_ID, SEARCH_REL_UA_UAC, SELECT_UAC,SELECT_ALL_EQUIV_OF_QTY
-    ,SEARCH_QTY_EQUIV
-    }
+    ,SEARCH_QTY_EQUIV,SEARCH_RELATION    }
 
     public static final class TOKEN_MAP {
 	// SparseArray
@@ -713,6 +724,8 @@ public final class ContentDescriptorObj {
 	public TOKEN_MAP() {
 	    _in.put(TB_Party_rel.S00_PARTY_REL_TOKEN, REQUESTS_LIST.NONE);
 	    _in.put(TB_Party_rel.S01_PARTY_REL_BY_ID_TOKEN, REQUESTS_LIST.NONE);
+	    _in.put(TB_Party_rel.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_RELATION);
+	    
 	    _in.put(TB_Party_rel.INS000_PARTY_REL_TOKEN, REQUESTS_LIST.INSERT_PARTY_REL);
 	    _in.put(TB_Party_rel.UPD000_PARTY_REL_TOKEN, REQUESTS_LIST.UPDATE_PARTY_REL);
 
@@ -777,7 +790,7 @@ public final class ContentDescriptorObj {
 
 	matcher.addURI(authority, TB_Party_rel.S00_PARTY_REL_PATH, TB_Party_rel.S00_PARTY_REL_TOKEN);
 	matcher.addURI(authority, TB_Party_rel.S01_PARTY_REL_BY_ID_PATH, TB_Party_rel.S01_PARTY_REL_BY_ID_TOKEN);
-
+	matcher.addURI(authority, TB_Party_rel.SEARCH_RELATION_PATH, TB_Party_rel.SEARCH_RELATION_TOKEN);
 	matcher.addURI(authority, TB_Party_rel.INS000_PARTY_REL_PATH, TB_Party_rel.INS000_PARTY_REL_TOKEN);
 	matcher.addURI(authority, TB_Party_rel.UPD000_PARTY_REL_PATH, TB_Party_rel.UPD000_PARTY_REL_TOKEN);
 
