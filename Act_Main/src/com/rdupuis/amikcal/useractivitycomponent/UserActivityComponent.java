@@ -42,6 +42,28 @@ public class UserActivityComponent implements I_Relation {
 		this.mRelationClass = REL_TYP_CD.UNDEFINED;
 	}
 
+	public UserActivityComponent(UserActivity UA, Component component) {
+		id = AppConsts.NO_ID;
+		mComponent = component;
+		mUserActivity = UA;
+		
+		switch (UA.getType()){
+		case LUNCH :this.setRelationClass(REL_TYP_CD.UA_CFOOD);
+		    break;
+		
+		case MOVE :this.setRelationClass(REL_TYP_CD.UA_CMOVE);
+		    break;
+		
+		case WEIGHT :this.setRelationClass(REL_TYP_CD.UA_CWEIGHT);
+		    break;
+		default: this.setRelationClass(REL_TYP_CD.UNDEFINED);
+		
+		}
+		
+		
+		this.mRelationClass = REL_TYP_CD.UNDEFINED;
+	}
+	
 	// ==================
 	public void setId(long id) {
 		this.id = id;

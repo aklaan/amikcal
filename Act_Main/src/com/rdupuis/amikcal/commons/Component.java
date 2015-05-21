@@ -40,9 +40,9 @@ public class Component implements I_Relation  {
     public void setEnergySource(EnergySource energySource) {
 	this.mEnergySource = energySource;
     switch (this.mEnergySource.getEffect()){
-    case BURN : this.mRelationClass = REL_TYP_CD.UAC_MOVE;break;
+    case BURN : this.mRelationClass = REL_TYP_CD.UA_CMOVE;break;
     
-    case GIVE : this.mRelationClass = REL_TYP_CD.UAC_FOOD;break;
+    case EARN : this.mRelationClass = REL_TYP_CD.UA_CFOOD;break;
     default:this.mRelationClass = REL_TYP_CD.UNDEFINED;
 	break;
     }

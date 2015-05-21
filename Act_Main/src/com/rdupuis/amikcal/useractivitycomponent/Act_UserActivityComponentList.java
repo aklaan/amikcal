@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class Act_UserActivityComponentList extends Activity {
@@ -79,14 +80,14 @@ public class Act_UserActivityComponentList extends Activity {
      * //On termine l'Acitvity this.finish(); }
      */
 
-    public void onClickComponent(int uac_index) {
+    public void onClickComponent(int component_index) {
 	Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
 
 	// Intent intent = new Intent(this,
 	// Act_UserActivityComponentSlider.class);
 
 	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UA_ID, this.mUA.get_id());
-	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UAC_INDEX, uac_index);
+	intent.putExtra(Act_UserActivityComponentEditor.INPUT____COMPONENT_INDEX, component_index);
 	startActivityForResult(intent, R.integer.ACTY_COMPONENT);
     }
 
@@ -142,14 +143,14 @@ public class Act_UserActivityComponentList extends Activity {
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
-	// Pour chaque UAC de L'UA
-	for (UserActivityComponent UAC : this.mUA.getUAC_List()) {
+	// Pour chaque Composant de L'UA
+	for (Component comp : this.mUA.getUAC_List()) {
 
 	    map = new HashMap<String, String>();
-	    map.put("UAC_INDEX", String.valueOf(this.mUA.getUAC_List().indexOf(UAC)));
-	    map.put("name", UAC.getComponent().getEnergySource().getName());
-	    map.put("quantity", String.valueOf(UAC.getComponent().getQty().getAmount()));
-	    map.put("unity", UAC.getComponent().getQty().getUnity().getLongName());
+	    map.put("UAC_INDEX", String.valueOf(this.mUA.getUAC_List().indexOf(comp)));
+	    map.put("name", comp.getEnergySource().getName());
+	    map.put("quantity", String.valueOf(comp.getQty().getAmount()));
+	    map.put("unity", comp.getQty().getUnity().getLongName());
 
 	    listItem.add(map);
 	}

@@ -23,7 +23,7 @@ import com.rdupuis.amikcal.equivalence.Equivalence;
 public class EnergySource  {
 
 	public static enum NRJ_EFFECT {
-		GIVE, BURN,UNDEFINED
+		EARN, BURN,UNDEFINED
 	}
 
 	public static enum STRUCTURE {

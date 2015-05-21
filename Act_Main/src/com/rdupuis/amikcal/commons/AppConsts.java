@@ -51,11 +51,11 @@ public final class AppConsts {
 	public NRJ_EFFECT_MAP() {
 
 	    _out.put(NRJ_EFFECT.UNDEFINED, TB_Energies.PredefinedValues.EffectCodes.UNDEFINED);
-	    _out.put(NRJ_EFFECT.GIVE, TB_Energies.PredefinedValues.EffectCodes.GIVE);
+	    _out.put(NRJ_EFFECT.EARN, TB_Energies.PredefinedValues.EffectCodes.EARN);
 	    _out.put(NRJ_EFFECT.BURN, TB_Energies.PredefinedValues.EffectCodes.BURN);
 
 	    _in.put(TB_Energies.PredefinedValues.EffectCodes.UNDEFINED, NRJ_EFFECT.UNDEFINED);
-	    _in.put(TB_Energies.PredefinedValues.EffectCodes.GIVE, NRJ_EFFECT.GIVE);
+	    _in.put(TB_Energies.PredefinedValues.EffectCodes.EARN, NRJ_EFFECT.EARN);
 	    _in.put(TB_Energies.PredefinedValues.EffectCodes.BURN, NRJ_EFFECT.BURN);
 
 	}
@@ -154,31 +154,36 @@ public final class AppConsts {
 
 	public REL_TYP_CD_MAP() {
 	    _out.put(REL_TYP_CD.UNDEFINED, TB_Party_rel.PredefinedValues.RelationsCodes.UNDEFINED);
-	    _out.put(REL_TYP_CD.UA_UAC, TB_Party_rel.PredefinedValues.RelationsCodes.UA_UAC);
-	    _out.put(REL_TYP_CD.UAC_FOOD, TB_Party_rel.PredefinedValues.RelationsCodes.UAC_FOOD);
-	    _out.put(REL_TYP_CD.UAC_MOVE, TB_Party_rel.PredefinedValues.RelationsCodes.UAC_MOVE);
-	    _out.put(REL_TYP_CD.UAC_WEIGHT, TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT);
+	    _out.put(REL_TYP_CD.CFOOD, TB_Party_rel.PredefinedValues.RelationsCodes.CFOOD);
+	    _out.put(REL_TYP_CD.CMOVE, TB_Party_rel.PredefinedValues.RelationsCodes.CMOVE);
+	    _out.put(REL_TYP_CD.CWEIGHT, TB_Party_rel.PredefinedValues.RelationsCodes.CWEIGHT);
+	    _out.put(REL_TYP_CD.UA_CFOOD, TB_Party_rel.PredefinedValues.RelationsCodes.UA_CFOOD);
+	    _out.put(REL_TYP_CD.UA_CMOVE, TB_Party_rel.PredefinedValues.RelationsCodes.UA_CMOVE);
+	    _out.put(REL_TYP_CD.UA_CWEIGHT, TB_Party_rel.PredefinedValues.RelationsCodes.UA_CWEIGHT);
 	    _out.put(REL_TYP_CD.NRJ_REF_INTRNL, TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL);
 	    _out.put(REL_TYP_CD.NRJ_REF_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_EQUIV);
 	    _out.put(REL_TYP_CD.CSTM_NRJ_REF, TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF);
 	    _out.put(REL_TYP_CD.UNIT_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_EQUIV);
 	    _out.put(REL_TYP_CD.UNIT_INTER_LINK, TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_INTER_LINK);
-	    _out.put(REL_TYP_CD.UAC_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.UAC_EQUIV);
+	    _out.put(REL_TYP_CD.C_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.C_EQUIV);
 	    _out.put(REL_TYP_CD.QTY, TB_Party_rel.PredefinedValues.RelationsCodes.QTY);
 	    _out.put(REL_TYP_CD.QTY_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.QTY_EQUIV);
 
 
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNDEFINED, REL_TYP_CD.UNDEFINED);
-	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UA_UAC, REL_TYP_CD.UA_UAC);
-	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UAC_FOOD, REL_TYP_CD.UAC_FOOD);
-	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UAC_MOVE, REL_TYP_CD.UAC_MOVE);
-	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT, REL_TYP_CD.UAC_WEIGHT);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CFOOD, REL_TYP_CD.CFOOD);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CMOVE, REL_TYP_CD.CMOVE);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CWEIGHT, REL_TYP_CD.CWEIGHT);
+
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UA_CFOOD, REL_TYP_CD.UA_CFOOD);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UA_CMOVE, REL_TYP_CD.UA_CMOVE);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UA_CWEIGHT, REL_TYP_CD.UA_CWEIGHT);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL, REL_TYP_CD.NRJ_REF_INTRNL);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_EQUIV, REL_TYP_CD.NRJ_REF_EQUIV);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF, REL_TYP_CD.CSTM_NRJ_REF);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_EQUIV, REL_TYP_CD.UNIT_EQUIV);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UNIT_INTER_LINK, REL_TYP_CD.UNIT_INTER_LINK);
-	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UAC_EQUIV, REL_TYP_CD.UAC_EQUIV);
+	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.C_EQUIV, REL_TYP_CD.C_EQUIV);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.QTY, REL_TYP_CD.QTY);
 	}
     }

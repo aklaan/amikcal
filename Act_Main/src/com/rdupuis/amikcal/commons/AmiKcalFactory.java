@@ -31,7 +31,8 @@ import com.rdupuis.amikcal.useractivity.UserActivityMove;
 import com.rdupuis.amikcal.useractivity.UserActivityMoveItem;
 import com.rdupuis.amikcal.useractivity.UserActivityWeight;
 import com.rdupuis.amikcal.useractivity.UserActivityWeightItem;
-import com.rdupuis.amikcal.useractivitycomponent.UAC_Food;
+import com.rdupuis.amikcal.useractivitycomponent.UAFoodComponent;
+import com.rdupuis.amikcal.useractivitycomponent.UA_CFOOD;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public final class AmiKcalFactory {
@@ -84,7 +85,7 @@ public final class AmiKcalFactory {
 
 	    // si l'effet de l'énergie est de "donner", alors il s'agit d'une
 	    // énergie "Aliment" et donc elle possède une structure.
-	    case GIVE:
+	    case EARN:
 		energy = new Food();
 		break;
 	    case BURN:
@@ -423,12 +424,12 @@ public final class AmiKcalFactory {
 	    // en fonction du type de relation, on va retourner le composant
 	    // adequat
 	    switch (mapping._in.get(cursor.getString(INDX_REL_TYP_CD))) {
-	    case UAC_FOOD:
-		mUAC = new UAC_Food();
+	    case UA_CFOOD:
+		mUAC = new UAFoodComponent();
 		mUAC.setId(_id);
 
 		break;
-	    // pour le moment je ne gère que les UAC_FOOD
+	    // pour le moment je ne gère que les UA_CFOOD
 	    default:
 
 		break;
@@ -575,8 +576,8 @@ public final class AmiKcalFactory {
     /*****************************************************************************************
      * Enregister une UA dans la database
      * 
-     * mettre à jour la TB_UserActivities si l'UA possède des UAC pour chaque
-     * UAC, sauver l'UAC *
+     * mettre à jour la TB_UserActivities 
+     * si l'UA possède des UAC pour chaque UAC, sauver l'UAC *
      * 
      * 
      ******************************************************************************************/
@@ -612,87 +613,36 @@ public final class AmiKcalFactory {
 	    this.mActivity.getContentResolver().update(uriUpdate, val, UA.get_id().toString(), null);
 
 	}
-	// si l'UA possède des UAC, on doit les sauver aussi
+	// si l'UA possède des Composants, on doit les sauver et créer les liens UA_Composants
 
-	if (!UA.getUAC_List().isEmpty()) {
+	if (!UA.getComponentsList().isEmpty()) {
 
-	    for (UserActivityComponent UAC : UA.getUAC_List()) {
-		this.save_UAC(UAC);
-		save_UA_UAC_Relation(UA, UAC);
+	    for (Component component : UA.getComponentsList()) {
+		this.save(component);
+		UserActivityComponent UAC = new UserActivityComponent(UA, component);
+	        saveRelation(UAC); 
 	    }
 	}
 
     }
 
     /*****************************************************************************************
-     * Sauver le composant, c'est :
+     * Sauver un composant, c'est :
      *   - Créer/mettre à jour la QTY
      *   - Créer/mettre à jour le lien energie/Qty (UAC_QTY)
      *    
     ******************************************************************/
-public void save_component(Component component){
+public Component save(Component component){
 	// On sauve la Qty. ceci nous permet d'avoir une ID pour cette Qty
 	// si elle n'existait pas dans la DB.
 	component.setQty(save(component.getQty()));
-	saveRelation(component);
-
+	return (Component) saveRelation(component);
     
     }
     
     
     
-    /*****************************************************************************************
-     * Enregister une UAC dans la database c'est  :
-     * 
-     * - sauver la relation entre l'UA et un composant (UA_UAC) 
-     * - sauver le composant, c'est à dire :
-     *         - Créer/mettre à jour le lien energie/Qty (UAC_QTY)
-     *         - Créer/mettre à jour la QTY
-     * 
-     ******************************************************************************************/
 
-    
-    
-    public void save_UAC(UserActivityComponent UAC) {
-
-	// On sauve la Qty. ceci nous permet d'voit une ID pour cette Qty
-	// si elle n'existait pas dans la DB.
-	UAC.getComponent().setQty(save(UAC.getComponent().getQty()));
-
-	ContentValues val = new ContentValues();
-
-	// id de la relation composant
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.ID, (UAC.getId() == AppConsts.NO_ID) ? null : UAC.getId());
-
-	// classe de la realtion composant : on utilise la mapping pour
-	// transformer l'ENUM Class en Byte
-	// stoké dans la Database.
-	REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD, rel_typ_cd_map._out.get((UAC.getRelationClass())));
-
-	// id de l'énergie
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1, String.valueOf(UAC.getComponent().getEnergySource().getId()));
-
-	// id de la qty
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, String.valueOf(UAC.getComponent().getQty().getId()));
-
-	// date de mise à jour
-	val.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
-
-	if (UAC.getId() == AppConsts.NO_ID) {
-	    Uri result = this.mActivity.getContentResolver().insert(
-		    ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI, val);
-	    UAC.setId(Long.parseLong(result.getLastPathSegment()));
-	} else {
-
-	    Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.UP000_PARTY_REL_URI,
-		    UAC.getId());
-
-	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(UAC.getId()), null);
-
-	}
-
-    }
 
     /*****************************************************************************************
      * Enregister une source d'énergie dans la database
@@ -915,6 +865,35 @@ public void save_component(Component component){
      ******************************************************************************************/
     public I_Relation saveRelation(I_Relation relation) {
 
+	// vérifier la présence de l'ID party1 et party2
+	if (relation.getParty1() != "" && relation.getParty2() != "") {
+	 // rechercher si la relation existe déjà pour récupérer son ID
+		Uri request = ContentDescriptorObj.TB_Party_rel.xxxxxxxxxxxxxxxxx.SEARCH_RELATION_URI.buildUpon()
+			.appendPath(String.valueOf(relation.getParty1()) 
+				+ "x" 
+				+ String.valueOf(relation.getParty2())).build();
+		Cursor cur = this.contentResolver.query(request, null, null, null, null);
+
+		final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.View_UA_UAC_link.Columns.REL_ID);
+
+		// faire un move First pour positionner le pointeur, sinon on pointe sur
+		// null
+		// Si la relation existe on va passer dans le if...sinon
+		// on passe directement au close curseur
+		if (cur.moveToFirst()) {
+
+		    relation.setId(cur.getLong(RELATION_ID));
+		}
+		cur.close();
+    
+	    
+	}
+	
+	
+	
+	
+	
+	//----------------------------------------------------------------------------
 	// On prépare les informations à mettre à jour
 	ContentValues val = new ContentValues();
 

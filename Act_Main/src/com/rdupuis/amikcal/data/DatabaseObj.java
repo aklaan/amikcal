@@ -377,20 +377,20 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_FOOD
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_CFOOD
 
 				+ "' OR " 
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_MOVE
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_CMOVE
 				+ "' OR " 
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UAC_WEIGHT
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_CWEIGHT
 				+"'"
 								
 				

@@ -36,7 +36,7 @@ public class Food extends EnergySource {
 	public Food() {
 		//la consomation d'aliment va augmenter le nombre de calories 
 		//la classe FOOD induit que ce type d'énergie va apporter de l'énergie au corp 
-		this.setEffect(EnergySource.NRJ_EFFECT.GIVE);
+		this.setEffect(EnergySource.NRJ_EFFECT.EARN);
 	    
 	}
 

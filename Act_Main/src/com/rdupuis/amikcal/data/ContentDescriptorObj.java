@@ -70,11 +70,11 @@ public final class ContentDescriptorObj {
 
 	/**
 	 * <p>
-	 * UAC_FOOD = relation de type composant d'un repas (100 g de pomme)
-	 * </br> UAC_MOVE = relation de type composant d'une activité physique
+	 * UA_CFOOD = relation de type composant d'un repas (100 g de pomme)
+	 * </br> UA_CMOVE = relation de type composant d'une activité physique
 	 * (10 min de marche) </br>
 	 * 
-	 * UAC_WEIGHT = relation de type composant d'une pesée (45 kg) </br>
+	 * UA_CWEIGHT = relation de type composant d'une pesée (45 kg) </br>
 	 * 
 	 * UA_TO_UAC = relation entre une UA et ses UAC </br>
 	 * 
@@ -133,10 +133,13 @@ public final class ContentDescriptorObj {
 	public static final class PredefinedValues {
 	    public static final class RelationsCodes {
 		public static final String UNDEFINED = "UNDEF";
-		public static final String UAC_FOOD = "UAC_FD";
-		public static final String UAC_MOVE = "UAC_MV";
-		public static final String UAC_WEIGHT = "UAC_WG";
-		public static final String UAC_EQUIV = "UAC_EQV";
+		public static final String UA_CFOOD = "UA_CF";
+		public static final String UA_CMOVE = "UA_CM";
+		public static final String UA_CWEIGHT = "UA_CW";
+		public static final String CFOOD = "CFOOD";
+		public static final String CMOVE = "CMOVE";
+		public static final String CWEIGHT = "CFWEIGHT";
+		public static final String C_EQUIV = "C_EQV";
 		public static final String NRJ_REF_INTRNL = "REF_INT";
 		public static final String NRJ_REF_EQUIV = "REF_EQV";
 		public static final String CSTM_NRJ_REF = "REF_CTM";
@@ -225,7 +228,7 @@ public final class ContentDescriptorObj {
 
 	    public static final class EffectCodes {
 		public static final String UNDEFINED = "U";
-		public static final String GIVE = "G";
+		public static final String EARN = "G";
 		public static final String BURN = "B";
 	    }
 
@@ -476,7 +479,7 @@ public final class ContentDescriptorObj {
      * Qty.
      * 
      * cette relation peu être une UAC ex : pomme 1 moyenne : REL_TYP_CD =
-     * UAC_FOOD
+     * UA_CFOOD
      * 
      * ou une Qty de rérérence ex: pomme 100g : REL_TYP_CD = NRJ_REF_INTRNL
      * 
@@ -484,7 +487,7 @@ public final class ContentDescriptorObj {
      * 
      * in(id UA) ==> rel(id; UA_UAC; id UA; id UAC) ==> OUT ==> id UAC
      * 
-     * ====> in(id UAC) ==> rel(id uac; UAC_FOOD; id NRJ; id Qty) ==> id QTY
+     * ====> in(id UAC) ==> rel(id uac; UA_CFOOD; id NRJ; id Qty) ==> id QTY
      * 
      * =========> in(id NRJ) ==> NRJ
      * 
@@ -534,7 +537,7 @@ public final class ContentDescriptorObj {
      * Vue pour récupérer les informations QTY d'une UAC
      * 
      * id rel_typ_cd party1 party2 ------ ---------- ------- ------ REL00 UA_UAC
-     * UA uac01 (l'UAC uac01 est rattaché à l'UA) UAC01 UAC_FOOD nrj01 qty33
+     * UA uac01 (l'UAC uac01 est rattaché à l'UA) UAC01 UA_CFOOD nrj01 qty33
      * (uac01 est composé de l'énergie nrj01 et de la qty33) qty33 QTY 178
      * unit67 (la qty33 correspond à 178 g) eq88 QTY_EQUIV qty33 qty56 (la qty
      * 33 est évuivalente à la qty56) qty56 QTY 34 unit23 (la qty56 correspond à
@@ -551,7 +554,7 @@ public final class ContentDescriptorObj {
      * 
      * id UA => rel(id;UA_UAC;id UA;id UAC) ==> id UAC
      * 
-     * UAC=> rel(id uac;UAC_FOOD;id NRJ;id Qty) ==> id QTY
+     * UAC=> rel(id uac;UA_CFOOD;id NRJ;id Qty) ==> id QTY
      * 
      * QTY=> rel(id;QTY;amount;id Unity)
      * 

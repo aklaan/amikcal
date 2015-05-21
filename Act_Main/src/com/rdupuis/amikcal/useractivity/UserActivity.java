@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public class UserActivity {
@@ -18,14 +19,14 @@ public class UserActivity {
 	public UA_CLASS_CD type; // moving / eating / cooking
 
 	public Date last_update;
-	private ArrayList<UserActivityComponent> UAC_List;
+	private ArrayList<Component> mComponentsList;
 
 	public UserActivity() {
 		// Par defaut
 		this.day = Calendar.getInstance();
 		this.title = "";
 		this._id = AppConsts.NO_ID;
-		this.setUAC_List(new ArrayList<UserActivityComponent>());
+		this.setComponentsList(new ArrayList<Component>());
 	}
 
 	public Long get_id() {
@@ -74,12 +75,12 @@ public class UserActivity {
 		this.day.set(year, month, day, hourOfDay, minute);
 	}
 
-	public ArrayList<UserActivityComponent> getUAC_List() {
-		return UAC_List;
+	public ArrayList<Component> getComponentsList() {
+		return this.mComponentsList;
 	}
 
-	public void setUAC_List(ArrayList<UserActivityComponent> uAC_List) {
-		UAC_List = uAC_List;
+	public void setComponentsList(ArrayList<Component> comp_list) {
+		this.mComponentsList = comp_list;
 	}
 
 }

@@ -4,11 +4,11 @@ package com.rdupuis.amikcal.commons;
  * <h1>TYPE_REL_CD : Type de relations entre les entités</h1>
  * 
  * <p>
- * UAC_FOOD = relation de type composant d'un repas (100 g de pomme) </br>
- * UAC_MOVE = relation de type composant d'une activité physique (10 min de
+ * UA_CFOOD = relation de type composant d'un repas (100 g de pomme) </br>
+ * UA_CMOVE = relation de type composant d'une activité physique (10 min de
  * marche) </br>
  * 
- * UAC_WEIGHT = relation de type composant d'une pesée (45 kg) </br>
+ * UA_CWEIGHT = relation de type composant d'une pesée (45 kg) </br>
  * 
  * UA_TO_UAC = relation entre une UA et ses UAC </br>
  * 
@@ -32,8 +32,9 @@ package com.rdupuis.amikcal.commons;
 
 public class Relation implements I_Relation {
 	public static enum REL_TYP_CD {
-		UAC_FOOD,COMP_FOOD, UAC_MOVE, COMP_MOVE, UAC_WEIGHT, NRJ_REF_INTRNL,
-		COMPONENT, NRJ_REF_EQUIV, CSTM_NRJ_REF, UNIT_EQUIV, UNIT_INTER_LINK, UAC_EQUIV, QTY, QTY_EQUIV, UNDEFINED;
+		UA_CFOOD,CFOOD, UA_CMOVE, CMOVE, UA_CWEIGHT, CWEIGHT,NRJ_REF_INTRNL,
+		COMPONENT, NRJ_REF_EQUIV, CSTM_NRJ_REF, UNIT_EQUIV, UNIT_INTER_LINK,
+		C_EQUIV, QTY, QTY_EQUIV, UNDEFINED;
 
 	}
 

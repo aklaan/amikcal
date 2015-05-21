@@ -3,8 +3,9 @@ package com.rdupuis.amikcal.useractivitycomponent;
 import com.rdupuis.amikcal.Food.Food;
 import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.useractivity.UserActivity;
 
-public class UAC_Food extends UserActivityComponent {
+public class UAFoodComponent extends UserActivityComponent {
 
 	/**
 	 * un composant Aliment Food c'est par exemple un bol de soupe 100 g de
@@ -28,9 +29,10 @@ public class UAC_Food extends UserActivityComponent {
 	/**
 	 * Constructeur
 	 */
-	public UAC_Food() {
+	public UAFoodComponent(UserActivity ua) {
 		super();
-		this.setRelationClass(REL_TYP_CD.UAC_FOOD);
+		this.setUserActivity(ua);
+		this.setRelationClass(REL_TYP_CD.UA_CFOOD);
 		this.setComponent(new Component());
 	}
 
