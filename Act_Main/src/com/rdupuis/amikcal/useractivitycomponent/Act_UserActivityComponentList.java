@@ -21,8 +21,8 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+import components.Component;
 
 public class Act_UserActivityComponentList extends Activity {
 

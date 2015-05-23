@@ -1,11 +1,10 @@
-package com.rdupuis.amikcal.useractivitycomponent;
+package components;
 
-import com.rdupuis.amikcal.Food.Food;
-import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
-public class UAFoodComponent extends UserActivityComponent {
+public class FoodComponent extends Component {
+
+    public final REL_TYP_CD mRelationClass = REL_TYP_CD.CFOOD;
 
 	/**
 	 * un composant Aliment Food c'est par exemple un bol de soupe 100 g de
@@ -29,11 +28,9 @@ public class UAFoodComponent extends UserActivityComponent {
 	/**
 	 * Constructeur
 	 */
-	public UAFoodComponent(UserActivity ua) {
+	public FoodComponent() {
 		super();
-		this.setUserActivity(ua);
-		this.setRelationClass(REL_TYP_CD.UA_CFOOD);
-		this.setComponent(new Component());
+			
 	}
 
 	public float getNbkcal() {

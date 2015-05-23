@@ -145,20 +145,19 @@ public final class ContentDescriptorObj {
 	public static final class PredefinedValues {
 	    public static final class RelationsCodes {
 		public static final String UNDEFINED = "UNDEF";
-		public static final String UA_CFOOD = "UA_CF";
-		public static final String UA_CMOVE = "UA_CM";
-		public static final String UA_CWEIGHT = "UA_CW";
+		public static final String UA_COMP = "UA_COMP";
+		
 		public static final String CFOOD = "CFOOD";
 		public static final String CMOVE = "CMOVE";
 		public static final String CWEIGHT = "CFWEIGHT";
-		public static final String C_EQUIV = "C_EQV";
+		public static final String COMP_EQUIV = "COMP_EQV";
 		public static final String NRJ_REF_INTRNL = "REF_INT";
 		public static final String NRJ_REF_EQUIV = "REF_EQV";
 		public static final String CSTM_NRJ_REF = "REF_CTM";
 		public static final String UNIT_EQUIV = "UNIT_EQV";
 		public static final String UNIT_INTER_LINK = "UNIT_INT_REL";
 		public static final String QTY = "QTY";
-		public static final String UA_UAC = "UA_UAC_REL";
+		
 		public static final String QTY_EQUIV = "QTY_EQU";
 	    }
 	}
@@ -231,17 +230,17 @@ public final class ContentDescriptorObj {
 	//
 	public static final class PredefinedValues {
 	    public static final class StructureCode {
-		public static final String UNDEFINED = "U";
-		public static final String LIQUID = "L";
-		public static final String SOLID = "S";
-		public static final String POWDER = "P";
+		public static final String UNDEFINED = "UNDEF";
+		public static final String LIQUID = "LIQUID";
+		public static final String SOLID = "SOLID";
+		public static final String POWDER = "POWDER";
 
 	    }
 
 	    public static final class EffectCodes {
-		public static final String UNDEFINED = "U";
-		public static final String EARN = "G";
-		public static final String BURN = "B";
+		public static final String UNDEFINED = "UNDEF";
+		public static final String EARN = "EARN";
+		public static final String BURN = "BURN";
 	    }
 
 	}
@@ -305,7 +304,7 @@ public final class ContentDescriptorObj {
 	//
 	public static final class PredefinedValues {
 	    public static final class ClassCodes {
-		public static final String UNDEFINED = "UNDF";
+		public static final String UNDEFINED = "UNDEF";
 		public static final String INTERNATIONAL = "INT";
 		public static final String CUSTOM = "CSTM";
 		public static final String CONTAINER = "CONT";
@@ -602,20 +601,20 @@ public final class ContentDescriptorObj {
      * @author Rodolphe
      * 
      ***************************************************************************/
-    public static final class View_UA_UAC_link {
+    public static final class View_UA_Comp_link {
 	// n°de vue = 8
 	// Info concernant la table
-	public static final String VIEW_NAME = "view_ua_uac_link";
-	public static final Uri URI_BASE_VIEW_UA_UAC_REL = BASE_URI.buildUpon().appendPath(VIEW_NAME).build();
+	public static final String VIEW_NAME = "view_ua_comp_link";
+	public static final Uri URI_BASE_VIEW_UA_COMP_REL = BASE_URI.buildUpon().appendPath(VIEW_NAME).build();
 
 	// Path pour l'Uri de séléction d'un enregistrement
-	public static final String VIEW_UAC_FOR_UA_PATH = VIEW_NAME + "/" + SELECT + "/#";
-	public static final int VIEW_UAC_FOR_UA_TOKEN = 8100;
-	public static final Uri VIEW_UAC_FOR_UA_URI = URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath(SELECT).build();
+	public static final String SELECT_COMP_OF_UA_PATH = VIEW_NAME + "/" + SELECT + "/#";
+	public static final int SELECT_COMP_OF_UA_TOKEN = 8100;
+	public static final Uri SELECT_COMP_OF_UA_URI = URI_BASE_VIEW_UA_COMP_REL.buildUpon().appendPath(SELECT).build();
 
 	public static final String SEARCH_RELATION_PATH = VIEW_NAME + "/relation/*";
 	public static final int SEARCH_RELATION_TOKEN = 8101;
-	public static final Uri SEARCH_RELATION_URI = URI_BASE_VIEW_UA_UAC_REL.buildUpon().appendPath("relation")
+	public static final Uri SEARCH_RELATION_URI = URI_BASE_VIEW_UA_COMP_REL.buildUpon().appendPath("relation")
 		.build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
@@ -624,7 +623,7 @@ public final class ContentDescriptorObj {
 	public static final class Columns {
 	    public static final String REL_ID = "rel_id";
 	    public static final String UA_ID = "ua_id";
-	    public static final String UAC_ID = "uac_id";
+	    public static final String COMP_ID = "comp_id";
 
 	}
     }
@@ -707,7 +706,7 @@ public final class ContentDescriptorObj {
     public enum REQUESTS_LIST {
 	SELECT_PARTY_REL_ALL, SELECT_PARTY_REL_BY_ID, SELECT_QTY_BY_ID, SELECT_ALL_EQUIV_FOR_UAC, VIEW_DAY_BY_DATE, NONE
 
-	, SELECT_ALL_UAC_OF_UA, SELECT_QTYREF_OF_NRJ, UPDATE_UNITY, SELECT_ALL_UNITS, SELECT_ONE_UNITY_BY_ID, INSERT_UNITY, INSERT_ENERGY, INSERT_USER_ACTIVITY
+	, SELECT_ALL_COMPONENT_OF_UA, SELECT_QTYREF_OF_NRJ, UPDATE_UNITY, SELECT_ALL_UNITS, SELECT_ONE_UNITY_BY_ID, INSERT_UNITY, INSERT_ENERGY, INSERT_USER_ACTIVITY
 
 	, SELECT_ALL_ENERGIES, SELECT_ONE_ENERGY_BY_ID, SELECT_ENERGIES_LIKE, UPDATE_ENERGY, SELECT_QTYREF_RELATION,
 
@@ -756,10 +755,10 @@ public final class ContentDescriptorObj {
 	    _in.put(View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_TOKEN, REQUESTS_LIST.SELECT_QTYREF_OF_NRJ);
 
 	    //
-	    _in.put(View_UA_UAC_link.VIEW_UAC_FOR_UA_TOKEN, REQUESTS_LIST.SELECT_ALL_UAC_OF_UA);
+	    _in.put(View_UA_Comp_link.SELECT_COMP_OF_UA_TOKEN, REQUESTS_LIST.SELECT_ALL_COMPONENT_OF_UA);
 	    //
 	    _in.put(View_Qty.VIEW_QTY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_QTY_BY_ID);
-	    _in.put(View_UA_UAC_link.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_REL_UA_UAC);
+	    _in.put(View_UA_Comp_link.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_REL_UA_UAC);
 
 	    _in.put(View_UAC_Data.VIEW_UAC_DATA_TOKEN, REQUESTS_LIST.SELECT_UAC);
 
@@ -816,15 +815,14 @@ public final class ContentDescriptorObj {
 	matcher.addURI(authority, TB_Units.INSERT_UNIT, TB_Units.INSERT_UNIT_TOKEN);
 	matcher.addURI(authority, TB_Units.UPDATE_UNIT, TB_Units.UPDATE_UNIT_TOKEN);
 
-	// Match pour la vue de selection des liens UA_UAC
+	// Match pour la vue de selection des liens UA<->Composants
 	// ----------------------------------------------------------------
-	matcher.addURI(authority, View_UA_UAC_link.VIEW_UAC_FOR_UA_PATH, View_UA_UAC_link.VIEW_UAC_FOR_UA_TOKEN);
+	matcher.addURI(authority, View_UA_Comp_link.SELECT_COMP_OF_UA_PATH, View_UA_Comp_link.SELECT_COMP_OF_UA_TOKEN);
+	matcher.addURI(authority, View_UA_Comp_link.SEARCH_RELATION_PATH, View_UA_Comp_link.SEARCH_RELATION_TOKEN);
 
-	// Match pour la vue de selection des liens UAC<->Qty
+	// Match pour la vue de selection des liens Composant<->Qty
 	// ----------------------------------------------------------------
 	matcher.addURI(authority, View_UAC_Data.VIEW_UAC_DATA_PATH, View_UAC_Data.VIEW_UAC_DATA_TOKEN);
-
-	matcher.addURI(authority, View_UA_UAC_link.SEARCH_RELATION_PATH, View_UA_UAC_link.SEARCH_RELATION_TOKEN);
 
 	// Match pour la vue de selection des liens NRJ<->QtyRef
 	// ----------------------------------------------------------------

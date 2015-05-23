@@ -175,11 +175,11 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		
 		 //*********************************************************************
 		 // Création de la vue permettant de faire le lien entre une activité et
-		 // ses UAC composantes.
+		 // ses composants.
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME
+				+ ContentDescriptorObj.View_UA_Comp_link.VIEW_NAME
 
 				+ " AS SELECT "
 
@@ -188,7 +188,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " AS "
-				+ ContentDescriptorObj.View_UA_UAC_link.Columns.REL_ID
+				+ ContentDescriptorObj.View_UA_Comp_link.Columns.REL_ID
 				+ ","
 
 				// ID de la source d'énergie
@@ -196,7 +196,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
 				+ " AS "
-				+ ContentDescriptorObj.View_UA_UAC_link.Columns.UA_ID
+				+ ContentDescriptorObj.View_UA_Comp_link.Columns.UA_ID
 				+ ","
 
 				// ID de la QtyRef
@@ -204,7 +204,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
 				+ " AS "
-				+ ContentDescriptorObj.View_UA_UAC_link.Columns.UAC_ID
+				+ ContentDescriptorObj.View_UA_Comp_link.Columns.COMP_ID
 
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
@@ -215,7 +215,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_UAC
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_COMP
 				+"'"
 
 				
@@ -377,23 +377,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
 				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_CFOOD
-
-				+ "' OR " 
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-				+ "."
-				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_CMOVE
-				+ "' OR " 
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-				+ "."
-				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_CWEIGHT
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.UA_COMP
 				+"'"
-								
-				
 
 		);
 

@@ -32,9 +32,9 @@ package com.rdupuis.amikcal.commons;
 
 public class Relation implements I_Relation {
 	public static enum REL_TYP_CD {
-		UA_CFOOD,CFOOD, UA_CMOVE, CMOVE, UA_CWEIGHT, CWEIGHT,NRJ_REF_INTRNL,
+		UA_COMP,CFOOD,  CMOVE,  CWEIGHT,NRJ_REF_INTRNL,
 		COMPONENT, NRJ_REF_EQUIV, CSTM_NRJ_REF, UNIT_EQUIV, UNIT_INTER_LINK,
-		C_EQUIV, QTY, QTY_EQUIV, UNDEFINED;
+		COMP_EQUIV, QTY, QTY_EQUIV, UNDEFINED;
 
 	}
 

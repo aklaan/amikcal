@@ -297,17 +297,19 @@ public class ContentProviderObj extends ContentProvider {
 		
 	}
 
-	case SELECT_ALL_UAC_OF_UA: {
+	case SELECT_ALL_COMPONENT_OF_UA: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME);
+	    builder.setTables(ContentDescriptorObj.View_UA_Comp_link.VIEW_NAME);
 
-	    String whereClause = ContentDescriptorObj.View_UA_UAC_link.VIEW_NAME + "."
-		    + ContentDescriptorObj.View_UA_UAC_link.Columns.UA_ID + "=" + uri.getLastPathSegment();
+	    String whereClause = ContentDescriptorObj.View_UA_Comp_link.VIEW_NAME + "."
+		    + ContentDescriptorObj.View_UA_Comp_link.Columns.UA_ID + "=" + uri.getLastPathSegment();
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
+	
 	case SELECT_DB_VERSION: {
 	    return db.rawQuery("PRAGMA user_version", null);
 	}
+	
 	case SELECT_ALL_EQUIV_OF_QTY:{
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);

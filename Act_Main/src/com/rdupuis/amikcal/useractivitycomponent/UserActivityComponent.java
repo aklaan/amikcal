@@ -1,16 +1,12 @@
 package com.rdupuis.amikcal.useractivitycomponent;
 
-import java.util.ArrayList;
-
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Component;
-import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.I_Relation;
-import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
-import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+
+import components.Component;
+import components.EmptyComponent;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :
@@ -30,39 +26,23 @@ public class UserActivityComponent implements I_Relation {
 	private long id;
 	private Component mComponent;
 	private UserActivity mUserActivity;
-	private REL_TYP_CD mRelationClass;
+	public final REL_TYP_CD mRelationClass = REL_TYP_CD.UA_COMP;
 
 	/**
 	 * Constructeur
 	 */
 	public UserActivityComponent() {
 		id = AppConsts.NO_ID;
-		mComponent = new Component();
+		mComponent = new EmptyComponent();
 		mUserActivity = new UserActivity();
-		this.mRelationClass = REL_TYP_CD.UNDEFINED;
+		
 	}
 
 	public UserActivityComponent(UserActivity UA, Component component) {
 		id = AppConsts.NO_ID;
 		mComponent = component;
 		mUserActivity = UA;
-		
-		switch (UA.getType()){
-		case LUNCH :this.setRelationClass(REL_TYP_CD.UA_CFOOD);
-		    break;
-		
-		case MOVE :this.setRelationClass(REL_TYP_CD.UA_CMOVE);
-		    break;
-		
-		case WEIGHT :this.setRelationClass(REL_TYP_CD.UA_CWEIGHT);
-		    break;
-		default: this.setRelationClass(REL_TYP_CD.UNDEFINED);
-		
 		}
-		
-		
-		this.mRelationClass = REL_TYP_CD.UNDEFINED;
-	}
 	
 	// ==================
 	public void setId(long id) {
@@ -99,10 +79,6 @@ public class UserActivityComponent implements I_Relation {
 		return mRelationClass;
 	}
 
-	// ==================
-	public void setRelationClass(REL_TYP_CD relationClass) {
-		this.mRelationClass = relationClass;
-	}
 
 	// ==================
 	public String getParty1() {

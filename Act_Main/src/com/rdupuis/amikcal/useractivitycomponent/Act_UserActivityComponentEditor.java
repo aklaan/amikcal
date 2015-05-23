@@ -19,11 +19,14 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Component;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+
+import components.Component;
+import components.EmptyComponent;
+import components.FoodComponent;
 
 public class Act_UserActivityComponentEditor extends Activity {
 
@@ -68,11 +71,17 @@ public class Act_UserActivityComponentEditor extends Activity {
 	    this.edited_Component = mUA.getComponentsList().get(component_index);
 
 	} else {
-	    // Initialisation d'un nouveau composant
-	    edited_Component = new Component();
-	      }
-    
-	
+	    // Initialisation d'un nouveau composant en fonction de l'activitée
+	    // mère
+	    switch (mUA.type) {
+	    case LUNCH:
+		edited_Component = new FoodComponent();
+		break;
+	    default:
+		edited_Component = new EmptyComponent();
+	    }
+
+	}
 
 	/****************************************************************************
 	 * ETAPE II : on charge l'écran
@@ -158,7 +167,8 @@ public class Act_UserActivityComponentEditor extends Activity {
      **************************************************************************************/
     public void callUnitListView() {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_Component.getEnergySource().getId()));
+	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
+		String.valueOf(edited_Component.getEnergySource().getId()));
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -203,27 +213,26 @@ public class Act_UserActivityComponentEditor extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-	
 	switch (requestCode) {
 
 	case R.integer.NUMERICPAD:
 
 	    if (resultCode == RESULT_OK) {
 
-		this.edited_Component.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
-	
+		this.edited_Component.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+
 	    }
 	    break;
 
 	case R.integer.ACTY_UNITS_LIST:
 
 	    if (resultCode == RESULT_OK) {
-		
-		
-		 // on récupère l'objet Unit. this.mUAC
-		 this.edited_Component.getQty().setUnity(factory.load_Unity(
-			 intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID,AppConsts.NO_ID)));
-		}
+
+		// on récupère l'objet Unit. this.mUAC
+		this.edited_Component.getQty().setUnity(
+			factory.load_Unity(intent
+				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
+	    }
 	    break;
 
 	case R.integer.ACTY_ENERGIES_LIST:
@@ -233,8 +242,8 @@ public class Act_UserActivityComponentEditor extends Activity {
 		// on récupère l'Energy choisi par l'utilisateur d'après sont id
 		// .
 
-		this.edited_Component.setEnergySource(factory.load_Energy(intent
-			.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY,AppConsts.NO_ID)));
+		this.edited_Component.setEnergySource(factory.load_Energy(intent.getLongExtra(
+			Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
 
 	    }
 	    break;
