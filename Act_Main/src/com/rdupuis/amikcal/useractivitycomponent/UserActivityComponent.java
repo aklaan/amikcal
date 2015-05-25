@@ -6,7 +6,6 @@ import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
 import components.Component;
-import components.EmptyComponent;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :
@@ -33,7 +32,7 @@ public class UserActivityComponent implements I_Relation {
 	 */
 	public UserActivityComponent() {
 		id = AppConsts.NO_ID;
-		mComponent = new EmptyComponent();
+		mComponent = new Component();
 		mUserActivity = new UserActivity();
 		
 	}

@@ -28,33 +28,36 @@ public class Act_UserActivityComponentList extends Activity {
 
     public UserActivity mUA; // la liste se réfère obligatoirement à une UA
     private ListView maListViewPerso;
-    AmiKcalFactory factory;
+    private AmiKcalFactory factory;
+    //Noms des zones d'échanges prévues dans l'Intent
     public static final String INPUT____UA_ID = "ua_id";
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	factory = new AmiKcalFactory(this);
+	this.factory = new AmiKcalFactory(this);
 
-	// Etape 1 : on charge les données
-
-	mUA = new UserActivity();
-
-	// try {
-
+	/* *********************************************
+	 * Etape 1 : Chargement des données
+	***********************************************/
+	
+	// - récupérer l'UA pour laquelle on souhaites afficher des composants
 	long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
 	this.mUA = factory.load_UserActivity(ua_id);
 
-	// } catch (Exception e) {
-	// TODO
-	// }
-
-	// Etape 2 : on charge l'affichage
+	/* *********************************************
+	 * Etape 2 : Chargement du Layer d'affichage
+	***********************************************/
+	
 	setContentView(R.layout.view_components_list);
 	// Récupération de la listview créée dans le fichier customizedlist.xml
-	maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
+
+	/* *********************************************
+	 * Etape 3 : Alimentation des zones d'affichage
+	***********************************************/
+	maListViewPerso = (ListView) findViewById(R.id.listviewperso);	
 	this.refreshScreen();
 
     }// fin du onCreate

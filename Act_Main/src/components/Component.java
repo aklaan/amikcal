@@ -22,7 +22,7 @@ import com.rdupuis.amikcal.equivalence.Equivalence;
  * @author Rodolphe
  * 
  */
-public abstract class Component implements I_Relation {
+public class Component implements I_Relation {
 
     private long id;
     // private UserActivity mUserActivity;

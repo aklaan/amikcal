@@ -12,7 +12,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 public class UserActivityItem extends AbstractUserActivityItem{
 
 	//public Activity mActivity;
-	//public UserActivity mUserActivity;
+	public UserActivity mUserActivity;
 
 	public UserActivityItem(Activity activity) {
 		this.mActivity=activity;

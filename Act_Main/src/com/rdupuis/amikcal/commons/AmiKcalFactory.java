@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.rdupuis.amikcal.Food.Food;
+
 import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
@@ -19,6 +19,7 @@ import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.UNIT_CLASS_MAP;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.energy.EnergyEarn;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Unity;
@@ -34,8 +35,7 @@ import com.rdupuis.amikcal.useractivity.UserActivityWeightItem;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 import components.Component;
-import components.EmptyComponent;
-import components.FoodComponent;
+import components.ComponentFood;
 import components.MoveComponent;
 
 public final class AmiKcalFactory {
@@ -82,17 +82,17 @@ public final class AmiKcalFactory {
 
 	    // on charge le mapping des NRJ_EFFECT
 	    NRJ_EFFECT_MAP map_effect = new NRJ_EFFECT_MAP();
-	    energy.setEffect(map_effect._in.get(cursor.getString(INDX_NRJ_EFFECT)));
-
+	   
 	    switch (map_effect._in.get(cursor.getString(INDX_NRJ_EFFECT))) {
 
-	    // si l'effet de l'énergie est de "donner", alors il s'agit d'une
-	    // énergie "Aliment" et donc elle possède une structure.
+	    // si l'effet de la source est de gagner de l'énergie, alors il s'agit d'une
+	    // énergie de type "Aliment".
+	    // si au contraire c'est la source brule de l'énergie c'est une activité physique.
 	    case EARN:
-		energy = new Food();
+		energy = new EnergyEarn();
 		break;
 	    case BURN:
-		// TODO
+		// energy = new EnergyBurn();
 	    default:
 	    }
 
@@ -228,7 +228,8 @@ public final class AmiKcalFactory {
 	UserActivity userActivity = new UserActivity();
 
 	if (_id == AppConsts.NO_ID) {
-	    return userActivity;
+	    Toast.makeText(this.mActivity, "ID à recharger vide", Toast.LENGTH_LONG).show();
+		return userActivity;
 	}
 
 	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI,
@@ -327,7 +328,7 @@ public final class AmiKcalFactory {
      ************************************************************************/
 
     public Component load_Component(long _id) {
-	Component component = new EmptyComponent();
+	Component component = new Component();
 
 	// si l'id est nul on retourne un component vide.
 	if (_id == AppConsts.NO_ID) {
@@ -357,7 +358,7 @@ public final class AmiKcalFactory {
 	    switch (rel_typ_cd) {
 
 	    case CFOOD:
-		component = new FoodComponent();
+		component = new ComponentFood();
 		break;
 	    case CMOVE:
 		component = new MoveComponent();

@@ -1,14 +1,14 @@
-package com.rdupuis.amikcal.useractivity;
+package components;
 
 import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
 
-public abstract class AbstractUserActivityItem {
+public abstract class AbstractComponentItem {
 
 	public Activity mActivity;
-	public UserActivity mUserActivity;
+	public Component mComponent;
 	
 	public abstract void edit();
 	public abstract void create(Calendar day) ;

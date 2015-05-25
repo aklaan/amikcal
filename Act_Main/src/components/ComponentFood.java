@@ -2,7 +2,7 @@ package components;
 
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
-public class FoodComponent extends Component {
+public class ComponentFood extends Component {
 
     public final REL_TYP_CD mRelationClass = REL_TYP_CD.CFOOD;
 
@@ -28,7 +28,7 @@ public class FoodComponent extends Component {
 	/**
 	 * Constructeur
 	 */
-	public FoodComponent() {
+	public ComponentFood() {
 		super();
 			
 	}

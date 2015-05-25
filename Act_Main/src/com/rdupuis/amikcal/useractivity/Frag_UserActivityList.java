@@ -214,6 +214,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 			UserActivityItem userActivityItem = factory.createUserActivityItemFromId(currentActivity,
 				item_id);
 
+			//en fonction du type interne de l'item, on va appeler l'éditeur adéquat.
 			userActivityItem.edit();
 		    }
 		});

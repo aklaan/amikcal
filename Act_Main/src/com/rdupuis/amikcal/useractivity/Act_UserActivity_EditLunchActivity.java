@@ -185,7 +185,7 @@ public class Act_UserActivity_EditLunchActivity extends
 			type = UserActivityLunch.LunchType.valueOf(this.mUserActivity
 					.getTitle());
 		} catch (Exception e) {
-			type = UserActivityLunch.LunchType.UNKNOWN;
+			type = UserActivityLunch.LunchType.UNDEFINED;
 		}
 
 		switch (type) {

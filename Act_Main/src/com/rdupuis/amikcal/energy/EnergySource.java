@@ -31,7 +31,7 @@ public class EnergySource  {
 	}
 	private long id;
 	private String name;
-	private NRJ_EFFECT mEffect;
+	
 	private Qty mQty_reference; // quantité de référence
 	private ArrayList<Equivalence> equivalences;
 	private STRUCTURE mStructure;
@@ -39,7 +39,6 @@ public class EnergySource  {
 	public EnergySource(){
 		id = AppConsts.NO_ID;
 		name="";
-		mEffect = NRJ_EFFECT.UNDEFINED;
 		mQty_reference = new Qty();
 		equivalences = new ArrayList<Equivalence>();
 		setStructure(STRUCTURE.UNDEFINED);
@@ -53,15 +52,15 @@ public class EnergySource  {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public NRJ_EFFECT getEffect() {
-		return mEffect;
+		return NRJ_EFFECT.UNDEFINED;
 	}
-
+/*
 	public void setEffect(NRJ_EFFECT effect) {
 		this.mEffect = (effect !=null)?effect:NRJ_EFFECT.UNDEFINED;
 	}
-
+*/
 	public void setQtyReference(Qty qty) {
 		this.mQty_reference = qty;
 	}

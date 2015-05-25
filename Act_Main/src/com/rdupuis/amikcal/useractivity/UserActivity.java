@@ -7,8 +7,9 @@ import java.util.Date;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 import components.Component;
+import components.ComponentFood;
 
-public class UserActivity {
+public  class UserActivity {
 	public enum UA_CLASS_CD {
 		LUNCH, WEIGHT, MOVE
 	}
@@ -19,7 +20,8 @@ public class UserActivity {
 	public UA_CLASS_CD type; // moving / eating / cooking
 
 	public Date last_update;
-	private ArrayList<Component> mComponentsList;
+    //la liste des composants est une liste d'objets qui héritent de Component
+	private ArrayList<? extends Component> mComponentsList;
 
 	public UserActivity() {
 		// Par defaut
@@ -45,7 +47,6 @@ public class UserActivity {
 		this.type = type;
 	}
 
-	
 	
 	public Date getLast_update() {
 		return last_update;
@@ -76,11 +77,11 @@ public class UserActivity {
 	}
 
 	public ArrayList<Component> getComponentsList() {
-		return this.mComponentsList;
+		return (ArrayList<Component>) this.mComponentsList;
 	}
 
-	public void setComponentsList(ArrayList<Component> comp_list) {
-		this.mComponentsList = comp_list;
+	public void setComponentsList(ArrayList<? extends Component> arrayList) {
+		this.mComponentsList = arrayList;
 	}
 
 }
