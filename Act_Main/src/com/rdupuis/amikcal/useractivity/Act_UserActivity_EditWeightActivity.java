@@ -99,7 +99,7 @@ public class Act_UserActivity_EditWeightActivity extends
 		mUserActivity.getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (mUserActivity.get_id() == AppConsts.NO_ID) {
+		if (mUserActivity.getId() == AppConsts.NO_ID) {
 			insertUActivity();
 		} else {
 			updateUActivity();
@@ -179,7 +179,7 @@ public class Act_UserActivity_EditWeightActivity extends
 		// Si l'id de l'activité n'est pas NO_ID alors on est en train
 		// d'éditer une pesée. Dans ce cas, on affiche ce que l'utilisateur
 		// avait enregistré
-		if (this.mUserActivity.get_id() != AppConsts.NO_ID) {
+		if (this.mUserActivity.getId() != AppConsts.NO_ID) {
 
 			WeightObj w = ((UserActivityWeight) this.mUserActivity).getWeight();
 			kilos = String.valueOf(w.getInt_part());

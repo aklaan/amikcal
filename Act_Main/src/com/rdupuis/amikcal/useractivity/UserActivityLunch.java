@@ -18,7 +18,7 @@ public class UserActivityLunch extends UserActivity{
 		super();
 		
 		this.type = UserActivity.UA_CLASS_CD.LUNCH;
-		this.set_id(AppConsts.NO_ID);
+		this.setId(AppConsts.NO_ID);
 		this.setComponentsList(new ArrayList<Component>());
 		
 

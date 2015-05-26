@@ -81,7 +81,7 @@ public class UserActivityComponent implements I_Relation {
 
 	// ==================
 	public String getParty1() {
-		return String.valueOf(mUserActivity.get_id());
+		return String.valueOf(mUserActivity.getId());
 	}
 
 	// ==================

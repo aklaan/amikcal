@@ -1,17 +1,16 @@
-package components;
-
-import java.util.Calendar;
+package com.rdupuis.amikcal.useractivity;
 
 import android.app.Activity;
 import android.content.Intent;
 
-public abstract class AbstractComponentItem {
+public abstract class EditorLauncher {
 
 	public Activity mActivity;
-	public Component mComponent;
+	public EditableObj mEditable;
 	
-	public abstract void edit();
-	public abstract void create(Calendar day) ;
+	public abstract void start();
 	public abstract void delete();
 	public abstract void onActivityResult(int requestCode, int resultCode, Intent intent);
+	    
+	
 }

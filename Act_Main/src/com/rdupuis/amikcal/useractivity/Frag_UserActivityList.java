@@ -210,13 +210,9 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 			AmiKcalFactory factory = new AmiKcalFactory(Frag_UserActivityList.this.getActivity());
 
-			//on crée un Item userActivity !!(pas une userActivity)
-			UserActivityItem userActivityItem = factory.createUserActivityItemFromId(currentActivity,
-				item_id);
-
-			//en fonction du type interne de l'item, on va appeler l'éditeur adéquat.
-			userActivityItem.edit();
-		    }
+			UserActivity ua = factory.load_UserActivity(item_id); 
+			EditorLauncher el = factory.createEditorLauncher(currentActivity,ua);
+			el.start();	    }
 		});
 
 		// *********************************************************************************************************
@@ -226,14 +222,9 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
 			long item_id = Frag_UserActivityList.this.selectedItemId;
 
-			Activity currentActivity = Frag_UserActivityList.this.getActivity();
-
 			AmiKcalFactory factory = new AmiKcalFactory(Frag_UserActivityList.this.getActivity());
-
-			UserActivityItem userActivityItem = factory.createUserActivityItemFromId(currentActivity,
-				item_id);
-
-			userActivityItem.delete();
+			UserActivity userActivity = factory.load_UserActivity(item_id);
+			factory.delete(userActivity);
 			Frag_UserActivityList.this.refreshScreen();
 		    }
 		});

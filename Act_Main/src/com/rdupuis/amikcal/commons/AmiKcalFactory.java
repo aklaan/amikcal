@@ -1,16 +1,17 @@
 package com.rdupuis.amikcal.commons;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
-
 
 import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
@@ -23,20 +24,24 @@ import com.rdupuis.amikcal.energy.EnergyEarn;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Unity;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditMoveActivity;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditWeightActivity;
+import com.rdupuis.amikcal.useractivity.EditableObj;
+import com.rdupuis.amikcal.useractivity.EditorLauncher;
+import com.rdupuis.amikcal.useractivity.UALunchEditor_Launcher;
+import com.rdupuis.amikcal.useractivity.UAMoveEditor_Launcher;
+import com.rdupuis.amikcal.useractivity.UAWeightEditor_Launcher;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
-import com.rdupuis.amikcal.useractivity.UserActivityItem;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditLunchActivity;
 import com.rdupuis.amikcal.useractivity.UserActivityLunch;
-import com.rdupuis.amikcal.useractivity.UserActivityLunchItem;
 import com.rdupuis.amikcal.useractivity.UserActivityMove;
-import com.rdupuis.amikcal.useractivity.UserActivityMoveItem;
 import com.rdupuis.amikcal.useractivity.UserActivityWeight;
-import com.rdupuis.amikcal.useractivity.UserActivityWeightItem;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 import components.Component;
 import components.ComponentFood;
-import components.MoveComponent;
+import components.ComponentMove;
 
 public final class AmiKcalFactory {
 
@@ -82,12 +87,14 @@ public final class AmiKcalFactory {
 
 	    // on charge le mapping des NRJ_EFFECT
 	    NRJ_EFFECT_MAP map_effect = new NRJ_EFFECT_MAP();
-	   
+
 	    switch (map_effect._in.get(cursor.getString(INDX_NRJ_EFFECT))) {
 
-	    // si l'effet de la source est de gagner de l'énergie, alors il s'agit d'une
+	    // si l'effet de la source est de gagner de l'énergie, alors il
+	    // s'agit d'une
 	    // énergie de type "Aliment".
-	    // si au contraire c'est la source brule de l'énergie c'est une activité physique.
+	    // si au contraire c'est la source brule de l'énergie c'est une
+	    // activité physique.
 	    case EARN:
 		energy = new EnergyEarn();
 		break;
@@ -229,7 +236,7 @@ public final class AmiKcalFactory {
 
 	if (_id == AppConsts.NO_ID) {
 	    Toast.makeText(this.mActivity, "ID à recharger vide", Toast.LENGTH_LONG).show();
-		return userActivity;
+	    return userActivity;
 	}
 
 	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI,
@@ -264,7 +271,7 @@ public final class AmiKcalFactory {
 		break;
 	    }
 
-	    userActivity.set_id(cur.getLong(ACTIVITY_ID));
+	    userActivity.setId(cur.getLong(ACTIVITY_ID));
 	    userActivity.setTitle(cur.getString(ACTIVITY_TITLE));
 	    userActivity.setDay(ToolBox.parseSQLDatetime(cur.getString(ACTIVITY_DATE)));
 
@@ -279,6 +286,17 @@ public final class AmiKcalFactory {
 	return userActivity;
     }
 
+    /*******************************************************
+     * supprimer une activité d'un utilisateur ATTENTION aux liens à revoir....
+     ***************************************************/
+    public void delete(UserActivity userActivity) {
+
+	Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.DELETE_USER_ACTIVITY_URI,
+		userActivity.getId());
+	mActivity.getContentResolver().delete(uriDelete, null, null);
+
+    }
+
     /*****************************************************************************
      * load_UA_ComponentsList(UserActivity)
      * 
@@ -291,12 +309,12 @@ public final class AmiKcalFactory {
     public ArrayList<Component> load_UA_ComponentsList(UserActivity UA) {
 	ArrayList<Component> component_list = new ArrayList<Component>();
 
-	if (UA.get_id() == AppConsts.NO_ID) {
+	if (UA.getId() == AppConsts.NO_ID) {
 	    return component_list;
 	}
 
 	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.View_UA_Comp_link.SELECT_COMP_OF_UA_URI,
-		UA.get_id());
+		UA.getId());
 
 	Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
@@ -361,9 +379,9 @@ public final class AmiKcalFactory {
 		component = new ComponentFood();
 		break;
 	    case CMOVE:
-		component = new MoveComponent();
+		component = new ComponentMove();
 		break;
-	    default: //nothing
+	    default: // nothing
 	    }
 
 	    component.setEnergySource(nrj);
@@ -382,28 +400,21 @@ public final class AmiKcalFactory {
      * @param _id
      * @return
      ********************************************************************************/
-    public UserActivityItem createUserActivityItemFromId(Activity activity, long _id) {
-	UserActivity userActivity = load_UserActivity(_id);
-	UserActivityItem userActivityItem = null;
+    public EditorLauncher createEditorLauncher(Activity activity, UserActivity userActivity) {
 
 	// en fonction du type d'activitée, on va retourner l'objet adequat
 	switch (userActivity.type) {
 	case LUNCH:
-	    userActivityItem = new UserActivityLunchItem(activity);
-	    break;
-
+	    return new UALunchEditor_Launcher(activity);
 	case MOVE:
-	    userActivityItem = new UserActivityMoveItem(activity);
-	    break;
-
+	    return new UAMoveEditor_Launcher(activity);
 	case WEIGHT:
-	    userActivityItem = new UserActivityWeightItem(activity);
-
-	    break;
+	    return new UAWeightEditor_Launcher(activity);
 	}
 
-	userActivityItem.mUserActivity = userActivity;
-	return userActivityItem;
+	Toast.makeText(this.mActivity, "Launcher editor non prévu", Toast.LENGTH_LONG).show();
+
+	return null;
     }
 
     /**
@@ -648,8 +659,7 @@ public final class AmiKcalFactory {
 	ContentValues val = new ContentValues();
 
 	// id de l'activitée
-	val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID,
-		(UA.get_id() == AppConsts.NO_ID) ? null : UA.get_id());
+	val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (UA.getId() == AppConsts.NO_ID) ? null : UA.getId());
 	// titre
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.TITLE, UA.getTitle());
 	// Date
@@ -663,16 +673,16 @@ public final class AmiKcalFactory {
 	// date de mise à jour
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
-	if (UA.get_id() == AppConsts.NO_ID) {
+	if (UA.getId() == AppConsts.NO_ID) {
 	    Uri result = this.mActivity.getContentResolver().insert(
 		    ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI, val);
-	    UA.set_id(Long.parseLong(result.getLastPathSegment()));
+	    UA.setId(Long.parseLong(result.getLastPathSegment()));
 	} else {
 
 	    Uri uriUpdate =
 
-	    ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI, UA.get_id());
-	    this.mActivity.getContentResolver().update(uriUpdate, val, UA.get_id().toString(), null);
+	    ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI, UA.getId());
+	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(UA.getId()), null);
 
 	}
 	// si l'UA possède des Composants, on doit les sauver et créer les liens

@@ -10,6 +10,7 @@ import com.rdupuis.amikcal.commons.Relation;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
+import com.rdupuis.amikcal.useractivity.EditableObj;
 
 /**
  * Un composant = une relation entre une quantité et une source d'énergie.
@@ -22,7 +23,7 @@ import com.rdupuis.amikcal.equivalence.Equivalence;
  * @author Rodolphe
  * 
  */
-public class Component implements I_Relation {
+public class Component implements I_Relation, EditableObj {
 
     private long id;
     // private UserActivity mUserActivity;

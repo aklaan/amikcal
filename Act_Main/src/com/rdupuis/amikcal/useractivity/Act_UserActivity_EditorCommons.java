@@ -129,7 +129,7 @@ public static final String INPUT____UA_ID = "ua_id";
 	private ContentValues setGenericValues(ContentValues val) {
 		//id de l'activitée
 		val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (mUserActivity
-				.get_id() == AppConsts.NO_ID) ? null : mUserActivity.get_id());
+				.getId() == AppConsts.NO_ID) ? null : mUserActivity.getId());
 		//titre
 		val.put(ContentDescriptorObj.TB_UserActivities.Columns.TITLE,
 				mUserActivity.getTitle());
@@ -155,9 +155,9 @@ public static final String INPUT____UA_ID = "ua_id";
 		ContentValues val = getContentValues();
 		Uri uriUpdate = ContentUris.withAppendedId(
 				ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI,
-				mUserActivity.get_id());
+				mUserActivity.getId());
 		this.getContentResolver().update(uriUpdate, val,
-				this.mUserActivity.get_id().toString(), null);
+			String.valueOf(this.mUserActivity.getId()), null);
 	}
 
 	/*******************************************************************************************

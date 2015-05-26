@@ -89,7 +89,7 @@ public class Act_UserActivityComponentList extends Activity {
 	// Intent intent = new Intent(this,
 	// Act_UserActivityComponentSlider.class);
 
-	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UA_ID, this.mUA.get_id());
+	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UA_ID, this.mUA.getId());
 	intent.putExtra(Act_UserActivityComponentEditor.INPUT____COMPONENT_INDEX, component_index);
 	startActivityForResult(intent, R.integer.ACTY_COMPONENT);
     }
@@ -134,7 +134,7 @@ public class Act_UserActivityComponentList extends Activity {
 
     protected void refreshScreen() {
 	// recharger les modification qui ont pu être effectué sur l'UA
-	this.mUA = factory.load_UserActivity(this.mUA.get_id());
+	this.mUA = factory.load_UserActivity(this.mUA.getId());
 
 	// effacer la liste actuelle
 	maListViewPerso.removeAllViewsInLayout();

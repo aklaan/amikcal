@@ -78,8 +78,8 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 * Gestion du bouton "repas"
 	 *******************************************************************************************/
 	public void onClickLunch(View v) {
-		UserActivityItem userActivityItem = new UserActivityLunchItem(this);
-		userActivityItem.create(this.currentDay);
+		UAEditorLauncher launcher = new UALunchEditor_Launcher(this);
+		launcher.editNewUA(this.currentDay);
 	}
 
 	/*******************************************************************************************
@@ -87,8 +87,8 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 * Gestion du bouton "activité physique"
 	 *******************************************************************************************/
 	public void onClickPhysicalActivity(View v) {
-		UserActivityItem userActivityItem = new UserActivityMoveItem(this);
-		userActivityItem.create(this.currentDay);
+		UAEditorLauncher launcher = new UAMoveEditor_Launcher(this);
+		launcher.editNewUA(this.currentDay);
 	}
 
 	/*******************************************************************************************
@@ -96,8 +96,7 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
 	 * Gestion du bouton "poids"
 	 *******************************************************************************************/
 	public void onClickWeight(View v) {
-		UserActivityItem userActivityItem = new UserActivityWeightItem(this);
-		userActivityItem.create(this.currentDay);
-	}
+		UAEditorLauncher launcher = new UAWeightEditor_Launcher(this);
+		launcher.editNewUA(this.currentDay);	}
 
 }

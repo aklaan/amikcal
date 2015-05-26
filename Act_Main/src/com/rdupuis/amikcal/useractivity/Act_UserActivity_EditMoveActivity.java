@@ -94,7 +94,7 @@ public class Act_UserActivity_EditMoveActivity extends
 		mUserActivity.getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (mUserActivity.get_id() == AppConsts.NO_ID) {
+		if (mUserActivity.getId() == AppConsts.NO_ID) {
 			insertUActivity();
 		} else {
 			updateUActivity();
