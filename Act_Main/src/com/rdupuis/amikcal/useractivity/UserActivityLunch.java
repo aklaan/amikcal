@@ -1,8 +1,10 @@
 package com.rdupuis.amikcal.useractivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+
 import components.Component;
 import components.ComponentFood;
 
@@ -24,6 +26,15 @@ public class UserActivityLunch extends UserActivity{
 
 	}
 
+	public UserActivityLunch(Calendar day) {
+		super(day);
+		
+		this.type = UserActivity.UA_CLASS_CD.LUNCH;
+		this.setId(AppConsts.NO_ID);
+		this.setComponentsList(new ArrayList<Component>());
+		
+
+	}
 		
 	
 }

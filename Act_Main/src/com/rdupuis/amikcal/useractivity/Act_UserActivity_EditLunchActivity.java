@@ -41,7 +41,7 @@ public class Act_UserActivity_EditLunchActivity extends
 			// on  doit en créer un à la date du jour récupéré de l'Intent
 			this.mUserActivity = new UserActivityLunch();
 			this.mUserActivity.setDay(ToolBox.parseCalendar(getIntent()
-					.getStringExtra(AppConsts.INPUT____UA_EDITOR____DAY)));
+					.getStringExtra(this.INPUT____DAY)));
 
 			break;
 

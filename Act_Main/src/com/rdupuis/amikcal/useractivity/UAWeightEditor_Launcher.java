@@ -1,27 +1,27 @@
 package com.rdupuis.amikcal.useractivity;
 
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 
-public class UAWeightEditor_Launcher extends UAEditorLauncher {
+public class UAWeightEditor_Launcher extends EditorLauncher {
 
-    public UAWeightEditor_Launcher(Activity activity) {
+    public UAWeightEditor_Launcher(Activity activity, EditableUA uaWeight) {
 	this.mActivity = activity;
-	this.mEditable = new UserActivityLunch();
+	this.mEditable = uaWeight;
     }
 
     // Dans le cas d'une mise à jour on appelle l'éditeur avec l'ID de
     // l'activité à modifier
     public void start() {
 
-	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditLunchActivity.class);
-	intent.putExtra(AppConsts.INPUT____UA_EDITOR____USER_ACTIVITY_ID, this.mEditable.getId());
+	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditWeightActivity.class);
+	intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____UA_ID, this.mEditable.getId());
+
+	intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____DAY, ToolBox.getSqlDate(((EditableUA) this.mEditable).getDay()));
+
 
 	this.mActivity.startActivityForResult(intent, 0);
     }
@@ -36,13 +36,5 @@ public class UAWeightEditor_Launcher extends UAEditorLauncher {
 
     }
 
-    @Override
-    public void editNewUA(Calendar day_Of_the_UA) {
-	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditLunchActivity.class);
-	intent.putExtra(AppConsts.INPUT____UA_EDITOR____DAY, ToolBox.getSqlDate(day_Of_the_UA));
-
-	this.mActivity.startActivityForResult(intent, 0);
-
-    }
 
 }

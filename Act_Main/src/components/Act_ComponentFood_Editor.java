@@ -25,7 +25,7 @@ import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
 
-public class Act_Component_Editor_Food extends Activity {
+public class Act_ComponentFood_Editor extends Activity {
 
     ComponentFood edited_Component;
     ContentResolver contentResolver;

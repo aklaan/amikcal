@@ -9,7 +9,7 @@ import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 import components.Component;
 import components.ComponentFood;
 
-public  class UserActivity implements EditableObj{
+public  class UserActivity implements EditableUA{
 	public enum UA_CLASS_CD {
 		LUNCH, WEIGHT, MOVE
 	}
@@ -18,7 +18,8 @@ public  class UserActivity implements EditableObj{
 	public Calendar day;
 	private String title;
 	public UA_CLASS_CD type; // moving / eating / cooking
-
+	
+	
 	public Date last_update;
     //la liste des composants est une liste d'objets qui héritent de Component
 	private ArrayList<? extends Component> mComponentsList;
@@ -31,6 +32,16 @@ public  class UserActivity implements EditableObj{
 		this.setComponentsList(new ArrayList<Component>());
 	}
 
+	
+	public UserActivity(Calendar day) {
+		// Par defaut
+		this.day = day;
+		this.title = "";
+		this._id = AppConsts.NO_ID;
+		this.setComponentsList(new ArrayList<Component>());
+	}
+
+	
 	public long getId() {
 		return _id;
 	}

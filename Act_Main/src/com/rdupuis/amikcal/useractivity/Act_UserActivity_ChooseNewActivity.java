@@ -27,76 +27,72 @@ import com.rdupuis.amikcal.commons.ToolBox;
  */
 public class Act_UserActivity_ChooseNewActivity extends Activity {
 
-	Calendar currentDay;
+    Calendar currentDay;
 
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
 
-		/**
-		 * ===================================================================== 
-		 * Etape I - On récupère les données fournies dans l'Intent
-		 * ======================================================================
-		 */
-		// On tente de récupérer la date dans le bundle de l'activité si elle
-		// est présente
-		// si elle n'est pas présente, on met la date du jour.
-		try {
+	/**
+	 * =====================================================================
+	 * Etape I - On récupère les données fournies dans l'Intent
+	 * ==============
+	 * ========================================================
+	 */
+	// On tente de récupérer la date dans le bundle de l'activité si elle
+	// est présente
+	// si elle n'est pas présente, on met la date du jour.
+	try {
 
-			currentDay = ToolBox
-					.parseCalendar(getIntent()
-							.getStringExtra(
-									AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
+	    currentDay = ToolBox.parseCalendar(getIntent().getStringExtra(
+		    AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
 
-		} catch (Exception e) {
-			currentDay = Calendar.getInstance();
-		}
-		;
-
-		/****************************************************************************************
-		 * Etape II- On charge l'écran
-		 ****************************************************************************************/
-		setContentView(R.layout.choose_activity);
-
+	} catch (Exception e) {
+	    currentDay = Calendar.getInstance();
 	}
+	;
 
-	/*********************************************************************************************
-	 *  onActivityResult : 
-	 *  au retour de l'appel à l'écran d'édition, on ferme l'activitée
-	 * **************************************************************************************
-	  */
-	protected void onActivityResult(int requestCode, int resultCode,
-			Intent intent) {
-		setResult(RESULT_OK, this.getIntent());
-		this.finish();
-	}
+	/****************************************************************************************
+	 * Etape II- On charge l'écran
+	 ****************************************************************************************/
+	setContentView(R.layout.choose_activity);
 
+    }
 
-	/*******************************************************************************************
-	 * onClickLunch() :
-	 * Gestion du bouton "repas"
-	 *******************************************************************************************/
-	public void onClickLunch(View v) {
-		UAEditorLauncher launcher = new UALunchEditor_Launcher(this);
-		launcher.editNewUA(this.currentDay);
-	}
+    /*********************************************************************************************
+     * onActivityResult : au retour de l'appel à l'écran d'édition, on ferme
+     * l'activitée
+     * **************************************************************
+     * ************************
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	setResult(RESULT_OK, this.getIntent());
+	this.finish();
+    }
 
-	/*******************************************************************************************
-	 * onClickPhysicalActivity()  :
-	 * Gestion du bouton "activité physique"
-	 *******************************************************************************************/
-	public void onClickPhysicalActivity(View v) {
-		UAEditorLauncher launcher = new UAMoveEditor_Launcher(this);
-		launcher.editNewUA(this.currentDay);
-	}
+    /*******************************************************************************************
+     * onClickLunch() : Gestion du bouton "repas"
+     *******************************************************************************************/
+    public void onClickLunch(View v) {
+	EditorLauncher launcher = new UALunchEditor_Launcher(this, new UserActivityLunch(this.currentDay));
+	launcher.start();
+    }
 
-	/*******************************************************************************************
-	 * onClickWeight():
-	 * Gestion du bouton "poids"
-	 *******************************************************************************************/
-	public void onClickWeight(View v) {
-		UAEditorLauncher launcher = new UAWeightEditor_Launcher(this);
-		launcher.editNewUA(this.currentDay);	}
+    /*******************************************************************************************
+     * onClickPhysicalActivity() : Gestion du bouton "activité physique"
+     *******************************************************************************************/
+    public void onClickPhysicalActivity(View v) {
+	EditorLauncher launcher = new UAMoveEditor_Launcher(this, new UserActivityLunch(this.currentDay));
+	launcher.start();
+    }
+
+    /*******************************************************************************************
+     * onClickWeight(): Gestion du bouton "poids"
+     *******************************************************************************************/
+    public void onClickWeight(View v) {
+	EditorLauncher launcher = new UAWeightEditor_Launcher(this, new UserActivityLunch(this.currentDay));
+	launcher.start();
+    }
 
 }

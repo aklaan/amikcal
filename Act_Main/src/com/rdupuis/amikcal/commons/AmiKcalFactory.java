@@ -41,6 +41,7 @@ import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 import components.Component;
 import components.ComponentFood;
+import components.ComponentFood_EditorLauncher;
 import components.ComponentMove;
 
 public final class AmiKcalFactory {
@@ -405,11 +406,11 @@ public final class AmiKcalFactory {
 	// en fonction du type d'activitée, on va retourner l'objet adequat
 	switch (userActivity.type) {
 	case LUNCH:
-	    return new UALunchEditor_Launcher(activity);
+	    return new UALunchEditor_Launcher(activity, userActivity);
 	case MOVE:
-	    return new UAMoveEditor_Launcher(activity);
+	    return new UAMoveEditor_Launcher(activity,userActivity);
 	case WEIGHT:
-	    return new UAWeightEditor_Launcher(activity);
+	    return new UAWeightEditor_Launcher(activity,userActivity);
 	}
 
 	Toast.makeText(this.mActivity, "Launcher editor non prévu", Toast.LENGTH_LONG).show();
@@ -417,6 +418,35 @@ public final class AmiKcalFactory {
 	return null;
     }
 
+
+    /*********************************************************************************
+     * 
+     * @param activity
+     * @param _id
+     * @return
+     ********************************************************************************/
+    public EditorLauncher createEditorLauncher(Activity activity, Component component) {
+
+	// en fonction du type d'activitée, on va retourner l'objet adequat
+	switch (component.get_Class()) {
+	case CFOOD:
+	    return new ComponentFood_EditorLauncher(activity, component);
+	case CMOVE:
+	    return new ComponentFood_EditorLauncher(activity, component);
+	case CWEIGHT:
+	    return new ComponentFood_EditorLauncher(activity, component);
+	default:
+		Toast.makeText(this.mActivity, "ERR Créa Component Launcher editor", Toast.LENGTH_LONG).show();
+
+	    break;
+	}
+
+
+	return null;
+    }
+
+    
+    
     /**
      * <h1>loadComponent</h1>
      * <p>

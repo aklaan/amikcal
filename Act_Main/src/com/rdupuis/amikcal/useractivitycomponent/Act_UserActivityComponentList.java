@@ -84,6 +84,9 @@ public class Act_UserActivityComponentList extends Activity {
      */
 
     public void onClickComponent(int component_index) {
+	Component component  = this.factory.load_Component(component_index);
+	 this.factory.createEditorLauncher(this, component);
+
 	Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
 
 	// Intent intent = new Intent(this,
