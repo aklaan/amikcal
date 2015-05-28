@@ -5,11 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 import components.Component;
-import components.ComponentFood;
 
-public  class UserActivity implements EditableUA{
+public  class UserActivity {
 	public enum UA_CLASS_CD {
 		LUNCH, WEIGHT, MOVE
 	}

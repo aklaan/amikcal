@@ -21,15 +21,20 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+
 import components.Component;
+import components.Component_Action;
+import components.Component_Food;
+import components.Component_Move;
 
 public class Act_UserActivityComponentList extends Activity {
 
     public UserActivity mUA; // la liste se réfère obligatoirement à une UA
     private ListView maListViewPerso;
     private AmiKcalFactory factory;
-    //Noms des zones d'échanges prévues dans l'Intent
+    // Noms des zones d'échanges prévues dans l'Intent
     public static final String INPUT____UA_ID = "ua_id";
 
     /** Called when the activity is first created. */
@@ -40,24 +45,26 @@ public class Act_UserActivityComponentList extends Activity {
 
 	/* *********************************************
 	 * Etape 1 : Chargement des données
-	***********************************************/
-	
+	 * *********************************************
+	 */
+
 	// - récupérer l'UA pour laquelle on souhaites afficher des composants
 	long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
 	this.mUA = factory.load_UserActivity(ua_id);
 
 	/* *********************************************
 	 * Etape 2 : Chargement du Layer d'affichage
-	***********************************************/
-	
+	 * *********************************************
+	 */
+
 	setContentView(R.layout.view_components_list);
 	// Récupération de la listview créée dans le fichier customizedlist.xml
 
-
 	/* *********************************************
 	 * Etape 3 : Alimentation des zones d'affichage
-	***********************************************/
-	maListViewPerso = (ListView) findViewById(R.id.listviewperso);	
+	 * *********************************************
+	 */
+	maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 	this.refreshScreen();
 
     }// fin du onCreate
@@ -83,25 +90,28 @@ public class Act_UserActivityComponentList extends Activity {
      * //On termine l'Acitvity this.finish(); }
      */
 
-    public void onClickComponent(int component_index) {
-	Component component  = this.factory.load_Component(component_index);
-	 this.factory.createEditorLauncher(this, component);
-
-	Intent intent = new Intent(this, Act_UserActivityComponentEditor.class);
-
-	// Intent intent = new Intent(this,
-	// Act_UserActivityComponentSlider.class);
-
-	intent.putExtra(Act_UserActivityComponentEditor.INPUT____UA_ID, this.mUA.getId());
-	intent.putExtra(Act_UserActivityComponentEditor.INPUT____COMPONENT_INDEX, component_index);
-	startActivityForResult(intent, R.integer.ACTY_COMPONENT);
+    public void onClickComponent(Component component) {
+	Component_Action action = this.factory.createComponentAction(this, component);
+	action.edit();
     }
 
-    // Si on veut créer une nouvelle UAC, il faut que l'éditeur puisse savoir à
-    // quel UA
-    // l'associer
+    // créer un nouveau composant.
     public void onClickAdd(View v) {
-	onClickComponent(AppConsts.NO_INDEX);
+
+	switch (this.mUA.getType()) {
+	case LUNCH:
+	    onClickComponent(new Component_Food());
+	    break;
+	case MOVE:
+	    onClickComponent(new Component_Move());
+	    break;
+	case WEIGHT:
+	    //onClickComponent(new Component_Weight());
+	    break;
+	default:
+	    break;
+	}
+
     }
 
     /**
@@ -194,7 +204,10 @@ public class Act_UserActivityComponentList extends Activity {
 		 * boite de dialogue adb.show();
 		 */
 
-		onClickComponent(Integer.parseInt(map.get("UAC_INDEX")));
+		long item_id = Integer.parseInt(map.get("UAC_INDEX"));
+
+		onClickComponent(Act_UserActivityComponentList.this.factory.load_Component(item_id));
+		// onClickComponent(Integer.parseInt(map.get("UAC_INDEX")));
 
 	    }
 	});

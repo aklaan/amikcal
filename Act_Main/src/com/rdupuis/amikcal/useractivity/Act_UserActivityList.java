@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -47,7 +48,7 @@ public class Act_UserActivityList extends Activity {
     private Calendar currentDay;
     private int currentTypeOfList;
     private long currentId;
-
+    private AmiKcalFactory mFactory;
     public static final String INPUT____LIST_TYP = "list_typ";
     public static final String INPUT____DAY = "_day";
 
@@ -57,7 +58,7 @@ public class Act_UserActivityList extends Activity {
 	super.onCreate(savedInstanceState);
 
 	setContentView(R.layout.view_useractivities_list);
-
+	this.mFactory = new AmiKcalFactory(this);
 	mCustomListView = (ListView) findViewById(R.id.listviewperso);
 
 	// * on tente de récupérer une date si l'intent nous en a envoyé une
@@ -212,7 +213,14 @@ public class Act_UserActivityList extends Activity {
 		// *********************************************************************************************************
 		adb.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int whichButton) {
-			Act_UserActivityList.this.onClickEdit(String.valueOf(Act_UserActivityList.this.currentId));
+
+			long item_id = Act_UserActivityList.this.currentId;
+
+			AmiKcalFactory factory = new AmiKcalFactory(Act_UserActivityList.this);
+
+			UserActivity ua = factory.load_UserActivity(item_id);
+
+			Act_UserActivityList.this.onClickEdit(ua);
 		    }
 		});
 
@@ -291,12 +299,10 @@ public class Act_UserActivityList extends Activity {
      * @param id
      *            Identifiant de l'activitée utilisateur à éditer
      */
-    public void onClickEdit(String id) {
-	Intent intent = new Intent(this, Act_UserActivity_EditorCommons.class);
-	intent.putExtra(Act_UserActivity_EditorCommons.INPUT____UA_ID, id);
-	intent.putExtra(Act_UserActivity_EditorCommons.INPUT____DAY,
-		ToolBox.getSqlDate(currentDay));
-	startActivityForResult(intent, R.integer.ACTY_USER_ACTIVITY);
+    public void onClickEdit(UserActivity userActivity) {
+
+	UserActivity_Action action = mFactory.create_UserActivity_Action(this, userActivity);
+	action.edit();
     }
 
     /**
@@ -317,7 +323,7 @@ public class Act_UserActivityList extends Activity {
 
     public void onClickAdd(View v) {
 
-	onClickEdit(null);
+	onClickEdit(newnull);
     }
 
     private HashMap<String, String> computeEnergy(long UserActivityId) {

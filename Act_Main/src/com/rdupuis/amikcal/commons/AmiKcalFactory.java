@@ -27,22 +27,31 @@ import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditMoveActivity;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditWeightActivity;
 import com.rdupuis.amikcal.useractivity.EditableObj;
-import com.rdupuis.amikcal.useractivity.EditorLauncher;
-import com.rdupuis.amikcal.useractivity.UALunchEditor_Launcher;
-import com.rdupuis.amikcal.useractivity.UAMoveEditor_Launcher;
-import com.rdupuis.amikcal.useractivity.UAWeightEditor_Launcher;
+import com.rdupuis.amikcal.useractivity.EditorAction;
+import com.rdupuis.amikcal.useractivity.UALunchEditor_Action;
+import com.rdupuis.amikcal.useractivity.UALunch_Action;
+import com.rdupuis.amikcal.useractivity.UAMoveEditor_Action;
+import com.rdupuis.amikcal.useractivity.UAWeightEditor_Action;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditLunchActivity;
 import com.rdupuis.amikcal.useractivity.UserActivityLunch;
 import com.rdupuis.amikcal.useractivity.UserActivityMove;
 import com.rdupuis.amikcal.useractivity.UserActivityWeight;
+import com.rdupuis.amikcal.useractivity.UserActivity_Action;
+import com.rdupuis.amikcal.useractivity.UserActivity_Lunch_Action;
+import com.rdupuis.amikcal.useractivity.UserActivity_Move_Action;
+import com.rdupuis.amikcal.useractivity.UserActivity_Weight_Action;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 import components.Component;
 import components.ComponentFood;
-import components.ComponentFood_EditorLauncher;
+import components.ComponentFood_EditorAction;
 import components.ComponentMove;
+import components.Component_Action;
+import components.Component_Food_Action;
+import components.Component_Move_Action;
+import components.Component_Weight_Action;
 
 public final class AmiKcalFactory {
 
@@ -401,19 +410,19 @@ public final class AmiKcalFactory {
      * @param _id
      * @return
      ********************************************************************************/
-    public EditorLauncher createEditorLauncher(Activity activity, UserActivity userActivity) {
+    public UserActivity_Action create_UserActivity_Action(Activity activity, UserActivity userActivity) {
 
 	// en fonction du type d'activitée, on va retourner l'objet adequat
 	switch (userActivity.type) {
 	case LUNCH:
-	    return new UALunchEditor_Launcher(activity, userActivity);
+	    return new UserActivity_Lunch_Action(activity, userActivity);
 	case MOVE:
-	    return new UAMoveEditor_Launcher(activity,userActivity);
+	    return new UserActivity_Move_Action(activity,userActivity);
 	case WEIGHT:
-	    return new UAWeightEditor_Launcher(activity,userActivity);
+	    return new UserActivity_Weight_Action(activity,userActivity);
 	}
 
-	Toast.makeText(this.mActivity, "Launcher editor non prévu", Toast.LENGTH_LONG).show();
+	Toast.makeText(this.mActivity, "Action non prévu", Toast.LENGTH_LONG).show();
 
 	return null;
     }
@@ -425,18 +434,18 @@ public final class AmiKcalFactory {
      * @param _id
      * @return
      ********************************************************************************/
-    public EditorLauncher createEditorLauncher(Activity activity, Component component) {
+    public Component_Action createComponentAction(Activity activity, Component component) {
 
 	// en fonction du type d'activitée, on va retourner l'objet adequat
 	switch (component.get_Class()) {
 	case CFOOD:
-	    return new ComponentFood_EditorLauncher(activity, component);
+	    return new Component_Food_Action(activity, component);
 	case CMOVE:
-	    return new ComponentFood_EditorLauncher(activity, component);
+	    return new Component_Move_Action(activity, component);
 	case CWEIGHT:
-	    return new ComponentFood_EditorLauncher(activity, component);
+	    return new Component_Weight_Action(activity, component);
 	default:
-		Toast.makeText(this.mActivity, "ERR Créa Component Launcher editor", Toast.LENGTH_LONG).show();
+		Toast.makeText(this.mActivity, "ERR Créa Component Action editor", Toast.LENGTH_LONG).show();
 
 	    break;
 	}

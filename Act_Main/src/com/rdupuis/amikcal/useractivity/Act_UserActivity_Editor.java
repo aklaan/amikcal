@@ -33,7 +33,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  * @author Rodolphe Dupuis
  * @version 0.1
  */
-public abstract class Act_UserActivity_EditorCommons extends Activity {
+public abstract class Act_UserActivity_Editor extends Activity {
 
     public enum EditMode {
 	CREATE, EDIT

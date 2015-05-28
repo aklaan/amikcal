@@ -75,24 +75,34 @@ public class Act_UserActivity_ChooseNewActivity extends Activity {
      * onClickLunch() : Gestion du bouton "repas"
      *******************************************************************************************/
     public void onClickLunch(View v) {
-	EditorLauncher launcher = new UALunchEditor_Launcher(this, new UserActivityLunch(this.currentDay));
-	launcher.start();
+	// ici on sait que l'on souhaite créer un repas. donc on utilise
+	// directement les objets "repas
+	//
+	UserActivity_Lunch_Action Action = new UserActivity_Lunch_Action(this, new UserActivity_Lunch(this.currentDay));
+	Action.edit();
     }
 
     /*******************************************************************************************
      * onClickPhysicalActivity() : Gestion du bouton "activité physique"
      *******************************************************************************************/
     public void onClickPhysicalActivity(View v) {
-	EditorLauncher launcher = new UAMoveEditor_Launcher(this, new UserActivityLunch(this.currentDay));
-	launcher.start();
+	// ici on sait que l'on souhaite créer un repas. donc on utilise
+	// directement les objets "activité physique"
+	//
+	UserActivity_Move_Action Action = new UserActivity_Move_Action(this, new UserActivity_Move(this.currentDay));
+	Action.edit();
     }
 
     /*******************************************************************************************
      * onClickWeight(): Gestion du bouton "poids"
      *******************************************************************************************/
     public void onClickWeight(View v) {
-	EditorLauncher launcher = new UAWeightEditor_Launcher(this, new UserActivityLunch(this.currentDay));
-	launcher.start();
+	// ici on sait que l'on souhaite créer un repas. donc on utilise
+	// directement les objets "pesée"
+	//
+	UserActivity_Weight_Action Action = new UserActivity_Weight_Action(this, new UserActivity_Weight(
+		this.currentDay));
+	Action.edit();
     }
 
 }

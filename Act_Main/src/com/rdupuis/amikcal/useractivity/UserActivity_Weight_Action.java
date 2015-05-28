@@ -6,21 +6,21 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.ToolBox;
 
-public class UAWeightEditor_Launcher extends EditorLauncher {
+public class UserActivity_Weight_Action extends UserActivity_Action {
 
-    public UAWeightEditor_Launcher(Activity activity, EditableUA uaWeight) {
+    public UserActivity_Weight_Action(Activity activity, UserActivity uaWeight) {
 	this.mActivity = activity;
-	this.mEditable = uaWeight;
+	this.mUserActivity = uaWeight;
     }
 
     // Dans le cas d'une mise à jour on appelle l'éditeur avec l'ID de
     // l'activité à modifier
-    public void start() {
+    public void edit() {
 
 	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditWeightActivity.class);
-	intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____UA_ID, this.mEditable.getId());
+	//intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____UA_ID, this.mUserActivity.getId());
 
-	intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____DAY, ToolBox.getSqlDate(((EditableUA) this.mEditable).getDay()));
+	//intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____DAY, ToolBox.getSqlDate(( this.mUserActivity).getDay()));
 
 
 	this.mActivity.startActivityForResult(intent, 0);

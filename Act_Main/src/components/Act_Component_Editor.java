@@ -24,13 +24,16 @@ import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
+import components.ComponentFood;
 
-public class Act_ComponentFood_Editor extends Activity {
+public class Act_Component_Editor extends Activity {
 
-    ComponentFood edited_Component;
+    UserActivity mUA;
+    Component edited_Component;
     ContentResolver contentResolver;
     AmiKcalFactory factory;
-    public static final String INPUT____COMPONENT_ID = "comp_id";
+    public static final String INPUT____UA_ID = "ua_id";
+    public static final String INPUT____COMPONENT_INDEX = "comp_indx";
 
     /** Called when the activity is first created. */
     @Override
@@ -42,15 +45,41 @@ public class Act_ComponentFood_Editor extends Activity {
 	 * ETAPE I : on récupère les infos de l'intent
 	 ***************************************************************************/
 
-	// Récupérer l'id du composant à éditer
-	long input_comp_id = getIntent().getLongExtra(this.INPUT____COMPONENT_ID, AppConsts.NO_ID);
+	// Récupérer l'id de UA des composants à traiter
+	long input_UA_id = getIntent().getLongExtra(this.INPUT____UA_ID, AppConsts.NO_ID);
 
-	// recharger le composant
-	if (input_comp_id == AppConsts.NO_ID) {
-	    Toast.makeText(this, "Componant à éditer inconnu", Toast.LENGTH_LONG).show();
+	// Un composant doit forcément appartenir à une UserActivity
+	if (input_UA_id == AppConsts.NO_ID) {
+	    Toast.makeText(this, "Erreur ! Activité parente inconnue", Toast.LENGTH_LONG).show();
 	    this.finish();
 	} else {
-	    edited_Component = (ComponentFood) factory.load_Component(input_comp_id);
+	    mUA = factory.load_UserActivity(input_UA_id);
+	}
+
+	int component_index = getIntent().getIntExtra(this.INPUT____COMPONENT_INDEX, AppConsts.NO_INDEX);
+
+	// si l'index du composant à éditer est null, c'est que l'on souhaite
+	// créer
+	// un nouveau composant
+	// dans le cas contraire, on récupère les infos de la base
+	// de données
+	if (component_index != AppConsts.NO_INDEX) {
+	    // chargement du composant stocké
+
+	    this.edited_Component = mUA.getComponentsList().get(component_index);
+
+	} else {
+	    // Initialisation d'un nouveau composant en fonction de l'activitée
+	    // mère si elle existe
+	    switch (mUA.type) {
+	    case LUNCH:
+		edited_Component = new Component_Food();
+		break;
+		// default prend en charge les UNDEFINED
+	    default:
+		edited_Component = new Component();
+	    }
+
 	}
 
 	/****************************************************************************
@@ -58,17 +87,14 @@ public class Act_ComponentFood_Editor extends Activity {
 	 ****************************************************************************/
 	setContentView(R.layout.view_edit_food_component);
 
-	/*****************************************************************************
+	/**
 	 * ETAPE III : on initialise/Rafraichi les données de l'écran
-	 ****************************************************************************/
+	 */
 
 	refreshScreen();
 
     }// fin du onCreate
 
-    
-    
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	MenuInflater inflater = getMenuInflater();
@@ -146,15 +172,23 @@ public class Act_ComponentFood_Editor extends Activity {
 
     }
 
-    /*****************************************************************************
+    /**
      * Mettre à jour les informations saisies dans la base de donnée.
      * 
-     * 
-     *            
-     ****************************************************************************/
+     * @param v
+     *            View
+     */
     public void onClick_Validate() {
 
-	factory.save(edited_Component);
+	// computeEnegy();
+
+	// si on a créé une nouvelle UAC i lfaut l'ajouter à l'UA
+	if (mUA.getComponentsList().indexOf(edited_Component) == AppConsts.NO_INDEX) {
+	    mUA.getComponentsList().add(edited_Component);
+	}
+	;
+
+	factory.save(mUA);
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.

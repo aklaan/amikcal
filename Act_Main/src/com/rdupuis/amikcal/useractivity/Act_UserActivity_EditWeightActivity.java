@@ -21,7 +21,7 @@ import com.rdupuis.amikcal.commons.WeightObj;
  * @version 0.1
  */
 public class Act_UserActivity_EditWeightActivity extends
-		Act_UserActivity_EditorCommons {
+		Act_UserActivity_Editor {
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,7 +43,7 @@ public class Act_UserActivity_EditWeightActivity extends
 			// En cas de création, la classe mère n'a pas pu recharger l'objet
 			// UserActivityWeight
 			// on doit en créer un à la date du jour récupéré de l'Intent
-			this.mUserActivity = new UserActivityWeight();
+			this.mUserActivity = new UserActivity_Weight();
 			this.mUserActivity.setDay(ToolBox.parseCalendar(getIntent()
 					.getStringExtra(AppConsts.INPUT____UA_EDITOR____DAY)));
 
@@ -141,14 +141,14 @@ public class Act_UserActivity_EditWeightActivity extends
 	private void setWeight() {
 
 		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-		((UserActivityWeight) mUserActivity).getWeight().setInt_part(
+		((UserActivity_Weight) mUserActivity).getWeight().setInt_part(
 				Integer.parseInt(tv.getText().toString()));
 
 		tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-		((UserActivityWeight) mUserActivity).getWeight().setDecimalPart(
+		((UserActivity_Weight) mUserActivity).getWeight().setDecimalPart(
 				Integer.parseInt(tv.getText().toString()));
 
-		mUserActivity.setTitle(((UserActivityWeight) mUserActivity).getWeight()
+		mUserActivity.setTitle(((UserActivity_Weight) mUserActivity).getWeight()
 				.format());
 	}
 
@@ -181,7 +181,7 @@ public class Act_UserActivity_EditWeightActivity extends
 		// avait enregistré
 		if (this.mUserActivity.getId() != AppConsts.NO_ID) {
 
-			WeightObj w = ((UserActivityWeight) this.mUserActivity).getWeight();
+			WeightObj w = ((UserActivity_Weight) this.mUserActivity).getWeight();
 			kilos = String.valueOf(w.getInt_part());
 			grammes = String.valueOf(w.getDecimalPart());
 		}

@@ -2,7 +2,7 @@ package components;
 
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
-public class ComponentMove extends Component {
+public class Component_Move extends Component {
 
     public final REL_TYP_CD mRelationClass = REL_TYP_CD.CMOVE;
 
@@ -28,7 +28,7 @@ public class ComponentMove extends Component {
 	/**
 	 * Constructeur
 	 */
-	public ComponentMove() {
+	public Component_Move() {
 		super();
 			
 	}

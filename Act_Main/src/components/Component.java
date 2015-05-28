@@ -3,14 +3,11 @@ package components;
 import java.util.ArrayList;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.HasEquivalences;
 import com.rdupuis.amikcal.commons.I_Relation;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.commons.Relation;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
-import com.rdupuis.amikcal.useractivity.EditableObj;
 
 /**
  * Un composant = une relation entre une quantité et une source d'énergie.
@@ -23,7 +20,7 @@ import com.rdupuis.amikcal.useractivity.EditableObj;
  * @author Rodolphe
  * 
  */
-public class Component implements I_Relation, EditableObj {
+public class Component implements I_Relation {
 
     private long id;
     // private UserActivity mUserActivity;

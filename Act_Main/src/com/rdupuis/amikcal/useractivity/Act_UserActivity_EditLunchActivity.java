@@ -13,7 +13,7 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.useractivity.UserActivityLunch.LunchType;
+import com.rdupuis.amikcal.useractivity.UserActivity_Lunch.LunchType;
 
 /**
  * <b>Ecran d'édition des repas de l'utilisateur.</b>
@@ -22,13 +22,14 @@ import com.rdupuis.amikcal.useractivity.UserActivityLunch.LunchType;
  * @version 0.1
  */
 public class Act_UserActivity_EditLunchActivity extends
-		Act_UserActivity_EditorCommons {
+		Act_UserActivity_Editor {
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.view_edit_lunch);
 
 		switch (this.editMode) {
@@ -39,7 +40,7 @@ public class Act_UserActivity_EditLunchActivity extends
 		case CREATE:
 			//En cas de création, la classe mère n'a pas pu recharger l'objet UserActivityLunch
 			// on  doit en créer un à la date du jour récupéré de l'Intent
-			this.mUserActivity = new UserActivityLunch();
+			this.mUserActivity = new UserActivity_Lunch();
 			this.mUserActivity.setDay(ToolBox.parseCalendar(getIntent()
 					.getStringExtra(this.INPUT____DAY)));
 
@@ -177,15 +178,15 @@ public class Act_UserActivity_EditLunchActivity extends
 	private void refreshLunchType() {
 		// par defaut, le radioButton sélectionné est Breakfast
 		RadioButton radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
-		UserActivityLunch.LunchType type;
+		UserActivity_Lunch.LunchType type;
 
 		// Au cas où le type de repas n'est pas reconnu on valorise le
 		// type à UNKNOWN
 		try {
-			type = UserActivityLunch.LunchType.valueOf(this.mUserActivity
+			type = UserActivity_Lunch.LunchType.valueOf(this.mUserActivity
 					.getTitle());
 		} catch (Exception e) {
-			type = UserActivityLunch.LunchType.UNDEFINED;
+			type = UserActivity_Lunch.LunchType.UNDEFINED;
 		}
 
 		switch (type) {
@@ -206,7 +207,7 @@ public class Act_UserActivity_EditLunchActivity extends
 			// si le titre ne correspond pas un type connu ou est vide
 			// on initialise le titre a BREAKFAST par defaut
 			radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
-			this.mUserActivity.setTitle(UserActivityLunch.LunchType.BREAKFAST
+			this.mUserActivity.setTitle(UserActivity_Lunch.LunchType.BREAKFAST
 					.name());
 		}
 

@@ -6,20 +6,22 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.ToolBox;
 
-public class UAMoveEditor_Launcher extends EditorLauncher {
-
-    public UAMoveEditor_Launcher(Activity activity, EditableUA uaMove) {
+public class UserActivity_Lunch_Action extends UserActivity_Action {
+    
+    
+    public UserActivity_Lunch_Action(Activity activity,UserActivity uaLunch) {
 	this.mActivity = activity;
-	this.mEditable = uaMove;
+	this.mUserActivity = uaLunch;
+	
     }
 
     // Dans le cas d'une mise à jour on appelle l'éditeur avec l'ID de
     // l'activité à modifier
-    public void start() {
+    public void edit() {
 
-	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditMoveActivity.class);
-	intent.putExtra(Act_UserActivity_EditMoveActivity.INPUT____UA_ID, this.mEditable.getId());
-	intent.putExtra(Act_UserActivity_EditMoveActivity.INPUT____DAY, ToolBox.getSqlDate(((EditableUA) this.mEditable).getDay()));
+	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditLunchActivity.class);
+	intent.putExtra(Act_UserActivity_EditLunchActivity.INPUT____UA_ID, this.mUserActivity.getId());
+	intent.putExtra(Act_UserActivity_EditLunchActivity.INPUT____DAY, ToolBox.getSqlDate(this.mUserActivity.getDay()));
 
 	this.mActivity.startActivityForResult(intent, 0);
     }
@@ -33,5 +35,6 @@ public class UAMoveEditor_Launcher extends EditorLauncher {
 	// TODO Auto-generated method stub
 
     }
+
 
 }

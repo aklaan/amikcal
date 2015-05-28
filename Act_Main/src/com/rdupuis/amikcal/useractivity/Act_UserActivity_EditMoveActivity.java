@@ -18,7 +18,7 @@ import com.rdupuis.amikcal.commons.ToolBox;
  * @author Rodolphe Dupuis
  */
 public class Act_UserActivity_EditMoveActivity extends
-		Act_UserActivity_EditorCommons {
+		Act_UserActivity_Editor {
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,7 +40,7 @@ public class Act_UserActivity_EditMoveActivity extends
 			// En cas de création, la classe mère n'a pas pu recharger l'objet
 			// UserActivityWeight
 			// on doit en créer un à la date du jour récupéré de l'Intent
-			this.mUserActivity = new UserActivityMove();
+			this.mUserActivity = new UserActivity_Move();
 			this.mUserActivity.setDay(ToolBox.parseCalendar(getIntent()
 					.getStringExtra(AppConsts.INPUT____UA_EDITOR____DAY)));
 

@@ -211,8 +211,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 			AmiKcalFactory factory = new AmiKcalFactory(Frag_UserActivityList.this.getActivity());
 
 			UserActivity ua = factory.load_UserActivity(item_id); 
-			EditorLauncher el = factory.createEditorLauncher(currentActivity,ua);
-			el.start();	    }
+			UserActivity_Action action = factory.create_UserActivity_Action(currentActivity,ua);
+			action.edit();	    }
 		});
 
 		// *********************************************************************************************************
