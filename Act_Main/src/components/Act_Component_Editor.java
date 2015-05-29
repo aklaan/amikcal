@@ -24,8 +24,6 @@ import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
-import components.ComponentFood;
-
 public class Act_Component_Editor extends Activity {
 
     UserActivity mUA;

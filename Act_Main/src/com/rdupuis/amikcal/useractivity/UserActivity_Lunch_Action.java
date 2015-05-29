@@ -19,9 +19,9 @@ public class UserActivity_Lunch_Action extends UserActivity_Action {
     // l'activité à modifier
     public void edit() {
 
-	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditLunchActivity.class);
-	intent.putExtra(Act_UserActivity_EditLunchActivity.INPUT____UA_ID, this.mUserActivity.getId());
-	intent.putExtra(Act_UserActivity_EditLunchActivity.INPUT____DAY, ToolBox.getSqlDate(this.mUserActivity.getDay()));
+	Intent intent = new Intent(this.mActivity, Act_UserActivity_Lunch_Editor.class);
+	intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____ID, this.mUserActivity.getId());
+	intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____DAY, ToolBox.getSqlDate(this.mUserActivity.getDay()));
 
 	this.mActivity.startActivityForResult(intent, 0);
     }

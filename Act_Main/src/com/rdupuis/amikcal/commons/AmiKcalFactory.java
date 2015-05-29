@@ -24,32 +24,22 @@ import com.rdupuis.amikcal.energy.EnergyEarn;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Unity;
-import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditMoveActivity;
-import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditWeightActivity;
-import com.rdupuis.amikcal.useractivity.EditableObj;
-import com.rdupuis.amikcal.useractivity.EditorAction;
-import com.rdupuis.amikcal.useractivity.UALunchEditor_Action;
-import com.rdupuis.amikcal.useractivity.UALunch_Action;
-import com.rdupuis.amikcal.useractivity.UAMoveEditor_Action;
-import com.rdupuis.amikcal.useractivity.UAWeightEditor_Action;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
-import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditLunchActivity;
-import com.rdupuis.amikcal.useractivity.UserActivityLunch;
-import com.rdupuis.amikcal.useractivity.UserActivityMove;
-import com.rdupuis.amikcal.useractivity.UserActivityWeight;
 import com.rdupuis.amikcal.useractivity.UserActivity_Action;
+import com.rdupuis.amikcal.useractivity.UserActivity_Lunch;
 import com.rdupuis.amikcal.useractivity.UserActivity_Lunch_Action;
+import com.rdupuis.amikcal.useractivity.UserActivity_Move;
 import com.rdupuis.amikcal.useractivity.UserActivity_Move_Action;
+import com.rdupuis.amikcal.useractivity.UserActivity_Weight;
 import com.rdupuis.amikcal.useractivity.UserActivity_Weight_Action;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 import components.Component;
-import components.ComponentFood;
-import components.ComponentFood_EditorAction;
-import components.ComponentMove;
 import components.Component_Action;
+import components.Component_Food;
 import components.Component_Food_Action;
+import components.Component_Move;
 import components.Component_Move_Action;
 import components.Component_Weight_Action;
 
@@ -270,14 +260,14 @@ public final class AmiKcalFactory {
 
 	    switch (UA_Class_cd) {
 	    case LUNCH:
-		userActivity = new UserActivityLunch();
+		userActivity = new UserActivity_Lunch();
 		break;
 	    case MOVE:
-		userActivity = new UserActivityMove();
+		userActivity = new UserActivity_Move();
 		break;
 	    case WEIGHT:
-		userActivity = new UserActivityWeight();
-		((UserActivityWeight) userActivity).setWeight(new WeightObj(cur.getString(ACTIVITY_TITLE)));
+		userActivity = new UserActivity_Weight();
+	//	((UserActivityWeight) userActivity).setWeight(new WeightObj(cur.getString(ACTIVITY_TITLE)));
 		break;
 	    }
 
@@ -386,10 +376,10 @@ public final class AmiKcalFactory {
 	    switch (rel_typ_cd) {
 
 	    case CFOOD:
-		component = new ComponentFood();
+		component = new Component_Food();
 		break;
 	    case CMOVE:
-		component = new ComponentMove();
+		component = new Component_Move();
 		break;
 	    default: // nothing
 	    }

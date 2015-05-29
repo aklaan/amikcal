@@ -2,10 +2,6 @@ package components;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
-
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.useractivity.Act_UserActivity_EditLunchActivity;
 
 public class Component_Food_Action extends Component_Action {
     

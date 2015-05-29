@@ -323,7 +323,7 @@ public class Act_UserActivityList extends Activity {
 
     public void onClickAdd(View v) {
 
-	onClickEdit(newnull);
+	onClickEdit(new UserActivity(this.currentDay));
     }
 
     private HashMap<String, String> computeEnergy(long UserActivityId) {

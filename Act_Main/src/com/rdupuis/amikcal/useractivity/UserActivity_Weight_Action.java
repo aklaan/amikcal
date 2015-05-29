@@ -17,10 +17,10 @@ public class UserActivity_Weight_Action extends UserActivity_Action {
     // l'activité à modifier
     public void edit() {
 
-	Intent intent = new Intent(this.mActivity, Act_UserActivity_EditWeightActivity.class);
-	//intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____UA_ID, this.mUserActivity.getId());
+	Intent intent = new Intent(this.mActivity, Act_UserActivity_Weight_Editor.class);
+	//intent.putExtra(Act_UserActivity_Weight_Editor.INPUT____UA_ID, this.mUserActivity.getId());
 
-	//intent.putExtra(Act_UserActivity_EditWeightActivity.INPUT____DAY, ToolBox.getSqlDate(( this.mUserActivity).getDay()));
+	//intent.putExtra(Act_UserActivity_Weight_Editor.INPUT____DAY, ToolBox.getSqlDate(( this.mUserActivity).getDay()));
 
 
 	this.mActivity.startActivityForResult(intent, 0);
