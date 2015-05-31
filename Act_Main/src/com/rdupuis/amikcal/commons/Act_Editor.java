@@ -10,15 +10,15 @@ public class Act_Editor extends Activity {
 	CREATE, EDIT
     }
 
-    long edited_object_id = AppConsts.NO_ID;
+    private long edited_object_id = AppConsts.NO_ID;
     EditMode editMode;
-    AmiKcalFactory factory;
+    private AmiKcalFactory factory;
     public static final String INPUT____ID = "_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	factory = new AmiKcalFactory(this);
+	setFactory(new AmiKcalFactory(this));
 
 	// dans l'Intent, on récupère l'id de l'objet à éditer
 	edited_object_id = getIntent().getLongExtra(this.INPUT____ID, AppConsts.NO_ID);
@@ -42,5 +42,21 @@ public class Act_Editor extends Activity {
 	return editMode;
 
     }
+
+	public long getEdited_object_id() {
+		return edited_object_id;
+	}
+
+	public void setEdited_object_id(long edited_object_id) {
+		this.edited_object_id = edited_object_id;
+	}
+
+	public AmiKcalFactory getFactory() {
+		return factory;
+	}
+
+	public void setFactory(AmiKcalFactory factory) {
+		this.factory = factory;
+	}
 
 }

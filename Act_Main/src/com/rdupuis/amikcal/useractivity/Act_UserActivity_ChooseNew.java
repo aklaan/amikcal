@@ -10,6 +10,12 @@ import android.view.View;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Action;
+import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
+import com.rdupuis.amikcal.useractivity.move.UserActivity_Move_Action;
+import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
+import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight_Action;
 
 /**
  * <b>Ecran de choix de création des activitées.</b>
@@ -25,7 +31,7 @@ import com.rdupuis.amikcal.commons.ToolBox;
  * @author Rodolphe Dupuis
  * @version 0.1
  */
-public class Act_UserActivity_ChooseNewActivity extends Activity {
+public class Act_UserActivity_ChooseNew extends Activity {
 
     Calendar currentDay;
 

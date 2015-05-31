@@ -1,6 +1,9 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.useractivity.lunch;
 
 import java.util.Calendar;
+
+import com.rdupuis.amikcal.useractivity.UserActivity;
+import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 
 public class UserActivity_Lunch extends UserActivity {
 

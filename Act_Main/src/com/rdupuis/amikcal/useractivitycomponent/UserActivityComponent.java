@@ -3,9 +3,9 @@ package com.rdupuis.amikcal.useractivitycomponent;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.I_Relation;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
-import components.Component;
 
 /**
  * Un composant d'une UserActivity c'est par exemple :

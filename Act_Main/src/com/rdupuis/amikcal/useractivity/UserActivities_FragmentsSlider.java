@@ -222,7 +222,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	public void onClickAdd() {
 		// /appeler l'activité
 		Intent intent = new Intent(this,
-				Act_UserActivity_ChooseNewActivity.class);
+				Act_UserActivity_ChooseNew.class);
 
 		intent.putExtra(AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY,
 								ToolBox.getSqlDate(this.mCurrentDay));

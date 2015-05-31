@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import components.Component;
+import com.rdupuis.amikcal.components.Component;
 
 public  class UserActivity {
 	public enum UA_CLASS_CD {

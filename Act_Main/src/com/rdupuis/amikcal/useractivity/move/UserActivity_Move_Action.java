@@ -1,10 +1,12 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.useractivity.move;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.useractivity.UserActivity;
+import com.rdupuis.amikcal.useractivity.UserActivity_Action;
 
 public class UserActivity_Move_Action extends UserActivity_Action {
 

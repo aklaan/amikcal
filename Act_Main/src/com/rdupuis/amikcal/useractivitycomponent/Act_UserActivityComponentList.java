@@ -21,13 +21,13 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_Action;
+import com.rdupuis.amikcal.components.Component_Food;
+import com.rdupuis.amikcal.components.Component_Move;
 import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
-import components.Component;
-import components.Component_Action;
-import components.Component_Food;
-import components.Component_Move;
 
 public class Act_UserActivityComponentList extends Activity {
 

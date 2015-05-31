@@ -1,8 +1,10 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.useractivity.weight;
 
 import java.util.Calendar;
 
 import com.rdupuis.amikcal.commons.WeightObj;
+import com.rdupuis.amikcal.useractivity.UserActivity;
+import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 
 public class UserActivity_Weight extends UserActivity {
 

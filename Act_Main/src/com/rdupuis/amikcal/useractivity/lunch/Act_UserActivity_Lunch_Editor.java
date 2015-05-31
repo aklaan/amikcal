@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.useractivity.lunch;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -10,7 +10,8 @@ import android.widget.TimePicker;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.useractivity.UserActivity_Lunch.LunchType;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch.LunchType;
 
 /**
  * <b>Ecran d'édition des repas de l'utilisateur.</b>
@@ -40,8 +41,8 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	    // En cas de création, la classe mère n'a pas pu recharger l'objet
 	    // UserActivity
 	    // on doit en créer un à la date du jour récupéré de l'Intent
-	    this.edited_UserActivity = new UserActivity_Lunch();
-	    this.edited_UserActivity.setDay(this.input_day);
+	    this.setEdited_UserActivity(new UserActivity_Lunch());
+	    this.getEdited_UserActivity().setDay(this.getInput_day());
 
 	    break;
 
@@ -69,17 +70,17 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	decimalFormat.applyPattern("00");
 
 	if (tp.getCurrentHour().intValue() >= 12) {
-	    edited_UserActivity.getDay().set(Calendar.AM_PM, Calendar.PM);
+	    getEdited_UserActivity().getDay().set(Calendar.AM_PM, Calendar.PM);
 	} else {
-	    edited_UserActivity.getDay().set(Calendar.AM_PM, Calendar.AM);
+	    getEdited_UserActivity().getDay().set(Calendar.AM_PM, Calendar.AM);
 	}
 
-	edited_UserActivity.getDay().set(Calendar.HOUR_OF_DAY, tp.getCurrentHour().intValue());
+	getEdited_UserActivity().getDay().set(Calendar.HOUR_OF_DAY, tp.getCurrentHour().intValue());
 
-	edited_UserActivity.getDay().set(Calendar.MINUTE, tp.getCurrentMinute().intValue());
+	getEdited_UserActivity().getDay().set(Calendar.MINUTE, tp.getCurrentMinute().intValue());
 
 	AmiKcalFactory factory = new AmiKcalFactory(this);
-	factory.save(edited_UserActivity);
+	factory.save(getEdited_UserActivity());
 	closeEditor();
     }
 
@@ -125,22 +126,22 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 
 	case BREAKFAST:
 	    rbBreakfast.setChecked(true);
-	    this.edited_UserActivity.setTitle(i.name());
+	    this.getEdited_UserActivity().setTitle(i.name());
 	    break;
 
 	case LUNCH:
 	    rbLunch.setChecked(true);
-	    this.edited_UserActivity.setTitle(i.name());
+	    this.getEdited_UserActivity().setTitle(i.name());
 	    break;
 
 	case DINER:
 	    rbDiner.setChecked(true);
-	    this.edited_UserActivity.setTitle(i.name());
+	    this.getEdited_UserActivity().setTitle(i.name());
 	    break;
 
 	case SNACK:
 	    rbSnack.setChecked(true);
-	    this.edited_UserActivity.setTitle(i.name());
+	    this.getEdited_UserActivity().setTitle(i.name());
 	    break;
 	default:
 	    break;
@@ -164,7 +165,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	// EditText edtxt = (EditText)
 	// findViewById(R.id.useractivity_editor_view_edTxt_name);
 	// edtxt.setText(this.mUserActivity.getTitle());
-	Calendar c = edited_UserActivity.getDay();
+	Calendar c = getEdited_UserActivity().getDay();
 	tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
 	tp.setCurrentMinute(c.get(Calendar.MINUTE));
 
@@ -178,7 +179,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	// Au cas où le type de repas n'est pas reconnu on valorise le
 	// type à UNKNOWN
 	try {
-	    type = UserActivity_Lunch.LunchType.valueOf(this.edited_UserActivity.getTitle());
+	    type = UserActivity_Lunch.LunchType.valueOf(this.getEdited_UserActivity().getTitle());
 	} catch (Exception e) {
 	    type = UserActivity_Lunch.LunchType.UNDEFINED;
 	}
@@ -201,7 +202,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	    // si le titre ne correspond pas un type connu ou est vide
 	    // on initialise le titre a BREAKFAST par defaut
 	    radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
-	    this.edited_UserActivity.setTitle(UserActivity_Lunch.LunchType.BREAKFAST.name());
+	    this.getEdited_UserActivity().setTitle(UserActivity_Lunch.LunchType.BREAKFAST.name());
 	}
 
 	radioButton.setChecked(true);

@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.useractivity;
+package com.rdupuis.amikcal.useractivity.weight;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -13,6 +13,7 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.WeightObj;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
 
 /**
  * <b>Ecran d'édition des pesées.</b>
@@ -43,8 +44,8 @@ public class Act_UserActivity_Weight_Editor extends
 			// En cas de création, la classe mère n'a pas pu recharger l'objet
 			// UserActivityWeight
 			// on doit en créer un à la date du jour récupéré de l'Intent
-			this.edited_UserActivity = new UserActivity_Weight();
-			this.edited_UserActivity.setDay(this.input_day);
+			this.setEdited_UserActivity(new UserActivity_Weight());
+			this.getEdited_UserActivity().setDay(this.getInput_day());
 
 			break;
 
@@ -88,17 +89,17 @@ public class Act_UserActivity_Weight_Editor extends
 		decimalFormat.applyPattern("00");
 
 		if (tp.getCurrentHour().intValue() >= 12) {
-		    edited_UserActivity.getDay().set(Calendar.AM_PM, Calendar.PM);
+		    getEdited_UserActivity().getDay().set(Calendar.AM_PM, Calendar.PM);
 		} else {
-		    edited_UserActivity.getDay().set(Calendar.AM_PM, Calendar.AM);
+		    getEdited_UserActivity().getDay().set(Calendar.AM_PM, Calendar.AM);
 		}
 
-		edited_UserActivity.getDay().set(Calendar.HOUR_OF_DAY,
+		getEdited_UserActivity().getDay().set(Calendar.HOUR_OF_DAY,
 				tp.getCurrentHour().intValue());
-		edited_UserActivity.getDay().set(Calendar.MINUTE,
+		getEdited_UserActivity().getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (edited_UserActivity.getId() == AppConsts.NO_ID) {
+		if (getEdited_UserActivity().getId() == AppConsts.NO_ID) {
 			insertUActivity();
 		} else {
 			updateUActivity();
@@ -140,14 +141,14 @@ public class Act_UserActivity_Weight_Editor extends
 	private void setWeight() {
 
 		TextView tv = (TextView) findViewById(R.id.userActivity_Editor_tv_kilos);
-		((UserActivity_Weight) edited_UserActivity).getWeight().setInt_part(
+		((UserActivity_Weight) getEdited_UserActivity()).getWeight().setInt_part(
 				Integer.parseInt(tv.getText().toString()));
 
 		tv = (TextView) findViewById(R.id.userActivity_Editor_tv_grammes);
-		((UserActivity_Weight) edited_UserActivity).getWeight().setDecimalPart(
+		((UserActivity_Weight) getEdited_UserActivity()).getWeight().setDecimalPart(
 				Integer.parseInt(tv.getText().toString()));
 
-		edited_UserActivity.setTitle(((UserActivity_Weight) edited_UserActivity).getWeight()
+		getEdited_UserActivity().setTitle(((UserActivity_Weight) getEdited_UserActivity()).getWeight()
 				.format());
 	}
 
@@ -163,7 +164,7 @@ public class Act_UserActivity_Weight_Editor extends
 		// EditText edtxt = (EditText)
 		// findViewById(R.id.useractivity_editor_view_edTxt_name);
 		// edtxt.setText(this.mUserActivity.getTitle());
-		Calendar c = edited_UserActivity.getDay();
+		Calendar c = getEdited_UserActivity().getDay();
 		tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));
 		tp.setCurrentMinute(c.get(Calendar.MINUTE));
 
@@ -178,9 +179,9 @@ public class Act_UserActivity_Weight_Editor extends
 		// Si l'id de l'activité n'est pas NO_ID alors on est en train
 		// d'éditer une pesée. Dans ce cas, on affiche ce que l'utilisateur
 		// avait enregistré
-		if (this.edited_UserActivity.getId() != AppConsts.NO_ID) {
+		if (this.getEdited_UserActivity().getId() != AppConsts.NO_ID) {
 
-			WeightObj w = ((UserActivity_Weight) this.edited_UserActivity).getWeight();
+			WeightObj w = ((UserActivity_Weight) this.getEdited_UserActivity()).getWeight();
 			kilos = String.valueOf(w.getInt_part());
 			grammes = String.valueOf(w.getDecimalPart());
 		}

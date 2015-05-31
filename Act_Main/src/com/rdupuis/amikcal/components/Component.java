@@ -1,4 +1,4 @@
-package components;
+package com.rdupuis.amikcal.components;
 
 import java.util.ArrayList;
 
@@ -36,21 +36,21 @@ public class Component implements I_Relation {
 	id = AppConsts.NO_ID;
 	mEnergySource = new EnergySource();
 	this.mQty = new Qty();
-	this.mRelationClass = REL_TYP_CD.UNDEFINED;
+	this.setRelationClass(REL_TYP_CD.UNDEFINED);
     }
 
     public void setEnergySource(EnergySource energySource) {
 	this.mEnergySource = energySource;
 	switch (this.mEnergySource.getEffect()) {
 	case BURN:
-	    this.mRelationClass = REL_TYP_CD.CMOVE;
+	    this.setRelationClass(REL_TYP_CD.CMOVE);
 	    break;
 
 	case EARN:
-	    this.mRelationClass = REL_TYP_CD.CFOOD;
+	    this.setRelationClass(REL_TYP_CD.CFOOD);
 	    break;
 	default:
-	    this.mRelationClass = REL_TYP_CD.UNDEFINED;
+	    this.setRelationClass(REL_TYP_CD.UNDEFINED);
 	    break;
 	}
 

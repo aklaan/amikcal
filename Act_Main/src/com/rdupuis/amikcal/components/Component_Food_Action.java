@@ -1,4 +1,4 @@
-package components;
+package com.rdupuis.amikcal.components;
 
 import android.app.Activity;
 import android.content.Intent;

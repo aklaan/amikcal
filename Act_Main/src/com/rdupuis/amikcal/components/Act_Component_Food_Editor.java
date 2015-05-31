@@ -1,4 +1,4 @@
-package components;
+package com.rdupuis.amikcal.components;
 
 /**
  * commentaires

@@ -1,13 +1,10 @@
 package com.rdupuis.amikcal.commons;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
@@ -19,6 +16,13 @@ import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.UNIT_CLASS_MAP;
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_Action;
+import com.rdupuis.amikcal.components.Component_Food;
+import com.rdupuis.amikcal.components.Component_Food_Action;
+import com.rdupuis.amikcal.components.Component_Move;
+import com.rdupuis.amikcal.components.Component_Move_Action;
+import com.rdupuis.amikcal.components.Component_Weight_Action;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergyEarn;
 import com.rdupuis.amikcal.energy.EnergySource;
@@ -27,21 +31,14 @@ import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 import com.rdupuis.amikcal.useractivity.UserActivity_Action;
-import com.rdupuis.amikcal.useractivity.UserActivity_Lunch;
-import com.rdupuis.amikcal.useractivity.UserActivity_Lunch_Action;
-import com.rdupuis.amikcal.useractivity.UserActivity_Move;
-import com.rdupuis.amikcal.useractivity.UserActivity_Move_Action;
-import com.rdupuis.amikcal.useractivity.UserActivity_Weight;
-import com.rdupuis.amikcal.useractivity.UserActivity_Weight_Action;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Action;
+import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
+import com.rdupuis.amikcal.useractivity.move.UserActivity_Move_Action;
+import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
+import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight_Action;
 import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
-import components.Component;
-import components.Component_Action;
-import components.Component_Food;
-import components.Component_Food_Action;
-import components.Component_Move;
-import components.Component_Move_Action;
-import components.Component_Weight_Action;
 
 public final class AmiKcalFactory {
 
