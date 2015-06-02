@@ -5,7 +5,6 @@ package com.rdupuis.amikcal.components;
  * 2013-08-23 : ajout de la barre de menu pour remplacer le bouton valider
  */
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;

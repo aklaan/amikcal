@@ -247,6 +247,18 @@ public class ContentProviderObj extends ContentProvider {
 	}
 
 	
+	case SELECT_PARTY_REL_BY_ID:{
+		   SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+		    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
+
+		    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+			    + ContentDescriptorObj.TB_Party_rel.Columns.ID + "=" + uri.getLastPathSegment();
+			    	    	    
+		    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+		
+	}
+	
+	
 	case SELECT_QTYREF_RELATION:{
 		
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();

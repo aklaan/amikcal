@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
@@ -46,10 +45,10 @@ public class Act_Component_Editor extends Activity {
 	 ***************************************************************************/
 
 	// Récupérer l'id du composant à éditer
-	long edited_comp_id = getIntent().getLongExtra(this.INPUT____COMP_ID, AppConsts.NO_ID);
+	long edited_comp_id = getIntent().getLongExtra(Act_Component_Editor.INPUT____COMP_ID, AppConsts.NO_ID);
 	// en cas de création d'un nouveau composant, récupérer le type de
 	// composant souhaité
-	String input_comp_class = getIntent().getStringExtra(this.INPUT____CLASS);
+	String input_comp_class = getIntent().getStringExtra(Act_Component_Editor.INPUT____CLASS);
 
 	// si l'ID n'est pas nul on charge le composant à éditer
 	if (edited_comp_id != AppConsts.NO_ID) {
@@ -158,7 +157,7 @@ public class Act_Component_Editor extends Activity {
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.
 	
-	this.getIntent().putExtra(this.OUTPUT____COMP_ID, String.valueOf(this.edited_Component.getId()));
+	this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP_ID, this.edited_Component.getId());
 	setResult(RESULT_OK, this.getIntent());
 
 	// On termine l'Actvity

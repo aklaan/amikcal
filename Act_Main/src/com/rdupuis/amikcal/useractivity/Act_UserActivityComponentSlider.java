@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.useractivitycomponent;
+package com.rdupuis.amikcal.useractivity;
 
 import java.util.ArrayList;
 

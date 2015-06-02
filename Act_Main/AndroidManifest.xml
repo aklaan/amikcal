@@ -47,12 +47,12 @@
         </activity>
         <activity android:name="com.rdupuis.amikcal.day.Act_Day" >
         </activity>
-        <activity android:name="com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList" >
+        <activity android:name="com.rdupuis.amikcal.useractivity.Act_UserActivity_Component_List" >
         </activity>                                            
         <activity android:name="com.rdupuis.amikcal.components.Act_Component_Food_Editor" >
         </activity>
-        <activity android:name="com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentSlider" >
-        </activity>
+        <activity android:name="com.rdupuis.amikcal.useractivity.Act_UserActivityComponentSlider">
+         </activity>
         <activity android:name="com.rdupuis.amikcal.unity.Act_UnitOfMeasureList" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.unity.Act_UnitOfMeasureEditor" >

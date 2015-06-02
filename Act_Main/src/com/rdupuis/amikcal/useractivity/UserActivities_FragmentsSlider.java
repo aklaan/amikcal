@@ -17,7 +17,6 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Generic_FragmentsTimeSlider;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList;
 
 public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider {
 
@@ -182,8 +181,8 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	 * ===============================================================
 	 */
 	public void onClickActivity(String id) {
-		Intent intent = new Intent(this, Act_UserActivityComponentList.class);
-		intent.putExtra(Act_UserActivityComponentList.INPUT____UA_ID,id);
+		Intent intent = new Intent(this, Act_UserActivity_Component_List.class);
+		intent.putExtra(Act_UserActivity_Component_List.INPUT____UA_ID,id);
 		intent.putExtra("page", getCurrentPage());
 		startActivityForResult(intent,0);
 				

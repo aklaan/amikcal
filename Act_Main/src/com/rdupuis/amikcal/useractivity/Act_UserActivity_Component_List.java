@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.useractivitycomponent;
+package com.rdupuis.amikcal.useractivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,10 +26,8 @@ import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Action;
 import com.rdupuis.amikcal.components.Component_Food;
 import com.rdupuis.amikcal.components.Component_Move;
-import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
-public class Act_UserActivityComponentList extends Activity {
+public class Act_UserActivity_Component_List extends Activity {
 
     public UserActivity mUA; // la liste se réfère obligatoirement à une UA
     private ListView maListViewPerso;
@@ -188,7 +186,7 @@ public class Act_UserActivityComponentList extends Activity {
 	for (Component comp : this.mUA.getComponentsList()) {
 
 	    map = new HashMap<String, String>();
-	    map.put("UAC_INDEX", String.valueOf(this.mUA.getComponentsList().indexOf(comp)));
+	    map.put("COMPONENT_ID", String.valueOf(comp.getId()));
 	    map.put("name", comp.getEnergySource().getName());
 	    map.put("quantity", String.valueOf(comp.getQty().getAmount()));
 	    map.put("unity", comp.getQty().getUnity().getLongName());
@@ -229,9 +227,9 @@ public class Act_UserActivityComponentList extends Activity {
 		 * boite de dialogue adb.show();
 		 */
 
-		long item_id = Integer.parseInt(map.get("UAC_INDEX"));
+		long component_id = Long.parseLong(map.get("COMPONENT_ID"));
 
-		onClickComponent(Act_UserActivityComponentList.this.factory.load_Component(item_id));
+		onClickComponent(Act_UserActivity_Component_List.this.factory.load_Component(component_id));
 		// onClickComponent(Integer.parseInt(map.get("UAC_INDEX")));
 
 	    }

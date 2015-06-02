@@ -42,11 +42,13 @@ public abstract class Component_Generic extends Component {
 	return mEnergySource;
     }
 
+    @Override
     public long getId() {
 	return id;
     }
 
-    public void setId(Long id) {
+    @Override
+    public void setId(long id) {
 	this.id = id;
     }
 
@@ -81,11 +83,9 @@ public abstract class Component_Generic extends Component {
 	return String.valueOf(this.mQty.getId());
     }
 
-    @Override
-    public void setId(long rel_id) {
-	// TODO Auto-generated method stub
+  
 
-    }
+    
 
 
 }

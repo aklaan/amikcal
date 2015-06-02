@@ -24,7 +24,6 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.useractivitycomponent.Act_UserActivityComponentList;
 
 /**
  * <b>Liste des activitées de l'utilisateur.</b>
@@ -289,8 +288,8 @@ public class Act_UserActivityList extends Activity {
      *            Identifiant de l'activitée utilisateur séléctionée
      */
     public void onClickActivity(String id) {
-	Intent intent = new Intent(this, Act_UserActivityComponentList.class);
-	intent.putExtra(Act_UserActivityComponentList.INPUT____UA_ID, id);
+	Intent intent = new Intent(this, Act_UserActivity_Component_List.class);
+	intent.putExtra(Act_UserActivity_Component_List.INPUT____UA_ID, id);
 	startActivityForResult(intent, R.integer.ACTY_COMPONENT_LIST);
     }
 

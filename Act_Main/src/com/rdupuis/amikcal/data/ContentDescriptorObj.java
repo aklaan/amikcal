@@ -722,7 +722,7 @@ public final class ContentDescriptorObj {
 
 	public TOKEN_MAP() {
 	    _in.put(TB_Party_rel.S00_PARTY_REL_TOKEN, REQUESTS_LIST.NONE);
-	    _in.put(TB_Party_rel.S01_PARTY_REL_BY_ID_TOKEN, REQUESTS_LIST.NONE);
+	    _in.put(TB_Party_rel.S01_PARTY_REL_BY_ID_TOKEN, REQUESTS_LIST.SELECT_PARTY_REL_BY_ID);
 	    _in.put(TB_Party_rel.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_RELATION);
 	    
 	    _in.put(TB_Party_rel.INS000_PARTY_REL_TOKEN, REQUESTS_LIST.INSERT_PARTY_REL);
