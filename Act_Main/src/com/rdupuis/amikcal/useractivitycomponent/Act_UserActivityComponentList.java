@@ -21,13 +21,13 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Action;
 import com.rdupuis.amikcal.components.Component_Food;
 import com.rdupuis.amikcal.components.Component_Move;
 import com.rdupuis.amikcal.useractivity.Frag_UserActivityList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
-
 
 public class Act_UserActivityComponentList extends Activity {
 
@@ -106,7 +106,7 @@ public class Act_UserActivityComponentList extends Activity {
 	    onClickComponent(new Component_Move());
 	    break;
 	case WEIGHT:
-	    //onClickComponent(new Component_Weight());
+	    // onClickComponent(new Component_Weight());
 	    break;
 	default:
 	    break;
@@ -126,9 +126,34 @@ public class Act_UserActivityComponentList extends Activity {
 
 	switch (requestCode) {
 
-	case R.integer.ACTY_COMPONENT:
+	// on effectue un retour de l'éditeur de composants
+	// il faut ajouter le composant à l'UA s'il n'existe pas
+	case R.integer.COMPONENT_EDITOR:
 
 	    if (resultCode == RESULT_OK) {
+		long component_id = intent.getLongExtra(Act_Component_Editor.OUTPUT____COMP_ID, AppConsts.NO_ID);
+		// si au retour de léditeur, le composant possède un ID
+		// c'est qu'il a été enregistré dans la database
+		if (component_id != AppConsts.NO_ID) {
+		    // on recharge le composant
+		    Component edited_component = factory.load_Component(component_id);
+
+		    // on recherche si le composant est déja lié à l'UA
+		    boolean Linked_with_UA = false;
+
+		    for (Component component : this.mUA.getComponentsList()) {
+
+			if (component.getId() == component_id) {
+			    Linked_with_UA = true;
+			}
+		    }
+		    // si le composant n'est pas lié à l'UA, on le lie.
+		    if (!Linked_with_UA) {
+			this.mUA.getComponentsList().add(edited_component);
+			this.factory.save(this.mUA);
+		    }
+		}
+
 		this.refreshScreen();
 
 	    }

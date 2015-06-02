@@ -1,5 +1,8 @@
 package com.rdupuis.amikcal.commons;
 
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.useractivity.UserActivity;
+
 /**
  * <h1>TYPE_REL_CD : Type de relations entre les entités</h1>
  * 
@@ -48,6 +51,14 @@ public class Relation implements I_Relation {
 		this.relationClass = REL_TYP_CD.UNDEFINED;
 		this.Party1 = "";
 		this.Party2 = "";
+	}
+
+	
+	public Relation(UserActivity ua, Component component) {
+		this.rel_id = AppConsts.NO_ID;
+		this.relationClass = REL_TYP_CD.UA_COMP;
+		this.Party1 = String.valueOf(ua.getId());
+		this.Party2 = String.valueOf(component.getId());
 	}
 
 	// =============

@@ -2,7 +2,7 @@ package com.rdupuis.amikcal.components;
 
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
-public class Component_Move extends Component {
+public class Component_Move extends Component_Generic {
 
     
 
@@ -30,7 +30,7 @@ public class Component_Move extends Component {
 	 */
 	public Component_Move() {
 		super();
-			this.setRelationClass(REL_TYP_CD.CMOVE);
+			//this.setRelationClass(REL_TYP_CD.CMOVE);
 	}
 
 	public float getNbkcal() {
@@ -58,4 +58,9 @@ public class Component_Move extends Component {
 		return 0f;
 	};
 
+	
+	@Override
+	public REL_TYP_CD getRelationClass(){
+	    return  REL_TYP_CD.CMOVE;
+	}
 }

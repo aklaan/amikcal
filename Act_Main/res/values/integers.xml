@@ -6,6 +6,7 @@
     <integer name="ACTIVITY_ACTIVITY">2</integer>
     <integer name="ACTIVITY_WEIGHT">3</integer>
     <integer name="ACTIVITY_RECIPE">4</integer>
+    <integer name="COMPONENT_EDITOR">5</integer>
     
     <integer name="USER_ACTIVITY_LIST_ACTIVITY">0</integer>
     <integer name="USER_ACTIVITY_LIST_RECIPE">1</integer>

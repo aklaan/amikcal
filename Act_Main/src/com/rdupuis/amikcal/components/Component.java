@@ -20,99 +20,33 @@ import com.rdupuis.amikcal.equivalence.Equivalence;
  * @author Rodolphe
  * 
  */
-public class Component implements I_Relation {
+public abstract class Component implements I_Relation {
 
-    private long id;
-    // private UserActivity mUserActivity;
-    private EnergySource mEnergySource;
-    private Qty mQty;
-    private REL_TYP_CD mRelationClass;
-    private ArrayList<Equivalence> mEquivalences;
+    public abstract void setEnergySource(EnergySource energySource);
 
-    /**
-     * Constructeur
-     */
-    public Component() {
-	id = AppConsts.NO_ID;
-	mEnergySource = new EnergySource();
-	this.mQty = new Qty();
-	this.setRelationClass(REL_TYP_CD.UNDEFINED);
-    }
-
-    public void setEnergySource(EnergySource energySource) {
-	this.mEnergySource = energySource;
-	switch (this.mEnergySource.getEffect()) {
-	case BURN:
-	    this.setRelationClass(REL_TYP_CD.CMOVE);
-	    break;
-
-	case EARN:
-	    this.setRelationClass(REL_TYP_CD.CFOOD);
-	    break;
-	default:
-	    this.setRelationClass(REL_TYP_CD.UNDEFINED);
-	    break;
-	}
-
-    }
-
-    public EnergySource getEnergySource() {
-	return mEnergySource;
-    }
-
-    public long getId() {
-	return id;
-    }
-
-    public void setId(Long id) {
-	this.id = id;
-    }
-
-    public Qty getQty() {
-	return mQty;
-    }
-
-    public void setQty(Qty mQty) {
-	this.mQty = mQty;
-    }
-
-    public REL_TYP_CD get_Class() {
-	return mRelationClass;
-    }
-
-    public ArrayList<Equivalence> getEquivalences() {
-	return mEquivalences;
-    }
-
-    public void setEquivalences(ArrayList<Equivalence> mEquivalences) {
-	this.mEquivalences = mEquivalences;
-    }
+    public abstract EnergySource getEnergySource();
 
     @Override
-    public String getParty1() {
-	return String.valueOf(this.mEnergySource.getId());
-    }
+    public abstract long getId();
 
     @Override
-    public String getParty2() {
+    public abstract void setId(long id);
 
-	return String.valueOf(this.mQty.getId());
-    }
+    public abstract Qty getQty();
 
-    @Override
-    public void setId(long rel_id) {
-	// TODO Auto-generated method stub
+    public abstract void setQty(Qty mQty);
 
-    }
+    public abstract REL_TYP_CD getRelationClass();
 
-    public void setRelationClass(REL_TYP_CD rel_typ_cd) {
-	this.mRelationClass = rel_typ_cd;
-    }
+    public abstract ArrayList<Equivalence> getEquivalences();
+
+    public abstract void setEquivalences(ArrayList<Equivalence> mEquivalences);
 
     @Override
-    public REL_TYP_CD getRelationClass() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+    public abstract String getParty1();
+
+    @Override
+    public abstract String getParty2();
+
 
 }

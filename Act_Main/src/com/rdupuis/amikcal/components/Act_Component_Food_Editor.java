@@ -5,7 +5,6 @@ package com.rdupuis.amikcal.components;
  * 2013-08-23 : ajout de la barre de menu pour remplacer le bouton valider
  */
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,37 +21,21 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
 
 public class Act_Component_Food_Editor extends Act_Component_Editor {
 
-    Component_Food edited_Component;
-    ContentResolver contentResolver;
-    AmiKcalFactory factory;
-    public static final String INPUT____COMPONENT_ID = "comp_id";
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	factory = new AmiKcalFactory(this);
 
-	/***************************************************************************
-	 * ETAPE I : on récupère les infos de l'intent
-	 ***************************************************************************/
-
-	// Récupérer l'id du composant à éditer
-	long input_comp_id = getIntent().getLongExtra(this.INPUT____COMPONENT_ID, AppConsts.NO_ID);
-
-	// recharger le composant
-	if (input_comp_id == AppConsts.NO_ID) {
-	    Toast.makeText(this, "Componant à éditer inconnu", Toast.LENGTH_LONG).show();
-	    this.finish();
-	} else {
-	    edited_Component = (Component_Food) factory.load_Component(input_comp_id);
-	}
-
+	/****************************************************************************
+	 * ETAPE I : récupération des données 
+	 ****************************************************************************/
+	// fait dans le onCreate mère
+	
 	/****************************************************************************
 	 * ETAPE II : on charge l'écran
 	 ****************************************************************************/
@@ -146,24 +129,6 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 
     }
 
-    /*****************************************************************************
-     * Mettre à jour les informations saisies dans la base de donnée.
-     * 
-     * 
-     *            
-     ****************************************************************************/
-    public void onClick_Validate() {
-
-	factory.save(edited_Component);
-
-	// on appelle setResult pour déclancher le onActivityResult de
-	// l'activity mère.
-	setResult(RESULT_OK, this.getIntent());
-
-	// On termine l'Actvity
-	finish();
-
-    }
 
     /******************************************************************************************
      * Gère le retour d'appel aux autres activitées

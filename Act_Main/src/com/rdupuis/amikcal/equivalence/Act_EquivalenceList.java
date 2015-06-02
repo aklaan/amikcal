@@ -22,7 +22,6 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
 
 public class Act_EquivalenceList extends Activity {
 

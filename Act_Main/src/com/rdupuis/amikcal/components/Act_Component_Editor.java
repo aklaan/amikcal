@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
@@ -30,9 +31,10 @@ public class Act_Component_Editor extends Activity {
     Component edited_Component;
     ContentResolver contentResolver;
     AmiKcalFactory factory;
-    public static final String INPUT____UA_ID = "ua_id";
-    public static final String INPUT____COMPONENT_INDEX = "comp_indx";
-
+    public static final String INPUT____COMP_ID = "in_comp_id";
+    public static final String INPUT____CLASS = "in_class";
+    public static final String OUTPUT____COMP_ID = "out_comp_id";
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,53 +45,33 @@ public class Act_Component_Editor extends Activity {
 	 * ETAPE I : on récupère les infos de l'intent
 	 ***************************************************************************/
 
-	// Récupérer l'id de UA des composants à traiter
-	long input_UA_id = getIntent().getLongExtra(this.INPUT____UA_ID, AppConsts.NO_ID);
+	// Récupérer l'id du composant à éditer
+	long edited_comp_id = getIntent().getLongExtra(this.INPUT____COMP_ID, AppConsts.NO_ID);
+	// en cas de création d'un nouveau composant, récupérer le type de
+	// composant souhaité
+	String input_comp_class = getIntent().getStringExtra(this.INPUT____CLASS);
 
-	// Un composant doit forcément appartenir à une UserActivity
-	if (input_UA_id == AppConsts.NO_ID) {
-	    Toast.makeText(this, "Erreur ! Activité parente inconnue", Toast.LENGTH_LONG).show();
-	    this.finish();
-	} else {
-	    mUA = factory.load_UserActivity(input_UA_id);
-	}
-
-	int component_index = getIntent().getIntExtra(this.INPUT____COMPONENT_INDEX, AppConsts.NO_INDEX);
-
-	// si l'index du composant à éditer est null, c'est que l'on souhaite
-	// créer
-	// un nouveau composant
-	// dans le cas contraire, on récupère les infos de la base
-	// de données
-	if (component_index != AppConsts.NO_INDEX) {
+	// si l'ID n'est pas nul on charge le composant à éditer
+	if (edited_comp_id != AppConsts.NO_ID) {
 	    // chargement du composant stocké
-
-	    this.edited_Component = mUA.getComponentsList().get(component_index);
+	    this.edited_Component = factory.load_Component(edited_comp_id);
 
 	} else {
-	    // Initialisation d'un nouveau composant en fonction de l'activitée
-	    // mère si elle existe
-	    switch (mUA.type) {
-	    case LUNCH:
+	    // Initialisation d'un nouveau composant en fonction de la class
+	    // souhaitée
+	    REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
+
+	    switch (rel_typ_cd_map._in.get(input_comp_class)) {
+	    case CFOOD:
 		edited_Component = new Component_Food();
 		break;
-		// default prend en charge les UNDEFINED
+	    // default prend en charge les UNDEFINED
 	    default:
-		edited_Component = new Component();
+		Toast.makeText(this, "type Component inconnu", Toast.LENGTH_LONG).show();
+		finish();
 	    }
 
 	}
-
-	/****************************************************************************
-	 * ETAPE II : on charge l'écran
-	 ****************************************************************************/
-	setContentView(R.layout.view_edit_food_component);
-
-	/**
-	 * ETAPE III : on initialise/Rafraichi les données de l'écran
-	 */
-
-	refreshScreen();
 
     }// fin du onCreate
 
@@ -120,14 +102,6 @@ public class Act_Component_Editor extends Activity {
 	}
     }
 
-    /***************************************************************************************
-     * 
-     * @param v
-     *            View
-     **************************************************************************************/
-    public void onClick_Quantity(View v) {
-	callNumericPad();
-    }
 
     /**
      * Appel du pavé numérique
@@ -178,18 +152,13 @@ public class Act_Component_Editor extends Activity {
      */
     public void onClick_Validate() {
 
-	// computeEnegy();
-
-	// si on a créé une nouvelle UAC i lfaut l'ajouter à l'UA
-	if (mUA.getComponentsList().indexOf(edited_Component) == AppConsts.NO_INDEX) {
-	    mUA.getComponentsList().add(edited_Component);
-	}
-	;
-
-	factory.save(mUA);
+	// A la création, le save va initialiser l'ID
+	this.edited_Component = factory.save(this.edited_Component);
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.
+	
+	this.getIntent().putExtra(this.OUTPUT____COMP_ID, String.valueOf(this.edited_Component.getId()));
 	setResult(RESULT_OK, this.getIntent());
 
 	// On termine l'Actvity
@@ -248,119 +217,8 @@ public class Act_Component_Editor extends Activity {
 	    break;
 
 	}
-	refreshScreen();
-    }
+	  }
 
-    /******************************************************************************************
-     * 
-     * @param _id
-     *            Identifiant du composant
-     ******************************************************************************************/
-
-    /**
-     * Rafraichissement de l'écan
-     */
-    private void refreshScreen() {
-	Button b = (Button) findViewById(R.id.componentview_btn_EnergyName);
-
-	// Gestion du libellé sur le bouton Energy
-	if (edited_Component.getEnergySource().getName() == "") {
-	    b.setText(this.getResources().getString(R.string.empty));
-	} else {
-	    b.setText(this.edited_Component.getEnergySource().getName());
-	}
-
-	// Gestion du libellé sur le bouton Unit
-	b = (Button) findViewById(R.id.componentview_btn_unit);
-
-	if (edited_Component.getQty().getUnity().getLongName() == "") {
-	    b.setText(this.getResources().getString(R.string.empty));
-	} else {
-	    b.setText(this.edited_Component.getQty().getUnity().getLongName());
-	}
-
-	// Gestion du libellé sur le bouton quantity
-	b = (Button) findViewById(R.id.componentview_btn_quantity);
-	b.setText(Float.toString(this.edited_Component.getQty().getAmount()));
-
-    }
-
-    /**
-     * Recherche d'une équivalence pour un aliment et une unité de mesure
-     * 
-     * @param energy
-     *            (aliment)
-     * @param unitIn
-     *            (unité de départ)
-     * @return une équivalence
-     */
-
-    /*
-     * private EquivalenceObj findEquivalence(EnergyReference energy, Unity
-     * unitIn) {
-     * 
-     * EquivalenceObj mEquivalence = new EquivalenceObj(); String searchKey =
-     * String.valueOf(energy.getId()) + "+" + String.valueOf(unitIn.getId());
-     * 
-     * // On fabrique l'Uri pour le contentProvider Uri selectUri =
-     * ContentDescriptorObj.Equivalences.URI_SEARCH_EQUIVALENCE
-     * .buildUpon().appendPath(searchKey).build();
-     * 
-     * // On crée un curseur pour lire la table. Cursor cur =
-     * this.getContentResolver().query(selectUri, null, null, null, null);
-     * 
-     * final int INDX_ID = cur
-     * .getColumnIndex(ContentDescriptorObj.Equivalences.Columns.ID);
-     * 
-     * // faire un move First pour positionner le pointeur, sinon on pointe sur
-     * // null if (cur.moveToFirst()) {
-     * 
-     * AmiKcalFactory factory = new AmiKcalFactory(); factory.contentResolver =
-     * this.contentResolver; mEquivalence =
-     * factory.createEquivalenceObjFromId(cur .getLong(INDX_ID)); } else {
-     * Toast.makeText(this, "Equivalence non trouvé", Toast.LENGTH_SHORT)
-     * .show();
-     * 
-     * }
-     * 
-     * return mEquivalence;
-     * 
-     * }
-     */
-    /**
-     * Calcul des informations nutitionelles
-     * (calories/lipides/glucides/protéines)
-     */
-    private void computeEnegy() {
-	/*
-	 * float wQuantity = this.mUAC.getQuantity();
-	 * 
-	 * Log.d("mUAC.getQuantity", String.valueOf(this.mUAC.getQuantity()));
-	 * 
-	 * // Si la quantité d'aliment est exprimé dans une untitée // diffrénte
-	 * de celle du référentiel des calories, on va rechercher //
-	 * l'équivalence. if (this.mUAC.getEnergy().unit.getId() !=
-	 * this.mUAC.getUnitMeasure() .getId()) { Toast.makeText(this,
-	 * "Unitée de mesure différentes", Toast.LENGTH_SHORT).show();
-	 * 
-	 * EquivalenceObj eq = findEquivalence(mUAC.getEnergy(),
-	 * mUAC.getUnitMeasure());
-	 * 
-	 * Log.d("eq.getQuantity", String.valueOf(eq.getQuantity()));
-	 * 
-	 * wQuantity = eq.getQuantity() * wQuantity; }
-	 * 
-	 * Log.i("wQuantity", String.valueOf(wQuantity));
-	 * 
-	 * this.mUAC.setCalories((wQuantity * this.mUAC.getEnergy()
-	 * .getCalories()) / this.mUAC.getEnergy().getQuantityReference());
-	 * this.mUAC.setLipids((wQuantity * this.mUAC.getEnergy().getLipids()) /
-	 * this.mUAC.getEnergy().getQuantityReference()); this.mUAC
-	 * .setGlucids((wQuantity * this.mUAC.getEnergy().getGlucids()) /
-	 * this.mUAC.getEnergy().getQuantityReference());
-	 * this.mUAC.setProteins((wQuantity * this.mUAC.getEnergy()
-	 * .getProteins()) / this.mUAC.getEnergy().getQuantityReference());
-	 */
-    }
-
+    
+    
 }

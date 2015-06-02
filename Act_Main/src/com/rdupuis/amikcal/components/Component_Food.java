@@ -2,9 +2,8 @@ package com.rdupuis.amikcal.components;
 
 import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
-public class Component_Food extends Component {
+public class Component_Food extends Component_Generic {
 
-    
 
 	/**
 	 * un composant Aliment Food c'est par exemple un bol de soupe 100 g de
@@ -30,7 +29,6 @@ public class Component_Food extends Component {
 	 */
 	public Component_Food() {
 		super();
-		setRelationClass(REL_TYP_CD.CFOOD);
 	}
 
 	public float getNbkcal() {
@@ -58,4 +56,9 @@ public class Component_Food extends Component {
 		return 0f;
 	};
 
+	@Override
+	public REL_TYP_CD getRelationClass(){
+	    return  REL_TYP_CD.CFOOD;
+	}
+	
 }

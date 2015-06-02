@@ -37,8 +37,6 @@ import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
 import com.rdupuis.amikcal.useractivity.move.UserActivity_Move_Action;
 import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
 import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight_Action;
-import com.rdupuis.amikcal.useractivitycomponent.UserActivityComponent;
-
 
 public final class AmiKcalFactory {
 
@@ -264,7 +262,8 @@ public final class AmiKcalFactory {
 		break;
 	    case WEIGHT:
 		userActivity = new UserActivity_Weight();
-	//	((UserActivityWeight) userActivity).setWeight(new WeightObj(cur.getString(ACTIVITY_TITLE)));
+		// ((UserActivityWeight) userActivity).setWeight(new
+		// WeightObj(cur.getString(ACTIVITY_TITLE)));
 		break;
 	    }
 
@@ -343,7 +342,7 @@ public final class AmiKcalFactory {
      ************************************************************************/
 
     public Component load_Component(long _id) {
-	Component component = new Component();
+	Component component = null;
 
 	// si l'id est nul on retourne un component vide.
 	if (_id == AppConsts.NO_ID) {
@@ -404,16 +403,15 @@ public final class AmiKcalFactory {
 	case LUNCH:
 	    return new UserActivity_Lunch_Action(activity, userActivity);
 	case MOVE:
-	    return new UserActivity_Move_Action(activity,userActivity);
+	    return new UserActivity_Move_Action(activity, userActivity);
 	case WEIGHT:
-	    return new UserActivity_Weight_Action(activity,userActivity);
+	    return new UserActivity_Weight_Action(activity, userActivity);
 	}
 
 	Toast.makeText(this.mActivity, "Action non prévu", Toast.LENGTH_LONG).show();
 
 	return null;
     }
-
 
     /*********************************************************************************
      * 
@@ -424,7 +422,7 @@ public final class AmiKcalFactory {
     public Component_Action createComponentAction(Activity activity, Component component) {
 
 	// en fonction du type d'activitée, on va retourner l'objet adequat
-	switch (component.get_Class()) {
+	switch (component.getRelationClass()) {
 	case CFOOD:
 	    return new Component_Food_Action(activity, component);
 	case CMOVE:
@@ -432,17 +430,14 @@ public final class AmiKcalFactory {
 	case CWEIGHT:
 	    return new Component_Weight_Action(activity, component);
 	default:
-		Toast.makeText(this.mActivity, "ERR Créa Component Action editor", Toast.LENGTH_LONG).show();
+	    Toast.makeText(this.mActivity, "ERR Créa Component Action editor", Toast.LENGTH_LONG).show();
 
 	    break;
 	}
 
-
 	return null;
     }
 
-    
-    
     /**
      * <h1>loadComponent</h1>
      * <p>
@@ -718,7 +713,7 @@ public final class AmiKcalFactory {
 
 	    for (Component component : UA.getComponentsList()) {
 		this.save(component);
-		UserActivityComponent UAC = new UserActivityComponent(UA, component);
+		Relation UAC = new Relation(UA, component);
 		saveRelation(UAC);
 	    }
 	}
@@ -734,6 +729,7 @@ public final class AmiKcalFactory {
 	// On sauve la Qty. ceci nous permet d'avoir une ID pour cette Qty
 	// si elle n'existait pas dans la DB.
 	component.setQty(save(component.getQty()));
+
 	return (Component) saveRelation(component);
 
     }
