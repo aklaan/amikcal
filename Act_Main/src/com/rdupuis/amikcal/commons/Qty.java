@@ -1,6 +1,7 @@
 package com.rdupuis.amikcal.commons;
 
-import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.I_Relation;
+import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unité et un montant

@@ -1,6 +1,6 @@
 package com.rdupuis.amikcal.components;
 
-import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
 
 public class Component_Move extends Component_Generic {
 

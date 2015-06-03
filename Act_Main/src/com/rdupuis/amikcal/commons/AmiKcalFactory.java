@@ -1,6 +1,7 @@
 package com.rdupuis.amikcal.commons;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -15,7 +16,6 @@ import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.UNIT_CLASS_MAP;
-import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Action;
 import com.rdupuis.amikcal.components.Component_Food;
@@ -27,6 +27,10 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergyEarn;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
+import com.rdupuis.amikcal.relations.I_Relation;
+import com.rdupuis.amikcal.relations.Relation;
+import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
@@ -713,8 +717,9 @@ public final class AmiKcalFactory {
 
 	    for (Component component : UA.getComponentsList()) {
 		this.save(component);
-		Relation UAC = new Relation(UA, component);
-		saveRelation(UAC);
+		Relation_UserActivity_vs_Component UAC_rel = new Relation_UserActivity_vs_Component(UA, component);
+		if (!this.relation_Exists(UAC_rel)){
+		saveRelation(UAC_rel);}
 	    }
 	}
 
@@ -908,34 +913,35 @@ public final class AmiKcalFactory {
 
     }
 
+    
+    
     /*****************************************************************************************
-     * verifier l'existence d'une relation dans la database === est-ce vraiment
-     * utile ?
-     * 
-     * note : on ne doit pas vérifier si la relation existe déjà ici. car pour
-     * les QTY ça n focntionne pas. par exemple si on a 10g de pain pour UA1 et
-     * que l'on met aussi 10g de pain pour l'UA2 il ne faut pas que les 2 UA
-     * pointent sur la même Qty.
+     * verifier l'existence d'une relation dans la database 
      * 
      ******************************************************************************************/
-    public Boolean exists(I_Relation relation) {
+    private Boolean relation_Exists(I_Relation relation) {
 
+	REL_TYP_CD_MAP map = new REL_TYP_CD_MAP();
+	String relationClass = map._out.get(relation.getRelationClass());
+	String firstParty = String.valueOf(relation.getParty1());
+	String secondParty = String.valueOf(relation.getParty2());
+	String searchedRelation = relationClass + "x" + firstParty +"x" + secondParty;
+	
 	// vérifier la présence de la relation
 	if (relation.getParty1() != String.valueOf(AppConsts.NO_ID)
 		&& relation.getParty2() != String.valueOf(AppConsts.NO_ID)) {
 	    // rechercher si la relation existe déjà pour récupérer son ID
 	    Uri request = ContentDescriptorObj.TB_Party_rel.SEARCH_RELATION_URI.buildUpon()
-		    .appendPath(String.valueOf(relation.getParty1()) + "x" + String.valueOf(relation.getParty2()))
+		    .appendPath(searchedRelation)
 		    .build();
 	    Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
-	    final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.View_UA_Comp_link.Columns.REL_ID);
+	    final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ID);
 
 	    // faire un move First pour positionner le pointeur, sinon on pointe
-	    // sur
-	    // null
-	    // Si la relation existe on va passer dans le if...sinon
-	    // on passe directement au close curseur
+	    // sur null
+	    // Si la relation existe on va passer dans le if pour récupérer l'ID
+	    // sinon on passe directement au close curseur
 	    if (cur.moveToFirst()) {
 
 		relation.setId(cur.getLong(RELATION_ID));
@@ -943,7 +949,8 @@ public final class AmiKcalFactory {
 	    cur.close();
 
 	}
-	return (relation.getId() == AppConsts.NO_ID);
+	//si l'id de la relation n'est pas nul, alors la relation existe.
+	return (relation.getId() != AppConsts.NO_ID);
     }
 
     /*****************************************************************************************

@@ -1,5 +1,6 @@
-package com.rdupuis.amikcal.commons;
+package com.rdupuis.amikcal.relations;
 
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
@@ -77,7 +78,7 @@ public class Relation implements I_Relation {
 	}
 
 	// =============
-	protected void setParty2(String party2) {
+	public void setParty2(String party2) {
 		Party2 = party2;
 	}
 

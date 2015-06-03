@@ -3,13 +3,13 @@ package com.rdupuis.amikcal.commons;
 import java.util.EnumMap;
 import java.util.HashMap;
 
-import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Energies;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Units;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
 import com.rdupuis.amikcal.energy.EnergySource.NRJ_EFFECT;
 import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
+import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
 

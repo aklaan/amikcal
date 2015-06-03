@@ -1,10 +1,10 @@
 package com.rdupuis.amikcal.equivalence;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.I_Relation;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.relations.I_Relation;
+import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
 
 /**
  * Une équivalence permet de transposer la qty d'une source d'énergie en une qty

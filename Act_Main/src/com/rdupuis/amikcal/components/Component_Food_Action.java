@@ -2,9 +2,10 @@ package com.rdupuis.amikcal.components;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
-import com.rdupuis.amikcal.commons.Relation.REL_TYP_CD;
 
 
+
+import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
 
 import android.app.Activity;
 import android.content.Intent;
