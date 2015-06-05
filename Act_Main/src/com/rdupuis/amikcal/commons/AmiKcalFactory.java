@@ -28,8 +28,8 @@ import com.rdupuis.amikcal.energy.EnergyEarn;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.relations.I_Relation;
-import com.rdupuis.amikcal.relations.Relation;
-import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.Relation_NRJ_vs_QtyRefInternational;
 import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
@@ -718,8 +718,9 @@ public final class AmiKcalFactory {
 	    for (Component component : UA.getComponentsList()) {
 		this.save(component);
 		Relation_UserActivity_vs_Component UAC_rel = new Relation_UserActivity_vs_Component(UA, component);
-		if (!this.relation_Exists(UAC_rel)){
-		saveRelation(UAC_rel);}
+		if (!this.relation_Exists(UAC_rel)) {
+		    saveRelation(UAC_rel);
+		}
 	    }
 	}
 
@@ -780,7 +781,8 @@ public final class AmiKcalFactory {
 	nrj.setQtyReference(save(nrj.getQtyReference()));
 
 	// Sauver le lien NRJ_Qty de référence
-	save_NRj_Qtyref_Relation(nrj, nrj.getQtyReference());
+	save( new Relation_NRJ_vs_QtyRefInternational(nrj,nrj.getQtyReference()));
+	
 
 	// Sauver les équivalences
 
@@ -869,54 +871,16 @@ public final class AmiKcalFactory {
     /*****************************************************************************************
      * Enregister la relation NRJ / Qty de référence dans la database
      ******************************************************************************************/
-    public void save_NRj_Qtyref_Relation(EnergySource nrj, Qty qtyref) {
+    public void save(Relation_NRJ_vs_QtyRefInternational relation) {
 
-	Relation relation = new Relation();
-
-	// rechercher si la relation existe déjà pour récupérer son ID
-	Uri request = ContentDescriptorObj.View_NRJ_QtyRef.VIEW_NRJ_QTYREF_URI.buildUpon()
-		.appendPath(nrj.getId() + "x" + qtyref.getId()).build();
-	Cursor cur = this.contentResolver.query(request, null, null, null, null);
-
-	final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.View_NRJ_QtyRef.Columns.REL_NRJ_QTY_ID);
-
-	// faire un move First pour positionner le pointeur, sinon on pointe sur
-	// null
-	// Si la relation existe on va passer dans le if...sinon
-	// on passe directement au close curseur
-	if (cur.moveToFirst()) {
-
-	    relation.setId(cur.getLong(RELATION_ID));
+	if (!relation_Exists(relation)) {
+	    saveRelation(relation);
 	}
-	cur.close();
-
-	// ---------------------------------
-	relation.setParty1(String.valueOf(nrj.getId()));
-	relation.setParty2(String.valueOf(qtyref.getId()));
-
-	switch (qtyref.getUnity().getUnityClass()) {
-	case INTERNATIONAL:
-	    relation.setRelationClass(REL_TYP_CD.NRJ_REF_INTRNL);
-	    break;
-	case CUSTOM:
-	    relation.setRelationClass(REL_TYP_CD.CSTM_NRJ_REF);
-	    break;
-	default:
-	    Toast.makeText(this.mActivity, "Classe de l'unitée incorecte pour une référence", Toast.LENGTH_LONG).show();
-	    relation.setRelationClass(REL_TYP_CD.UNDEFINED);
-	}
-
-	// en cas d'insert, la fonction save va retourner un ID
-	// je n'ai a prioris pas besoin de récupérer cet id
-	// c'est transparent pour l'utilisateur
-	saveRelation(relation);
 
     }
 
-    
-    
     /*****************************************************************************************
-     * verifier l'existence d'une relation dans la database 
+     * verifier l'existence d'une relation dans la database
      * 
      ******************************************************************************************/
     private Boolean relation_Exists(I_Relation relation) {
@@ -925,15 +889,14 @@ public final class AmiKcalFactory {
 	String relationClass = map._out.get(relation.getRelationClass());
 	String firstParty = String.valueOf(relation.getParty1());
 	String secondParty = String.valueOf(relation.getParty2());
-	String searchedRelation = relationClass + "x" + firstParty +"x" + secondParty;
-	
+	String searchedRelation = relationClass + "x" + firstParty + "x" + secondParty;
+
 	// vérifier la présence de la relation
 	if (relation.getParty1() != String.valueOf(AppConsts.NO_ID)
 		&& relation.getParty2() != String.valueOf(AppConsts.NO_ID)) {
 	    // rechercher si la relation existe déjà pour récupérer son ID
 	    Uri request = ContentDescriptorObj.TB_Party_rel.SEARCH_RELATION_URI.buildUpon()
-		    .appendPath(searchedRelation)
-		    .build();
+		    .appendPath(searchedRelation).build();
 	    Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
 	    final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ID);
@@ -949,7 +912,7 @@ public final class AmiKcalFactory {
 	    cur.close();
 
 	}
-	//si l'id de la relation n'est pas nul, alors la relation existe.
+	// si l'id de la relation n'est pas nul, alors la relation existe.
 	return (relation.getId() != AppConsts.NO_ID);
     }
 

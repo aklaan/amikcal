@@ -4,11 +4,33 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.relations.I_Relation;
-import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 /**
  * Une équivalence permet de transposer la qty d'une source d'énergie en une qty
  * équivalente par exemple : 1 Verre de Vin = 46 kcal
+ * 
+ * composant = nrj+qty : 100 g de pain
+ * qty = montant + unitée
+ * 
+ * on peu avoir des équivalences
+ * composant <> composant
+ * 1000 g  de pain = 1kg pain
+ * 
+ * composant <> qty
+ * 100 g de pain = 500kcal
+ * 
+ * qty <> qty
+ * 1 livre = 0,5 Kg
+ * 
+ * 
+ * Basiquement, c'est un lien entre 2 objets
+ * 
+ * component et qty ont en commun
+ * un montant
+ * une unité
+ * 
+ *  la seule chose qui diffère c'est le nom de l'énergie
  * 
  * 
  * @author Rodolphe

@@ -1,7 +1,7 @@
 package com.rdupuis.amikcal.commons;
 
 import com.rdupuis.amikcal.relations.I_Relation;
-import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unité et un montant
@@ -9,7 +9,6 @@ public class Qty implements I_Relation {
 
 	private long _id;
 	private Unity mUnity;
-	private  final REL_TYP_CD relationClass = REL_TYP_CD.QTY;
 	private float amount;
 
 	public Qty() {
@@ -64,7 +63,7 @@ public class Qty implements I_Relation {
 	@Override
 	public REL_TYP_CD getRelationClass() {
 		// TODO Auto-generated method stub
-		return relationClass;
+		return REL_TYP_CD.QTY;
 	}
 
 }

@@ -5,8 +5,6 @@ import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 
 
 
-import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
-
 import android.app.Activity;
 import android.content.Intent;
 

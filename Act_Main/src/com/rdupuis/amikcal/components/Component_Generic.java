@@ -6,8 +6,7 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.equivalence.Equivalence;
-import com.rdupuis.amikcal.relations.I_Relation;
-import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 /**
  * Un composant = une relation entre une quantité et une source d'énergie.

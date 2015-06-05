@@ -1,6 +1,6 @@
 package com.rdupuis.amikcal.relations;
 
-import com.rdupuis.amikcal.relations.Relation.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 public interface I_Relation {
     	
