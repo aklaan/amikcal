@@ -19,8 +19,10 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
+import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
@@ -33,7 +35,7 @@ public class Act_Component_Editor extends Activity {
     public static final String INPUT____COMP_ID = "in_comp_id";
     public static final String INPUT____CLASS = "in_class";
     public static final String OUTPUT____COMP_ID = "out_comp_id";
-    
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,6 @@ public class Act_Component_Editor extends Activity {
 	}
     }
 
-
     /**
      * Appel du pavé numérique
      */
@@ -137,8 +138,7 @@ public class Act_Component_Editor extends Activity {
      **************************************************************************************/
     public void callUnitListView() {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
-		String.valueOf(edited_Component.getEnergySource().getId()));
+	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_Component.getEnergy().getId()));
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -156,7 +156,7 @@ public class Act_Component_Editor extends Activity {
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.
-	
+
 	this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP_ID, this.edited_Component.getId());
 	setResult(RESULT_OK, this.getIntent());
 
@@ -207,7 +207,7 @@ public class Act_Component_Editor extends Activity {
 		// on récupère l'Energy choisi par l'utilisateur d'après sont id
 		// .
 
-		this.edited_Component.setEnergySource(factory.load_Energy(intent.getLongExtra(
+		this.edited_Component.setEnergy(factory.load_Energy(intent.getLongExtra(
 			Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
 
 	    }
@@ -216,8 +216,6 @@ public class Act_Component_Editor extends Activity {
 	    break;
 
 	}
-	  }
+    }
 
-    
-    
 }

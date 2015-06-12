@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.Energy;
-import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
@@ -20,12 +19,12 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  * @author Rodolphe
  * 
  */
-public abstract class Component_Commons extends Component {
+public  class Component_Commons extends Component {
 
     long id;
     Qty mQty;
     Energy mEnergy;
-    ArrayList<Equivalence> mEquivalences;
+    ArrayList<? extends Component> mEquivalences;
     
     public Component_Commons() {
 	this.setId(AppConsts.NO_ID);
@@ -63,15 +62,7 @@ public abstract class Component_Commons extends Component {
 	return REL_TYP_CD.UNDEFINED;
     }
 
-    public ArrayList<Equivalence> getEquivalences() {
-	return mEquivalences;
-    }
-
-    public void setEquivalences(ArrayList<Equivalence> mEquivalences) {
-	this.mEquivalences = mEquivalences;
-    }
-
-    @Override
+        @Override
     public String getParty1() {
 	return String.valueOf(this.mEnergy.getId());
     }
@@ -82,9 +73,5 @@ public abstract class Component_Commons extends Component {
 	return String.valueOf(this.mQty.getId());
     }
 
-  
-
-    
-
-
+   
 }

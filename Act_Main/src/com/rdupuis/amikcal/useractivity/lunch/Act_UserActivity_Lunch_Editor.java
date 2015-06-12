@@ -11,7 +11,6 @@ import android.widget.TimePicker;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
-import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch.LunchType;
 
 /**
  * <b>Ecran d'édition des repas de l'utilisateur.</b>
@@ -90,19 +89,19 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
      *****************************************************/
 
     public void onClickRdioBreakfast(View v) {
-	setRdioLunch(LunchType.BREAKFAST);
+	setRdioLunch(LUNCH_TYPE.BREAKFAST);
     }
 
     public void onClickRdioLunch(View v) {
-	setRdioLunch(LunchType.LUNCH);
+	setRdioLunch(LUNCH_TYPE.LUNCH);
     }
 
     public void onClickRdioDiner(View v) {
-	setRdioLunch(LunchType.DINER);
+	setRdioLunch(LUNCH_TYPE.DINER);
     }
 
     public void onClickRdioSnack(View v) {
-	setRdioLunch(LunchType.SNACK);
+	setRdioLunch(LUNCH_TYPE.SNACK);
 
     }
 
@@ -110,7 +109,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	 * 
 	 * 
 	 ************************************************************************************/
-    private void setRdioLunch(LunchType i) {
+    private void setRdioLunch(LUNCH_TYPE i) {
 
 	RadioButton rbBreakfast = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
 	RadioButton rbLunch = (RadioButton) findViewById(R.id.view_ua_editor_rdio_lunch);
@@ -174,17 +173,8 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
     private void refreshLunchType() {
 	// par defaut, le radioButton sélectionné est Breakfast
 	RadioButton radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
-	UserActivity_Lunch.LunchType type;
-
-	// Au cas où le type de repas n'est pas reconnu on valorise le
-	// type à UNKNOWN
-	try {
-	    type = UserActivity_Lunch.LunchType.valueOf(this.getEdited_UserActivity().getTitle());
-	} catch (Exception e) {
-	    type = UserActivity_Lunch.LunchType.UNDEFINED;
-	}
-
-	switch (type) {
+	
+	switch (((UserActivity_Lunch) this.getEdited_UserActivity()).getTypeOfLunch()) {
 
 	case BREAKFAST:
 	    radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
@@ -202,7 +192,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 	    // si le titre ne correspond pas un type connu ou est vide
 	    // on initialise le titre a BREAKFAST par defaut
 	    radioButton = (RadioButton) findViewById(R.id.view_ua_editor_rdio_breakfast);
-	    this.getEdited_UserActivity().setTitle(UserActivity_Lunch.LunchType.BREAKFAST.name());
+	    this.getEdited_UserActivity().setTitle(LUNCH_TYPE.BREAKFAST.name());
 	}
 
 	radioButton.setChecked(true);

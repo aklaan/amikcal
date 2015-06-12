@@ -1,30 +1,30 @@
 package com.rdupuis.amikcal.relations;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.relations.REL_TYP_CD;
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.energy.Energy;
 
-public class Relation_Equiv_Btwn2Qty implements I_Relation {
-    private Qty mQty1;
-    private Qty mQty2;
+public class Relation_NRJ_vs_Component implements I_Relation {
+    private Energy mEnergy;
+    private Component mComponent;
     private long _id;
 
-    public Relation_Equiv_Btwn2Qty(Qty qty1, Qty qty2) {
-	this.mQty1=qty1;
-	this.mQty2=qty2;
+    public Relation_NRJ_vs_Component(Energy energy, Component component) {
+	this.mEnergy=energy;
+	this.mComponent = component;
 	this._id = AppConsts.NO_ID;
     }
 
     @Override
     public String getParty1() {
 
-	return String.valueOf(this.mQty1.getId());
+	return String.valueOf(this.mEnergy.getId());
     }
 
     @Override
     public String getParty2() {
 
-	return String.valueOf(this.mQty2.getId());
+	return String.valueOf(this.mComponent.getId());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Relation_Equiv_Btwn2Qty implements I_Relation {
     @Override
     public REL_TYP_CD getRelationClass() {
 	// TODO Auto-generated method stub
-	return REL_TYP_CD.QTY_EQUIV;
+	return REL_TYP_CD.NRJ_REF_INTRNL;
     }
 
 }

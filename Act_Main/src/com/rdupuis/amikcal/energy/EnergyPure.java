@@ -2,17 +2,8 @@ package com.rdupuis.amikcal.energy;
 
 import java.util.ArrayList;
 
-import android.content.ContentValues;
-
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.HasEquivalences;
-import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
-import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.equivalence.Equivalence;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -73,9 +64,11 @@ public class EnergyPure extends Energy {
 	return this.mEquivalences;
     }
 
-    public void setEquivalences(ArrayList<Component> equivalences) {
-	this.mEquivalences = equivalences;
-
+    @Override
+    public void setReferenceComponent(Component refComponent) {
+	// TODO Auto-generated method stub
+	
     }
 
+    
 }

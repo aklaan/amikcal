@@ -17,13 +17,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
-import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.energy.Food.STRUCTURE;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor;
-import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
 /**
@@ -32,12 +33,12 @@ import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
  * @author Rodolphe
  * 
  */
-public class Act_EnergyEditor2 extends Activity {
+public class Act_Food_Editor extends Activity {
 
-    EnergySource mEnergy;
+    Food mFood;
     AmiKcalFactory factory;
     private ListView maListViewPerso;
-    public static final String INPUT____ID_OF_ENERGY = "NRJ_ID";
+    public static final String INPUT____ID_OF_FOOD = "FOOD_ID";
 
     /** Called when the activity is first created. */
     @Override
@@ -45,20 +46,19 @@ public class Act_EnergyEditor2 extends Activity {
 	super.onCreate(savedInstanceState);
 	factory = new AmiKcalFactory(this);
 	setContentView(R.layout.view_edit_energy_food2);
-	mEnergy = new EnergySource();
 
-	long nrj_id = getIntent().getLongExtra(INPUT____ID_OF_ENERGY, AppConsts.NO_ID);
+	long nrj_id = getIntent().getLongExtra(INPUT____ID_OF_FOOD, AppConsts.NO_ID);
 
 	// Si l'ID en entrée indique que l"on souhaite éditer une énergie en
 	// particulier
 	// on la recharge
 	if (nrj_id != AppConsts.NO_ID) {
-	    mEnergy = factory.load_Energy(getIntent().getLongExtra(INPUT____ID_OF_ENERGY,AppConsts.NO_ID));
+	    mFood = (Food) factory.load_Energy(getIntent().getLongExtra(INPUT____ID_OF_FOOD,AppConsts.NO_ID));
 	}
 
 	((TextView) findViewById(R.id.energyview_edTxt_energy_name)).addTextChangedListener(new TextWatcher() {
 	    public void onTextChanged(CharSequence s, int start, int before, int count) {
-		mEnergy.setName(s.toString());
+		mFood.setName(s.toString());
 	    }
 
 	    public void afterTextChanged(Editable arg0) {
@@ -98,21 +98,21 @@ public class Act_EnergyEditor2 extends Activity {
     }
 
     public void onClick_RdioBt_Liquid(View v) {
-	this.mEnergy.setStructure(STRUCTURE.LIQUID);
+	this.mFood.setStructure(STRUCTURE.LIQUID);
 	((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(true);
 	((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
 	((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
     }
 
     public void onClick_RdioBt_Solid(View v) {
-	this.mEnergy.setStructure(STRUCTURE.SOLID);
+	this.mFood.setStructure(STRUCTURE.SOLID);
 	((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
 	((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(true);
 	((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(false);
     }
 
     public void onClick_RdioBt_Powder(View v) {
-	this.mEnergy.setStructure(STRUCTURE.POWDER);
+	this.mFood.setStructure(STRUCTURE.POWDER);
 	((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(false);
 	((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
 	((CompoundButton) findViewById(R.id.rdiobt_powder)).setChecked(true);
@@ -132,7 +132,7 @@ public class Act_EnergyEditor2 extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.mEnergy.getQtyReference().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+		this.mFood.getReferenceComponent().getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 
 	    }
 	    break;
@@ -143,7 +143,7 @@ public class Act_EnergyEditor2 extends Activity {
 
 		AmiKcalFactory factory = new AmiKcalFactory(this);
 
-		mEnergy.getQtyReference().setUnity(
+		this.mFood.getReferenceComponent().getQty().setUnity(
 			factory.load_Unity(intent
 				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
 
@@ -167,10 +167,10 @@ public class Act_EnergyEditor2 extends Activity {
 
 	//récupérer le libéllé de l'énergie
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
-	this.mEnergy.setName(ed.getText().toString());
+	this.mFood.setName(ed.getText().toString());
 
 	//enregister l'énergie
-	this.factory.save(this.mEnergy);
+	this.factory.save(this.mFood);
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.
@@ -184,7 +184,7 @@ public class Act_EnergyEditor2 extends Activity {
     
     public void onClick_Add_Equiv(View view){
 	Intent intent = new Intent(this, Act_EquivalenceEditor.class);
-	intent.putExtra(Act_EquivalenceEditor.INPUT____ID_NRJ,this.mEnergy.getId());
+	intent.putExtra(Act_EquivalenceEditor.INPUT____ID_NRJ,this.mFood.getId());
 	startActivityForResult(intent, R.integer.EQUIVALENCE_EDITOR);
 
     }
@@ -208,15 +208,15 @@ public class Act_EnergyEditor2 extends Activity {
 //	}
 
 	Button bt = (Button) findViewById(R.id.energyview_btn_amount);
-	bt.setText(decimalFormat.format(this.mEnergy.getQtyReference().getAmount()));
+	bt.setText(decimalFormat.format(this.mFood.getReferenceComponent().getQty().getAmount()));
 
 	bt = (Button) findViewById(R.id.energyview_btn_unity);
-	bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
+	bt.setText(this.mFood.getReferenceComponent().getQty().getUnity().getLongName());
 
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
-	ed.setText(this.mEnergy.getName());
+	ed.setText(this.mFood.getName());
 
-	switch (this.mEnergy.getStructure()) {
+	switch (this.mFood.getStructure()) {
 	case LIQUID:
 	    ((CompoundButton) findViewById(R.id.rdiobt_liquid)).setChecked(true);
 	    ((CompoundButton) findViewById(R.id.rdiobt_solid)).setChecked(false);
@@ -252,15 +252,16 @@ public class Act_EnergyEditor2 extends Activity {
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
-	// Pour chaque UAC de L'UA
-	for (Equivalence equiv : this.mEnergy.getEquivalences()) {
+	// Pour chaque composant équivalent à au composant de référence..
+	for (Component equiv : this.mFood.getEquivalences()) {
 
 	    map = new HashMap<String, String>();
-	    map.put("EQUIV_INDEX", String.valueOf(this.mEnergy.getEquivalences().indexOf(equiv)));
+	    map.put("EQUIV_INDEX", String.valueOf(this.mFood.getEquivalences().indexOf(equiv)));
 
-	    map.put("quantity", String.valueOf(equiv.getQuantityOut().getAmount()));
-	    map.put("unity", equiv.getQuantityOut().getUnity().getLongName());
-
+	    map.put("quantity", String.valueOf(equiv.getQty().getAmount()));
+	    map.put("unity", equiv.getQty().getUnity().getLongName());
+	    map.put("nrj", equiv.getEnergy().getName());
+	    
 	    listItem.add(map);
 	}
 

@@ -33,7 +33,4 @@ public abstract class Energy {
     public abstract void setReferenceComponent(Component refComponent);
 
     
-    public abstract ArrayList<Component> getEquivalences();
-
-    public abstract void setEquivalences(ArrayList<Component> equivalences);
-}
+    }

@@ -89,7 +89,7 @@ public class Act_UserActivity_Editor extends Act_Editor {
 	// class : on utilise la mapping pour transformer l'ENUM Class en Byte
 	// stoké dans la Database.
 	UA_CLASS_CD_MAP ua_cd_map = new UA_CLASS_CD_MAP();
-	val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((getEdited_UserActivity().getType())));
+	val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((getEdited_UserActivity().getActivityType())));
 
 	// date de mise à jour
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());

@@ -32,7 +32,7 @@ import com.rdupuis.amikcal.energy.PhysicalActivity;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
-import com.rdupuis.amikcal.relations.Relation_NRJ_vs_QtyRefInternational;
+import com.rdupuis.amikcal.relations.Relation_NRJ_vs_Component;
 import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
@@ -247,7 +247,7 @@ public final class AmiKcalFactory {
      ****************************************************************************/
     public UserActivity load_UserActivity(long _id) {
 	//je ne peux pas instancier userActivity mais je dois quand même le déclarer.
-	UserActivity userActivity;
+	UserActivity userActivity = null;
 	
 	if (_id == AppConsts.NO_ID) {
 	    Toast.makeText(this.mActivity, "ID à recharger vide", Toast.LENGTH_LONG).show();
@@ -418,7 +418,7 @@ public final class AmiKcalFactory {
     public UserActivity_Action create_UserActivity_Action(Activity activity, UserActivity userActivity) {
 
 	// en fonction du type d'activitée, on va retourner l'objet adequat
-	switch (userActivity.getType()) {
+	switch (userActivity.getActivityType()) {
 	case LUNCH:
 	    return new UserActivity_Lunch_Action(activity, userActivity);
 	case MOVE:
@@ -666,7 +666,7 @@ public final class AmiKcalFactory {
      ******************************************************************************************/
     // recharger toutes les équivalences
 
-    public ArrayList<Equivalence> load_Equiv()  {
+    public ArrayList<? extends Component> load_Equiv()  {
 	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
 
 	Uri request = ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI;
@@ -717,7 +717,7 @@ public final class AmiKcalFactory {
 	// class : on utilise la mapping pour transformer l'ENUM Class en Byte
 	// stoké dans la Database.
 	UA_CLASS_CD_MAP ua_cd_map = new UA_CLASS_CD_MAP();
-	val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((UA.getType())));
+	val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((UA.getActivityType())));
 
 	// date de mise à jour
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
@@ -783,15 +783,14 @@ public final class AmiKcalFactory {
 	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(nrj.getId()), null);
 	}
 
-	// Sauver la Qty de référence
-	// si on fait un INSERT, on va récupérer un ID pour cette Qty.
+	// Sauver le composant de référence
+	// si on fait un INSERT, on va récupérer un ID pour ce composant.
 	// comme JAVA ne travaille pas par référence, mais par valeur, on est
-	// obligé de
-	// réasigner la qty pour avoir la nouvelle qty à jour avec l'id
-	nrj.setQtyReference(save(nrj.getQtyReference()));
+	// obligé de réasigner le comosant pour avoir l'id à jour
+	nrj.setReferenceComponent(save(nrj.getReferenceComponent()));
 
-	// Sauver le lien NRJ_Qty de référence
-	save( new Relation_NRJ_vs_QtyRefInternational(nrj,nrj.getQtyReference()));
+	// Sauver le lien entre l'energie et le composant de référence
+	save( new Relation_NRJ_vs_Component(nrj,nrj.getReferenceComponent()));
 	
 
 	// Sauver les équivalences
@@ -881,7 +880,7 @@ public final class AmiKcalFactory {
     /*****************************************************************************************
      * Enregister la relation NRJ / Qty de référence dans la database
      ******************************************************************************************/
-    public void save(Relation_NRJ_vs_QtyRefInternational relation) {
+    public void save(Relation_NRJ_vs_Component relation) {
 
 	if (!relation_Exists(relation)) {
 	    saveRelation(relation);

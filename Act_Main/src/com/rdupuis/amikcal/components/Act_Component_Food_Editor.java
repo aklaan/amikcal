@@ -196,7 +196,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 	if (edited_Component.getEnergy().getName() == "") {
 	    b.setText(this.getResources().getString(R.string.empty));
 	} else {
-	    b.setText(this.edited_Component.getEnergySource().getName());
+	    b.setText(this.edited_Component.getEnergy().getName());
 	}
 
 	// Gestion du libellé sur le bouton Unit

@@ -19,6 +19,8 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_Commons;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
@@ -30,7 +32,7 @@ import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
  */
 public class Act_EnergyEditor extends Activity {
 
-    EnergySource mEnergy;
+    Energy mEnergy;
     public static final String INPUT____ID_OF_ENERGY = "NRJ_ID";
 
     /** Called when the activity is first created. */
@@ -38,7 +40,7 @@ public class Act_EnergyEditor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.view_edit_energy_food);
-	mEnergy = new EnergySource();
+	//mEnergy = new Energy();
 
 	try {
 	    AmiKcalFactory factory = new AmiKcalFactory(this);
@@ -143,12 +145,12 @@ public class Act_EnergyEditor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		Equivalence nbKcal = new Equivalence();
-		nbKcal.getQuantityOut().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
+		Component nbKcal = new Component_Commons();
+		nbKcal.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
 		// récupérer l'id de l'unité "Kcal"
 
 		// Ajouter l'équivalence
-		this.mEnergy.getEquivalences().add(nbKcal);
+				this.mEnergy.getEquivalences().add(nbKcal);
 	    }
 	    break;
 
@@ -186,7 +188,7 @@ public class Act_EnergyEditor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.mEnergy.getQtyReference().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
+		this.mEnergy.getReferenceComponent().getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT,0f));
 
 	    }
 	    break;
@@ -197,7 +199,7 @@ public class Act_EnergyEditor extends Activity {
 
 		AmiKcalFactory factory = new AmiKcalFactory(this);
 
-		mEnergy.getQtyReference().setUnity(
+		mEnergy.getReferenceComponent().getQty().setUnity(
 			factory.load_Unity(intent
 				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID,AppConsts.NO_ID)));
 
@@ -252,10 +254,10 @@ public class Act_EnergyEditor extends Activity {
 	ed.setText(this.mEnergy.getName());
 
 	Button bt = (Button) findViewById(R.id.energyview_btn_quantity);
-	bt.setText(String.valueOf(this.mEnergy.getQtyReference().getAmount()));
+	bt.setText(String.valueOf(this.mEnergy.getReferenceComponent().getQty().getAmount()));
 
 	bt = (Button) findViewById(R.id.energyview_btn_unit);
-	bt.setText(this.mEnergy.getQtyReference().getUnity().getLongName());
+	bt.setText(this.mEnergy.getReferenceComponent().getQty().getUnity().getLongName());
 
 	/*
 	 * 

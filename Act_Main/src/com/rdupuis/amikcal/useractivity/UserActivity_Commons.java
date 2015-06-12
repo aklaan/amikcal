@@ -73,7 +73,7 @@ public void setDay(int year, int month, int day, int hourOfDay, int minute) {
 }
 
 @Override
-public UA_CLASS_CD getType() {
+public UA_CLASS_CD getActivityType() {
     // TODO Auto-generated method stub
     return null;
 }

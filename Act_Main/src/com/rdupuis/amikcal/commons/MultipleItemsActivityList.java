@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts.UA_CLASS_CD_MAP;
-import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
+import com.rdupuis.amikcal.useractivity.UA_CLASS_CD;
 
  
  public class MultipleItemsActivityList extends BaseAdapter {

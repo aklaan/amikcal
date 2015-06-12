@@ -19,7 +19,7 @@ public abstract class UserActivity {
 
     public abstract void setId(long _id);
 
-    public abstract UA_CLASS_CD getType();
+    public abstract UA_CLASS_CD getActivityType();
 
     public abstract String getTitle();
 

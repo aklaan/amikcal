@@ -21,7 +21,6 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.energy.EnergySource;
 
 public class Act_EquivalenceList extends Activity {
 
@@ -29,7 +28,7 @@ public class Act_EquivalenceList extends Activity {
     // pour filter la liste des équivalences sur une énergie donnée.
     public final static String INTPUT____NRJ_ID = "nrj_id";
     private EnergySource nrj;
-    public ArrayList<Equivalence> equivalences;
+    public ArrayList<Components> equivalences;
     private AmiKcalFactory factory;
     public Equivalence selected_equiv;
 

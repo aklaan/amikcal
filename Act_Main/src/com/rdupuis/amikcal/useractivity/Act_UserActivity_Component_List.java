@@ -96,7 +96,7 @@ public class Act_UserActivity_Component_List extends Activity {
     // créer un nouveau composant.
     public void onClickAdd(View v) {
 
-	switch (this.mUA.getType()) {
+	switch (this.mUA.getActivityType()) {
 	case LUNCH:
 	    onClickComponent(new Component_Food());
 	    break;
@@ -187,7 +187,7 @@ public class Act_UserActivity_Component_List extends Activity {
 
 	    map = new HashMap<String, String>();
 	    map.put("COMPONENT_ID", String.valueOf(comp.getId()));
-	    map.put("name", comp.getEnergySource().getName());
+	    map.put("name", comp.getEnergy().getName());
 	    map.put("quantity", String.valueOf(comp.getQty().getAmount()));
 	    map.put("unity", comp.getQty().getUnity().getLongName());
 

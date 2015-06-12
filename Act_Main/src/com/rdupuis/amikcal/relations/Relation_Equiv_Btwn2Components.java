@@ -1,11 +1,8 @@
 package com.rdupuis.amikcal.relations;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class Relation_Equiv_Btwn2Components implements I_Relation {
     private Component mComponent1;

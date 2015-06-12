@@ -88,8 +88,8 @@ public class Act_EnergyList extends Activity {
      * Appel la vue d'édition d'un aliment (energy)
      */
     public void editEnergy(long id) {
-	Intent intent = new Intent(this, Act_EnergyEditor2.class);
-	intent.putExtra(Act_EnergyEditor2.INPUT____ID_OF_ENERGY, id);
+	Intent intent = new Intent(this, Act_Food_Editor.class);
+	intent.putExtra(Act_Food_Editor.INPUT____ID_OF_FOOD, id);
 	startActivityForResult(intent, R.integer.ACTY_ENERGY);
     }
 
