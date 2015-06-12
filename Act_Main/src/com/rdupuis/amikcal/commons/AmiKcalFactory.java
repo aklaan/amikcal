@@ -22,10 +22,13 @@ import com.rdupuis.amikcal.components.Component_Food;
 import com.rdupuis.amikcal.components.Component_Food_Action;
 import com.rdupuis.amikcal.components.Component_Move;
 import com.rdupuis.amikcal.components.Component_Move_Action;
+import com.rdupuis.amikcal.components.Component_Reference;
 import com.rdupuis.amikcal.components.Component_Weight_Action;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.energy.EnergyEarn;
-import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Energy;
+import com.rdupuis.amikcal.energy.EnergyPositive;
+import com.rdupuis.amikcal.energy.Food;
+import com.rdupuis.amikcal.energy.PhysicalActivity;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
@@ -33,7 +36,7 @@ import com.rdupuis.amikcal.relations.Relation_NRJ_vs_QtyRefInternational;
 import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.useractivity.UserActivity;
-import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
+import com.rdupuis.amikcal.useractivity.UA_CLASS_CD;
 import com.rdupuis.amikcal.useractivity.UserActivity_Action;
 import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
 import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Action;
@@ -63,12 +66,14 @@ public final class AmiKcalFactory {
      *            - Identifiant
      * @return (Energy) un objet "énergie"
      ********************************************************************************/
-    public EnergySource load_Energy(long _id) {
+    public Energy load_Energy(long _id) {
 
-	EnergySource energy = new EnergySource();
+	Energy energy = null ;
 
 	if (_id == AppConsts.NO_ID) {
-	    return energy;
+	    
+	    //il faudrait retourner une exception maison du style badId Excetpion
+	    return null;
 	}
 
 	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.SELECT_ONE_ENERGIES_BY_ID_URI, _id);
@@ -89,33 +94,43 @@ public final class AmiKcalFactory {
 
 	    switch (map_effect._in.get(cursor.getString(INDX_NRJ_EFFECT))) {
 
-	    // si l'effet de la source est de gagner de l'énergie, alors il
-	    // s'agit d'une
-	    // énergie de type "Aliment".
+	    // si l'effet de la source est de gagner de l'énergie/des calories, alors il
+	    // s'agit d'un Aliment
+	    // 
 	    // si au contraire c'est la source brule de l'énergie c'est une
 	    // activité physique.
 	    case EARN:
-		energy = new EnergyEarn();
+		energy = new Food();
+		
+		// on charge le mapping des NRJ_STRUCTURE
+		    STRUCTURE_CD_MAP map_struct = new STRUCTURE_CD_MAP();
+		    ((Food) energy).setStructure(map_struct._in.get(cursor.getString(INDX_NRJ_STRUCTURE)));
+
 		break;
 	    case BURN:
-		// energy = new EnergyBurn();
+		 energy = new PhysicalActivity();
 	    default:
+	    
+	    //il faut gérer exception
+	    
 	    }
 
 	    energy.setId(_id);
 	    energy.setName(cursor.getString(INDX_NRJ_NAME));
 
-	    // on charge le mapping des NRJ_STRUCTURE
-	    STRUCTURE_CD_MAP map_struct = new STRUCTURE_CD_MAP();
-	    energy.setStructure(map_struct._in.get(cursor.getString(INDX_NRJ_STRUCTURE)));
-
-	    // Charger la quantitée de référence
+	    
+	    // Charger le composant de référence
 	    Qty qtyRef = this.load_QtyReference(energy.getId());
-	    energy.setQtyReference(qtyRef);
+	    Component_Reference refComponent = new Component_Reference(energy,qtyRef);
+	    energy.setReferenceComponent(refComponent);
 
 	    // Charger les équivalences de la qty ref
-	    ArrayList<Equivalence> equivalences = new ArrayList<Equivalence>();
-	    equivalences = this.load_Equiv(qtyRef);
+	    ArrayList<Component> equivalences = new ArrayList<Component>();
+	    
+	    //c'est plus un composant de reference.
+	    //100 g de pain c'est le composant référence pour la quantité d'énergie
+	    // c'est à dire le composant n kcal d'énergie
+	    equivalences = this.load_Equiv(energy.getReferenceComponent());
 	    energy.setEquivalences(equivalences);
 
 	} else {
@@ -138,7 +153,7 @@ public final class AmiKcalFactory {
      * Permet de retourner la quantité de référence d'une source d'énergie
      * </p>
      * 
-     * @param energySource
+     * @param Energy
      ****************************************************************************/
     public Qty load_QtyReference(long NRJ_id) {
 
@@ -231,11 +246,12 @@ public final class AmiKcalFactory {
      * @return (UserActivityObj) un objet "Activité d'utilisateur"
      ****************************************************************************/
     public UserActivity load_UserActivity(long _id) {
-	UserActivity userActivity = new UserActivity();
-
+	//je ne peux pas instancier userActivity mais je dois quand même le déclarer.
+	UserActivity userActivity;
+	
 	if (_id == AppConsts.NO_ID) {
 	    Toast.makeText(this.mActivity, "ID à recharger vide", Toast.LENGTH_LONG).show();
-	    return userActivity;
+	    return null;
 	}
 
 	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI,
@@ -367,7 +383,7 @@ public final class AmiKcalFactory {
 	// null
 	if (cur.moveToFirst()) {
 
-	    EnergySource nrj = this.load_Energy(cur.getLong(NRJ_ID));
+	    Energy nrj = this.load_Energy(cur.getLong(NRJ_ID));
 	    Qty qty = this.load_Qty(cur.getLong(QTY_ID));
 
 	    REL_TYP_CD_MAP map = new REL_TYP_CD_MAP();
@@ -376,16 +392,15 @@ public final class AmiKcalFactory {
 	    switch (rel_typ_cd) {
 
 	    case CFOOD:
-		component = new Component_Food();
+		component = new Component_Food((Food) nrj,qty);
 		break;
 	    case CMOVE:
-		component = new Component_Move();
+		component = new Component_Move((PhysicalActivity) nrj,qty);
 		break;
 	    default: // nothing
 	    }
 
-	    component.setEnergySource(nrj);
-	    component.setQty(qty);
+	    
 	    component.setId(_id);
 
 	}
@@ -403,7 +418,7 @@ public final class AmiKcalFactory {
     public UserActivity_Action create_UserActivity_Action(Activity activity, UserActivity userActivity) {
 
 	// en fonction du type d'activitée, on va retourner l'objet adequat
-	switch (userActivity.type) {
+	switch (userActivity.getType()) {
 	case LUNCH:
 	    return new UserActivity_Lunch_Action(activity, userActivity);
 	case MOVE:
@@ -534,7 +549,7 @@ public final class AmiKcalFactory {
     // break;
     // }
     //
-    // mUAC.getComponent().setEnergySource(
+    // mUAC.getComponent().setEnergy(
     // this.load_Energy(cursor.getLong(INDX_NRJ_ID)));
     // mUAC.getComponent().setQty(
     // this.load_Qty(cursor.getLong(INDX_QTY_ID)));
@@ -598,11 +613,12 @@ public final class AmiKcalFactory {
      * @param qty
      * @return
      ******************************************************************************************/
-    // recharger les équivalences d'un objet
-    // QUESTION ! faut-il créer des UAC_EQUIV ou bien les recalculer ?
+    // recharger les équivalences d'une Qty
+    // l'équivalence d'une Qty ne peut être qu'une Qty
+    // exemple 1 litre = 1 kilogramme
 
-    public ArrayList<Equivalence> load_Equiv(Qty qty) {
-	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
+    public ArrayList<Qty> load_Equiv(Qty qty) {
+	ArrayList<Qty> equiv_list = new ArrayList<Qty>();
 
 	if (qty.getId() == AppConsts.NO_ID) {
 	    return equiv_list;
@@ -621,10 +637,10 @@ public final class AmiKcalFactory {
 	if (cur.moveToFirst()) {
 
 	    do {
-		Equivalence eq = new Equivalence();
-		eq.setId(cur.getLong(EQUIV_ID));
-		eq.setQuantityIn(qty);
-		eq.setQuantityOut(this.load_Qty(cur.getLong(EQUIV_QTY_ID)));
+		Qty eq = new Qty();
+		//eq.setId(cur.getLong(EQUIV_ID));
+		//eq.setQuantityIn(qty);
+		//eq.setQuantityOut(this.load_Qty(cur.getLong(EQUIV_QTY_ID)));
 		equiv_list.add(eq);
 
 	    } while (cur.moveToNext());
@@ -635,6 +651,14 @@ public final class AmiKcalFactory {
 
     }
 
+    //retourner les équivalences d'un composant
+    //par exemple :
+    // [100 g de pain]
+    // [1 heure de vélo] 
+    public ArrayList<Component> load_Equiv(Component component){
+	return null;
+    }
+    
     /*****************************************************************************************
      * 
      * @param qty
@@ -642,7 +666,7 @@ public final class AmiKcalFactory {
      ******************************************************************************************/
     // recharger toutes les équivalences
 
-    public ArrayList<Equivalence> load_Equiv() {
+    public ArrayList<Equivalence> load_Equiv()  {
 	ArrayList<Equivalence> equiv_list = new ArrayList<Equivalence>();
 
 	Uri request = ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI;
@@ -743,23 +767,9 @@ public final class AmiKcalFactory {
     /*****************************************************************************************
      * Enregister une source d'énergie dans la database
      ******************************************************************************************/
-    public void save(EnergySource nrj) {
+    public void save(Energy nrj) {
 	// On prépare les informations à mettre à jour
-	ContentValues val = new ContentValues();
-
-	val.put(ContentDescriptorObj.TB_Energies.Columns.NAME, nrj.getName());
-
-	// Alimentation de la structure
-	STRUCTURE_CD_MAP structure_map = new STRUCTURE_CD_MAP();
-
-	val.put(ContentDescriptorObj.TB_Energies.Columns.STRUCTURE, structure_map._out.get(nrj.getStructure()));
-
-	// Alimentation de l'effet
-	NRJ_EFFECT_MAP effect_map = new NRJ_EFFECT_MAP();
-	val.put(ContentDescriptorObj.TB_Energies.Columns.EFFECT, effect_map._out.get(nrj.getEffect()));
-
-	// date de mise à jour
-	val.put(ContentDescriptorObj.TB_Energies.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+	ContentValues val = prepareContentValues(nrj);
 
 	// Sauver l'énergie
 	if (nrj.getId() == AppConsts.NO_ID) {
@@ -788,7 +798,7 @@ public final class AmiKcalFactory {
 
 	if (!nrj.getEquivalences().isEmpty()) {
 
-	    for (Equivalence equiv : nrj.getEquivalences()) {
+	    for (Component equiv : nrj.getEquivalences()) {
 		this.save(equiv);
 
 	    }
@@ -961,4 +971,26 @@ public final class AmiKcalFactory {
 	return relation;
     }
 
+    
+    
+    public ContentValues prepareContentValues(Energy nrj){
+	 // On prépare les informations à mettre à jour
+	 	ContentValues val = new ContentValues();
+
+	 	val.put(ContentDescriptorObj.TB_Energies.Columns.NAME, nrj.getName());
+
+	 	 	// Alimentation de l'effet
+	 	NRJ_EFFECT_MAP effect_map = new NRJ_EFFECT_MAP();
+	 	val.put(ContentDescriptorObj.TB_Energies.Columns.EFFECT, effect_map._out.get(nrj.getEffect()));
+
+	 	// date de mise à jour
+	 	val.put(ContentDescriptorObj.TB_Energies.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+
+
+	return val;    
+	    
+
+    
+    }
+    
 } // * end-class

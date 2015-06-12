@@ -2,8 +2,9 @@ package com.rdupuis.amikcal.components;
 
 import java.util.ArrayList;
 
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Energy;
 import com.rdupuis.amikcal.equivalence.Equivalence;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
@@ -21,31 +22,35 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  */
 public abstract class Component implements I_Relation {
 
-    public abstract void setEnergySource(EnergySource energySource);
+    public  abstract void setEnergy(Energy energy) ;
 
-    public abstract EnergySource getEnergySource();
-
-    @Override
-    public abstract long getId();
+    public abstract Energy getEnergy() ;
 
     @Override
-    public abstract void setId(long id);
-
-    public abstract Qty getQty();
-
-    public abstract void setQty(Qty mQty);
-
-    public abstract REL_TYP_CD getRelationClass();
-
-    public abstract ArrayList<Equivalence> getEquivalences();
-
-    public abstract void setEquivalences(ArrayList<Equivalence> mEquivalences);
+    public abstract long getId() ;
 
     @Override
-    public abstract String getParty1();
+    public abstract void setId(long id) ;
+
+    public abstract Qty getQty() ;
+
+    public abstract void setQty(Qty mQty) ;
+
+    public abstract REL_TYP_CD getRelationClass() ;
+
+    public abstract ArrayList<Equivalence> getEquivalences() ;
+
+    public abstract void setEquivalences(ArrayList<Equivalence> mEquivalences) ;
 
     @Override
-    public abstract String getParty2();
+    public abstract String getParty1() ;
+
+    @Override
+    public abstract String getParty2() ;
+
+  
+
+    
 
 
 }

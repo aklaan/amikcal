@@ -13,9 +13,9 @@ package com.rdupuis.amikcal.energy;
  *
  */
 
-public class EnergyBurn extends EnergySource {
+public class EnergyNegative extends EnergyPure {
 		
-	public EnergyBurn(){
+	public EnergyNegative(){
 		super();
 	}
 	

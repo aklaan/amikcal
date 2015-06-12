@@ -120,7 +120,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
     public void callUnitListView() {
 	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
 	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
-		String.valueOf(edited_Component.getEnergySource().getId()));
+		String.valueOf(edited_Component.getEnergy().getId()));
 	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -168,7 +168,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 		// on récupère l'Energy choisi par l'utilisateur d'après sont id
 		// .
 
-		this.edited_Component.setEnergySource(factory.load_Energy(intent.getLongExtra(
+		this.edited_Component.setEnergy(factory.load_Energy(intent.getLongExtra(
 			Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
 
 	    }
@@ -193,7 +193,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 	Button b = (Button) findViewById(R.id.componentview_btn_EnergyName);
 
 	// Gestion du libellé sur le bouton Energy
-	if (edited_Component.getEnergySource().getName() == "") {
+	if (edited_Component.getEnergy().getName() == "") {
 	    b.setText(this.getResources().getString(R.string.empty));
 	} else {
 	    b.setText(this.edited_Component.getEnergySource().getName());

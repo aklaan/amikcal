@@ -241,6 +241,7 @@ public final class ContentDescriptorObj {
 		public static final String UNDEFINED = "UNDEF";
 		public static final String EARN = "EARN";
 		public static final String BURN = "BURN";
+		public static final String ABSOLUTE = "ABS";
 	    }
 
 	}

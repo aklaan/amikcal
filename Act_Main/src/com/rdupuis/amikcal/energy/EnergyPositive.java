@@ -13,15 +13,15 @@ package com.rdupuis.amikcal.energy;
  *
  */
 
-public class EnergyEarn extends EnergySource {
-		
-	public EnergyEarn(){
-		super();
-	}
-	
-	@Override
-	public NRJ_EFFECT getEffect() {
-		return NRJ_EFFECT.EARN;
-	}
+public class EnergyPositive extends EnergyPure {
+        
+    public EnergyPositive() {
+	super();
+    }
 
-}
+    @Override
+    public NRJ_EFFECT getEffect() {
+	return NRJ_EFFECT.EARN;
+    }
+
+    }

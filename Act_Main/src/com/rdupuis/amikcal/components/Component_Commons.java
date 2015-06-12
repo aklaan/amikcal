@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Energy;
 import com.rdupuis.amikcal.equivalence.Equivalence;
+import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 /**
@@ -19,26 +20,25 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  * @author Rodolphe
  * 
  */
-public abstract class Component_Generic extends Component {
+public abstract class Component_Commons extends Component {
 
-    EnergySource mEnergySource;
     long id;
     Qty mQty;
+    Energy mEnergy;
     ArrayList<Equivalence> mEquivalences;
     
-    public Component_Generic() {
+    public Component_Commons() {
 	this.setId(AppConsts.NO_ID);
-	this.setEnergySource(new EnergySource());
 	this.setQty(new Qty());
 	
     }
 
-    public  void setEnergySource(EnergySource energySource) {
-	this.mEnergySource = energySource;
+    public  void setEnergy(Energy energy) {
+	this.mEnergy = energy;
     }
 
-    public EnergySource getEnergySource() {
-	return mEnergySource;
+    public Energy getEnergy() {
+	return mEnergy;
     }
 
     @Override
@@ -73,7 +73,7 @@ public abstract class Component_Generic extends Component {
 
     @Override
     public String getParty1() {
-	return String.valueOf(this.mEnergySource.getId());
+	return String.valueOf(this.mEnergy.getId());
     }
 
     @Override

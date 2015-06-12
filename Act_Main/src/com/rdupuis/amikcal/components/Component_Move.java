@@ -1,8 +1,11 @@
 package com.rdupuis.amikcal.components;
 
+import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.energy.Food;
+import com.rdupuis.amikcal.energy.PhysicalActivity;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public class Component_Move extends Component_Generic {
+public class Component_Move extends Component_Commons {
 
     
 
@@ -28,10 +31,11 @@ public class Component_Move extends Component_Generic {
 	/**
 	 * Constructeur
 	 */
-	public Component_Move() {
-		super();
-			//this.setRelationClass(REL_TYP_CD.CMOVE);
-	}
+    public Component_Move(PhysicalActivity phy, Qty qty) {
+	super();
+	this.setEnergy(phy);
+	this.setQty(qty);
+}
 
 	public float getNbkcal() {
 

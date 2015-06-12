@@ -7,11 +7,11 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Energies;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Units;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
-import com.rdupuis.amikcal.energy.EnergySource.NRJ_EFFECT;
-import com.rdupuis.amikcal.energy.EnergySource.STRUCTURE;
+import com.rdupuis.amikcal.energy.NRJ_EFFECT;
+import com.rdupuis.amikcal.energy.Food.STRUCTURE;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
-import com.rdupuis.amikcal.useractivity.UserActivity.UA_CLASS_CD;
+import com.rdupuis.amikcal.useractivity.UA_CLASS_CD;
 
 /**
  * <h1>AppConsts</h1> Classe contenant les contstantes utilisées par
@@ -53,11 +53,12 @@ public final class AppConsts {
 	    _out.put(NRJ_EFFECT.UNDEFINED, TB_Energies.PredefinedValues.EffectCodes.UNDEFINED);
 	    _out.put(NRJ_EFFECT.EARN, TB_Energies.PredefinedValues.EffectCodes.EARN);
 	    _out.put(NRJ_EFFECT.BURN, TB_Energies.PredefinedValues.EffectCodes.BURN);
-
+	    _out.put(NRJ_EFFECT.ABSOLUTE, TB_Energies.PredefinedValues.EffectCodes.ABSOLUTE);
+	    
 	    _in.put(TB_Energies.PredefinedValues.EffectCodes.UNDEFINED, NRJ_EFFECT.UNDEFINED);
 	    _in.put(TB_Energies.PredefinedValues.EffectCodes.EARN, NRJ_EFFECT.EARN);
 	    _in.put(TB_Energies.PredefinedValues.EffectCodes.BURN, NRJ_EFFECT.BURN);
-
+	    _in.put(TB_Energies.PredefinedValues.EffectCodes.ABSOLUTE, NRJ_EFFECT.ABSOLUTE);
 	}
     }
 
