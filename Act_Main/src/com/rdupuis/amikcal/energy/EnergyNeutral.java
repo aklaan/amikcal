@@ -2,8 +2,14 @@ package com.rdupuis.amikcal.energy;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
+
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
+import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -18,14 +24,14 @@ import com.rdupuis.amikcal.components.Component;
  *
  */
 
-public class EnergyPure extends Energy {
+public class EnergyNeutral extends Energy {
 
     private long id;
     private String name;
     private Component mReference_Component; // composant de référence
     private ArrayList<Component> mEquivalences;
 
-    public EnergyPure() {
+    public EnergyNeutral() {
 	id = AppConsts.NO_ID;
 	name = "e";
 
@@ -69,6 +75,12 @@ public class EnergyPure extends Energy {
 	// TODO Auto-generated method stub
 	
     }
+
+	
+
+	
+
+
 
     
 }

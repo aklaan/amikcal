@@ -13,7 +13,7 @@ package com.rdupuis.amikcal.energy;
  *
  */
 
-public class EnergyNegative extends EnergyPure {
+public class EnergyNegative extends EnergyNeutral {
 		
 	public EnergyNegative(){
 		super();

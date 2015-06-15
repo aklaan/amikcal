@@ -101,9 +101,9 @@ public class Frag_EnergyList extends Fragment {
 	 * Appel la vue d'édition d'un aliment (energy)
 	 */
 	public void editEnergy(String id) {
-		Intent intent = new Intent(getActivity(), Act_EnergyEditor.class);
-		intent.putExtra(Act_EnergyEditor.INPUT____ID_OF_ENERGY, id);
-		startActivityForResult(intent, R.integer.ACTY_ENERGY);
+//		Intent intent = new Intent(getActivity(), Act_EnergyEditor.class);
+//		intent.putExtra(Act_EnergyEditor.INPUT____ID_OF_ENERGY, id);
+//		startActivityForResult(intent, R.integer.ACTY_ENERGY);
 	}
 
 	/**

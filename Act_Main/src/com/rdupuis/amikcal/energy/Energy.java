@@ -1,6 +1,6 @@
 package com.rdupuis.amikcal.energy;
 
-import java.util.ArrayList;
+import android.content.ContentValues;
 
 import com.rdupuis.amikcal.components.Component;
 
@@ -17,7 +17,7 @@ import com.rdupuis.amikcal.components.Component;
  *
  */
 
-public abstract class Energy {
+public abstract class Energy implements i_CanBeSaved{
 
     public abstract String getName();
 
@@ -32,5 +32,6 @@ public abstract class Energy {
     public abstract Component getReferenceComponent();
     public abstract void setReferenceComponent(Component refComponent);
 
+    public abstract ContentValues getContentValues();
     
     }
