@@ -274,6 +274,56 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 		
 		
+		
+		 //*********************************************************************
+		 // Création de la vue permettant de faire le lien entre une QTY et
+		 // ses équivalences.
+		 //***********************************************************************/
+
+		db.execSQL("CREATE VIEW "
+				+ ContentDescriptorObj.View_Component_equiv.VIEWNAME
+
+				+ " AS SELECT "
+
+				// ID de la relation UA<->UAC
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
+				+ " AS "
+				+ ContentDescriptorObj.View_Component_equiv.Columns.REL_ID
+				+ ","
+
+				// ID de la source d'énergie
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
+				+ " AS "
+				+ ContentDescriptorObj.View_Component_equiv.Columns.COMP1_ID
+				+ ","
+
+				// ID de la QtyRef
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
+				+ " AS "
+				+ ContentDescriptorObj.View_Component_equiv.Columns.COMP2_ID
+
+				+ " FROM "
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+
+				// On séléctionne les liens de type QTY_EQUIVL
+				+ " WHERE "
+				+ ContentDescriptorObj.TB_Party_rel.TBNAME
+				+ "."
+				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
+				+ " = '"
+				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.COMP_EQUIV
+				+"'"
+
+				
+
+		);
+		
 		 //*********************************************************************
 		 // Création de la vue permettant de faire le lien entre une activité et
 		 // ses UAC composantes.

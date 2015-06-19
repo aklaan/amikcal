@@ -28,6 +28,7 @@ public class EnergySource implements Savable{
     public EnergySource() {
 	id = AppConsts.NO_ID;
 	name = "e";
+	
     }
 
     public String getName() {
@@ -55,7 +56,7 @@ public class EnergySource implements Savable{
     }
 
      public void setReferenceComponent(Component refComponent) {
-	// TODO Auto-generated method stub
+    	 this.mReference_Component = refComponent;
 	
     }
 

@@ -33,6 +33,6 @@ public abstract class UserActivity {
 
     public abstract ArrayList<Component> getComponentsList();
 
-    public abstract void setComponentsList(ArrayList<? extends Component> arrayList);
+    public abstract void setComponentsList(ArrayList<Component> arrayList);
 
 }

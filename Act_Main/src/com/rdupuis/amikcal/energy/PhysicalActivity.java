@@ -1,9 +1,6 @@
 package com.rdupuis.amikcal.energy;
 
-import java.util.ArrayList;
-
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 
 /**
  * <h1>PhysicalActivity : une activité physique<h1>

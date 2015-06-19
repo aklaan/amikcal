@@ -86,13 +86,13 @@ public class UserActivity_Weight extends UserActivity_Commons {
     }
 
     @Override
-    public ArrayList<? extends Component> getComponentsList() {
+    public ArrayList<Component> getComponentsList() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public void setComponentsList(ArrayList<? extends Component> arrayList) {
+    public void setComponentsList(ArrayList<Component> arrayList) {
 	// TODO Auto-generated method stub
 	
     }

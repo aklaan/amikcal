@@ -33,7 +33,7 @@ public class Act_EquivalenceList extends Activity {
     private EnergySource nrj;
     public ArrayList<Component> equivalences;
     private AmiKcalFactory factory;
-    public Relation_Equiv_Btwn2Components selected_equiv;
+    public Component selected_equiv;
 
     /** Called when the activity is first created. */
     @Override
@@ -48,7 +48,7 @@ public class Act_EquivalenceList extends Activity {
 	
 	if (nrj_id != AppConsts.NO_ID) {
 	    nrj = factory.load_Energy(nrj_id);
-	    this.equivalences = nrj.getEquivalences();
+	    this.equivalences = nrj.getReferenceComponent().getEquivalences();
 	}
 
 	// etape 2 charger la vue
@@ -115,7 +115,7 @@ public class Act_EquivalenceList extends Activity {
 	// recharger les modification qui ont pu être effectuées
 	if (this.nrj.getId() != AppConsts.NO_ID) {
 	    this.nrj = factory.load_Energy(nrj.getId());
-	    equivalences = nrj.getEquivalences();
+	    equivalences = nrj.getReferenceComponent().getEquivalences();
 	}
 
 	// Récupération de la listview créée dans le fichier customizedlist.xml
@@ -132,14 +132,14 @@ public class Act_EquivalenceList extends Activity {
 	map = new HashMap<String, String>();
 
 	// Pour chaque UAC de L'UA
-	for (Equivalence equiv : this.equivalences) {
+	for (Component equiv : this.equivalences) {
 
 	    map = new HashMap<String, String>();
 	    map.put("NRJ_ID", String.valueOf(this.nrj.getId()));
 	    map.put("EQUIV_INDEX", String.valueOf(this.equivalences.indexOf(equiv)));
 
-	    map.put("quantity", String.valueOf(equiv.getQuantityOut().getAmount()));
-	    map.put("unity", equiv.getQuantityOut().getUnity().getLongName());
+	    map.put("quantity", String.valueOf(equiv.getQty().getAmount()));
+	    map.put("unity", equiv.getQty().getUnity().getLongName());
 
 	    listItem.add(map);
 	}
@@ -190,7 +190,7 @@ public class Act_EquivalenceList extends Activity {
 			    public void onClick(DialogInterface dialog, int whichButton) {
 				/* User clicked edit so do some stuff */
 				onClick_edit(Act_EquivalenceList.this.nrj.getId(),
-					Act_EquivalenceList.this.nrj.getEquivalences().indexOf(Act_EquivalenceList.this.selected_equiv));
+					Act_EquivalenceList.this.nrj.getReferenceComponent().getEquivalences().indexOf(Act_EquivalenceList.this.selected_equiv));
 
 			    }
 			}).setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {

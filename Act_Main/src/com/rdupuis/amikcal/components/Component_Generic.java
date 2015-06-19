@@ -23,20 +23,20 @@ public  class Component_Generic extends Component {
     long id;
     Qty mQty;
     EnergySource mEnergy;
-    ArrayList<? extends Component> mEquivalences;
+    ArrayList<Component> mEquivalences;
     
     public Component_Generic() {
 	this.setId(AppConsts.NO_ID);
 	this.setEnergy(new EnergySource());
 	this.setQty(new Qty());
-	
+	this.setEquivalences(new ArrayList<Component>());
     }
 
     public Component_Generic(EnergySource nrj , Qty qty) {
    	this.setId(AppConsts.NO_ID);
    	this.setEnergy(nrj);
    	this.setQty(qty);
-   	
+   	this.setEquivalences(new ArrayList<Component>());
        }
 
     
@@ -82,13 +82,13 @@ public  class Component_Generic extends Component {
     }
 
     @Override
-    public ArrayList<? extends Component> getEquivalences() {
+    public ArrayList<Component> getEquivalences() {
 
 	return mEquivalences;
     }
 
     @Override
-    public void setEquivalences(ArrayList<? extends Component> componentList) {
+    public void setEquivalences(ArrayList<Component> componentList) {
 	mEquivalences = componentList;
 	
     }

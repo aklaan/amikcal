@@ -29,7 +29,6 @@ import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.energy.Food_DBWarper;
 import com.rdupuis.amikcal.energy.PhysicalActivity;
-import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.relations.Relation_NRJ_vs_Component;
@@ -655,50 +654,29 @@ public final class AmiKcalFactory {
 
     /*****************************************************************************************
      * 
-     * @param qty
-     * @return
      ******************************************************************************************/
-    // recharger toutes les équivalences
+    // recharger toutes les équivalences d'un composant
+    public ArrayList<Component> load_Equiv(Component component) {
+	ArrayList<Component> equiv_list = new ArrayList<Component>();
 
-    public ArrayList<? extends Component> load_Equiv(Component component) {
-	ArrayList<? extends Component> equiv_list = new ArrayList<Component>();
-
-	Uri request = ContentDescriptorObj.View_qty_equiv.VIEW_ALL_QTY_EQUIV_URI;
+	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.View_Component_equiv.VIEW_ALL_COMPONENT_EQUIV_URI,component.getId());
 
 	Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
-	final int QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID);
-	final int EQUIV_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.REL_ID);
-	final int EQUIV_QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.QTY_EQUIV_ID);
-	final int EQUIV_QTY_ID = cur.getColumnIndex(ContentDescriptorObj.View_qty_equiv.Columns.);
+	final int EQUIV_ID = cur.getColumnIndex(ContentDescriptorObj.View_Component_equiv.Columns.REL_ID);
+	final int COMP2_ID = cur.getColumnIndex(ContentDescriptorObj.View_Component_equiv.Columns.COMP2_ID);
 
 	// faire un move First pour positionner le pointeur, sinon on pointe sur
 	// null
 	// on charge le mapping des CLASS
 
 	
-	
 	if (cur.moveToFirst()) {
-
-	    REL_TYP_CD_MAP map = new REL_TYP_CD_MAP();
-
-
+	    
 	    do {
-		Component eq ;
-		
-		    switch (map._in.get(cur.getString(INDX_REL_typ_cd))) {
-		    case CFOOD :
 
-			eq = this.load_Component_Food();
-		break;
-		    
-		default:
-	    }
-		
-		
-		eq.setId(cur.getLong(EQUIV_ID));
-		
-		equiv_list.add(eq);
+			Component equivalence = this.load_Component(cur.getLong(COMP2_ID));
+		    equiv_list.add(equivalence);
 
 	    } while (cur.moveToNext());
 	}
@@ -764,9 +742,11 @@ public final class AmiKcalFactory {
     }
 
     /*****************************************************************************************
-     * Sauver un composant, c'est : - Créer/mettre à jour la QTY - Créer/mettre
-     * à jour le lien energie/Qty (UAC_QTY)
-     * 
+     * <h2>Sauver un composant</h2>
+     * </br> c'est : 
+     * <ul><li>Créer/mettre à jour la QTY 
+     * <li>Créer/mettre à jour le lien energie/Qty (UAC_QTY)
+     * <ul>
      ******************************************************************/
     public Component save(Component component) {
 	// On sauve la Qty. ceci nous permet d'avoir une ID pour cette Qty
@@ -777,13 +757,62 @@ public final class AmiKcalFactory {
 
     }
 
+    
+    
+    /*****************************************************************************************
+     * <h2>Sauver un composant</h2>
+     * </br> c'est : 
+     * <ul><li>Créer/mettre à jour la QTY 
+     * <li>Créer/mettre à jour le lien energie/Qty (UAC_QTY)
+     * <ul>
+     ******************************************************************/
+    public EnergySource save(EnergySource energySource) {
+		
+	ContentValues val = energySource.getDBWarper().getContentValues();
+
+	// Sauver l'énergie
+	if (energySource.getId() == AppConsts.NO_ID) {
+	    Uri uriInsert = this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI,
+		    val);
+	    energySource.setId(Long.parseLong(uriInsert.getLastPathSegment()));
+	} else {
+
+	    Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI,
+	    		energySource.getId());
+	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(energySource.getId()), null);
+	}
+
+	// Sauver le composant de référence
+	// si on fait un INSERT, on va récupérer un ID pour ce composant.
+	// comme JAVA ne travaille pas par référence, mais par valeur, on est
+	// obligé de réasigner le comosant pour avoir l'id à jour
+	energySource.setReferenceComponent(save(energySource.getReferenceComponent()));
+
+	// Sauver le lien entre l'energie et le composant de référence
+	save(new Relation_NRJ_vs_Component(energySource, energySource.getReferenceComponent()));
+
+	// Sauver les équivalences du composant de référence
+	if (hasEquivalences(energySource.getReferenceComponent())) {
+
+	    for (Component equiv : (energySource.getReferenceComponent().getEquivalences())) {
+		this.save(equiv);
+
+	    }
+	}
+	return energySource;
+
+    }
+
+    
     /*****************************************************************************************
      * Enregister une source d'énergie Food dans la database
      ******************************************************************************************/
     public void save(Food food) {
-	
-	ContentValues val = food.getDBWarper().getContentValues();
+   	
+    	
+    	ContentValues val = food.getDBWarper().getContentValues();
 
+	
 	// Sauver l'énergie
 	if (food.getId() == AppConsts.NO_ID) {
 	    Uri uriInsert = this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI,
@@ -816,7 +845,7 @@ public final class AmiKcalFactory {
 
     }
 
-    private boolean hasEquivalences(i_CanHaveEquivalences e) {
+    private boolean hasEquivalences(Component e) {
 	return (!e.getEquivalences().isEmpty());
     }
 

@@ -1,6 +1,8 @@
 package com.rdupuis.amikcal.energy;
 
+import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_Reference;
 
 /**
  * <h1>Food : un aliment<h1>
@@ -19,6 +21,8 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
 
     public Food() {
 	super();
+	this.setReferenceComponent(new Component_Reference(this, new Qty()));
+    this.setStructure(STRUCTURE.UNDEFINED);
     }
 
     public STRUCTURE getStructure() {
@@ -29,11 +33,7 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
 	this.mStructure = mStructure;
     }
 
-    @Override
-    public void setReferenceComponent(Component refComponent) {
-	// TODO Auto-generated method stub
-
-    }
+   
 
     @Override
     public NRJ_CLASS getEnergyClass() {

@@ -153,7 +153,7 @@ public class Act_UserActivity_Component_List extends Activity {
 		    }
 		}
 
-		this.refreshScreen();
+
 
 	    }
 	    break;
@@ -161,6 +161,8 @@ public class Act_UserActivity_Component_List extends Activity {
 	    break;
 
 	}
+
+	this.refreshScreen();
     }
 
     /**
@@ -171,7 +173,7 @@ public class Act_UserActivity_Component_List extends Activity {
 
     protected void refreshScreen() {
 	// recharger les modification qui ont pu être effectué sur l'UA
-	//this.mUA = factory.load_UserActivity(this.mUA.getId());
+	this.mUA = factory.load_UserActivity(this.mUA.getId());
 
 	// effacer la liste actuelle
 	maListViewPerso.removeAllViewsInLayout();

@@ -49,11 +49,12 @@ public class Act_Food_Editor extends Activity {
 
 	long nrj_id = getIntent().getLongExtra(INPUT____ID_OF_FOOD, AppConsts.NO_ID);
 
-	// Si l'ID en entrée indique que l"on souhaite éditer une énergie en
-	// particulier
-	// on la recharge
+	// Si l'ID en entrée indique que l"on souhaite éditer un aliment en particulier, on le recharge
+	//sinon on en génère un nouveau
 	if (nrj_id != AppConsts.NO_ID) {
 	    mFood = (Food) factory.load_Energy(getIntent().getLongExtra(INPUT____ID_OF_FOOD,AppConsts.NO_ID));
+	} else {
+		mFood = new Food();
 	}
 
 	((TextView) findViewById(R.id.energyview_edTxt_energy_name)).addTextChangedListener(new TextWatcher() {

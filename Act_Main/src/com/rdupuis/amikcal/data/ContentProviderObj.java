@@ -315,6 +315,20 @@ public class ContentProviderObj extends ContentProvider {
 
 	}
 
+	
+	case SELECT_ALL_EQUIV_OF_COMPONENT: {
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_Component_equiv.VIEWNAME);
+
+	    String whereClause = ContentDescriptorObj.View_Component_equiv.VIEWNAME + "."
+		    + ContentDescriptorObj.View_Component_equiv.Columns.COMP1_ID + "=" + uri.getLastPathSegment();
+	    
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+
+	}
+
+
+	
 	/*
 	 * case ContentDescriptorObj.CustomQuery.SUM_ENERGY_OF_DAY_TOKEN:{
 	 * SQLiteQueryBuilder builder = new SQLiteQueryBuilder();

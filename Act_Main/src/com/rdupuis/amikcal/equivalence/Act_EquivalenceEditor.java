@@ -14,6 +14,7 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
@@ -27,7 +28,7 @@ public class Act_EquivalenceEditor extends Activity {
     private final int CHOOSE_UNITY_OUT = 3;
     private final int CHOOSE_QTY_OUT = 4;
 
-    Equivalence edited_Equivalence;
+    Component edited_Equivalence;
     AmiKcalFactory factory;
 
     EnergySource nrj;
@@ -37,7 +38,7 @@ public class Act_EquivalenceEditor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 	// Etape 1 : initalisations
 	super.onCreate(savedInstanceState);
-	edited_Equivalence = new Equivalence();
+	
 	factory = new AmiKcalFactory(this);
 	nrj = new EnergySource();
 	// Etape 2 : prise en compte de l'Intent
@@ -47,14 +48,13 @@ public class Act_EquivalenceEditor extends Activity {
 	if (nrj_id != AppConsts.NO_ID) {
 	    nrj = factory.load_Energy(nrj_id);
 
-	    //par défaut, la QTY IN pour laquelle on souhaite définir une équivalence, 
-	    //c'est la QTY de référence de l'énergie. 
-	    edited_Equivalence.setQuantityIn(nrj.getQtyReference());
+	    //
+	    edited_Equivalence = nrj.getReferenceComponent();
 	    
 	    //si on souhaite éditer une équivalence particulière, on la séléctionne
 	    //sinon les zones sont vide pour en ajouter une nouvelle
 	    if (equiv_indx != AppConsts.NO_INDEX) {
-		this.edited_Equivalence = nrj.getEquivalences().get(equiv_indx);
+		this.edited_Equivalence = nrj.getReferenceComponent().getEquivalences().get(equiv_indx);
 	    }
 
 	}
@@ -81,9 +81,9 @@ public class Act_EquivalenceEditor extends Activity {
 	// si non, on doit l'ajouter à la liste des équivalences avant de sauver
 	// l'énergie
 
-	int indx = this.nrj.getEquivalences().indexOf(edited_Equivalence);
+	int indx = this.nrj.getReferenceComponent().getEquivalences().indexOf(edited_Equivalence);
 	if (indx == AppConsts.NO_INDEX) {
-	    this.nrj.getEquivalences().add(edited_Equivalence);
+	    this.nrj.getReferenceComponent().getEquivalences().add(edited_Equivalence);
 	}
 	factory.save(this.nrj);
 
@@ -128,19 +128,19 @@ public class Act_EquivalenceEditor extends Activity {
     private void refreshScreen() {
 
 	TextView tv = (TextView) findViewById(R.id.view_equivalence_txtview_amount_in);
-	tv.setText(String.valueOf(this.nrj.getQtyReference().getAmount()));
+	tv.setText(String.valueOf(this.nrj.getReferenceComponent().getQty().getAmount()));
 	
 	Button ed = (Button) findViewById(R.id.view_equivalence_btn_energy);
 	ed.setText(this.nrj.getName());
 
 	ed = (Button) findViewById(R.id.view_equivalence_btn_unit_in);
-	ed.setText(this.nrj.getQtyReference().getUnity().getLongName());
+	ed.setText(this.nrj.getReferenceComponent().getQty().getUnity().getLongName());
 
 	ed = (Button) findViewById(R.id.view_equivalence_btn_unit_out);
-	ed.setText(this.edited_Equivalence.getQuantityOut().getUnity().getLongName());
+	ed.setText(this.edited_Equivalence.getQty().getUnity().getLongName());
 
 	ed = (Button) findViewById(R.id.view_equivalence_btn_quantity);
-	ed.setText(String.valueOf(this.edited_Equivalence.getQuantityOut().getAmount()));
+	ed.setText(String.valueOf(this.edited_Equivalence.getQty().getAmount()));
 
     }
 
@@ -174,19 +174,19 @@ public class Act_EquivalenceEditor extends Activity {
 	    switch (requestCode) {
 	    case CHOOSE_QTY_OUT:
 
-		this.edited_Equivalence.getQuantityOut().setAmount(
+		this.edited_Equivalence.getQty().setAmount(
 			intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 		break;
 
 	    case CHOOSE_UNITY_OUT:
 		long unity_out_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
-		this.edited_Equivalence.getQuantityOut().setUnity(factory.load_Unity(unity_out_id));
+		this.edited_Equivalence.getQty().setUnity(factory.load_Unity(unity_out_id));
 		break;
 
 	    case CHOOSE_UNITY_IN:
 
 		long unity_in_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
-		this.edited_Equivalence.getQuantityIn().setUnity(factory.load_Unity(unity_in_id));
+		this.edited_Equivalence.getQty().setUnity(factory.load_Unity(unity_in_id));
 		break;
 
 	    case CHOOSE_NRJ:

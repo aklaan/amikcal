@@ -668,6 +668,48 @@ public final class ContentDescriptorObj {
 	}
     }
 
+    
+
+    /***************************************************************************
+     * <h1>View_qty_equiv</h1>
+     * <p>
+     * Vue permettant de équupérer les equivalences d'une qty
+     * </p>
+     * <p>
+     * Token = <b>10</b>[x]nn
+     * </p>
+     * 
+     * @author Rodolphe
+     * 
+     ***************************************************************************/
+    public static final class View_Component_equiv {
+	//
+	// Info concernant la table
+	public static final String VIEWNAME = "view_component_equiv";
+	public static final Uri URI_BASE_VIEW_COMPONENT_EQUIV = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
+
+	// Path pour l'Uri de séléction d'un enregistrement
+	public static final String VIEW_EQUIV_OF_COMPONENT_PATH = VIEWNAME + "/" + SELECT + "/#";
+	public static final int VIEW_EQUIV_OF_COMPONENT_TOKEN = 11100;
+	public static final Uri VIEW_ALL_COMPONENT_EQUIV_URI = URI_BASE_VIEW_COMPONENT_EQUIV.buildUpon().appendPath(SELECT).build();
+
+	public static final String SEARCH_RELATION_PATH = VIEWNAME + "/relation/*";
+	public static final int SEARCH_RELATION_TOKEN = 11101;
+	public static final Uri SEARCH_RELATION_URI = URI_BASE_VIEW_COMPONENT_EQUIV.buildUpon().appendPath("relation")
+		.build();
+
+	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
+	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
+
+	public static final class Columns {
+	    public static final String REL_ID = "rel_id";
+	    public static final String COMP1_ID = "comp1";
+	    public static final String COMP2_ID = "comp2";
+
+	}
+    }
+    
+    
     /***************************************************************************
      * Vue permettant de charger une Qty
      * 
@@ -714,7 +756,10 @@ public final class ContentDescriptorObj {
 	MIME_ENERGY_DIR, SELECT_USER_ACTIVITY, UPDATE_USER_ACTIVITY, MIME_ENERGY_TYPE, SELECT_USER_ACTIVITIES_BY_DATE, DELETE_USER_ACTIVITY, SELECT_DB_VERSION, SELECT_REL_NRJ_QTYREF
 
 	, INSERT_PARTY_REL, UPDATE_PARTY_REL, UPDATE_ENERGY_ID, SEARCH_REL_UA_UAC, SELECT_UAC,SELECT_ALL_EQUIV_OF_QTY
-    ,SEARCH_QTY_EQUIV,SEARCH_RELATION    }
+    ,SEARCH_QTY_EQUIV,SEARCH_RELATION 
+    
+    ,SELECT_ALL_EQUIV_OF_COMPONENT,SEARCH_COMPONENT_EQUIV
+    }
 
     public static final class TOKEN_MAP {
 	// SparseArray
@@ -773,7 +818,9 @@ public final class ContentDescriptorObj {
 	    _in.put(View_qty_equiv.VIEW_EQUIV_OF_QTY_TOKEN, REQUESTS_LIST.SELECT_ALL_EQUIV_OF_QTY);
 	    _in.put(View_qty_equiv.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_QTY_EQUIV);
 
-	    
+	    _in.put(View_Component_equiv.VIEW_EQUIV_OF_COMPONENT_TOKEN, REQUESTS_LIST.SELECT_ALL_EQUIV_OF_COMPONENT);
+	    _in.put(View_Component_equiv.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_COMPONENT_EQUIV);
+   
 	}
     }
 
@@ -860,11 +907,15 @@ public final class ContentDescriptorObj {
 	matcher.addURI(authority, CustomQuery.LAST_WEIGHT_FROM, CustomQuery.LAST_WEIGHT_FROM_TOKEN);
 	matcher.addURI(authority, CustomQuery.USED_UNITS_FOR_ENERGY, CustomQuery.USED_UNITS_FOR_ENERGY_TOKEN);
 	
+	// ----------------------------------------------------------------
 	matcher.addURI(authority, View_qty_equiv.VIEW_EQUIV_OF_QTY_PATH, View_qty_equiv.VIEW_EQUIV_OF_QTY_TOKEN);
-	
-
 	matcher.addURI(authority, View_qty_equiv.SEARCH_RELATION_PATH, View_qty_equiv.SEARCH_RELATION_TOKEN);
 	
+	
+	// ----------------------------------------------------------------
+		matcher.addURI(authority, View_Component_equiv.VIEW_EQUIV_OF_COMPONENT_PATH, View_Component_equiv.VIEW_EQUIV_OF_COMPONENT_TOKEN);
+		matcher.addURI(authority, View_Component_equiv.SEARCH_RELATION_PATH, View_Component_equiv.SEARCH_RELATION_TOKEN);
+		
 	return matcher;
     }
 

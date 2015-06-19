@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.energy.PhysicalActivity;
-import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public class Component_Move extends Component_Generic implements i_CanHaveEquivalences{
+public class Component_Move extends Component_Generic {
 
     /**
      * un composant Aliment Food c'est par exemple un bol de soupe 100 g de
