@@ -3,7 +3,8 @@ package com.rdupuis.amikcal.components;
 import java.util.ArrayList;
 
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.energy.Energy;
+import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
@@ -18,11 +19,11 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  * @author Rodolphe
  * 
  */
-public abstract class Component implements I_Relation {
+public abstract class Component implements I_Relation, i_CanHaveEquivalences {
 
-    public  abstract void setEnergy(Energy energy) ;
+    public  abstract void setEnergy(EnergySource energy) ;
 
-    public abstract Energy getEnergy() ;
+    public abstract EnergySource getEnergy() ;
 
     @Override
     public abstract long getId() ;
@@ -43,8 +44,7 @@ public abstract class Component implements I_Relation {
     public abstract String getParty2() ;
 
   
+    public abstract ArrayList<? extends Component> getEquivalences();
 
-    
-
-
+    public abstract void  setEquivalences(ArrayList<? extends Component> component);
 }

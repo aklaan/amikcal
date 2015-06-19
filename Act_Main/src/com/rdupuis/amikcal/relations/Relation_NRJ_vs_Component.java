@@ -2,14 +2,14 @@ package com.rdupuis.amikcal.relations;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.energy.Energy;
+import com.rdupuis.amikcal.energy.EnergySource;
 
 public class Relation_NRJ_vs_Component implements I_Relation {
-    private Energy mEnergy;
+    private EnergySource mEnergy;
     private Component mComponent;
     private long _id;
 
-    public Relation_NRJ_vs_Component(Energy energy, Component component) {
+    public Relation_NRJ_vs_Component(EnergySource energy, Component component) {
 	this.mEnergy=energy;
 	this.mComponent = component;
 	this._id = AppConsts.NO_ID;

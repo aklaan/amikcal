@@ -7,8 +7,9 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Energies;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Units;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
+import com.rdupuis.amikcal.energy.ContreteEnergySource.STRUCTURE;
+import com.rdupuis.amikcal.energy.NRJ_CLASS;
 import com.rdupuis.amikcal.energy.NRJ_EFFECT;
-import com.rdupuis.amikcal.energy.Food.STRUCTURE;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.UA_CLASS_CD;
@@ -43,23 +44,21 @@ public final class AppConsts {
      * </p>
      ****************************************************************************/
 
-    public static final class NRJ_EFFECT_MAP {
-	public EnumMap<NRJ_EFFECT, String> _out = new EnumMap<NRJ_EFFECT, String>(NRJ_EFFECT.class);
+    public static final class NRJ_CLASS_MAP {
+	public EnumMap<NRJ_CLASS, String> _out = new EnumMap<NRJ_CLASS, String>(NRJ_CLASS.class);
 
-	public HashMap<String, NRJ_EFFECT> _in = new HashMap<String, NRJ_EFFECT>();
+	public HashMap<String, NRJ_CLASS> _in = new HashMap<String, NRJ_CLASS>();
 
-	public NRJ_EFFECT_MAP() {
+	public NRJ_CLASS_MAP() {
 
-	    _out.put(NRJ_EFFECT.UNDEFINED, TB_Energies.PredefinedValues.EffectCodes.UNDEFINED);
-	    _out.put(NRJ_EFFECT.EARN, TB_Energies.PredefinedValues.EffectCodes.EARN);
-	    _out.put(NRJ_EFFECT.BURN, TB_Energies.PredefinedValues.EffectCodes.BURN);
-	    _out.put(NRJ_EFFECT.ABSOLUTE, TB_Energies.PredefinedValues.EffectCodes.ABSOLUTE);
+	    _out.put(NRJ_CLASS.UNDEFINED, TB_Energies.PredefinedValues.EnergyClass.UNDEFINED);
+	    _out.put(NRJ_CLASS.FOOD, TB_Energies.PredefinedValues.EnergyClass.FOOD);
+	    _out.put(NRJ_CLASS.PHYSICAL_ACTIVITY, TB_Energies.PredefinedValues.EnergyClass.PHYSICAL_ACTIVITY);
 	    
-	    _in.put(TB_Energies.PredefinedValues.EffectCodes.UNDEFINED, NRJ_EFFECT.UNDEFINED);
-	    _in.put(TB_Energies.PredefinedValues.EffectCodes.EARN, NRJ_EFFECT.EARN);
-	    _in.put(TB_Energies.PredefinedValues.EffectCodes.BURN, NRJ_EFFECT.BURN);
-	    _in.put(TB_Energies.PredefinedValues.EffectCodes.ABSOLUTE, NRJ_EFFECT.ABSOLUTE);
-	}
+	    _in.put(TB_Energies.PredefinedValues.EnergyClass.UNDEFINED, NRJ_CLASS.UNDEFINED);
+	    _in.put(TB_Energies.PredefinedValues.EnergyClass.FOOD, NRJ_CLASS.FOOD);
+	    _in.put(TB_Energies.PredefinedValues.EnergyClass.PHYSICAL_ACTIVITY, NRJ_CLASS.PHYSICAL_ACTIVITY);
+	    	}
     }
 
     /*****************************************************************************

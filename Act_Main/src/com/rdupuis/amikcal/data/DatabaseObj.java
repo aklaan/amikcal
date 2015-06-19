@@ -55,7 +55,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " ( " + ContentDescriptorObj.TB_Energies.Columns.ID
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
 
-				+ ContentDescriptorObj.TB_Energies.Columns.EFFECT
+				+ ContentDescriptorObj.TB_Energies.Columns.CLASS
 				+ " TEXT, "
 
 				+ ContentDescriptorObj.TB_Energies.Columns.NAME

@@ -1,15 +1,10 @@
 package com.rdupuis.amikcal.energy;
 
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
-import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
+import com.rdupuis.amikcal.commons.Savable;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -24,17 +19,15 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  *
  */
 
-public class EnergyNeutral extends Energy {
+public class EnergySource implements Savable{
 
     private long id;
     private String name;
     private Component mReference_Component; // composant de référence
-    private ArrayList<Component> mEquivalences;
 
-    public EnergyNeutral() {
+    public EnergySource() {
 	id = AppConsts.NO_ID;
 	name = "e";
-
     }
 
     public String getName() {
@@ -45,11 +38,7 @@ public class EnergyNeutral extends Energy {
 	this.name = name;
     }
 
-    // cette classe représente l'énergie dans l'absolu
-    public NRJ_EFFECT getEffect() {
-	return NRJ_EFFECT.ABSOLUTE;
-    }
-
+    
     public long getId() {
 	// TODO Auto-generated method stub
 	return this.id;
@@ -65,18 +54,24 @@ public class EnergyNeutral extends Energy {
 	return this.mReference_Component;
     }
 
-    public ArrayList<Component> getEquivalences() {
+     public void setReferenceComponent(Component refComponent) {
 	// TODO Auto-generated method stub
-	return this.mEquivalences;
+	
     }
 
+    public NRJ_CLASS getEnergyClass() {
+	// TODO Auto-generated method stub
+	return NRJ_CLASS.UNDEFINED;
+    }
+
+    
     @Override
-    public void setReferenceComponent(Component refComponent) {
+    public DBWarper getDBWarper() {
 	// TODO Auto-generated method stub
-	
+	return null;
     }
 
-	
+    
 
 	
 

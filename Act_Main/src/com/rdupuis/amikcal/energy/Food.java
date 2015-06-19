@@ -1,15 +1,6 @@
 package com.rdupuis.amikcal.energy;
 
-import java.util.ArrayList;
-
-import android.content.ContentValues;
-
-import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
-import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.commons.AppConsts.NRJ_EFFECT_MAP;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 
 /**
  * <h1>Food : un aliment<h1>
@@ -22,47 +13,40 @@ import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
  * 
  */
 
-public class Food extends EnergyPositive implements i_CanHaveEquivalences,
-		 {
-	public static enum STRUCTURE {
-		SOLID, LIQUID, POWDER, UNDEFINED
-	}
+public class Food extends ContreteEnergySource implements HasBodyEffect {
 
-	private STRUCTURE mStructure;
+    private STRUCTURE mStructure;
 
-	public Food() {
-		super();
-	}
+    public Food() {
+	super();
+    }
 
-	public STRUCTURE getStructure() {
-		return mStructure;
-	}
+    public STRUCTURE getStructure() {
+	return mStructure;
+    }
 
-	public void setStructure(STRUCTURE mStructure) {
+    public void setStructure(STRUCTURE mStructure) {
+	this.mStructure = mStructure;
+    }
 
-		this.mStructure = (mStructure != null) ? mStructure
-				: STRUCTURE.UNDEFINED;
-	}
+    @Override
+    public void setReferenceComponent(Component refComponent) {
+	// TODO Auto-generated method stub
 
-	@Override
-	public void setEquivalences(ArrayList<? extends Component> mEquivalences) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public NRJ_CLASS getEnergyClass() {
+	return NRJ_CLASS.FOOD;
+    }
 
-	@Override
-	public void setReferenceComponent(Component refComponent) {
-		// TODO Auto-generated method stub
+    @Override
+    public NRJ_EFFECT getEffect() {
+	// TODO Auto-generated method stub
+	return NRJ_EFFECT.EARN;
+    }
 
-	}
-
-	public ContentValues prepareContentValues() {
-		// récupérer les values de base
-		ContentValues val = super.getContentValues();
-
-		
-		return val;
-
-	}
-
+    public DBWarper getDBWarper(){
+	return new FoodDBWarper(this);
+    }
 }

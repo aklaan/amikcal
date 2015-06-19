@@ -1,14 +1,10 @@
 package com.rdupuis.amikcal.components;
 
-import java.util.ArrayList;
-
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.energy.Energy;
 import com.rdupuis.amikcal.energy.Food;
-import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public class Component_Food extends Component_Commons implements i_CanHaveEquivalences{
+public class Component_Food extends Component_Generic {
 
 
 	/**
@@ -79,26 +75,6 @@ public class Component_Food extends Component_Commons implements i_CanHaveEquiva
 	    return  REL_TYP_CD.CFOOD;
 	}
 
-	@Override
-	public Energy getEnergy() {
-	    // TODO Auto-generated method stub
-	    return null;
-	}
 
-
-
-	@Override
-	public void setEquivalences(ArrayList<? extends Component> mEquivalences) {
-	    // TODO Auto-generated method stub
-	    
-	}
-
-
-
-	@Override
-	public ArrayList<? extends Component> getEquivalences() {
-	    // TODO Auto-generated method stub
-	    return null;
-	}
 	
 }

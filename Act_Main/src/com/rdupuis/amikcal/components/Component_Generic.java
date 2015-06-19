@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
-import com.rdupuis.amikcal.energy.Energy;
-import com.rdupuis.amikcal.relations.I_Relation;
+import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 /**
@@ -19,24 +18,33 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  * @author Rodolphe
  * 
  */
-public  class Component_Commons extends Component {
+public  class Component_Generic extends Component {
 
     long id;
     Qty mQty;
-    Energy mEnergy;
+    EnergySource mEnergy;
     ArrayList<? extends Component> mEquivalences;
     
-    public Component_Commons() {
+    public Component_Generic() {
 	this.setId(AppConsts.NO_ID);
+	this.setEnergy(new EnergySource());
 	this.setQty(new Qty());
 	
     }
 
-    public  void setEnergy(Energy energy) {
+    public Component_Generic(EnergySource nrj , Qty qty) {
+   	this.setId(AppConsts.NO_ID);
+   	this.setEnergy(nrj);
+   	this.setQty(qty);
+   	
+       }
+
+    
+    public  void setEnergy(EnergySource energy) {
 	this.mEnergy = energy;
     }
 
-    public Energy getEnergy() {
+    public EnergySource getEnergy() {
 	return mEnergy;
     }
 
@@ -71,6 +79,18 @@ public  class Component_Commons extends Component {
     public String getParty2() {
 
 	return String.valueOf(this.mQty.getId());
+    }
+
+    @Override
+    public ArrayList<? extends Component> getEquivalences() {
+
+	return mEquivalences;
+    }
+
+    @Override
+    public void setEquivalences(ArrayList<? extends Component> componentList) {
+	mEquivalences = componentList;
+	
     }
 
    

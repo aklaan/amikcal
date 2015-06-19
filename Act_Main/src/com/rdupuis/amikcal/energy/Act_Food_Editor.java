@@ -23,7 +23,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.energy.Food.STRUCTURE;
+import com.rdupuis.amikcal.energy.ContreteEnergySource.STRUCTURE;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
@@ -253,10 +253,10 @@ public class Act_Food_Editor extends Activity {
 	map = new HashMap<String, String>();
 
 	// Pour chaque composant équivalent à au composant de référence..
-	for (Component equiv : this.mFood.getEquivalences()) {
+	for (Component equiv : this.mFood.getReferenceComponent().getEquivalences()) {
 
 	    map = new HashMap<String, String>();
-	    map.put("EQUIV_INDEX", String.valueOf(this.mFood.getEquivalences().indexOf(equiv)));
+	    map.put("EQUIV_INDEX", String.valueOf(this.mFood.getReferenceComponent().getEquivalences().indexOf(equiv)));
 
 	    map.put("quantity", String.valueOf(equiv.getQty().getAmount()));
 	    map.put("unity", equiv.getQty().getUnity().getLongName());

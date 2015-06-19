@@ -237,11 +237,11 @@ public final class ContentDescriptorObj {
 
 	    }
 
-	    public static final class EffectCodes {
+	    public static final class EnergyClass {
 		public static final String UNDEFINED = "UNDEF";
-		public static final String EARN = "EARN";
-		public static final String BURN = "BURN";
-		public static final String ABSOLUTE = "ABS";
+		public static final String FOOD = "FOOD";
+		public static final String PHYSICAL_ACTIVITY = "PHYS";
+		
 	    }
 
 	}
@@ -254,7 +254,7 @@ public final class ContentDescriptorObj {
 	    // colonne ID
 	    // indiqué par
 	    // BaseColumns
-	    public static final String EFFECT = "effect"; // on absobe ou on
+	    public static final String CLASS = "class"; // on absobe ou on
 	    // brule
 	    public static final String NAME = "name"; // roti de boeuf, Courir,
 	    // lasagnes maison
