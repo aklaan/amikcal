@@ -4,7 +4,6 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
 
 import android.content.ContentResolver;
-import android.net.Uri;
 
 public class DBWriter_EnergySource extends DBWriter_Generic {
 

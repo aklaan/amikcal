@@ -47,6 +47,6 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
     }
 
     public DBWarper getDBWarper(){
-	return new FoodDBWarper(this);
+	return new Food_DBWarper(this);
     }
 }

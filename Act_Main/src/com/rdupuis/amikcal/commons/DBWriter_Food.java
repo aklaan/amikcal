@@ -1,9 +1,9 @@
 package com.rdupuis.amikcal.commons;
 
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Food;
 
 import android.content.ContentResolver;
-import android.net.Uri;
 
 public class DBWriter_Food extends DBWriter_EnergySource {
 
@@ -12,14 +12,11 @@ public class DBWriter_Food extends DBWriter_EnergySource {
 	// TODO Auto-generated constructor stub
     }
 
-    public DBWriter_EnergySource(Uri uriUpdate, Uri uriInsert, ContentResolver contentResolver) {
-	super(uriUpdate, uriInsert, contentResolver);
-	// TODO Auto-generated constructor stub
-    }
+    
 
-    public EnergySource Save(EnergySource energySource) {
+    public EnergySource Save(Food food) {
 
-	return (EnergySource) super.Save(energySource);
+	return (Food) super.Save(food);
 
     }
 

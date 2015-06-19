@@ -27,7 +27,7 @@ import com.rdupuis.amikcal.components.Component_Weight_Action;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Food;
-import com.rdupuis.amikcal.energy.FoodDBWarper;
+import com.rdupuis.amikcal.energy.Food_DBWarper;
 import com.rdupuis.amikcal.energy.PhysicalActivity;
 import com.rdupuis.amikcal.equivalence.i_CanHaveEquivalences;
 import com.rdupuis.amikcal.relations.I_Relation;
@@ -132,8 +132,8 @@ public final class AmiKcalFactory {
 	    // 100 g de pain c'est le composant référence pour la quantité
 	    // d'énergie
 	    // c'est à dire le composant n kcal d'énergie
-	    equivalences = this.load_Equiv(energy.getReferenceComponent());
-	    energy.getReferenceComponent().setEquivalences(equivalences);
+	  //  equivalences = this.load_Equiv(energy.getReferenceComponent());
+	   // energy.getReferenceComponent().setEquivalences(equivalences);
 
 	} else {
 	    Toast.makeText(this.mActivity, "Energy Source inconnue", Toast.LENGTH_LONG).show();
@@ -685,7 +685,7 @@ public final class AmiKcalFactory {
 
 	    do {
 		Component eq ;
-		long
+		
 		    switch (map._in.get(cur.getString(INDX_REL_typ_cd))) {
 		    case CFOOD :
 
@@ -781,8 +781,8 @@ public final class AmiKcalFactory {
      * Enregister une source d'énergie Food dans la database
      ******************************************************************************************/
     public void save(Food food) {
-	FoodDBWarper fce = new FoodDBWarper(food);
-	ContentValues val = fce.getContentValues();
+	
+	ContentValues val = food.getDBWarper().getContentValues();
 
 	// Sauver l'énergie
 	if (food.getId() == AppConsts.NO_ID) {

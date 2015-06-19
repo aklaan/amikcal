@@ -79,7 +79,7 @@ public UA_CLASS_CD getActivityType() {
 }
 
 @Override
-public ArrayList<? extends Component> getComponentsList() {
+public ArrayList<Component> getComponentsList() {
     // TODO Auto-generated method stub
     return null;
 }

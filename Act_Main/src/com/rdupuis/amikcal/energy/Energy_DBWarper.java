@@ -6,10 +6,10 @@ import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.AppConsts.NRJ_CLASS_MAP;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
-public class EnergyDBWarper extends DBWarper {
+public class Energy_DBWarper extends DBWarper {
     public EnergySource mEnergySource;
 
-    public EnergyDBWarper(EnergySource energySource) {
+    public Energy_DBWarper(EnergySource energySource) {
 	this.mEnergySource = energySource;
     };
 

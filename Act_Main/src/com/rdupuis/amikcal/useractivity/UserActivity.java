@@ -31,7 +31,7 @@ public abstract class UserActivity {
 
     public abstract void setDay(int year, int month, int day, int hourOfDay, int minute);
 
-    public abstract ArrayList<? extends Component> getComponentsList();
+    public abstract ArrayList<Component> getComponentsList();
 
     public abstract void setComponentsList(ArrayList<? extends Component> arrayList);
 

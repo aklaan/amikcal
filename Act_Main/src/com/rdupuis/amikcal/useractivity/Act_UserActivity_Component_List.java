@@ -134,7 +134,7 @@ public class Act_UserActivity_Component_List extends Activity {
 		// c'est qu'il a été enregistré dans la database
 		if (component_id != AppConsts.NO_ID) {
 		    // on recharge le composant
-		    Component edited_component = factory.load_Component(component_id);
+		    Component edited_component =  factory.load_Component(component_id);
 
 		    // on recherche si le composant est déja lié à l'UA
 		    boolean Linked_with_UA = false;
@@ -147,6 +147,7 @@ public class Act_UserActivity_Component_List extends Activity {
 		    }
 		    // si le composant n'est pas lié à l'UA, on le lie.
 		    if (!Linked_with_UA) {
+				
 			this.mUA.getComponentsList().add(edited_component);
 			this.factory.save(this.mUA);
 		    }

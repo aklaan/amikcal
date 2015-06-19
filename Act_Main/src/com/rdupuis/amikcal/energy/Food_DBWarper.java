@@ -7,9 +7,9 @@ import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
-public class FoodDBWarper extends EnergyDBWarper {
+public class Food_DBWarper extends Energy_DBWarper {
 
-    public FoodDBWarper(Food food) {
+    public Food_DBWarper(Food food) {
 	super(food);
 
     };

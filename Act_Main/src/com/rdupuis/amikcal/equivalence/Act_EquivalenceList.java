@@ -21,6 +21,9 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.relations.Relation_Equiv_Btwn2Components;
 
 public class Act_EquivalenceList extends Activity {
 
@@ -28,9 +31,9 @@ public class Act_EquivalenceList extends Activity {
     // pour filter la liste des équivalences sur une énergie donnée.
     public final static String INTPUT____NRJ_ID = "nrj_id";
     private EnergySource nrj;
-    public ArrayList<Components> equivalences;
+    public ArrayList<Component> equivalences;
     private AmiKcalFactory factory;
-    public Equivalence selected_equiv;
+    public Relation_Equiv_Btwn2Components selected_equiv;
 
     /** Called when the activity is first created. */
     @Override
@@ -38,7 +41,7 @@ public class Act_EquivalenceList extends Activity {
 	// Etape 0 : initialitations
 	super.onCreate(savedInstanceState);
 	factory = new AmiKcalFactory(this);
-	equivalences = new ArrayList<Equivalence>();
+	equivalences = new ArrayList<Component>();
 	this.nrj = new EnergySource();
 	// Etape 1 : Récupérer les éventuelles informations de l'intent
 	long nrj_id = this.getIntent().getLongExtra(this.INTPUT____NRJ_ID,AppConsts.NO_ID);
