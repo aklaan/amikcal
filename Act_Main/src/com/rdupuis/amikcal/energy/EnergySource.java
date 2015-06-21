@@ -1,7 +1,5 @@
 package com.rdupuis.amikcal.energy;
 
-import android.content.ContentValues;
-
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Savable;
 import com.rdupuis.amikcal.components.Component;
