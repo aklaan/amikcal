@@ -120,8 +120,7 @@ public final class AmiKcalFactory {
 	    energy.setName(cursor.getString(INDX_NRJ_NAME));
 
 	    // Charger le composant de référence
-	    Qty qtyRef = this.load_QtyReference(energy.getId());
-	    Component_Reference refComponent = new Component_Reference(energy, qtyRef);
+	    Component_Reference refComponent = load_ComponentReference(energy.getId());
 	    energy.setReferenceComponent(refComponent);
 
 	    // Charger les équivalences de la qty ref
@@ -131,8 +130,8 @@ public final class AmiKcalFactory {
 	    // 100 g de pain c'est le composant référence pour la quantité
 	    // d'énergie
 	    // c'est à dire le composant n kcal d'énergie
-	  //  equivalences = this.load_Equiv(energy.getReferenceComponent());
-	   // energy.getReferenceComponent().setEquivalences(equivalences);
+	    // equivalences = this.load_Equiv(energy.getReferenceComponent());
+	    // energy.getReferenceComponent().setEquivalences(equivalences);
 
 	} else {
 	    Toast.makeText(this.mActivity, "Energy Source inconnue", Toast.LENGTH_LONG).show();
@@ -149,46 +148,50 @@ public final class AmiKcalFactory {
     }
 
     /*****************************************************************************
-     * <h1>loadQtyReference(long _id)</h1>
+     * <h1>load_ComponentReference(long nrj_id)</h1>
      * <p>
-     * Permet de retourner la quantité de référence d'une source d'énergie
+     * Permet de retourner le composant de référence d'une source d'énergie
      * </p>
      * 
      * @param Energy
      ****************************************************************************/
-    public Qty load_QtyReference(long NRJ_id) {
+    public Component_Reference load_ComponentReference(long NRJ_id) {
 
-	Qty qty = new Qty();
+	Component_Reference component = null;
 
 	if (NRJ_id == AppConsts.NO_ID) {
-	    return qty;
+
+	    // il faut retouner une exception
+	    return null;
 	}
 
 	// on passe par la vue View_NRJ_Qty_link
 	// elle nous permet d'avoir directement des info necessaires
 	// id energy =>id relation => id Qty
 
-	Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.View_NRJ_QtyRef.VIEW_QTYREF_BY_NRJ_ID_URI,
-		NRJ_id);
+	Uri selectUri = ContentUris.withAppendedId(
+		ContentDescriptorObj.View_NRJ_ComponentRef.URI_BASE_VIEW_NRJ_COMPONENT_REF, NRJ_id);
 	Cursor cursor = this.contentResolver.query(selectUri, null, null, null, null);
 
 	// id de la relation QTY
-	final int INDX_QTY_ID = cursor.getColumnIndex(ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID);
+	final int INDX_QTY_ID = cursor.getColumnIndex(ContentDescriptorObj.View_NRJ_ComponentRef.Columns.QTY_ID);
 
 	// faire un move First pour positionner le pointeur, sinon on pointe sur
 	// null
 
 	if (cursor.moveToFirst()) {
 
-	    qty = this.load_Qty(cursor.getLong(INDX_QTY_ID));
-
+	    EnergySource e = this.load_Energy(cursor.getLong(INDX_QTY_ID));
+	    Qty q = this.load_Qty(cursor.getLong(INDX_QTY_ID));
+	    component = new Component_Reference(e, q);
+	    component.setId(cursor.getLong(INDX_QTY_ID));
 	} else {
-	    Toast.makeText(this.mActivity, "Qty référence inconnue", Toast.LENGTH_LONG).show();
+	    Toast.makeText(this.mActivity, "Component référence inconnu", Toast.LENGTH_LONG).show();
 	}
 
 	cursor.close();
 
-	return qty;
+	return component;
     }
 
     /*********************************************************************************
@@ -659,7 +662,8 @@ public final class AmiKcalFactory {
     public ArrayList<Component> load_Equiv(Component component) {
 	ArrayList<Component> equiv_list = new ArrayList<Component>();
 
-	Uri request = ContentUris.withAppendedId(ContentDescriptorObj.View_Component_equiv.VIEW_ALL_COMPONENT_EQUIV_URI,component.getId());
+	Uri request = ContentUris.withAppendedId(
+		ContentDescriptorObj.View_Component_equiv.VIEW_ALL_COMPONENT_EQUIV_URI, component.getId());
 
 	Cursor cur = this.contentResolver.query(request, null, null, null, null);
 
@@ -670,13 +674,12 @@ public final class AmiKcalFactory {
 	// null
 	// on charge le mapping des CLASS
 
-	
 	if (cur.moveToFirst()) {
-	    
+
 	    do {
 
-			Component equivalence = this.load_Component(cur.getLong(COMP2_ID));
-		    equiv_list.add(equivalence);
+		Component equivalence = this.load_Component(cur.getLong(COMP2_ID));
+		equiv_list.add(equivalence);
 
 	    } while (cur.moveToNext());
 	}
@@ -742,9 +745,9 @@ public final class AmiKcalFactory {
     }
 
     /*****************************************************************************************
-     * <h2>Sauver un composant</h2>
-     * </br> c'est : 
-     * <ul><li>Créer/mettre à jour la QTY 
+     * <h2>Sauver un composant</h2> </br> c'est :
+     * <ul>
+     * <li>Créer/mettre à jour la QTY
      * <li>Créer/mettre à jour le lien energie/Qty (UAC_QTY)
      * <ul>
      ******************************************************************/
@@ -757,36 +760,27 @@ public final class AmiKcalFactory {
 
     }
 
-    
-    
     /*****************************************************************************************
-     * <h2>Sauver un composant</h2>
-     * </br> c'est : 
-     * <ul><li>Créer/mettre à jour la QTY 
+     * <h2>Sauver un composant</h2> </br> c'est :
+     * <ul>
+     * <li>Créer/mettre à jour la QTY
      * <li>Créer/mettre à jour le lien energie/Qty (UAC_QTY)
      * <ul>
      ******************************************************************/
     public EnergySource save(EnergySource energySource) {
-		
-	ContentValues val = energySource.getDBWarper().getContentValues();
 
-	// Sauver l'énergie
-	if (energySource.getId() == AppConsts.NO_ID) {
-	    Uri uriInsert = this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI,
-		    val);
-	    energySource.setId(Long.parseLong(uriInsert.getLastPathSegment()));
-	} else {
-
-	    Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI,
-	    		energySource.getId());
-	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(energySource.getId()), null);
-	}
-
+	// On fabrique un DBWriter pour le type d'objet à sauver
+	// le writer doit être lié
+	energySource.getDBWriter(this.contentResolver).Save();
+	
 	// Sauver le composant de référence
 	// si on fait un INSERT, on va récupérer un ID pour ce composant.
 	// comme JAVA ne travaille pas par référence, mais par valeur, on est
 	// obligé de réasigner le comosant pour avoir l'id à jour
-	energySource.setReferenceComponent(save(energySource.getReferenceComponent()));
+	Component_Reference c = energySource.getReferenceComponent();
+	//c = save(c);
+	
+	energySource.setReferenceComponent(c);
 
 	// Sauver le lien entre l'energie et le composant de référence
 	save(new Relation_NRJ_vs_Component(energySource, energySource.getReferenceComponent()));
@@ -801,52 +795,6 @@ public final class AmiKcalFactory {
 	}
 	return energySource;
 
-    }
-
-    
-    /*****************************************************************************************
-     * Enregister une source d'énergie Food dans la database
-     ******************************************************************************************/
-    public void save(Food food) {
-   	
-    	
-    	ContentValues val = food.getDBWarper().getContentValues();
-
-	
-	// Sauver l'énergie
-	if (food.getId() == AppConsts.NO_ID) {
-	    Uri uriInsert = this.mActivity.getContentResolver().insert(ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI,
-		    val);
-	    food.setId(Long.parseLong(uriInsert.getLastPathSegment()));
-	} else {
-
-	    Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI,
-		    food.getId());
-	    this.mActivity.getContentResolver().update(uriUpdate, val, String.valueOf(food.getId()), null);
-	}
-
-	// Sauver le composant de référence
-	// si on fait un INSERT, on va récupérer un ID pour ce composant.
-	// comme JAVA ne travaille pas par référence, mais par valeur, on est
-	// obligé de réasigner le comosant pour avoir l'id à jour
-	food.setReferenceComponent(save(food.getReferenceComponent()));
-
-	// Sauver le lien entre l'energie et le composant de référence
-	save(new Relation_NRJ_vs_Component(food, food.getReferenceComponent()));
-
-	// Sauver les équivalences du composant de référence
-	if (hasEquivalences(food.getReferenceComponent())) {
-
-	    for (Component equiv : (food.getReferenceComponent().getEquivalences())) {
-		this.save(equiv);
-
-	    }
-	}
-
-    }
-
-    private boolean hasEquivalences(Component e) {
-	return (!e.getEquivalences().isEmpty());
     }
 
     /*****************************************************************************************
@@ -913,43 +861,6 @@ public final class AmiKcalFactory {
     }
 
     /*****************************************************************************************
-     * verifier l'existence d'une relation dans la database
-     * 
-     ******************************************************************************************/
-    private Boolean relation_Exists(I_Relation relation) {
-
-	REL_TYP_CD_MAP map = new REL_TYP_CD_MAP();
-	String relationClass = map._out.get(relation.getRelationClass());
-	String firstParty = String.valueOf(relation.getParty1());
-	String secondParty = String.valueOf(relation.getParty2());
-	String searchedRelation = relationClass + "x" + firstParty + "x" + secondParty;
-
-	// vérifier la présence de la relation
-	if (relation.getParty1() != String.valueOf(AppConsts.NO_ID)
-		&& relation.getParty2() != String.valueOf(AppConsts.NO_ID)) {
-	    // rechercher si la relation existe déjà pour récupérer son ID
-	    Uri request = ContentDescriptorObj.TB_Party_rel.SEARCH_RELATION_URI.buildUpon()
-		    .appendPath(searchedRelation).build();
-	    Cursor cur = this.contentResolver.query(request, null, null, null, null);
-
-	    final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ID);
-
-	    // faire un move First pour positionner le pointeur, sinon on pointe
-	    // sur null
-	    // Si la relation existe on va passer dans le if pour récupérer l'ID
-	    // sinon on passe directement au close curseur
-	    if (cur.moveToFirst()) {
-
-		relation.setId(cur.getLong(RELATION_ID));
-	    }
-	    cur.close();
-
-	}
-	// si l'id de la relation n'est pas nul, alors la relation existe.
-	return (relation.getId() != AppConsts.NO_ID);
-    }
-
-    /*****************************************************************************************
      * Enregister une relation dans la database
      * 
      * note : on ne doit pas vérifier si la relation existe déjà ici. car pour
@@ -994,4 +905,46 @@ public final class AmiKcalFactory {
 	return relation;
     }
 
+    /*****************************************************************************************
+     * verifier l'existence d'une relation dans la database
+     * 
+     ******************************************************************************************/
+    private Boolean relation_Exists(I_Relation relation) {
+
+	REL_TYP_CD_MAP map = new REL_TYP_CD_MAP();
+	String relationClass = map._out.get(relation.getRelationClass());
+	String firstParty = String.valueOf(relation.getParty1());
+	String secondParty = String.valueOf(relation.getParty2());
+	String searchedRelation = relationClass + "x" + firstParty + "x" + secondParty;
+
+	// vérifier la présence de la relation
+	if (relation.getParty1() != String.valueOf(AppConsts.NO_ID)
+		&& relation.getParty2() != String.valueOf(AppConsts.NO_ID)) {
+	    // rechercher si la relation existe déjà pour récupérer son ID
+	    Uri request = ContentDescriptorObj.TB_Party_rel.SEARCH_RELATION_URI.buildUpon()
+		    .appendPath(searchedRelation).build();
+	    Cursor cur = this.contentResolver.query(request, null, null, null, null);
+
+	    final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ID);
+
+	    // faire un move First pour positionner le pointeur, sinon on pointe
+	    // sur null
+	    // Si la relation existe on va passer dans le if pour récupérer l'ID
+	    // sinon on passe directement au close curseur
+	    if (cur.moveToFirst()) {
+
+		relation.setId(cur.getLong(RELATION_ID));
+	    }
+	    cur.close();
+
+	}
+	// si l'id de la relation n'est pas nul, alors la relation existe.
+	return (relation.getId() != AppConsts.NO_ID);
+    }
+
+    private boolean hasEquivalences(Component e) {
+	return (!e.getEquivalences().isEmpty());
+    }
+
+    
 } // * end-class

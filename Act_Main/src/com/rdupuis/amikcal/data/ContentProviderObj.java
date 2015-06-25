@@ -156,12 +156,9 @@ public class ContentProviderObj extends ContentProvider {
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
 
-	case SELECT_ALL_UNITS: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Units.NAME);
-	    return builder.query(db, null, null, null, null, null, null);
-	}
-
+	// -------------------------------------------------------------------------
+	// Unitées
+	// -------------------------------------------------------------------------
 	case SELECT_ONE_UNITY_BY_ID: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.TB_Units.NAME);
@@ -169,6 +166,26 @@ public class ContentProviderObj extends ContentProvider {
 	    String whereClause = ContentDescriptorObj.TB_Units.NAME + "." + ContentDescriptorObj.TB_Units.Columns.ID
 		    + "=" + uri.getLastPathSegment();
 	    return builder.query(db, projection, whereClause, null, null, null, null);
+	}
+
+	case SELECT_ALL_UNITS: {
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.TB_Units.NAME);
+	    return builder.query(db, null, null, null, null, null, null);
+	}
+
+	// -------------------------------------------------------------------------
+	// User Activity
+	// -------------------------------------------------------------------------
+
+	case SELECT_UAC: {
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_UAC_Data.VIEWNAME);
+
+	    String whereClause = ContentDescriptorObj.View_UAC_Data.VIEWNAME + "."
+		    + ContentDescriptorObj.View_UAC_Data.Columns.UAC_ID + "=" + uri.getLastPathSegment();
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+
 	}
 
 	case SELECT_USER_ACTIVITIES_BY_DATE: {
@@ -194,35 +211,39 @@ public class ContentProviderObj extends ContentProvider {
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 	}
 
-	case SELECT_REL_NRJ_QTYREF: {
-
+	// -------------------------------------------------------------------------
+	// Composant de référence
+	// -------------------------------------------------------------------------
+	case SELECT_COMPONENT_REF_OF_NRJ: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
+	    builder.setTables(ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME);
 
-	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + uri.getLastPathSegment() + " and ( "
-		    + ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "="
-		    + TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL + "or "
-		    + ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "="
-		    + TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF + ")";
+	    String whereClause = ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME + "."
+		    + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID + "=" + uri.getLastPathSegment();
 
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
 	}
 
-	case SELECT_QTYREF_OF_NRJ: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME);
+	case SEARCH_COMPONENT_REF_RELATION: {
 
-	    String whereClause = ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME + "."
-		    + ContentDescriptorObj.View_NRJ_QtyRef.Columns.ENERGY_ID + "=" + uri.getLastPathSegment();
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME);
+
+	    String delims = "x";
+	    String[] params = uri.getLastPathSegment().split(delims);
+
+	    String whereClause = ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME + "."
+		    + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID + "=" + params[0] + " and ( "
+		    + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.QTY_ID + "=" + params[1] + ")";
 
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
 	}
 
+	// -------------------------------------------------------------------------
+	// QTY
+	// -------------------------------------------------------------------------
 	case SELECT_QTY_BY_ID: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.View_Qty.VIEWNAME);
@@ -234,28 +255,26 @@ public class ContentProviderObj extends ContentProvider {
 
 	}
 
+	case SELECT_ALL_EQUIV_OF_QTY: {
+	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+	    builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);
+
+	    String whereClause = ContentDescriptorObj.View_qty_equiv.VIEWNAME + "."
+		    + ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID + "=" + uri.getLastPathSegment();
+	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+
+	}
+
+	// -------------------------------------------------------------------------
+	// Relations
+	// -------------------------------------------------------------------------
+
 	case SELECT_PARTY_REL_BY_ID: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
 
 	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
 		    + ContentDescriptorObj.TB_Party_rel.Columns.ID + "=" + uri.getLastPathSegment();
-
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-
-	}
-
-	case SELECT_QTYREF_RELATION: {
-
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME);
-
-	    String delims = "x";
-	    String[] params = uri.getLastPathSegment().split(delims);
-
-	    String whereClause = ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME + "."
-		    + ContentDescriptorObj.View_NRJ_QtyRef.Columns.ENERGY_ID + "=" + params[0] + " and ( "
-		    + ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID + "=" + params[1] + ")";
 
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
@@ -269,25 +288,12 @@ public class ContentProviderObj extends ContentProvider {
 	    String delims = "x";
 	    String[] params = uri.getLastPathSegment().split(delims);
 
-	    String whereClause = 
-		      ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "='" + params[0] 
-		    + "' and "
+	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "='" + params[0] + "' and "
 		    + ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + params[1] 
-		    + " and "
-		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2 + "=" + params[2] ;
+		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + params[1] + " and "
+		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2 + "=" + params[2];
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-
-	}
-
-	case SELECT_UAC: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_UAC_Data.VIEWNAME);
-
-	    String whereClause = ContentDescriptorObj.View_UAC_Data.VIEWNAME + "."
-		    + ContentDescriptorObj.View_UAC_Data.Columns.UAC_ID + "=" + uri.getLastPathSegment();
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
 	}
@@ -305,16 +311,6 @@ public class ContentProviderObj extends ContentProvider {
 	    return db.rawQuery("PRAGMA user_version", null);
 	}
 
-	case SELECT_ALL_EQUIV_OF_QTY: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);
-
-	    String whereClause = ContentDescriptorObj.View_qty_equiv.VIEWNAME + "."
-		    + ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-
-	}
-
 	
 	case SELECT_ALL_EQUIV_OF_COMPONENT: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
@@ -322,13 +318,11 @@ public class ContentProviderObj extends ContentProvider {
 
 	    String whereClause = ContentDescriptorObj.View_Component_equiv.VIEWNAME + "."
 		    + ContentDescriptorObj.View_Component_equiv.Columns.COMP1_ID + "=" + uri.getLastPathSegment();
-	    
+
 	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
 	}
 
-
-	
 	/*
 	 * case ContentDescriptorObj.CustomQuery.SUM_ENERGY_OF_DAY_TOKEN:{
 	 * SQLiteQueryBuilder builder = new SQLiteQueryBuilder();

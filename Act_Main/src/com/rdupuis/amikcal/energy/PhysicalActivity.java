@@ -20,11 +20,7 @@ public class PhysicalActivity extends AbstractEnergySource implements HasBodyEff
     }
 
     
-    @Override
-    public void setReferenceComponent(Component refComponent) {
-	// TODO Auto-generated method stub
-	
-    }
+    
 
     @Override
     public NRJ_EFFECT getEffect() {

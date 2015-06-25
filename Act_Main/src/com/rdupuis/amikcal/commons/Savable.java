@@ -2,7 +2,7 @@ package com.rdupuis.amikcal.commons;
 
 import com.rdupuis.amikcal.energy.DBWarper;
 
-import android.content.ContentValues;
+import android.content.ContentResolver;
 
 public interface Savable {
     
@@ -11,5 +11,6 @@ public interface Savable {
     public void setId(long parseLong);
 
     public DBWarper getDBWarper();
+    public DBWriter getDBWriter(ContentResolver contentResolver);
 
 }

@@ -9,16 +9,22 @@ public class DBWriter_Generic extends DBWriter {
     private Uri mUriUpdate;
     private Uri mUriInsert;
     private ContentResolver mContentResolver;
+    private Savable mSavable;
 
-    public DBWriter_Generic() {
-	this.mContentResolver = null;
+    public DBWriter_Generic(ContentResolver contentResolver, Savable savable) {
+	this.setContentResolver(contentResolver);
 	this.mUriInsert = null;
 	this.mUriUpdate = null;
+	this.setSavable(savable);
     }
-    
-    
-    
-    
+
+    public Savable getSavable() {
+	return this.mSavable;
+    }
+
+    public void setSavable(Savable savable) {
+	this.mSavable = savable;
+    }
 
     public Uri getUriUpdate() {
 	return this.mUriUpdate;
@@ -38,20 +44,18 @@ public class DBWriter_Generic extends DBWriter {
 
     };
 
-    public Savable Save(Savable savable) {
+    public void Save() {
 
-	ContentValues values = savable.getDBWarper().getContentValues();
+	ContentValues values = getSavable().getDBWarper().getContentValues();
 
-	if (savable.getId() == AppConsts.NO_ID) {
+	if (getSavable().getId() == AppConsts.NO_ID) {
 	    Uri uriInsert = this.mContentResolver.insert(this.getUriInsert(), values);
-	    savable.setId(Long.parseLong(uriInsert.getLastPathSegment()));
+	    getSavable().setId(Long.parseLong(uriInsert.getLastPathSegment()));
 	} else {
 
-	    Uri uriUpdate = ContentUris.withAppendedId(this.getUriUpdate(), savable.getId());
-	    this.mContentResolver.update(uriUpdate, values, String.valueOf(savable.getId()), null);
+	    Uri uriUpdate = ContentUris.withAppendedId(this.getUriUpdate(), getSavable().getId());
+	    this.mContentResolver.update(uriUpdate, values, String.valueOf(getSavable().getId()), null);
 	}
-
-	return savable;
 
     }
 

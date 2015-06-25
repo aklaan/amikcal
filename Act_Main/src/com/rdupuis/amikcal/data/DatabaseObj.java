@@ -124,12 +124,12 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 		
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une NRJ et sa
-		 // Qty de référence.
+		 // Création de la vue permettant de faire le lien entre une NRJ et son
+		 // composant de référence.
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.View_NRJ_QtyRef.VIEWNAME
+				+ ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME
 
 				+ " AS SELECT "
 
@@ -138,7 +138,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
 				+ " AS "
-				+ ContentDescriptorObj.View_NRJ_QtyRef.Columns.REL_NRJ_QTY_ID
+				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.REL_NRJ_COMPONENT_REF_ID
 				+ ","
 
 				// ID de la source d'énergie
@@ -146,7 +146,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
 				+ " AS "
-				+ ContentDescriptorObj.View_NRJ_QtyRef.Columns.ENERGY_ID
+				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID
 				+ ","
 
 				// ID de la QtyRef
@@ -154,7 +154,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
 				+ " AS "
-				+ ContentDescriptorObj.View_NRJ_QtyRef.Columns.QTY_ID
+				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.QTY_ID
 
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME

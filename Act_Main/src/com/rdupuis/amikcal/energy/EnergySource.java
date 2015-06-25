@@ -1,8 +1,13 @@
 package com.rdupuis.amikcal.energy;
 
+import android.content.ContentResolver;
+
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.DBWriter;
+import com.rdupuis.amikcal.commons.DBWriter_EnergySource;
 import com.rdupuis.amikcal.commons.Savable;
 import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_Reference;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -21,7 +26,7 @@ public class EnergySource implements Savable{
 
     private long id;
     private String name;
-    private Component mReference_Component; // composant de référence
+    private Component_Reference mReference_Component; // composant de référence
 
     public EnergySource() {
 	id = AppConsts.NO_ID;
@@ -48,12 +53,12 @@ public class EnergySource implements Savable{
 
     }
 
-    public Component getReferenceComponent() {
+    public Component_Reference getReferenceComponent() {
 	// TODO Auto-generated method stub
 	return this.mReference_Component;
     }
 
-     public void setReferenceComponent(Component refComponent) {
+     public void setReferenceComponent(Component_Reference refComponent) {
     	 this.mReference_Component = refComponent;
 	
     }
@@ -68,6 +73,12 @@ public class EnergySource implements Savable{
     public DBWarper getDBWarper() {
 	// TODO Auto-generated method stub
 	return null;
+    }
+
+    @Override
+    public DBWriter getDBWriter(ContentResolver contentResolver) {
+	// TODO Auto-generated method stub
+	return new DBWriter_EnergySource(contentResolver, this);
     }
 
     

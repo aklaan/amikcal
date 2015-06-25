@@ -14,6 +14,6 @@ public abstract void setContentResolver(ContentResolver contentResolver);
 public abstract void setUriUpdate(Uri uriUpdate);
 public abstract void setUriInsert(Uri uriInsert);
 
-public abstract Savable Save(Savable savable);
+public abstract void Save();
 
 }
