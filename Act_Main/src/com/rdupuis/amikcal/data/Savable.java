@@ -1,5 +1,6 @@
-package com.rdupuis.amikcal.commons;
+package com.rdupuis.amikcal.data;
 
+import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
 
 import android.content.ContentResolver;

@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.commons;
+package com.rdupuis.amikcal.data.writers;
 
 import android.content.ContentResolver;
 import android.net.Uri;

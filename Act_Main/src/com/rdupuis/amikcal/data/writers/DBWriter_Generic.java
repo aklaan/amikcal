@@ -1,4 +1,7 @@
-package com.rdupuis.amikcal.commons;
+package com.rdupuis.amikcal.data.writers;
+
+import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.data.Savable;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;

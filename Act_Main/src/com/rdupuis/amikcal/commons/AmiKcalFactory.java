@@ -27,7 +27,7 @@ import com.rdupuis.amikcal.components.Component_Weight_Action;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Food;
-import com.rdupuis.amikcal.energy.Food_DBWarper;
+
 import com.rdupuis.amikcal.energy.PhysicalActivity;
 import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
@@ -170,7 +170,7 @@ public final class AmiKcalFactory {
 	// id energy =>id relation => id Qty
 
 	Uri selectUri = ContentUris.withAppendedId(
-		ContentDescriptorObj.View_NRJ_ComponentRef.URI_BASE_VIEW_NRJ_COMPONENT_REF, NRJ_id);
+		ContentDescriptorObj.View_NRJ_ComponentRef.VIEW_COMPONENT_REF_BY_NRJ_ID_URI, NRJ_id);
 	Cursor cursor = this.contentResolver.query(selectUri, null, null, null, null);
 
 	// id de la relation QTY
@@ -752,11 +752,8 @@ public final class AmiKcalFactory {
      * <ul>
      ******************************************************************/
     public Component save(Component component) {
-	// On sauve la Qty. ceci nous permet d'avoir une ID pour cette Qty
-	// si elle n'existait pas dans la DB.
-	component.setQty(save(component.getQty()));
-
-	return (Component) saveRelation(component);
+		component.getDBWriter(this.contentResolver).Save();
+	return component;
 
     }
 
@@ -770,28 +767,21 @@ public final class AmiKcalFactory {
     public EnergySource save(EnergySource energySource) {
 
 	// On fabrique un DBWriter pour le type d'objet à sauver
-	// le writer doit être lié
+	// le writer doit être lié au contentResolver.
 	energySource.getDBWriter(this.contentResolver).Save();
 	
 	// Sauver le composant de référence
-	// si on fait un INSERT, on va récupérer un ID pour ce composant.
-	// comme JAVA ne travaille pas par référence, mais par valeur, on est
-	// obligé de réasigner le comosant pour avoir l'id à jour
 	Component_Reference c = energySource.getReferenceComponent();
-	//c = save(c);
+	this.save(c);
 	
-	energySource.setReferenceComponent(c);
-
-	// Sauver le lien entre l'energie et le composant de référence
-	save(new Relation_NRJ_vs_Component(energySource, energySource.getReferenceComponent()));
-
+		
 	// Sauver les équivalences du composant de référence
 	if (hasEquivalences(energySource.getReferenceComponent())) {
 
-	    for (Component equiv : (energySource.getReferenceComponent().getEquivalences())) {
-		this.save(equiv);
+	//    for (Component equiv : (energySource.getReferenceComponent().getEquivalences())) {
+	//	this.save(equiv);
 
-	    }
+	  //  }
 	}
 	return energySource;
 

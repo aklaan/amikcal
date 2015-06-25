@@ -523,7 +523,7 @@ public final class ContentDescriptorObj {
 	public static final String VIEW_COMPONENT_REF_BY_NRJ_ID_PATH = VIEWNAME + "/energy/#";
 	public static final int VIEW_COMPONENT_REF_BY_NRJ_ID_TOKEN = 6100;
 	public static final Uri VIEW_COMPONENT_REF_BY_NRJ_ID_URI = URI_BASE_VIEW_NRJ_COMPONENT_REF.buildUpon()
-		.appendPath("NRJ_id").build();
+		.appendPath("energy").build();
 
 	// Path pour l'Uri de séléction d'un composant de référence a partir de
 	// son l'id
@@ -531,7 +531,7 @@ public final class ContentDescriptorObj {
 	public static final String VIEW_COMPONENT_REF_BY_ID_PATH = VIEWNAME + "/componentRef/#";
 	public static final int VIEW_COMPONENT_REF_BY_ID_TOKEN = 6101;
 	public static final Uri VIEW_COMPONENT_REF_BY_ID_URI = URI_BASE_VIEW_NRJ_COMPONENT_REF.buildUpon()
-		.appendPath("relation").build();
+		.appendPath("componentRef").build();
 
 	public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
 	public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal." + VIEWNAME;

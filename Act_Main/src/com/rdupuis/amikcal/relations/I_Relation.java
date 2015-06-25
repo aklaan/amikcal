@@ -1,8 +1,9 @@
 package com.rdupuis.amikcal.relations;
 
+import com.rdupuis.amikcal.data.Savable;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public interface I_Relation {
+public interface I_Relation extends Savable {
     	
     //public void setId(long id);
     public String getParty1();

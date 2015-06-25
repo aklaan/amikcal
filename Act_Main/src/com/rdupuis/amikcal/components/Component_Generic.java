@@ -2,9 +2,17 @@ package com.rdupuis.amikcal.components;
 
 import java.util.ArrayList;
 
+import android.content.ContentResolver;
+
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.data.writers.DBWriter;
+import com.rdupuis.amikcal.data.writers.DBWriter_Component;
+import com.rdupuis.amikcal.data.writers.DBWriter_Relation;
+import com.rdupuis.amikcal.energy.DBWarper;
+import com.rdupuis.amikcal.energy.DBWarper_Food;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.relations.DBWarper_Component;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 /**
@@ -92,6 +100,18 @@ public  class Component_Generic extends Component {
 	mEquivalences = componentList;
 	
     }
+
+	@Override
+	public DBWarper getDBWarper() {
+		return new DBWarper_Component(this);
+		
+	}
+
+	@Override
+	public DBWriter getDBWriter(ContentResolver contentResolver) {
+		// TODO Auto-generated method stub
+		return new DBWriter_Component(contentResolver, this);
+	}
 
    
 }

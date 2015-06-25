@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.commons;
+package com.rdupuis.amikcal.data.writers;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;

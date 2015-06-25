@@ -6,8 +6,6 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 public class Component_Reference extends Component_Generic {
 
-    
-
 	/**
 	 * Constructeur
 	 */

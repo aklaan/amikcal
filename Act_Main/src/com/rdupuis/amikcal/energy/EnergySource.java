@@ -3,11 +3,11 @@ package com.rdupuis.amikcal.energy;
 import android.content.ContentResolver;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.DBWriter;
-import com.rdupuis.amikcal.commons.DBWriter_EnergySource;
-import com.rdupuis.amikcal.commons.Savable;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Reference;
+import com.rdupuis.amikcal.data.Savable;
+import com.rdupuis.amikcal.data.writers.DBWriter;
+import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
 
 /**
  * <h1>EnergySource : une source d'énergie<h1>
@@ -77,8 +77,7 @@ public class EnergySource implements Savable{
 
     @Override
     public DBWriter getDBWriter(ContentResolver contentResolver) {
-	// TODO Auto-generated method stub
-	return new DBWriter_EnergySource(contentResolver, this);
+		return new DBWriter_EnergySource(contentResolver, this);
     }
 
     

@@ -33,8 +33,6 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
 	this.mStructure = mStructure;
     }
 
-   
-
     @Override
     public NRJ_CLASS getEnergyClass() {
 	return NRJ_CLASS.FOOD;
@@ -47,6 +45,6 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
     }
 
     public DBWarper getDBWarper(){
-	return new Food_DBWarper(this);
+	return new DBWarper_Food(this);
     }
 }
