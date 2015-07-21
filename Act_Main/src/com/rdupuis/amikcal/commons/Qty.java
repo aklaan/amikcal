@@ -1,7 +1,10 @@
 package com.rdupuis.amikcal.commons;
 
+import java.util.ArrayList;
+
 import android.content.ContentResolver;
 
+import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.data.Savable;
 import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.data.writers.DBWriter_Qty;
@@ -12,72 +15,84 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unité et un montant
-public class Qty implements I_Relation, Savable {
+public class Qty extends I_Relation {
 
-	private long _id;
-	private Unity mUnity;
-	private float amount;
+    private long _id;
+    private Unity mUnity;
+    private float amount;
+    private ArrayList<Qty> mEquivalences;
 
-	public Qty() {
-		this.setId(AppConsts.NO_ID);
-		this.mUnity = new Unity();
-		this.amount = 0f;
-	}
+    public Qty() {
+	this.setId(AppConsts.NO_ID);
+	this.mUnity = new Unity();
+	this.amount = 0f;
+    }
 
-	public float getAmount() {
-		return amount;
+    public float getAmount() {
+	return amount;
 
-	}
+    }
 
-	public void setAmount(float newAmount) {
-		this.amount = newAmount;
-	}
+    public void setAmount(float newAmount) {
+	this.amount = newAmount;
+    }
 
-	public Unity getUnity() {
-		return mUnity;
-	}
+    public Unity getUnity() {
+	return mUnity;
+    }
 
-	public void setUnity(Unity mUnity) {
-		this.mUnity = mUnity;
+    public void setUnity(Unity mUnity) {
+	this.mUnity = mUnity;
 
-	}
+    }
 
-	public void setId(long id) {
-		this._id = id;
+    public void setId(long id) {
+	this._id = id;
 
-	}
+    }
 
-	public long getId() {
+    public long getId() {
 
-		return this._id;
-	}
+	return this._id;
+    }
 
-	@Override
-	public String getParty1() {
-		// TODO Auto-generated method stub
-		return String.valueOf(this.amount);
-	}
+    @Override
+    public String getParty1() {
+	// TODO Auto-generated method stub
+	return String.valueOf(this.amount);
+    }
 
-	@Override
-	public String getParty2() {
-		// TODO Auto-generated method stub
-		return String.valueOf(this.getUnity().getId());
-	}
+    @Override
+    public String getParty2() {
+	// TODO Auto-generated method stub
+	return String.valueOf(this.getUnity().getId());
+    }
 
-	@Override
-	public REL_TYP_CD getRelationClass() {
-		// TODO Auto-generated method stub
-		return REL_TYP_CD.QTY;
-	}
+    @Override
+    public REL_TYP_CD getRelationClass() {
+	// TODO Auto-generated method stub
+	return REL_TYP_CD.QTY;
+    }
 
-	@Override
-	public DBWarper getDBWarper() {
-		return new DBWarper_Qty(this);
-	}
+    @Override
+    public DBWarper getDBWarper() {
+	return new DBWarper_Qty(this);
+    }
 
-	@Override
-	public DBWriter getDBWriter(ContentResolver contentResolver) {
-		return new DBWriter_Qty(contentResolver, this);
-	}
+    @Override
+    public DBWriter getDBWriter(ContentResolver contentResolver) {
+	return new DBWriter_Qty(contentResolver, this);
+    }
+
+    public ArrayList<Qty> getEquivalences() {
+	// TODO Auto-generated method stub
+	return this.mEquivalences;
+    }
+
+    public void setEquivalences(ArrayList<Qty> equivalences) {
+	// TODO Auto-generated method stub
+	this.mEquivalences = equivalences;
+
+    }
 
 }

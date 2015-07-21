@@ -8,7 +8,7 @@ import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.energy.EnergySource;
 
-public class Relation_NRJ_vs_Component implements I_Relation {
+public class Relation_NRJ_vs_Component extends I_Relation {
     private EnergySource mEnergy;
     private Component mComponent;
     private long _id;

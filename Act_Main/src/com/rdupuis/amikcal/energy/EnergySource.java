@@ -3,6 +3,7 @@ package com.rdupuis.amikcal.energy;
 import android.content.ContentResolver;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Reference;
 import com.rdupuis.amikcal.data.Savable;
@@ -26,7 +27,7 @@ public class EnergySource implements Savable{
 
     private long id;
     private String name;
-    private Component_Reference mReference_Component; // composant de référence
+    private Qty mQtyReference; // Qty de référence
 
     public EnergySource() {
 	id = AppConsts.NO_ID;
@@ -53,16 +54,21 @@ public class EnergySource implements Savable{
 
     }
 
-    public Component_Reference getReferenceComponent() {
+    public Component_Reference getComponentReference() {
 	// TODO Auto-generated method stub
-	return this.mReference_Component;
+	return new Component_Reference(this);
     }
 
-     public void setReferenceComponent(Component_Reference refComponent) {
-    	 this.mReference_Component = refComponent;
+    
+    public Qty getQtyReference() {
+	// TODO Auto-generated method stub
+	return this.mQtyReference;
+    }
+     public void setQtyReference(Qty qty) {
+    	 this.mQtyReference = qty;
 	
     }
-
+     
     public NRJ_CLASS getEnergyClass() {
 	// TODO Auto-generated method stub
 	return NRJ_CLASS.UNDEFINED;

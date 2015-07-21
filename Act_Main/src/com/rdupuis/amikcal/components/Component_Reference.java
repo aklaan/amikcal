@@ -9,13 +9,14 @@ public class Component_Reference extends Component_Generic {
 	/**
 	 * Constructeur
 	 */
-    public Component_Reference(EnergySource energy, Qty qty) {
+    public Component_Reference(EnergySource energy) {
 	super();
 	this.setEnergy(energy);
-	this.setQty(qty);
+	this.setQty(energy.getQtyReference());
 }
 
-		
+
+    
 	@Override
 	public REL_TYP_CD getRelationClass(){
 	    return  REL_TYP_CD.NRJ_REF_INTRNL;

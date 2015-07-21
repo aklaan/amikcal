@@ -8,7 +8,7 @@ import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public class Relation_Equiv_Btwn2Components implements I_Relation {
+public class Relation_Equiv_Btwn2Components extends I_Relation {
     private Component mComponent1;
     private Component mComponent2;
     private long _id;

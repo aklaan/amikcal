@@ -9,7 +9,7 @@ import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
-public class Relation_UserActivity_vs_Component implements I_Relation {
+public class Relation_UserActivity_vs_Component extends I_Relation {
     private UserActivity mUserActivity;
     private Component mComponent;
     private long _id;

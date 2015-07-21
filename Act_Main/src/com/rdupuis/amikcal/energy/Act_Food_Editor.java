@@ -25,6 +25,7 @@ import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.ContreteEnergySource.STRUCTURE;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor;
+import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
 /**
@@ -133,7 +134,7 @@ public class Act_Food_Editor extends Activity {
 
 	    if (resultCode == RESULT_OK) {
 
-		this.mFood.getReferenceComponent().getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+		this.mFood.getQtyReference().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 
 	    }
 	    break;
@@ -144,7 +145,7 @@ public class Act_Food_Editor extends Activity {
 
 		AmiKcalFactory factory = new AmiKcalFactory(this);
 
-		this.mFood.getReferenceComponent().getQty().setUnity(
+		this.mFood.getQtyReference().setUnity(
 			factory.load_Unity(intent
 				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
 
@@ -171,7 +172,9 @@ public class Act_Food_Editor extends Activity {
 	this.mFood.setName(ed.getText().toString());
 
 	//enregister l'énergie
-	this.factory.save(this.mFood);
+	this.mFood.getDBWriter(this.getContentResolver()).Save();
+	
+	//this.factory.save(this.mFood);
 
 	// on appelle setResult pour déclancher le onActivityResult de
 	// l'activity mère.
@@ -209,10 +212,10 @@ public class Act_Food_Editor extends Activity {
 //	}
 
 	Button bt = (Button) findViewById(R.id.energyview_btn_amount);
-	bt.setText(decimalFormat.format(this.mFood.getReferenceComponent().getQty().getAmount()));
+	bt.setText(decimalFormat.format(this.mFood.getQtyReference().getAmount()));
 
 	bt = (Button) findViewById(R.id.energyview_btn_unity);
-	bt.setText(this.mFood.getReferenceComponent().getQty().getUnity().getLongName());
+	bt.setText(this.mFood.getQtyReference().getUnity().getLongName());
 
 	EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
 	ed.setText(this.mFood.getName());
@@ -253,16 +256,18 @@ public class Act_Food_Editor extends Activity {
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
-	// Pour chaque composant équivalent à au composant de référence..
-	for (Component equiv : this.mFood.getReferenceComponent().getEquivalences()) {
-
-	    map = new HashMap<String, String>();
-	    map.put("EQUIV_INDEX", String.valueOf(this.mFood.getReferenceComponent().getEquivalences().indexOf(equiv)));
-
-	    map.put("quantity", String.valueOf(equiv.getQty().getAmount()));
-	    map.put("unity", equiv.getQty().getUnity().getLongName());
-	    map.put("nrj", equiv.getEnergy().getName());
+	// Pour chaque équivalence au composant de référence..
+	for (I_Relation equiv : this.mFood.getQtyReference().getEquivalences()) {
 	    
+	    map = new HashMap<String, String>();
+	    map.put("EQUIV_INDEX", String.valueOf(this.mFood.getQtyReference().getEquivalences().indexOf(equiv)));
+
+	    if (equiv instanceof Component){
+	    
+	    map.put("quantity", String.valueOf(((Component) equiv).getQty().getAmount()));
+	    map.put("unity", ((Component) equiv).getQty().getUnity().getLongName());
+	    map.put("nrj", ((Component) equiv).getEnergy().getName());
+	    }
 	    listItem.add(map);
 	}
 

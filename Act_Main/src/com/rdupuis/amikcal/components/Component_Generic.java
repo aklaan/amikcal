@@ -13,6 +13,7 @@ import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.energy.DBWarper_Food;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.relations.DBWarper_Component;
+import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 /**
@@ -96,11 +97,17 @@ public  class Component_Generic extends Component {
     }
 
     @Override
-    public void setEquivalences(ArrayList<Component> componentList) {
-	mEquivalences = componentList;
+    public void setEquivalences(ArrayList<Component> relations) {
+	mEquivalences = relations;
 	
     }
 
+    
+    public boolean hasEquivalences() {
+	return (!this.getEquivalences().isEmpty());
+    }
+
+    
 	@Override
 	public DBWarper getDBWarper() {
 		return new DBWarper_Component(this);

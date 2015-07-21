@@ -181,7 +181,7 @@ public final class AmiKcalFactory {
 
 	if (cursor.moveToFirst()) {
 
-	    EnergySource e = this.load_Energy(cursor.getLong(INDX_QTY_ID));
+	    //EnergySource e = this.load_Energy(cursor.getLong(INDX_QTY_ID));
 	    Qty q = this.load_Qty(cursor.getLong(INDX_QTY_ID));
 	    component = new Component_Reference(e, q);
 	    component.setId(cursor.getLong(INDX_QTY_ID));
@@ -768,15 +768,15 @@ public final class AmiKcalFactory {
 
 	// On fabrique un DBWriter pour le type d'objet à sauver
 	// le writer doit être lié au contentResolver.
-	energySource.getDBWriter(this.contentResolver).Save();
+	//energySource.getDBWriter(this.contentResolver).Save();
 	
 	// Sauver le composant de référence
-	Component_Reference c = energySource.getReferenceComponent();
-	this.save(c);
+	//Component_Reference c = energySource.getReferenceComponent();
+	//this.save(c);
 	
 		
 	// Sauver les équivalences du composant de référence
-	if (hasEquivalences(energySource.getReferenceComponent())) {
+	//if (energySource.getReferenceComponent().hasEquivalences()) {
 
 	//    for (Component equiv : (energySource.getReferenceComponent().getEquivalences())) {
 	//	this.save(equiv);
@@ -932,9 +932,6 @@ public final class AmiKcalFactory {
 	return (relation.getId() != AppConsts.NO_ID);
     }
 
-    private boolean hasEquivalences(Component e) {
-	return (!e.getEquivalences().isEmpty());
-    }
 
     
 } // * end-class
