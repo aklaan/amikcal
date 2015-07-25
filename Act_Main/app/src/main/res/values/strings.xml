@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="menu_array">
+        <item>voir jour</item>
+        <item>test opengel ES2.0</item>
+        <item>Equivalences</item>
+        <item>Unitées de mesures</item>
+        <item>Test</item>
+    </string-array>
+    
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="hello">Hello World, AmikcalActivity!</string>
+    <string name="app_name">app</string>
+    <string name="file_refactivity_name">refactivity.xml</string>
+    <string name="file_calendar_name">calendar.xml</string>
+    <string name="clear">eff</string>
+    <string name="monday_short">Lun</string>
+    <string name="tuesday_short">Mar</string>
+    <string name="wednesday_short">Mer</string>
+    <string name="thursday_short">Jeu</string>
+    <string name="friday_short">Ven</string>
+    <string name="saturday_short">Sam</string>
+    <string name="sunday_short">Dim</string>
+    <string name="empty">vide</string>
+    <string name="default_unit">g</string>
+    <string name="default_quantity">100</string>
+
+    <!-- listes des mots pour l'onglet synthèse en français -->
+    <string name="FOOD">Aliments</string>
+    <string name="ACTIVITY">Activitées</string>
+    <string name="WEIGHT">Poids</string>
+    <string name="RANKING">Rang </string>
+    <string name="AJR">AJR</string>
+    <string name="Kcal">Kcal</string>
+    <string name="LIPIDS">Lipides</string>
+    <string name="GLUCIDS_LONG_NAME">Glucides</string>
+    <string name="PROTEINS">Proteines</string>
+    <string name="PREVIOUS">Précédent</string>
+    <string name="NEW">Nouveau</string>
+    <string name="KG">Kg</string>
+    <string name="POINTS">Pt</string>
+    <string name="TOTAL">Total</string>
+    <string name="SCORE">Score Total</string>
+    <string name="VARIATION">Variation</string>
+
+    <!-- sample -->
+    <string name="N99">99</string>
+    <string name="N999">999</string>
+    <string name="N999d99">999.99</string>
+    <string name="N99d99">99.99</string>
+    <string name="N99999">99999</string>
+
+    <item name="CALENDAR" format="integer" type="integer">0</item>
+    <item name="NUMERICPAD" format="integer" type="integer">1</item>
+    <item name="EQUIVALENCE_EDITOR" format="integer" type="integer">2</item>
+    <item name="ACTY_COMPONENT" format="integer" type="integer">10</item>
+    <item name="ACTY_COMPONENT_LIST" format="integer" type="integer">20</item>
+    <item name="ACTY_UNIT" format="integer" type="integer">30</item>
+    <item name="ACTY_UNITS_LIST" format="integer" type="integer">40</item>
+    <item name="ACTY_ENERGY" format="integer" type="integer">50</item>
+    <item name="ACTY_ENERGIES_LIST" format="integer" type="integer">60</item>
+    <item name="ACTY_USER_ACTIVITY" format="integer" type="integer">70</item>
+    <item name="ACTY_USER_ACTIVITY_EDITOR" format="integer" type="integer">71</item>
+    <item name="ACTY_USER_ACTIVITIES_LIST" format="integer" type="integer">80</item>
+    <item name="BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD" format="integer" type="integer">100</item>
+    <item name="BTN_MNT_ENERGY_OF_ENERGY_VIEW_CALL_NUMERICPAD" format="integer" type="integer">110</item>
+    <item name="BTN_MNT_LIPIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD" format="integer" type="integer">120</item>
+    <item name="BTN_MNT_PROTEINS_OF_ENERGY_VIEW_CALL_NUMERICPAD" format="integer" type="integer">130</item>
+    <item name="BTN_MNT_GLUCIDS_OF_ENERGY_VIEW_CALL_NUMERICPAD" format="integer" type="integer">140</item>
+
+    <string name="dayview_head_label">Synthèse de la journée</string>
+    <string name="user_activities_view_title">Activitées de la journée</string>
+    <string name="components_list_view_title">composants</string>
+    <string name="SQL_DATE_FORMAT">yyyy-MM-dd</string>
+    <string name="energy_list_view_title">Liste des Aliments</string>
+    <string name="ONCLICKBACK">onClickBack</string>
+    <string name="espacevide"></string>
+    <string name="TITLE_PHYSICAL_ACTIVITY">Activitée physique</string>
+    
+    <string name="title_total_cube_energy">Energie cumulée pour le Cube</string>
+    <string name="title_nbcal_in">Nombre de calories absorbées</string>
+    <string name="title_nbcal_out">Nombre de calories dépensées</string>
+    <string name="title_statistic_view_of_day">Synthèse de la journée du </string>
+    <string name="title_nbprot_in">nb proteines</string>
+    <string name="title_nbglu_in">nb glucides</string>
+    <string name="title_nblip_in">nb lipides</string>
+        <string name="title_eat_bonus">bonus aliments</string>
+    <string name="title_phys_activity_bonus">bonus activité physique</string>
+    
+</resources>

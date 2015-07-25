@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/energy_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+ 
+    android:tag="@drawable/background_amikcal" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="Alim:" />
+
+            <EditText
+                android:id="@+id/energyview_edTxt_energy_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="qté:" />
+
+            <Button
+                android:id="@+id/energyview_btn_quantity"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+
+                android:onClick="onClick_Quantity" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="unité:" />
+
+            <Button
+                android:id="@+id/energyview_btn_unit"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:onClick="onClick_Unit" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="nb kcal:" />
+
+            <Button
+                android:id="@+id/energyview_btn_mnt_energy"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:onClick="onClick_MntEnergy" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="nb Pro:" />
+
+            <Button
+                android:id="@+id/energyview_btn_mnt_proteins"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:onClick="onClick_MntProteins" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="nb Lip:" />
+
+            <Button
+                android:id="@+id/energyview_btn_mnt_lipids"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:onClick="onClick_MntLipids" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="fill_parent"
+                android:text="nb Glu:" />
+
+            <Button
+                android:id="@+id/energyview_btn_mnt_glucids"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:onClick="onClick_MntGlucids" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/energyview_btn_Validate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_Validate"
+            android:text="Valider" />
+
+        <Button
+            android:id="@+id/energyview_btn_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick_Cancel"
+            android:text="Annuler" />
+    </LinearLayout>
+
+</LinearLayout>

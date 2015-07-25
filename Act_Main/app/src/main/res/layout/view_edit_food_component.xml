@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Commentaires :
+
+2013-08-23 : suppression des tablerow au profit de layout
+             suppression du bouton valider au profit d'un autre 
+             bouton équivalent dans la menubar
+             ajout d'un Fragment pour gérer la liste des unités
+ -->
+ 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_amikcal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="Aliment :"
+            android:textColor="@color/BLACK" />
+
+        <Button
+            android:id="@+id/componentview_btn_EnergyName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="onClick_EnergyName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="qté:" />
+
+        <Button
+            android:id="@+id/componentview_btn_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:onClick="onClick_Quantity" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="unité:" />
+
+        <Button
+            android:id="@+id/componentview_btn_unit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:onClick="onClick_Unit" />
+    </LinearLayout>
+
+    
+
+</LinearLayout>

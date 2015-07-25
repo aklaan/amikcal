@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="40dp"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="2dp"
+        android:contentDescription="iconerepas"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icone_repas" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp" >
+
+            <TextView
+                android:id="@+id/item_activity_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="12"
+                android:textColor="@color/COULEUR_TEXTE_ITEM_ACTIVITY"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="bottom"
+                android:text="h"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/COULEUR_TEXTE_ITEM_ACTIVITY"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp" >
+
+            <TextView
+                android:id="@+id/item_activity_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="00"
+                android:textColor="@color/COULEUR_TEXTE_ITEM_ACTIVITY"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="mn"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/COULEUR_TEXTE_ITEM_ACTIVITY"
+                android:textSize="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.92"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_activity_lunch_title"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:gravity="bottom"
+            android:text="Titre"
+            android:textColor="#4BB5C1" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#4BB5C1" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/losange_rose4_bord_guauche" />
+
+                <TextView
+                    android:id="@+id/item_activity_mnt_proteins"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="#ff3399"
+                    android:gravity="center_vertical|center"
+                    android:text="000.0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="8dp" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/losange_rose4_vers_rose3" />
+
+                <TextView
+                    android:id="@+id/item_activity_mnt_lipids"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="#ff66cc"
+                    android:gravity="center_vertical|center"
+                    android:text="000.0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="8dp"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/losange_rose3_vers_rose2" />
+
+                <TextView
+                    android:id="@+id/item_activity_mnt_glucids"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="#ff99cc"
+                    android:gravity="center|center_vertical"
+                    android:text="000.0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="8dp" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/losange_rose2_haut" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:gravity="bottom|right"
+            android:text="kcal"
+            android:textColor="#002F2F"
+            android:textSize="8dp" />
+
+        <View
+            android:id="@+id/item_activity_ligne"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="#4BB5C1" />
+
+        <LinearLayout
+            android:id="@+id/item_activity_linear2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="+"
+                android:textColor="@color/COULEUR_TEXTE_ITEM_ACTIVITY" />
+
+            <TextView
+                android:id="@+id/item_activity_nbkcal"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="9999"
+                android:textColor="@color/COULEUR_TEXTE_ITEM_ACTIVITY"
+                android:textSize="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

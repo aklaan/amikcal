@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionbar_componentlist" >
+
+    <item
+        android:id="@+id/actionbar_componentlist_item_add"
+        android:icon="@drawable/ic_menu_add"
+        android:showAsAction="always"
+        android:title="add"/>
+    <item
+        android:id="@+id/actionbar_componentlist_item_back"
+        android:icon="@drawable/ic_menu_back"
+        android:showAsAction="always"
+        android:title="back"/>
+
+</menu>

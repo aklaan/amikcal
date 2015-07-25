@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="COULEUR_TEXTE_ITEM_ACTIVITY">#ff018BDA</color>
+    <color name="BLACK">#ff000000</color>
+    <color name="WHITE">#ffffffff</color>
+    <color name="GREEN">#ff00ff00</color>
+    
+    <color name="BTN_ENABLED_TRUE">#ff0182E5</color>
+    <color name="BTN_PRESSED">#ff0190FE</color>
+    
+    <color name="SCORE_COLOR">#ff00ff55</color>
+    
+    <color name="RED">#FF0000</color>
+</resources>

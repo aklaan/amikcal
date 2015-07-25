@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_choose_energy_for_uac_fragment_slider"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_next"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next" 
+        android:onClick="onclicknext"/>
+
+    
+    
+    
+  
+     <android.support.v4.view.ViewPager
+            android:id="@+id/view_uac_fragment_slider_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </android.support.v4.view.ViewPager>
+     
+    <!--   
+        <com.rdupuis.amikcal.commons.NonSwipeableViewPager
+            android:id="@+id/view_uac_fragment_slider_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </com.rdupuis.amikcal.commons.NonSwipeableViewPager>
+    -->
+</LinearLayout>

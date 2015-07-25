@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionbar_unit_list" >
+
+    <item
+        android:id="@+id/actionbar_unitlist_item_add"
+        android:icon="@drawable/ic_menu_add"
+        android:showAsAction="always"
+        android:title="add"/>
+    <item
+        android:id="@+id/actionbar_unitlist_item_back"
+        android:icon="@drawable/ic_menu_back"
+        android:showAsAction="always"
+        android:title="back"/>
+
+        <item
+        android:id="@+id/actionbar_unitlist_item_showall"
+        android:icon="@drawable/ic_menu_help"
+        android:showAsAction="always"
+        android:title="show all"/>
+    
+    
+</menu>

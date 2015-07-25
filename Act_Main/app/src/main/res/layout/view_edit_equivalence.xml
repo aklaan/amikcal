@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/view_equivalence_txtview_amount_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="_"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/view_equivalence_btn_unit_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onClickBtnUnitIn"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="de"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/view_equivalence_btn_energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onClickBtnEnergy"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="="
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/view_equivalence_btn_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onClickBtnQuantity"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/view_equivalence_btn_unit_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onClickBtnUnitOut"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/view_equivalence_btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickBtnOK"
+        android:text="ok" />
+
+</LinearLayout>

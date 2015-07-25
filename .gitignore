@@ -9,4 +9,8 @@ Act_Main/.classpath
 Act_Main/.classpath
 *.classpath
 Act_Main/.classpath
-Act_Main/.classpath
+Act_Main/.gradle
+Act_Main/.idea
+Act_Main/app/build/
+Act_Main/gradle
+Act_Main/build/
