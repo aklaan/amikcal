@@ -9,7 +9,7 @@ public class WeightObj {
 	private int int_part;
 	private int decimalPart;
 
-	//constructeur par défaut
+	//constructeur par dÃ©faut
 	public WeightObj(){
 		this.separator=".";
 	}
@@ -62,7 +62,7 @@ public class WeightObj {
 	/**
 	 * Retourner le poids dans le format 999,99
 	 * @since 2012-08-23
-	 * @return String représentant le poids du format 999,99
+	 * @return String reprÃ©sentant le poids du format 999,99
 	 **/
 	public String format(){
 		DecimalFormat decimalFormatInt_part = (DecimalFormat)DecimalFormat.getInstance();

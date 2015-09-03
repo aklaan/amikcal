@@ -16,7 +16,7 @@ public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter
 	   
 	
 	
-	//On fournit à l'adapter la liste des fragments à afficher
+	//On fournit Ã  l'adapter la liste des fragments Ã  afficher
 	public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
 		super(fm);
        

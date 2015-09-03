@@ -23,13 +23,12 @@ public class DBWriter_EnergySource extends DBWriter_Generic {
     }
 
     @Override
-    public void Save() {
+    public void save() {
 	
 	//sauver une énergie, c'est :
 	//1 - sauver l'énergie
-	super.Save();
-	//2 - sauver le composant de r�f�rence
-	this.getEnergySource().getComponentReference().getDBWriter(this.getContentResolver()).Save();
-    }
+	super.save();
+
+	}
 
 }

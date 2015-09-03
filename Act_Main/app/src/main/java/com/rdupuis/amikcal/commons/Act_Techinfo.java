@@ -62,7 +62,7 @@ public class Act_Techinfo extends Activity {
 				src.close();
 				dst.close();
 
-				Toast.makeText(this, "Base importée", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Base importÃ©e", Toast.LENGTH_SHORT).show();
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -80,7 +80,7 @@ public class Act_Techinfo extends Activity {
 					+ "/" + this.BACKUP_PATH);
 
 			// si le dossier n'existe pas
-			// la methode le crée et revoi true
+			// la methode le crÃ©e et revoi true
 			// di le dossier existe deja la methode renvoie faux
 			directory.mkdir();
 
@@ -112,7 +112,7 @@ public class Act_Techinfo extends Activity {
 					src.close();
 					dst.close();
 
-					Toast.makeText(this, "Base exportée", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "Base exportÃ©e", Toast.LENGTH_SHORT).show();
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

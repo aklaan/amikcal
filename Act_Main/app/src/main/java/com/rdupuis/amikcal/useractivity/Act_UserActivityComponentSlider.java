@@ -30,8 +30,8 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 	ArrayList<Fragment> mArrayfragments;
 	int currentItem = 0;
 	/**
-	 * Par cet intent, on va recevoir les infos des items a éditer (id
-	 * energy,qté,id unit)
+	 * Par cet intent, on va recevoir les infos des items a Ã©diter (id
+	 * energy,qtÃ©,id unit)
 	 */
 	private Intent mIntent;
 
@@ -45,7 +45,7 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 		mViewPager = (ViewPager) findViewById(R.id.view_uac_fragment_slider_viewpager);
 		mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
-		// Initialisation du tableau des Fragments a faire défiler dans le
+		// Initialisation du tableau des Fragments a faire dÃ©filer dans le
 		// PagerAdapter
 		
 		mArrayfragments = new ArrayList<Fragment>();
@@ -59,9 +59,9 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 		// Attribution de l'adapter au ViewPager
 		mViewPager.setAdapter(mPagerAdapter);
 		
-		//positioner le viewpager sur le premier fragment à afficher
-		// le second paramètre de la fonction à TRUE indique que le Viewpager doit jouer l'animation
-		// de transition. lorqu'il est à FALSE, on passe d'une vue à l'autre tout de suite.
+		//positioner le viewpager sur le premier fragment Ã  afficher
+		// le second paramÃ¨tre de la fonction Ã  TRUE indique que le Viewpager doit jouer l'animation
+		// de transition. lorqu'il est Ã  FALSE, on passe d'une vue Ã  l'autre tout de suite.
 		mViewPager.setCurrentItem(currentItem, true);
 
 			
@@ -92,20 +92,20 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
+		// invalidateOptionsMenu va appeller la mÃ©thode onPrepareOptionsMenu();
 		invalidateOptionsMenu();
 		return true;
 	}
 
 	/**
-	 * La fonction NumericPadListener_OnClick_btn_Number est imposée par l'utilisation du fragment 
+	 * La fonction NumericPadListener_OnClick_btn_Number est imposÃ©e par l'utilisation du fragment
 	 * Frag_NumericPad.
 	 * 
-	 * lorsque l'on clique sur un bouton du Frag_NumericPad, ce n'est pas le fragment qui réagit, mais l'activity
-	 * il faut donc que l'activity puisse capter le okclick puis appeler la méthode adéquat dans le fragment.
+	 * lorsque l'on clique sur un bouton du Frag_NumericPad, ce n'est pas le fragment qui rÃ©agit, mais l'activity
+	 * il faut donc que l'activity puisse capter le okclick puis appeler la mÃ©thode adÃ©quat dans le fragment.
 	 *	 
-	 * ce que je trouve pas terrible, c'est que le programmeur doit savoir quel est la méthode corespondante a appeller
-	 * dans le fragement. a ma connaissance cette information n'est pas déductible.  
+	 * ce que je trouve pas terrible, c'est que le programmeur doit savoir quel est la mÃ©thode corespondante a appeller
+	 * dans le fragement. a ma connaissance cette information n'est pas dÃ©ductible.
 	 *
 	 */
 	
@@ -162,8 +162,8 @@ public class Act_UserActivityComponentSlider extends FragmentActivity implements
 	public void onclicknext(View v){
 		
 		currentItem = (currentItem+1>3)? 0:currentItem+1;
-		// le second paramètre de la fonction à TRUE indique que le Viewpager doit jouer l'animation
-		// de transition. lorqu'il est à FALSE, on passe d'une vue à l'autre tout de suite.
+		// le second paramÃ¨tre de la fonction Ã  TRUE indique que le Viewpager doit jouer l'animation
+		// de transition. lorqu'il est Ã  FALSE, on passe d'une vue Ã  l'autre tout de suite.
 		mViewPager.setCurrentItem(currentItem, true);
 	}
 	

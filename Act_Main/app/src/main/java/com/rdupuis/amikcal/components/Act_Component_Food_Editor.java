@@ -12,216 +12,211 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Unity;
+import com.rdupuis.amikcal.unity.Unity_Manager;
 
 
 public class Act_Component_Food_Editor extends Act_Component_Editor {
 
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-	/****************************************************************************
-	 * ETAPE I : récupération des données 
-	 ****************************************************************************/
-	// fait dans le onCreate mère
-	
-	/****************************************************************************
-	 * ETAPE II : on charge l'écran
-	 ****************************************************************************/
-	setContentView(R.layout.view_edit_food_component);
+        /****************************************************************************
+         * ETAPE I : rï¿½cupï¿½ration des donnï¿½es
+         ****************************************************************************/
+        // fait dans le onCreate mï¿½re
 
-	/*****************************************************************************
-	 * ETAPE III : on initialise/Rafraichi les données de l'écran
-	 ****************************************************************************/
+        /****************************************************************************
+         * ETAPE II : on charge l'ï¿½cran
+         ****************************************************************************/
+        setContentView(R.layout.view_edit_food_component);
 
-	refreshScreen();
+        /*****************************************************************************
+         * ETAPE III : on initialise/Rafraichi les donnï¿½es de l'ï¿½cran
+         ****************************************************************************/
+
+        refreshScreen();
 
     }// fin du onCreate
 
-    
-    
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-	MenuInflater inflater = getMenuInflater();
-	inflater.inflate(R.menu.actionbar_component_editor, menu);
-	return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_component_editor, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-	return super.onPrepareOptionsMenu(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-	// Handle action buttons
-	switch (item.getItemId()) {
-	case R.id.actionbar_component_editor_item_validate:
-	    onClick_Validate();
+        // Handle action buttons
+        switch (item.getItemId()) {
+            case R.id.actionbar_component_editor_item_validate:
+                onClick_Validate();
 
-	default:
-	    return super.onOptionsItemSelected(item);
-	}
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /***************************************************************************************
-     * 
-     * @param v
-     *            View
+     * @param v View
      **************************************************************************************/
     public void onClick_Quantity(View v) {
-	callNumericPad();
+        callNumericPad();
     }
 
     /**
-     * Appel du pavé numérique
+     * Appel du pavï¿½ numï¿½rique
      */
     public void callNumericPad() {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez la quantité d'Aliment");
-	startActivityForResult(intent, R.integer.NUMERICPAD);
+        Intent intent = new Intent(this, Act_NumericPad.class);
+        intent.putExtra("question", "Entrez la quantitï¿½ d'Aliment");
+        startActivityForResult(intent, R.integer.NUMERICPAD);
     }
 
     /***************************************************************************************
      * Appel de la liste des aliments
-     * 
-     * @param v
-     *            View
+     *
+     * @param v View
      **************************************************************************************/
     public void onClick_EnergyName(View v) {
-	Intent intent = new Intent(this, Act_EnergyList.class);
-	startActivityForResult(intent, R.integer.ACTY_ENERGIES_LIST);
+        Intent intent = new Intent(this, Act_EnergyList.class);
+        startActivityForResult(intent, R.integer.ACTY_ENERGIES_LIST);
     }
 
     /***************************************************************************************
-     * 
-     * @param v
-     *            View
+     * @param v View
      **************************************************************************************/
     public void onClick_Unit(View v) {
-	callUnitListView();
+        callUnitListView();
     }
 
     /***************************************************************************************
-     * 
-     * Appel de la Liste des unitées.
+     * Appel de la Liste des unitï¿½es.
      **************************************************************************************/
     public void callUnitListView() {
-	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
-		String.valueOf(edited_Component.getEnergy().getId()));
-	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
+        Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
+        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
+                String.valueOf(edited_Component.getEnergy().getDatabaseId()));
+        startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
 
 
     /******************************************************************************************
-     * Gère le retour d'appel aux autres activitées
-     * 
-     * @param requestCode
-     *            code fonction utilisé par l'activité appellante
-     * @param resultCode
-     *            code retour envoyé par l'activitée appellée
-     * @param intent
-     *            Intent servant de lien entre l'activitée appelante et appellée
+     * Gï¿½re le retour d'appel aux autres activitï¿½es
+     *
+     * @param requestCode code fonction utilisï¿½ par l'activitï¿½ appellante
+     * @param resultCode  code retour envoyï¿½ par l'activitï¿½e appellï¿½e
+     * @param intent      Intent servant de lien entre l'activitï¿½e appelante et appellï¿½e
      ******************************************************************************************/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-	switch (requestCode) {
+        switch (requestCode) {
 
-	case R.integer.NUMERICPAD:
+            case R.integer.NUMERICPAD:
 
-	    if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
 
-		this.edited_Component.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+                    this.edited_Component.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 
-	    }
-	    break;
+                }
+                break;
 
-	case R.integer.ACTY_UNITS_LIST:
+            case R.integer.ACTY_UNITS_LIST:
 
-	    if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
 
-		// on récupère l'objet Unit. this.mUAC
-		this.edited_Component.getQty().setUnity(
-			factory.load_Unity(intent
-				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
-	    }
-	    break;
+                    // on rï¿½cupï¿½re l'objet Unit. this.mUAC
+                    Unity_Manager um = new Unity_Manager(this);
+                    this.edited_Component.getQty().setUnity(
+                            um.load(intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
+                }
+                break;
 
-	case R.integer.ACTY_ENERGIES_LIST:
+            case R.integer.ACTY_ENERGIES_LIST:
 
-	    if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
 
-		// on récupère l'Energy choisi par l'utilisateur d'après sont id
-		// .
+                    // on rï¿½cupï¿½re l'Energy choisi par l'utilisateur d'aprï¿½s sont id
+                    // .
+                    Energy_Manager em = new Energy_Manager(this);
+                    this.edited_Component.setEnergy(em.load(intent.getLongExtra(
+                            Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
 
-		this.edited_Component.setEnergy(factory.load_Energy(intent.getLongExtra(
-			Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
+                }
+                break;
+            default:
+                break;
 
-	    }
-	    break;
-	default:
-	    break;
-
-	}
-	refreshScreen();
+        }
+        refreshScreen();
     }
 
     /******************************************************************************************
-     * 
+     *
      * @param _id
      *            Identifiant du composant
      ******************************************************************************************/
 
     /**
-     * Rafraichissement de l'écan
+     * Rafraichissement de l'ï¿½can
      */
     private void refreshScreen() {
-	Button b = (Button) findViewById(R.id.componentview_btn_EnergyName);
+        Button b = (Button) findViewById(R.id.componentview_btn_EnergyName);
 
-	// Gestion du libellé sur le bouton Energy
-	if (edited_Component.getEnergy().getName() == "") {
-	    b.setText(this.getResources().getString(R.string.empty));
-	} else {
-	    b.setText(this.edited_Component.getEnergy().getName());
-	}
+        // Gestion du libellï¿½ sur le bouton Energy
+        if (edited_Component.getEnergy().getName() == "") {
+            b.setText(this.getResources().getString(R.string.empty));
+        } else {
+            b.setText(this.edited_Component.getEnergy().getName());
+        }
 
-	// Gestion du libellé sur le bouton Unit
-	b = (Button) findViewById(R.id.componentview_btn_unit);
+        // Gestion du libellï¿½ sur le bouton Unit
+        b = (Button) findViewById(R.id.componentview_btn_unit);
 
-	if (edited_Component.getQty().getUnity().getLongName() == "") {
-	    b.setText(this.getResources().getString(R.string.empty));
-	} else {
-	    b.setText(this.edited_Component.getQty().getUnity().getLongName());
-	}
+        if (edited_Component.getQty().getUnity().getLongName() == "") {
+            b.setText(this.getResources().getString(R.string.empty));
+        } else {
+            b.setText(this.edited_Component.getQty().getUnity().getLongName());
+        }
 
-	// Gestion du libellé sur le bouton quantity
-	b = (Button) findViewById(R.id.componentview_btn_quantity);
-	b.setText(Float.toString(this.edited_Component.getQty().getAmount()));
+        // Gestion du libellÃ© sur le bouton quantity
+        b = (Button) findViewById(R.id.componentview_btn_quantity);
+        b.setText(Float.toString(this.edited_Component.getQty().getAmount()));
 
     }
 
     /**
-     * Recherche d'une équivalence pour un aliment et une unité de mesure
-     * 
+     * Recherche d'une Ã©quivalence pour un aliment et une unitÃ© de mesure
+     *
      * @param energy
      *            (aliment)
      * @param unitIn
-     *            (unité de départ)
-     * @return une équivalence
+     *            (unitÃ© de dÃ©part)
+     * @return une Ã©quivalence
      */
 
     /*
@@ -235,7 +230,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
      * ContentDescriptorObj.Equivalences.URI_SEARCH_EQUIVALENCE
      * .buildUpon().appendPath(searchKey).build();
      * 
-     * // On crée un curseur pour lire la table. Cursor cur =
+     * // On crï¿½e un curseur pour lire la table. Cursor cur =
      * this.getContentResolver().query(selectUri, null, null, null, null);
      * 
      * final int INDX_ID = cur
@@ -247,7 +242,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
      * AmiKcalFactory factory = new AmiKcalFactory(); factory.contentResolver =
      * this.contentResolver; mEquivalence =
      * factory.createEquivalenceObjFromId(cur .getLong(INDX_ID)); } else {
-     * Toast.makeText(this, "Equivalence non trouvé", Toast.LENGTH_SHORT)
+     * Toast.makeText(this, "Equivalence non trouvï¿½", Toast.LENGTH_SHORT)
      * .show();
      * 
      * }
@@ -256,21 +251,22 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
      * 
      * }
      */
+
     /**
      * Calcul des informations nutitionelles
-     * (calories/lipides/glucides/protéines)
+     * (calories/lipides/glucides/protÃ©ines)
      */
     private void computeEnegy() {
-	/*
-	 * float wQuantity = this.mUAC.getQuantity();
+    /*
+     * float wQuantity = this.mUAC.getQuantity();
 	 * 
 	 * Log.d("mUAC.getQuantity", String.valueOf(this.mUAC.getQuantity()));
 	 * 
-	 * // Si la quantité d'aliment est exprimé dans une untitée // diffrénte
-	 * de celle du référentiel des calories, on va rechercher //
-	 * l'équivalence. if (this.mUAC.getEnergy().unit.getId() !=
+	 * // Si la quantitï¿½ d'aliment est exprimï¿½ dans une untitï¿½e // diffrï¿½nte
+	 * de celle du rï¿½fï¿½rentiel des calories, on va rechercher //
+	 * l'ï¿½quivalence. if (this.mUAC.getEnergy().unit.getId() !=
 	 * this.mUAC.getUnitMeasure() .getId()) { Toast.makeText(this,
-	 * "Unitée de mesure différentes", Toast.LENGTH_SHORT).show();
+	 * "Unitï¿½e de mesure diffï¿½rentes", Toast.LENGTH_SHORT).show();
 	 * 
 	 * EquivalenceObj eq = findEquivalence(mUAC.getEnergy(),
 	 * mUAC.getUnitMeasure());

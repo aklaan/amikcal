@@ -25,7 +25,7 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 //2013-08-25 - R.Dupuis
-//Fragment permetant d'afficher une liste d'unité de mesure 
+//Fragment permetant d'afficher une liste d'unitÃ© de mesure
 public class Frag_UnityList extends Fragment {
 	
 	private ListView maListViewPerso;
@@ -35,7 +35,7 @@ public class Frag_UnityList extends Fragment {
 	public static final String INPUT____ENERGY_ID  ="nrj_id";
 	
     private View mainView;
-	//Création de la vue
+	//Crï¿½ation de la vue
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -43,9 +43,9 @@ public class Frag_UnityList extends Fragment {
 		mainView = inflater.inflate(R.layout.view_unit_list,
 				container, false);
 		
-		// si on demande une liste des unités avec un ID d'énergy en entrée
-		// on n'affiche que les unités qui on été utilisé pour cet ID
-		// dans le cas contraire, on affiche la liste de toutes les unitées
+		// si on demande une liste des unitÃ©s avec un ID d'Ã©nergy en entrÃ©e
+		// on n'affiche que les unitÃ©s qui on Ã©tÃ© utilisÃ© pour cet ID
+		// dans le cas contraire, on affiche la liste de toutes les unitÃ©es
 		// connues.
 		try {
 			energyId = this.getActivity().getIntent().getLongExtra(this.INPUT____ENERGY_ID,AppConsts.NO_ID);
@@ -57,8 +57,8 @@ public class Frag_UnityList extends Fragment {
 		return mainView;
 	}
 
-	// Action de cliquer sur une unitée
-	// on lance l'éditeur d'unité
+	// Action de cliquer sur une unitÃ©e
+	// on lance l'Ã©diteur d'unitÃ©
 	public void onClickUnit(View v, String id) {
 		Intent intent = new Intent(getActivity(), Act_UnitOfMeasureEditor.class);
 		intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY_ID, id);
@@ -66,7 +66,7 @@ public class Frag_UnityList extends Fragment {
 
 	}
 
-	//Ajouter une unité
+	//Ajouter une unitÃ©
 	public void onClickAdd(View v) {
 
 		onClickUnit(v, null);
@@ -101,17 +101,17 @@ public class Frag_UnityList extends Fragment {
 					energyId);
 		}
 
-		// Récupération de la listview créée dans le fichier customizedlist.xml
+		// RÃ©cupÃ©ration de la listview crÃ©Ã©e dans le fichier customizedlist.xml
 		maListViewPerso = (ListView) mainView.findViewById(R.id.listviewperso);
 
-		// Création de la ArrayList qui nous permettra de remplire la listView
+		// CrÃ©ation de la ArrayList qui nous permettra de remplire la listView
 		ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-		// On déclare la HashMap qui contiendra les informations pour un item
+		// On dÃ©clare la HashMap qui contiendra les informations pour un item
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
 
-		// On cré un curseur pour lire la table des unitées
+		// On crÃ©Ã© un curseur pour lire la table des unitÃ©es
 		Cursor cur = getActivity().getContentResolver().query(mUri, null, null, null,
 				null);
 
@@ -138,26 +138,26 @@ public class Frag_UnityList extends Fragment {
 		}
 		cur.close();
 
-		// Création d'un SimpleAdapter qui se chargera de mettre les items
-		// présent dans notre list (listItem)
+		// CrÃ©ation d'un SimpleAdapter qui se chargera de mettre les items
+		// prÃ©sent dans notre list (listItem)
 		// dans la vue affichageitem
 		SimpleAdapter mSchedule = new SimpleAdapter(getActivity().getBaseContext(),
 				listItem, R.layout.list_item_unit, new String[] { "name",
 						"symbol" }, new int[] { R.id.item_unit_name,
 						R.id.item_unit_symbol });
 
-		// On attribut à notre listView l'adapter que l'on vient de créer
+		// On attribut Ã  notre listView l'adapter que l'on vient de crÃ©er
 		maListViewPerso.setAdapter(mSchedule);
 
 		// ********************************************************
-		// on met un écouteur d'évènement sur notre listView
+		// on met un Ã©couteur d'Ã©vÃ©nement sur notre listView
 		// ********************************************************
 		maListViewPerso.setOnItemClickListener(new OnItemClickListener() {
 			// @Override
 			@SuppressWarnings("unchecked")
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// on récupère la HashMap contenant les infos de notre item
+				// on rÃ©cupÃ¨re la HashMap contenant les infos de notre item
 				// (titre, description, img)
 				HashMap<String, String> map = (HashMap<String, String>) maListViewPerso
 						.getItemAtPosition(position);
@@ -166,7 +166,7 @@ public class Frag_UnityList extends Fragment {
 		});
 
 		// ********************************************************
-		// on met un écouteur d'évènement sur notre listView
+		// on met un Ã©couteur d'Ã©vÃ©nement sur notre listView
 		// ********************************************************
 		maListViewPerso
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -178,7 +178,7 @@ public class Frag_UnityList extends Fragment {
 								.getItemAtPosition(position);
 						Frag_UnityList.currentId = Long.parseLong(map
 								.get("id"));
-						// création d'un boite de dialogue pour confirmer le
+						// crÃ©ation d'un boite de dialogue pour confirmer le
 						// choix
 						new AlertDialog.Builder(Frag_UnityList.this.getActivity())
 								.setTitle("Confirmation")

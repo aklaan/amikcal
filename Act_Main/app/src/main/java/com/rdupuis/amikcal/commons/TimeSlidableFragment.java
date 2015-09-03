@@ -11,8 +11,8 @@ public class TimeSlidableFragment extends Fragment{
 
 public void initCurrentDay(){
 	
-	// On tente de récupérer la date dans le bundle de l'activité si elle est présente
-	// si elle n'est pas présente, on met la date du jour.
+	// On tente de rÃ©cupÃ©rer la date dans le bundle de l'activitÃ© si elle est prÃ©sente
+	// si elle n'est pas prÃ©sente, on met la date du jour.
 	try {
 
 		currentDay = ToolBox

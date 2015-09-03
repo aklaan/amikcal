@@ -10,25 +10,25 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.DBWarper;
 
 public class DBWarper_Relation extends DBWarper {
-private I_Relation mRelation;
+private Relation mRelation;
 	
-    public DBWarper_Relation(I_Relation relation) {
+    public DBWarper_Relation(Relation relation) {
 	this.mRelation = relation;
 
     };
 
-    public I_Relation getRelation(){
+    public Relation getRelation(){
 		return mRelation;
     	
     }
     
-    public void setRelation(I_Relation relation){
+    public void setRelation(Relation relation){
 		this.mRelation = relation;
     	
     }
     
     public ContentValues getContentValues() {
-		// On prépare les informations à mettre à jour
+		// On prÃ©pare les informations Ã  mettre Ã  jour
 		ContentValues values = new ContentValues();
 
 		// Rel_typ_cd
@@ -42,7 +42,7 @@ private I_Relation mRelation;
 		// Id unity
 		values.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, this.mRelation.getParty2());
 
-		// date de mise à jour
+		// date de mise Ã  jour
 		values.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
 	

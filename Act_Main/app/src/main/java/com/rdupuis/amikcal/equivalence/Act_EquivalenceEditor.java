@@ -17,6 +17,7 @@ import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 
 public class Act_EquivalenceEditor extends Activity {
@@ -33,63 +34,66 @@ public class Act_EquivalenceEditor extends Activity {
 
     EnergySource nrj;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-	// Etape 1 : initalisations
-	super.onCreate(savedInstanceState);
-	
-	factory = new AmiKcalFactory(this);
-	nrj = new EnergySource();
-	// Etape 2 : prise en compte de l'Intent
-	long nrj_id = this.getIntent().getLongExtra(this.INPUT____ID_NRJ, AppConsts.NO_ID);
-	int equiv_indx = this.getIntent().getIntExtra(this.INPUT____INDX_EQUIV, AppConsts.NO_INDEX);
+        // Etape 1 : initalisations
+        super.onCreate(savedInstanceState);
 
-	if (nrj_id != AppConsts.NO_ID) {
-	    nrj = factory.load_Energy(nrj_id);
 
-	    //
-	    edited_Equivalence = nrj.getReferenceComponent();
-	    
-	    //si on souhaite éditer une équivalence particulière, on la séléctionne
-	    //sinon les zones sont vide pour en ajouter une nouvelle
-	    if (equiv_indx != AppConsts.NO_INDEX) {
-		this.edited_Equivalence = nrj.getReferenceComponent().getEquivalences().get(equiv_indx);
-	    }
+        nrj = new EnergySource();
+        // Etape 2 : prise en compte de l'Intent
+        long nrj_id = this.getIntent().getLongExtra(this.INPUT____ID_NRJ, AppConsts.NO_ID);
+        int equiv_indx = this.getIntent().getIntExtra(this.INPUT____INDX_EQUIV, AppConsts.NO_INDEX);
 
-	}
+        if (nrj_id != AppConsts.NO_ID) {
+            Energy_Manager em = new Energy_Manager(this);
+            nrj = em.load(nrj_id);
 
-	// Etape 3 : chargement de la vue
-	setContentView(R.layout.view_edit_equivalence);
+            //
+            //   edited_Equivalence = nrj.getReferenceComponent();
 
-	// Etape 4 : rafraichissement des informations affichées
-	refreshScreen();
+            //si on souhaite ï¿½diter une ï¿½quivalence particuliï¿½re, on la sï¿½lï¿½ctionne
+            //sinon les zones sont vide pour en ajouter une nouvelle
+            if (equiv_indx != AppConsts.NO_INDEX) {
+                //     this.edited_Equivalence = nrj.getReferenceComponent().getEquivalences().get(equiv_indx);
+            }
+
+        }
+
+        // Etape 3 : chargement de la vue
+        setContentView(R.layout.view_edit_equivalence);
+
+        // Etape 4 : rafraichissement des informations affichï¿½es
+        refreshScreen();
 
     }// fin du onCreate
 
     /******************************************************************************************
-     * onValidateClick : Mettre à jour les informations saisies dans la base de
-     * donnée
-     * 
+     * onValidateClick : Mettre ï¿½ jour les informations saisies dans la base de
+     * donnï¿½e
+     *
      * @param v
      ******************************************************************************************/
     public void onClickBtnOK(View v) {
 
-	// regarder si l'énergie possède une équivalence du même type que celle
-	// édité
-	// si oui on la met à jour en sauvant l'énergie
-	// si non, on doit l'ajouter à la liste des équivalences avant de sauver
-	// l'énergie
+        // regarder si l'ï¿½nergie possï¿½de une ï¿½quivalence du mï¿½me type que celle
+        // ï¿½ditï¿½
+        // si oui on la met ï¿½ jour en sauvant l'ï¿½nergie
+        // si non, on doit l'ajouter ï¿½ la liste des ï¿½quivalences avant de sauver
+        // l'ï¿½nergie
 
-	int indx = this.nrj.getReferenceComponent().getEquivalences().indexOf(edited_Equivalence);
-	if (indx == AppConsts.NO_INDEX) {
-	    this.nrj.getReferenceComponent().getEquivalences().add(edited_Equivalence);
-	}
-	factory.save(this.nrj);
+//        int indx = this.nrj.getReferenceComponent().getEquivalences().indexOf(edited_Equivalence);
+        //      if (indx == AppConsts.NO_INDEX) {
+        //        this.nrj.getReferenceComponent().getEquivalences().add(edited_Equivalence);
+        //   }
+//        factory.save(this.nrj);
 
-	// On prépare les informations à mettre à jour
-	/*
-	 * ContentValues val = new ContentValues();
+        // On prï¿½pare les informations ï¿½ mettre ï¿½ jour
+    /*
+     * ContentValues val = new ContentValues();
 	 * 
 	 * 
 	 * 
@@ -112,94 +116,96 @@ public class Act_EquivalenceEditor extends Activity {
 	 * this.getContentResolver().update(request, val, null,null); };
 	 * 
 	 * */
-	  //on appelle setResult pour déclancher le onActivityResult de
-	  //l'activity mère. 
-	  setResult(RESULT_OK, this.getIntent());
-	  
-	  //On termine l'Actvity
-	 finish();
-	 
+        //on appelle setResult pour dï¿½clancher le onActivityResult de
+        //l'activity mï¿½re.
+        setResult(RESULT_OK, this.getIntent());
+
+        //On termine l'Actvity
+        finish();
+
     }
 
     /******************************************************************************************
      * refreshScreen :
-     * 
      ******************************************************************************************/
     private void refreshScreen() {
+/*
+        TextView tv = (TextView) findViewById(R.id.view_equivalence_txtview_amount_in);
+        tv.setText(String.valueOf(this.nrj.getReferenceComponent().getQty().getAmount()));
 
-	TextView tv = (TextView) findViewById(R.id.view_equivalence_txtview_amount_in);
-	tv.setText(String.valueOf(this.nrj.getReferenceComponent().getQty().getAmount()));
-	
-	Button ed = (Button) findViewById(R.id.view_equivalence_btn_energy);
-	ed.setText(this.nrj.getName());
+        Button ed = (Button) findViewById(R.id.view_equivalence_btn_energy);
+        ed.setText(this.nrj.getName());
 
-	ed = (Button) findViewById(R.id.view_equivalence_btn_unit_in);
-	ed.setText(this.nrj.getReferenceComponent().getQty().getUnity().getLongName());
+        ed = (Button) findViewById(R.id.view_equivalence_btn_unit_in);
+        ed.setText(this.nrj.getReferenceComponent().getQty().getUnity().getLongName());
 
-	ed = (Button) findViewById(R.id.view_equivalence_btn_unit_out);
-	ed.setText(this.edited_Equivalence.getQty().getUnity().getLongName());
+        ed = (Button) findViewById(R.id.view_equivalence_btn_unit_out);
+        ed.setText(this.edited_Equivalence.getQty().getUnity().getLongName());
 
-	ed = (Button) findViewById(R.id.view_equivalence_btn_quantity);
-	ed.setText(String.valueOf(this.edited_Equivalence.getQty().getAmount()));
-
+        ed = (Button) findViewById(R.id.view_equivalence_btn_quantity);
+        ed.setText(String.valueOf(this.edited_Equivalence.getQty().getAmount()));
+*/
     }
 
     public void onClickBtnEnergy(View v) {
-	Intent intent = new Intent(this, Act_EnergyList.class);
-	startActivityForResult(intent, this.CHOOSE_NRJ);
+        Intent intent = new Intent(this, Act_EnergyList.class);
+        startActivityForResult(intent, this.CHOOSE_NRJ);
     }
 
     public void onClickBtnUnitIn(View v) {
-	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	startActivityForResult(intent, this.CHOOSE_UNITY_IN);
+        Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
+        startActivityForResult(intent, this.CHOOSE_UNITY_IN);
 
     }
 
     public void onClickBtnUnitOut(View v) {
-	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	startActivityForResult(intent, this.CHOOSE_UNITY_OUT);
+        Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
+        startActivityForResult(intent, this.CHOOSE_UNITY_OUT);
 
     }
 
     public void onClickBtnQuantity(View v) {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez la quantité équivalente");
-	startActivityForResult(intent, this.CHOOSE_QTY_OUT);
+        Intent intent = new Intent(this, Act_NumericPad.class);
+        intent.putExtra("question", "Entrez la quantitï¿½ ï¿½quivalente");
+        startActivityForResult(intent, this.CHOOSE_QTY_OUT);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+/*
+        if (resultCode == RESULT_OK) {
 
-	if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CHOOSE_QTY_OUT:
 
-	    switch (requestCode) {
-	    case CHOOSE_QTY_OUT:
+                    this.edited_Equivalence.getQty().setAmount(
+                            intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+                    break;
 
-		this.edited_Equivalence.getQty().setAmount(
-			intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
-		break;
+                case CHOOSE_UNITY_OUT:
+                    long unity_out_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
+                    this.edited_Equivalence.getQty().setUnity(factory.load_Unity(unity_out_id));
+                    break;
 
-	    case CHOOSE_UNITY_OUT:
-		long unity_out_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
-		this.edited_Equivalence.getQty().setUnity(factory.load_Unity(unity_out_id));
-		break;
+                case CHOOSE_UNITY_IN:
 
-	    case CHOOSE_UNITY_IN:
+                    long unity_in_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
+                    this.edited_Equivalence.getQty().setUnity(factory.load_Unity(unity_in_id));
+                    break;
 
-		long unity_in_id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
-		this.edited_Equivalence.getQty().setUnity(factory.load_Unity(unity_in_id));
-		break;
+                case CHOOSE_NRJ:
 
-	    case CHOOSE_NRJ:
+                    long nrj_id = intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID);
+                    this.nrj = factory.load_Energy(nrj_id);
+                    break;
 
-		long nrj_id = intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID);
-		this.nrj = factory.load_Energy(nrj_id);
-		break;
+                default:
+            }
 
-	    default:
-	    }
+            refreshScreen();
 
-	    refreshScreen();
-
-	}
+        }
+*/
     }
+
+
 }

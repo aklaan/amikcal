@@ -19,7 +19,7 @@ public class Act_NumericPad extends Activity implements NumericPadListeners {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	// getIntent récupère l'Intent qui a déclanché l'Activity
+	// getIntent rÃ©cupÃ©re l'Intent qui a dÃ©clanchÃ© l'Activity
 	setContentView(R.layout.view_numericpad);
 	ed = (TextView) findViewById(R.id.padnumber_entry);
     }
@@ -49,15 +49,15 @@ public class Act_NumericPad extends Activity implements NumericPadListeners {
     @Override
     public void NumericPadListener_OnClick_btn_Ok(View view) {
 	// si l'utilisateur a saisi un nombre
-	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-	// récupérer la valeur.
+	// on alimente le rï¿½sultat dans l'Intent pour que l'Activity mï¿½re puisse
+	// rï¿½cupï¿½rer la valeur.
 	// s'il n'a rien saisi, on
 
 	if (ed.getText() != "") {
 	    this.getIntent().putExtra(this.OUTPUT____AMOUNT,Float.parseFloat(ed.getText().toString()));
 
-	    // on appelle setResult pour déclancher le onActivityResult de
-	    // l'activity mère.
+	    // on appelle setResult pour dï¿½clancher le onActivityResult de
+	    // l'activity mï¿½re.
 	    this.setResult(RESULT_OK, this.getIntent());
 	}
 	// On termine l'Actvity

@@ -3,7 +3,7 @@ package com.rdupuis.amikcal.energy;
 import com.rdupuis.amikcal.components.Component;
 
 /**
- * <h1>PhysicalActivity : une activité physique<h1>
+ * <h1>PhysicalActivity : une activitÃ© physique<h1>
  * 
  * <p>
  * exemple : courrir 

@@ -8,8 +8,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
-import com.rdupuis.amikcal.data.ContentDescriptorObj.SQL_ORDER;
-import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_Party_rel;
+
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 
 public class ContentProviderObj extends ContentProvider {
@@ -18,7 +17,7 @@ public class ContentProviderObj extends ContentProvider {
     // private Resources mResources;
 
     /******************************************************************************
-     * A la création de la base de donnée
+     * A la crï¿½ation de la base de donnï¿½e
      *****************************************************************************/
     @Override
     public boolean onCreate() {
@@ -32,7 +31,7 @@ public class ContentProviderObj extends ContentProvider {
     /******************************************************************************
      * Gestion des getType
      * 
-     * ???? je ne sais pas à quoi = ça sert
+     * ???? je ne sais pas ï¿½ quoi = ï¿½a sert
      *****************************************************************************/
     @Override
     public String getType(Uri uri) {
@@ -59,7 +58,7 @@ public class ContentProviderObj extends ContentProvider {
     }
 
     /******************************************************************************
-     * Gestion des INSERT on reçoit une URI et on doit trouver le TOKEN
+     * Gestion des INSERT on reï¿½oit une URI et on doit trouver le TOKEN
      *****************************************************************************/
 
     @Override
@@ -81,7 +80,7 @@ public class ContentProviderObj extends ContentProvider {
 
 	case INSERT_UNITY: {
 	    // on fait l'insert dans la table units
-	    // la fonction update retourne n'Id de l'enregistrement créé.
+	    // la fonction update retourne n'Id de l'enregistrement crï¿½ï¿½.
 	    long id = db.insert(ContentDescriptorObj.TB_Units.NAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return ContentDescriptorObj.TB_Units.URI_SELECT_UNIT.buildUpon().appendPath(String.valueOf(id)).build();
@@ -89,7 +88,7 @@ public class ContentProviderObj extends ContentProvider {
 
 	case INSERT_USER_ACTIVITY: {
 	    // on fait l'insert dans la table
-	    // la fonction update retourne n'Id de l'enregistrement créé.
+	    // la fonction update retourne n'Id de l'enregistrement crï¿½ï¿½.
 	    long id = db.insert(ContentDescriptorObj.TB_UserActivities.TBNAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI.buildUpon()
@@ -98,7 +97,7 @@ public class ContentProviderObj extends ContentProvider {
 
 	case INSERT_PARTY_REL: {
 	    // on fait l'insert dans la table
-	    // la fonction update retourne n'Id de l'enregistrement créé.
+	    // la fonction update retourne n'Id de l'enregistrement crï¿½ï¿½.
 	    long id = db.insert(ContentDescriptorObj.TB_Party_rel.TBNAME, null, values);
 	    getContext().getContentResolver().notifyChange(uri, null);
 	    return ContentDescriptorObj.TB_Party_rel.S00_PARTY_REL_URI.buildUpon().appendPath(String.valueOf(id))
@@ -106,7 +105,7 @@ public class ContentProviderObj extends ContentProvider {
 	}
 
 	default: {
-	    throw new UnsupportedOperationException("URI: " + uri + " pour INSERT non supportée.");
+	    throw new UnsupportedOperationException("URI: " + uri + " pour INSERT non supportï¿½e.");
 	}
 	}
     }
@@ -114,9 +113,9 @@ public class ContentProviderObj extends ContentProvider {
     /*********************************************************************************************
      * Gestion des SELECT
      * 
-     * On reçoit une Uri avec un path (chaine de caractère) on utilise le
+     * On reï¿½oit une Uri avec un path (chaine de caractï¿½re) on utilise le
      * UriMatcher pour trouver la corespondance Path <=> token (integer) une
-     * fois que l'on a le token, on sait quel requête à éxécuter.
+     * fois que l'on a le token, on sait quel requï¿½te ï¿½ ï¿½xï¿½cuter.
      * 
      * 
      * Request a specific record. Cursor managedCursor = managedQuery(
@@ -126,7 +125,7 @@ public class ContentProviderObj extends ContentProvider {
      ************************************************************************************************/
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-	// on charge la base de donnée
+	// on charge la base de donnï¿½e
 	SQLiteDatabase db = AmikcalDb.getReadableDatabase();
 
 	final int match = ContentDescriptorObj.URI_MATCHER.match(uri);
@@ -157,7 +156,7 @@ public class ContentProviderObj extends ContentProvider {
 	}
 
 	// -------------------------------------------------------------------------
-	// Unitées
+	// Unitï¿½es
 	// -------------------------------------------------------------------------
 	case SELECT_ONE_UNITY_BY_ID: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
@@ -212,7 +211,7 @@ public class ContentProviderObj extends ContentProvider {
 	}
 
 	// -------------------------------------------------------------------------
-	// Composant de référence
+	// Composant de rï¿½fï¿½rence
 	// -------------------------------------------------------------------------
 	case SELECT_COMPONENT_REF_OF_NRJ: {
 	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
@@ -369,7 +368,7 @@ public class ContentProviderObj extends ContentProvider {
 	 * sortOrder); }
 	 */
 	default:
-	    throw new IllegalArgumentException("URI Select non gérée: " + uri);
+	    throw new IllegalArgumentException("URI Select non gï¿½rï¿½e: " + uri);
 	}
     }
 
@@ -428,7 +427,7 @@ public class ContentProviderObj extends ContentProvider {
 	}
 
 	default: {
-	    throw new UnsupportedOperationException("URI: " + uri + " pour UPDATE non supportée.");
+	    throw new UnsupportedOperationException("URI: " + uri + " pour UPDATE non supportï¿½e.");
 	}
 
 	}

@@ -3,8 +3,8 @@ package com.rdupuis.amikcal.recipe;
 import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 
 /**
- * <b>Liste des activitées de l'utilisateur pour un jour donné.</b>
- *    il est aussi prévu d'affichier des liste de recettes mais je pense que le découpage est à revoir
+ * <b>Liste des activitÃ©es de l'utilisateur pour un jour donnÃ©.</b>
+ *    il est aussi prÃ©vu d'affichier des liste de recettes mais je pense que le dÃ©coupage est Ã  revoir
  *    
  * @author Rodolphe Dupuis
  * @version 0.1

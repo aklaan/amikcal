@@ -16,7 +16,7 @@ public class TimeFragmentPagerAdapter extends FragmentStatePagerAdapter
 	   
 	
 	
-	//On fournit à l'adapter la liste des fragments à afficher
+	//On fournit Ã  l'adapter la liste des fragments Ã  afficher
 	public TimeFragmentPagerAdapter(FragmentManager fm, ArrayList<TimeSlidableFragment> fragments) {
 		super(fm);
        

@@ -11,23 +11,23 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
-import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Action;
+
 import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
-import com.rdupuis.amikcal.useractivity.move.UserActivity_Move_Action;
+
 import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
-import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight_Action;
+
 
 /**
- * <b>Ecran de choix de création des activitées.</b>
+ * <b>Ecran de choix de crÃ©ation des activitÃ©es.</b>
  * <p>
- * les activitées sont :
+ * les activitÃ©es sont :
  * <ul>
  * <li>les repas</li>
- * <li>les activitées physiques</li>
- * <li>les pesées</li>
+ * <li>les activitÃ©es physiques</li>
+ * <li>les pesÃ©es</li>
  * </ul>
  * </p>
- * 
+ *
  * @author Rodolphe Dupuis
  * @version 0.1
  */
@@ -35,80 +35,72 @@ public class Act_UserActivity_ChooseNew extends Activity {
 
     Calendar currentDay;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-	/**
-	 * =====================================================================
-	 * Etape I - On récupère les données fournies dans l'Intent
-	 * ==============
-	 * ========================================================
-	 */
-	// On tente de récupérer la date dans le bundle de l'activité si elle
-	// est présente
-	// si elle n'est pas présente, on met la date du jour.
-	try {
+        /**
+         * ========================================================
+         * Etape I - On rÃ©cupÃ¨re les donnÃ©es fournies dans l'Intent
+         * ========================================================
+         */
+        // On tente de rÃ©cupÃ©rer la date dans le bundle de l'activitÃ© si elle
+        // est prÃ©sente
+        // si elle n'est pas prÃ©sente, on met la date du jour.
+        try {
 
-	    currentDay = ToolBox.parseCalendar(getIntent().getStringExtra(
-		    AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
+            currentDay = ToolBox.parseCalendar(getIntent().getStringExtra(
+                    AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY));
 
-	} catch (Exception e) {
-	    currentDay = Calendar.getInstance();
-	}
-	;
+        } catch (Exception e) {
+            currentDay = Calendar.getInstance();
+        }
+        ;
 
-	/****************************************************************************************
-	 * Etape II- On charge l'écran
-	 ****************************************************************************************/
-	setContentView(R.layout.choose_activity);
+        /****************************************************************************************
+         * Etape II- On charge l'Ã©cran
+         ****************************************************************************************/
+        setContentView(R.layout.choose_activity);
 
     }
 
     /*********************************************************************************************
-     * onActivityResult : au retour de l'appel à l'écran d'édition, on ferme
-     * l'activitée
+     * onActivityResult : au retour de l'appel Ã  l'Ã©cran d'Ã©dition, on ferme
+     * l'activitÃ©e
      * **************************************************************
-     * ************************
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-	setResult(RESULT_OK, this.getIntent());
-	this.finish();
+        setResult(RESULT_OK, this.getIntent());
+        this.finish();
     }
 
     /*******************************************************************************************
      * onClickLunch() : Gestion du bouton "repas"
      *******************************************************************************************/
     public void onClickLunch(View v) {
-	// ici on sait que l'on souhaite créer un repas. donc on utilise
-	// directement les objets "repas
-	//
-	UserActivity_Lunch_Action Action = new UserActivity_Lunch_Action(this, new UserActivity_Lunch(this.currentDay));
-	Action.edit();
+        //on appelle l'Ã©diteur des repas.
+        UserActivity_Manager uam = new UserActivity_Manager(this);
+        uam.edit(new UserActivity_Lunch(this.currentDay));
     }
 
     /*******************************************************************************************
-     * onClickPhysicalActivity() : Gestion du bouton "activité physique"
+     * onClickPhysicalActivity() : Gestion du bouton "activitï¿½ physique"
      *******************************************************************************************/
     public void onClickPhysicalActivity(View v) {
-	// ici on sait que l'on souhaite créer un repas. donc on utilise
-	// directement les objets "activité physique"
-	//
-	UserActivity_Move_Action Action = new UserActivity_Move_Action(this, new UserActivity_Move(this.currentDay));
-	Action.edit();
+        UserActivity_Manager uam = new UserActivity_Manager(this);
+        uam.edit(new UserActivity_Move(this.currentDay));
     }
 
     /*******************************************************************************************
      * onClickWeight(): Gestion du bouton "poids"
      *******************************************************************************************/
     public void onClickWeight(View v) {
-	// ici on sait que l'on souhaite créer un repas. donc on utilise
-	// directement les objets "pesée"
-	//
-	UserActivity_Weight_Action Action = new UserActivity_Weight_Action(this, new UserActivity_Weight(
-		this.currentDay));
-	Action.edit();
+        UserActivity_Manager uam = new UserActivity_Manager(this);
+        uam.edit(new UserActivity_Weight(this.currentDay));
+
     }
 
 }

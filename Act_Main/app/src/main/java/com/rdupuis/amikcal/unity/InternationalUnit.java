@@ -30,7 +30,7 @@ public void setSymbol(String symbol) {
 
 @Override
 public void setUnityClass(UNIT_CLASS mClass) {
-// on override pour empêcher la modification
+// on override pour empÃªcher la modification
 }
 
 

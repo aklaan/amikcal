@@ -22,6 +22,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Energy_Manager;
 
 public class Act_EquivalenceList extends Activity {
 
@@ -38,15 +39,16 @@ public class Act_EquivalenceList extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 	// Etape 0 : initialitations
 	super.onCreate(savedInstanceState);
-	factory = new AmiKcalFactory(this);
+
 	equivalences = new ArrayList<Component>();
 	this.nrj = new EnergySource();
 	// Etape 1 : R�cup�rer les �ventuelles informations de l'intent
 	long nrj_id = this.getIntent().getLongExtra(this.INTPUT____NRJ_ID,AppConsts.NO_ID);
 	
 	if (nrj_id != AppConsts.NO_ID) {
-	    nrj = factory.load_Energy(nrj_id);
-	    this.equivalences = nrj.getReferenceComponent().getEquivalences();
+	Energy_Manager em = new Energy_Manager(this);
+	    nrj = em.load(nrj_id);
+//	    this.equivalences = nrj.getComponentReference().getEquivalences();
 	}
 
 	// etape 2 charger la vue
@@ -64,7 +66,7 @@ public class Act_EquivalenceList extends Activity {
 
     public void onClickAdd(View v) {
 
-	this.editEquivalence(this.nrj.getId(),AppConsts.NO_INDEX);
+	this.editEquivalence(this.nrj.getDatabaseId(),AppConsts.NO_INDEX);
 
     }
 
@@ -110,10 +112,11 @@ public class Act_EquivalenceList extends Activity {
 
     protected void generateList() {
 
-	// recharger les modification qui ont pu �tre effectu�es
-	if (this.nrj.getId() != AppConsts.NO_ID) {
-	    this.nrj = factory.load_Energy(nrj.getId());
-	    equivalences = nrj.getReferenceComponent().getEquivalences();
+	// recharger les modification qui ont pu être effectuées
+	if (this.nrj.getDatabaseId() != AppConsts.NO_ID) {
+	    Energy_Manager em = new Energy_Manager(this);
+		this.nrj = em.load(nrj.getDatabaseId());
+	    //equivalences = nrj.getReferenceComponent().getEquivalences();
 	}
 
 	// R�cup�ration de la listview cr��e dans le fichier customizedlist.xml
@@ -133,7 +136,7 @@ public class Act_EquivalenceList extends Activity {
 	for (Component equiv : this.equivalences) {
 
 	    map = new HashMap<String, String>();
-	    map.put("NRJ_ID", String.valueOf(this.nrj.getId()));
+	    map.put("NRJ_ID", String.valueOf(this.nrj.getDatabaseId()));
 	    map.put("EQUIV_INDEX", String.valueOf(this.equivalences.indexOf(equiv)));
 
 	    map.put("quantity", String.valueOf(equiv.getQty().getAmount()));
@@ -187,8 +190,8 @@ public class Act_EquivalenceList extends Activity {
 			.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int whichButton) {
 				/* User clicked edit so do some stuff */
-				onClick_edit(Act_EquivalenceList.this.nrj.getId(),
-					Act_EquivalenceList.this.nrj.getReferenceComponent().getEquivalences().indexOf(Act_EquivalenceList.this.selected_equiv));
+				//onClick_edit(Act_EquivalenceList.this.nrj.getDatabaseId(),
+				//	Act_EquivalenceList.this.nrj.getReferenceComponent().getEquivalences().indexOf(Act_EquivalenceList.this.selected_equiv));
 
 			    }
 			}).setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
@@ -214,7 +217,7 @@ public class Act_EquivalenceList extends Activity {
 
     public void OnClick(View v, String id) {
 
-	// on alimente le r�sultat dans l'Intent pour que l'Activity m�re puisse
+	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
 	// r�cup�rer la valeur.
 	// this.getIntent().putExtra(this.OUTPUT____EQUIV_LIST____EQUIV_ID, id);
 

@@ -8,7 +8,7 @@ import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.energy.EnergySource;
 
-public class Relation_NRJ_vs_Component extends I_Relation {
+public class Relation_NRJ_vs_Component extends Relation {
     private EnergySource mEnergy;
     private Component mComponent;
     private long _id;
@@ -22,23 +22,23 @@ public class Relation_NRJ_vs_Component extends I_Relation {
     @Override
     public String getParty1() {
 
-	return String.valueOf(this.mEnergy.getId());
+	return String.valueOf(this.mEnergy.getDatabaseId());
     }
 
     @Override
     public String getParty2() {
 
-	return String.valueOf(this.mComponent.getId());
+	return String.valueOf(this.mComponent.getDatabaseId());
     }
 
     @Override
-    public long getId() {
+    public long getDatabaseId() {
 
 	return _id;
     }
 
     @Override
-    public void setId(long rel_id) {
+    public void setDatabaseId(long rel_id) {
 	this._id = rel_id;
 
     }

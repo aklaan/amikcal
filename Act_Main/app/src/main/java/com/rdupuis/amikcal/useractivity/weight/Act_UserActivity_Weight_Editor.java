@@ -16,7 +16,7 @@ import com.rdupuis.amikcal.commons.WeightObj;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
 
 /**
- * <b>Ecran d'édition des pesées.</b>
+ * <b>Ecran d'ï¿½dition des pesï¿½es.</b>
  * 
  * @author Rodolphe Dupuis
  * @version 0.1
@@ -30,20 +30,20 @@ public class Act_UserActivity_Weight_Editor extends
 		super.onCreate(savedInstanceState);
 
 		/**************************************************************************************
-		 * Step I : Récupérer les informations de l'Intent --> RAS , ce qui est
-		 * fait dans Act_UserActivity_EditorCommons suffit --> Vérifier si on
-		 * est en mode édition ou création
+		 * Step I : Rï¿½cupï¿½rer les informations de l'Intent --> RAS , ce qui est
+		 * fait dans Act_UserActivity_EditorCommons suffit --> Vï¿½rifier si on
+		 * est en mode ï¿½dition ou crï¿½ation
 		 ****************************************************************************************/
 		switch (this.getEditMode()) {
 
 		case EDIT:
-			// En cas d'édition, la classe mère a du recharger l'objet
+			// En cas d'ï¿½dition, la classe mï¿½re a du recharger l'objet
 			// UserActivityWeight
 			break;
 		case CREATE:
-			// En cas de création, la classe mère n'a pas pu recharger l'objet
+			// En cas de crï¿½ation, la classe mï¿½re n'a pas pu recharger l'objet
 			// UserActivityWeight
-			// on doit en créer un à la date du jour récupéré de l'Intent
+			// on doit en crï¿½er un ï¿½ la date du jour rï¿½cupï¿½rï¿½ de l'Intent
 			this.setEdited_UserActivity(new UserActivity_Weight());
 			this.getEdited_UserActivity().setDay(this.getInput_day());
 
@@ -52,12 +52,12 @@ public class Act_UserActivity_Weight_Editor extends
 		}
 
 		/***************************************************************************************
-		 * Step II : Chargement de l'écran
+		 * Step II : Chargement de l'ï¿½cran
 		 ***************************************************************************************/
 		setContentView(R.layout.view_edit_weight);
 
 		/***************************************************************************************
-		 * Step III : Initialisation des données à l'écran
+		 * Step III : Initialisation des donnï¿½es ï¿½ l'ï¿½cran
 		 ***************************************************************************************/
 		refreshScreen();
 
@@ -72,8 +72,8 @@ public class Act_UserActivity_Weight_Editor extends
 	}
 
 	/******************************************************************************************
-	 * onClickOk : - Mettre à jour les informations saisies dans la base de
-	 * donnée - appeler la saisie d'un component (suivant le type moving /
+	 * onClickOk : - Mettre ï¿½ jour les informations saisies dans la base de
+	 * donnï¿½e - appeler la saisie d'un component (suivant le type moving /
 	 * eating)
 	 * 
 	 * @param v
@@ -81,7 +81,7 @@ public class Act_UserActivity_Weight_Editor extends
 	 ******************************************************************************************/
 	public void onClickOk(View v) {
 
-		// récupérer l'heure
+		// rï¿½cupï¿½rer l'heure
 		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
 
 		DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat
@@ -99,7 +99,7 @@ public class Act_UserActivity_Weight_Editor extends
 		getEdited_UserActivity().getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (getEdited_UserActivity().getId() == AppConsts.NO_ID) {
+		if (getEdited_UserActivity().getDatabaseId() == AppConsts.NO_ID) {
 			insertUActivity();
 		} else {
 			updateUActivity();
@@ -176,10 +176,10 @@ public class Act_UserActivity_Weight_Editor extends
 		String kilos = "50";
 		String grammes = "00";
 
-		// Si l'id de l'activité n'est pas NO_ID alors on est en train
-		// d'éditer une pesée. Dans ce cas, on affiche ce que l'utilisateur
-		// avait enregistré
-		if (this.getEdited_UserActivity().getId() != AppConsts.NO_ID) {
+		// Si l'id de l'activitï¿½ n'est pas NO_ID alors on est en train
+		// d'ï¿½diter une pesï¿½e. Dans ce cas, on affiche ce que l'utilisateur
+		// avait enregistrï¿½
+		if (this.getEdited_UserActivity().getDatabaseId() != AppConsts.NO_ID) {
 
 			WeightObj w = ((UserActivity_Weight) this.getEdited_UserActivity()).getWeight();
 			kilos = String.valueOf(w.getInt_part());

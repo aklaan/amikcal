@@ -85,7 +85,7 @@ public class Act_EnergyList extends Activity {
     }// fin du onCreate
 
     /**
-     * Appel la vue d'édition d'un aliment (energy)
+     * Appel la vue d'ï¿½dition d'un aliment (energy)
      */
     public void editEnergy(long id) {
 	Intent intent = new Intent(this, Act_Food_Editor.class);
@@ -94,8 +94,8 @@ public class Act_EnergyList extends Activity {
     }
 
     /**
-     * onClickAdd est générique dans les écrans du même type on doit donc
-     * redéfinir la fonction
+     * onClickAdd est gï¿½nï¿½rique dans les ï¿½crans du mï¿½me type on doit donc
+     * redï¿½finir la fonction
      * 
      */
     public void onClickAdd(View v) {
@@ -105,30 +105,30 @@ public class Act_EnergyList extends Activity {
     }
 
     /**
-     * Gère les actions à effectuer en cas de retours des Intent appelés
+     * Gï¿½re les actions ï¿½ effectuer en cas de retours des Intent appelï¿½s
      * 
      * 
      * 
      * <p>
-     * Liste des actions actuellement gérées
+     * Liste des actions actuellement gï¿½rï¿½es
      * <ul>
-     * <li>Retour depuis l'écran d'édition d'un aliment:</li>
+     * <li>Retour depuis l'ï¿½cran d'ï¿½dition d'un aliment:</li>
      * <ul>
      * <li>Effacer la liste actuelle.</li>
-     * <li>Regénérer la liste avec les données actualisées.</li>
+     * <li>Regï¿½nï¿½rer la liste avec les donnï¿½es actualisï¿½es.</li>
      * </ul>
      * 
      * </ul>
      * </p>
      * 
      * @param requestCode
-     *            le code le l'action demandée
+     *            le code le l'action demandï¿½e
      * 
      * @param resultCode
-     *            le code retour envoyé par l'activitée appellée
+     *            le code retour envoyï¿½ par l'activitï¿½e appellï¿½e
      * 
      * @param intent
-     *            l'intent utilisée
+     *            l'intent utilisï¿½e
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -161,8 +161,8 @@ public class Act_EnergyList extends Activity {
 
     /**
      * ________________________________________________________________________
-     * générer la liste des énergie à partir des informations stockées dans la
-     * base de donnée.
+     * gï¿½nï¿½rer la liste des ï¿½nergie ï¿½ partir des informations stockï¿½es dans la
+     * base de donnï¿½e.
      */
     protected void generateList() {
 
@@ -175,17 +175,17 @@ public class Act_EnergyList extends Activity {
 		    .build();
 	}
 
-	// Récupération de la listview créée dans le fichier customizedlist.xml
+	// Rï¿½cupï¿½ration de la listview crï¿½ï¿½e dans le fichier customizedlist.xml
 	maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
-	// Création de la ArrayList qui nous permettra de remplire la listView
+	// Crï¿½ation de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-	// On déclare la HashMap qui contiendra les informations pour un item
+	// On dï¿½clare la HashMap qui contiendra les informations pour un item
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
-	// On cré un curseur pour lire la table des aliments consommés
+	// On crï¿½ un curseur pour lire la table des aliments consommï¿½s
 	Cursor cur = this.getContentResolver().query(selectUri, null, null, null, null);
 
 	final int INDX_COL_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.ID);
@@ -223,8 +223,8 @@ public class Act_EnergyList extends Activity {
 	}
 	cur.close();
 
-	// Création d'un SimpleAdapter qui se chargera de mettre les items
-	// présent dans notre list (listItem)
+	// Crï¿½ation d'un SimpleAdapter qui se chargera de mettre les items
+	// prï¿½sent dans notre list (listItem)
 	// dans la vue affichageitem
 	SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_item_energy_food,
 
@@ -239,15 +239,15 @@ public class Act_EnergyList extends Activity {
 
 	});
 
-	// On attribut à notre listView l'adapter que l'on vient de créer
+	// On attribut ï¿½ notre listView l'adapter que l'on vient de crï¿½er
 	maListViewPerso.setAdapter(mSchedule);
 
-	// Enfin on met un écouteur d'évènement sur notre listView
+	// Enfin on met un ï¿½couteur d'ï¿½vï¿½nement sur notre listView
 	maListViewPerso.setOnItemClickListener(new OnItemClickListener() {
 	    // @Override
 	    @SuppressWarnings("unchecked")
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// on récupère la HashMap contenant les infos de notre item
+		// on rï¿½cupï¿½re la HashMap contenant les infos de notre item
 		// (titre, description, img)
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 
@@ -256,7 +256,7 @@ public class Act_EnergyList extends Activity {
 	    }
 	});
 
-	// Enfin on met un écouteur d'évènement long sur notre listView
+	// Enfin on met un ï¿½couteur d'ï¿½vï¿½nement long sur notre listView
 	maListViewPerso.setOnItemLongClickListener(new OnItemLongClickListener() {
 	    // @Override
 	    @SuppressWarnings("unchecked")
@@ -266,7 +266,7 @@ public class Act_EnergyList extends Activity {
 		Act_EnergyList.this.currentId = Long.parseLong(map.get("id"));
 
 		// int ilaposition=position;
-		// création d'un boite de dialogue pour confirmer le
+		// crï¿½ation d'un boite de dialogue pour confirmer le
 		// choix
 		new AlertDialog.Builder(Act_EnergyList.this).setTitle("Confirmation")
 			.setMessage("Que voulez-vous faire ?")
@@ -301,17 +301,17 @@ public class Act_EnergyList extends Activity {
 
     /**
      * ________________________________________________________ Action a
-     * effectuer lorsque l'on séléctionne une énergie
+     * effectuer lorsque l'on sÃ©lÃ©ctionne une Ã©nergie
      */
 
     public void OnChooseEnergy(View v, Long id) {
 
-	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-	// récupérer la valeur.
+	// on alimente le rÃ©sultat dans l'Intent pour que l'Activity mï¿½re puisse
+	// rÃ©cupÃ©rer la valeur.
 	this.getIntent().putExtra(this.OUTPUT____ID_OF_ENERGY, id);
 
-	// on appelle setResult pour déclencher le onActivityResult de
-	// l'activity mère.
+	// on appelle setResult pour dï¿½clencher le onActivityResult de
+	// l'activity mï¿½re.
 	this.setResult(RESULT_OK, this.getIntent());
 
 	// On termine l'Activity
@@ -320,7 +320,7 @@ public class Act_EnergyList extends Activity {
 
     /**
      * _________________________________________________________________________
-     * Action a effectuer lorsque l'on clique sur éditer l'énergie séléctionnée
+     * Action a effectuer lorsque l'on clique sur ï¿½diter l'ï¿½nergie sï¿½lï¿½ctionnï¿½e
      */
     public void onClick_edit() {
 	editEnergy(this.currentId);
@@ -358,8 +358,8 @@ public class Act_EnergyList extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
 
-	// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
-	// qui va elle même rafraichir la barre de menu
+	// invalidateOptionsMenu va appeller la mï¿½thode onPrepareOptionsMenu();
+	// qui va elle mï¿½me rafraichir la barre de menu
 	invalidateOptionsMenu();
 	return true;
     }

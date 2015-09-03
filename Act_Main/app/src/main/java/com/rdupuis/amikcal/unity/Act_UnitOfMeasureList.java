@@ -26,7 +26,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 public class Act_UnitOfMeasureList extends Activity {
     private ListView maListViewPerso;
     static Long currentId;
-    static Long energyId = 0l; // pour lister les unités en rapport avec une energie
+    static Long energyId = 0l; // pour lister les unitÃ©s en rapport avec une energie
     private static Long WITH_NO_FILTER = 0l;
     public static final String INPUT____ENERGY_ID = "nrj_id";
     public static final String OUTPUT____UNIT_ID = "unity_id";
@@ -37,7 +37,7 @@ public class Act_UnitOfMeasureList extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.view_unit_list);
-	getActionBar().setTitle("Unitées");
+	getActionBar().setTitle("Unitï¿½es");
 
 	try {
 	    energyId = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____ENERGY_ID));
@@ -62,7 +62,7 @@ public class Act_UnitOfMeasureList extends Activity {
     }
 
     /**
-     * Gère le retour de l'appel à une autre activitée
+     * GÃ¨re le retour de l'appel Ã  une autre activitÃ©e
      * 
      * @param requestCode
      * @param resultCode
@@ -114,17 +114,17 @@ public class Act_UnitOfMeasureList extends Activity {
 	    mUri = ContentUris.withAppendedId(ContentDescriptorObj.CustomQuery.URI_USED_UNITS_FOR_ENERGY, energyId);
 	}
 
-	// Récupération de la listview créée dans le fichier customizedlist.xml
+	// RÃ©cupÃ©ration de la listview crÃ©Ã©e dans le fichier customizedlist.xml
 	maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
-	// Création de la ArrayList qui nous permettra de remplire la listView
+	// CrÃ©ation de la ArrayList qui nous permettra de remplire la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-	// On déclare la HashMap qui contiendra les informations pour un item
+	// On dÃ©clare la HashMap qui contiendra les informations pour un item
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
-	// On cré un curseur pour lire la table des unitées
+	// On crÃ© un curseur pour lire la table des unitÃ©es
 	Cursor cur = this.getContentResolver().query(mUri, null, null, null, null);
 
 	final int INDX_COL_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.ID);
@@ -147,23 +147,23 @@ public class Act_UnitOfMeasureList extends Activity {
 	}
 	cur.close();
 
-	// Création d'un SimpleAdapter qui se chargera de mettre les items
-	// présent dans notre list (listItem)
+	// CrÃ©ation d'un SimpleAdapter qui se chargera de mettre les items
+	// prÃ©sent dans notre list (listItem)
 	// dans la vue affichageitem
 	SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_item_unit,
 		new String[] { "name", "symbol" }, new int[] { R.id.item_unit_name, R.id.item_unit_symbol });
 
-	// On attribut à notre listView l'adapter que l'on vient de créer
+	// On attribut Ã  notre listView l'adapter que l'on vient de crÃ©er
 	maListViewPerso.setAdapter(mSchedule);
 
 	// ********************************************************
-	// on met un écouteur d'évènement sur notre listView
+	// on met un Ã©couteur d'Ã©vÃ©nement sur notre listView
 	// ********************************************************
 	maListViewPerso.setOnItemClickListener(new OnItemClickListener() {
 	    // @Override
 	    @SuppressWarnings("unchecked")
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// on récupère la HashMap contenant les infos de notre item
+		// on rÃ©cupÃ¨re la HashMap contenant les infos de notre item
 		// (titre, description, img)
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 		OnChooseUnit(view, Long.parseLong(map.get("id")));
@@ -171,7 +171,7 @@ public class Act_UnitOfMeasureList extends Activity {
 	});
 
 	// ********************************************************
-	// on met un écouteur d'évènement sur notre listView
+	// on met un Ã©couteur d'Ã©vÃ¨nement sur notre listView
 	// ********************************************************
 	maListViewPerso.setOnItemLongClickListener(new OnItemLongClickListener() {
 	    // @Override
@@ -179,7 +179,7 @@ public class Act_UnitOfMeasureList extends Activity {
 	    public boolean onItemLongClick(AdapterView parent, View v, int position, long id) {
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 		Act_UnitOfMeasureList.currentId = Long.parseLong(map.get("id"));
-		// création d'un boite de dialogue pour confirmer le choix
+		// crÃ©ation d'un boite de dialogue pour confirmer le choix
 		new AlertDialog.Builder(Act_UnitOfMeasureList.this).setTitle("Confirmation")
 			.setMessage("Que souhaitez-vous faire ?")
 			.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
@@ -211,12 +211,12 @@ public class Act_UnitOfMeasureList extends Activity {
 
     public void OnChooseUnit(View v, Long id) {
 
-	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-	// récupérer la valeur.
+	// on alimente le rÃ©sultat dans l'Intent pour que l'Activity mÃ¨re puisse
+	// rÃ©cupÃ©rer la valeur.
 	this.getIntent().putExtra(this.OUTPUT____UNIT_ID, id);
 
-	// on appelle setResult pour déclancher le onActivityResult de
-	// l'activity mère.
+	// on appelle setResult pour dÃ©clancher le onActivityResult de
+	// l'activity mÃ¨re.
 	this.setResult(RESULT_OK, this.getIntent());
 
 	// On termine l'Acitvity
@@ -280,8 +280,8 @@ public class Act_UnitOfMeasureList extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
 
-	// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
-	// qui va elle même rafraichir la barre de menu
+	// invalidateOptionsMenu va appeller la mÃ©thode onPrepareOptionsMenu();
+	// qui va elle mÃªme rafraichir la barre de menu
 	invalidateOptionsMenu();
 	return true;
     }

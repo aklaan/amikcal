@@ -2,8 +2,8 @@ package com.rdupuis.amikcal.commons.numericpad;
 
 import android.view.View;
 
-//interface devant obliger les utilsateurs du fragement d'implémenter les méthodes 
-	// exploitées par le NuméricPad
+//interface devant obliger les utilsateurs du fragement d'implÃ©menter les mÃ©thodes
+	// exploitÃ©es par le NumericPad
 	public interface NumericPadListeners {
 		public void NumericPadListener_OnClick_btn_Number(View view);
 		public void NumericPadListener_OnClick_btn_Erase(View view);

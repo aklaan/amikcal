@@ -9,22 +9,22 @@ import java.nio.ShortBuffer;
 public class Vertices {
 
     // max size of Vertices or Indices usable
-	// nombre de vertex maximal que l'on va générer
+	// nombre de vertex maximal que l'on va gÃ©nÃ©rer
     public static final int MAX_CAPACITY = 500000;
 
     public static final int FLOAT_SIZE = 4; // on indique que le nombre de byte pour un float est de 4
-                                            // un byte n'est pas obligatoirement égal à 8 bit 
-    										// cela dépend du matériel. en général il est très souvant egal à 
-    										// 8 bit ce qui fait qu'un byte est très souvent égal à un Octet
+                                            // un byte n'est pas obligatoirement Ã©gal Ã  8 bit
+    										// cela dÃ©pend du matÃ©riel. en gÃ©nÃ©ral il est trÃ¨s souvant egal Ã 
+    										// 8 bit ce qui fait qu'un byte est trÃ¨s souvent Ã©gal Ã  un Octet
     										// mais comme ce n'est pas toujours le cas, on parle en byte et non en octet
-    										// pour être précis.
+    										// pour Ãªtre prÃ©cis.
     
-    public static final int SHORT_SIZE = 2; //ici on indique qu'un short est codé sur 2 byte 
-    										//soit généralement 2 octets
+    public static final int SHORT_SIZE = 2; //ici on indique qu'un short est codÃ© sur 2 byte
+    										//soit gÃ©nÃ©ralement 2 octets
     										// soit : 00000000 00000000
 
     //! Vertices
-    private FloatBuffer mVertices;			// définition d'un tableau de flotants
+    private FloatBuffer mVertices;			// dÃ©finition d'un tableau de flotants
     //! indices
     private ShortBuffer mIndices;
     //! qty of vertices used
@@ -35,11 +35,11 @@ public class Vertices {
     
     
     // A propos du byteorder : 
-    // les architectures CPU ne traitent pas tous les bit dans le même sens.
-    // pour simplifier, certaines lisent de gauche à droite (SUM/IBM 370) et d'autre font l'inverse
-    // l'instruction ByteOrder a pour but d'indiquer le sens d'insertion des bytes à respecter 
-    // pour que les informations soient coreectement traitées par l'architecture.
-    // nativeOrder indique qu'il faut utiliser l'ordre Natif de l'architecture qui va exécuter ce programme.
+    // les architectures CPU ne traitent pas tous les bit dans le mÃªme sens.
+    // pour simplifier, certaines lisent de gauche Ã  droite (SUM/IBM 370) et d'autre font l'inverse
+    // l'instruction ByteOrder a pour but d'indiquer le sens d'insertion des bytes Ã  respecter
+    // pour que les informations soient coreectement traitÃ©es par l'architecture.
+    // nativeOrder indique qu'il faut utiliser l'ordre Natif de l'architecture qui va exÃ©cuter ce programme.
     
     
     // constructeur
@@ -56,17 +56,17 @@ public class Vertices {
 
     //setter vertices
     public void putVertice(int index, P3FT2FR4FVertex vertex) {
-    	// la position physique en mémoire des bytes qui représentent le vertex 
+    	// la position physique en mÃ©moire des bytes qui reprÃ©sentent le vertex
     	// c'est la taille d'un vertex en bytes x l'index
     	
-    	// ici on se positionne dans le buffer à l'endroit où l'on va ecrire le prochain vertex
+    	// ici on se positionne dans le buffer Ã  l'endroit oÃ¹ l'on va ecrire le prochain vertex
         mVertices.position(P3FT2FR4FVertex.P3FT2FR4FVertex_SIZE * index);
         
         mVertices.put(vertex.mX).put(vertex.mY).put(vertex.mZ);
         mVertices.put(vertex.mU).put(vertex.mV);
         mVertices.put(vertex.mR).put(vertex.mG).put(vertex.mB).put(vertex.mA);
         
-        // on se repositionne en 0 , prêt pour la relecture
+        // on se repositionne en 0 , prÃªt pour la relecture
        
         mVertices.position(0);
     }
@@ -78,7 +78,7 @@ public class Vertices {
     	mIndices.position(index);
     	// on ecrit le short
         mIndices.put((short)indice);
-        // on se repositionne en zéro
+        // on se repositionne en zï¿½ro
         mIndices.position(0);
     }
 

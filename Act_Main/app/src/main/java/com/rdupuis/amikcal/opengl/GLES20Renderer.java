@@ -50,7 +50,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 		// Vertices is our 3D object. It contains vertices and indices
 
 		// tableau des vertices qui composent notre objet
-		// dans cet exemple on défini MAX_POINTS point de manière aléaloire.
+		// dans cet exemple on dÃ©fini MAX_POINTS point de maniÃ¨re alÃ©aloire.
 		mVertices = new Vertices();
 
 		for (int i = 0; i < MAX_POINTS; i++) {
@@ -60,9 +60,9 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 			v.setPos(getRamdom() * 80.f, getRamdom() * 80.f, 0);
 			v.setColor(getRamdom(), getRamdom(), 1.f, 1.f);
 			mVertices.putVertice(i, v);
-			//tel quel , les vertex serront affiché dans le même ordre que leur création
-			// mais on peut très biens définir un autre ordre
-			// exemple dire que pour faire un carré, on fait 2 triangle avec vertex 0,1,2 et ,2,1,3
+			//tel quel , les vertex serront affichÃ© dans le mÃªme ordre que leur crÃ©ation
+			// mais on peut trÃ¨s biens dÃ©finir un autre ordre
+			// exemple dire que pour faire un carrÃ©, on fait 2 triangle avec vertex 0,1,2 et ,2,1,3
 			mVertices.putIndice(i, i);
 		}
 
@@ -72,12 +72,12 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 		// create texture handle
 		int[] textures = new int[1];
 
-		// on génère un buffer texture
+		// on gÃ©nÃ¨re un buffer texture
 		GLES20.glGenTextures(1, textures, 0);
 
 		mTex0 = textures[0];
 
-		// on demande à opengl d'utiliser la première texture
+		// on demande Ã  opengl d'utiliser la premiÃ¨re texture
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTex0);
 
 		// set parameters
@@ -103,7 +103,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 			return;
 		}
 
-		// on défini un buffer contenant tous les points de l'image
+		// on dÃ©fini un buffer contenant tous les points de l'image
 		// il en a (longeur x hauteur)
 		// pour chaque point on a 4 bytes . 3 pour la couleur RVB et 1 pour
 		// l'alpha
@@ -111,12 +111,12 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 				* bitmap.getWidth() * 4);
 
 		// on indique que les bytes dans le buffer doivent
-		// être enregistré selon le sens de lecture natif de l'architecture CPU
+		// Ãªtre enregistrÃ© selon le sens de lecture natif de l'architecture CPU
 		// (de gaucha a droite ou vice et versa)
 		imageBuffer.order(ByteOrder.nativeOrder());
 
 		byte buffer[] = new byte[4];
-		// pour chaque pixel composant l'image, on mémorise sa couleur et
+		// pour chaque pixel composant l'image, on mï¿½morise sa couleur et
 		// l'alpha
 		// dans le buffer
 		for (int i = 0; i < bitmap.getHeight(); i++) {
@@ -129,15 +129,15 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 				imageBuffer.put(buffer);
 			}
 		}
-		// on se place a la position 0 du buffer - près à être lu plus tard
+		// on se place a la position 0 du buffer - prÃ¨s Ã  Ãªtre lu plus tard
 		imageBuffer.position(0);
 		
-		// on indique au moteur de rendu que les lignes doivent avoir une épaisseur
+		// on indique au moteur de rendu que les lignes doivent avoir une Ã©paisseur
 		// de 5 pixels
 		GLES20.glLineWidth(5f);
 		
-		// charger la texture mémorisé dans le buffer dans le moteur de rendu comme 
-		//étant la texture 0
+		// charger la texture mÃ©morisÃ© dans le buffer dans le moteur de rendu comme
+		//ï¿½tant la texture 0
 		GLES20.glTexImage2D(GL10.GL_TEXTURE_2D, 0, GL10.GL_RGBA,
 				bitmap.getWidth(), bitmap.getHeight(), 0, GL10.GL_RGBA,
 				GL10.GL_UNSIGNED_BYTE, imageBuffer);
@@ -146,9 +146,9 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 
 	// @Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		//lorsqu'il y a une modification de la vue , on redéfinie la nouvelle
-		// taille de la vue (par exemple quand on incline le téléphone et 
-		// que l'on passe de la vue portait à la vue paysage
+		//lorsqu'il y a une modification de la vue , on redÃ©finie la nouvelle
+		// taille de la vue (par exemple quand on incline le tÃ©lÃ©phone et
+		// que l'on passe de la vue portait Ã  la vue paysage
 		GLES20.glViewport(0, 0, width, height);
 	}
 
@@ -162,7 +162,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 
 		mProgramme1.use();
 		
-		// ici on demande à dessiner
+		// ici on demande Ã  dessiner
 		// en mode points GL_POINTS
 		// on peu aussi le faire en mode line
 		mProgramme1.draw(mVertices, GLES20.GL_TRIANGLES, MAX_POINTS);
@@ -175,7 +175,7 @@ public class GLES20Renderer implements GLSurfaceView.Renderer {
 		}
 	}
 
-	// retourne un float aléatoire entre 0 et 1
+	// retourne un float alÃ©atoire entre 0 et 1
 	private float getRamdom() {
 		float value = (float) (Math.random() * 2. - 1.);
 		return value;

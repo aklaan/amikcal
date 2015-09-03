@@ -6,20 +6,19 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
-import com.rdupuis.amikcal.useractivity.UserActivity_Manager_Commons;
+import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
-public class UserActivity_Lunch_Manager extends UserActivity_Manager_Commons {
+
+public class UserActivity_Lunch_Manager extends UserActivity_Manager {
 
     /**
      * on peu appeler l'éditeur UA lunch de n'importe quel activité.
      *
-     * @param currentActivity
-     * @param uaLunch
+     * @param activity
      */
-    public UserActivity_Lunch_Manager(Activity currentActivity, UserActivity uaLunch) {
-        super(currentActivity, uaLunch);
+    public UserActivity_Lunch_Manager(Activity activity) {
+        super(activity);
 
     }
 
@@ -28,19 +27,19 @@ public class UserActivity_Lunch_Manager extends UserActivity_Manager_Commons {
      * Appelle l'activité qui permet d'éditer un  userActivity_Food
      */
 
-    public void edit() {
+    public void edit(UserActivity_Lunch userActivity_lunch) {
 
-        Intent intent = new Intent(this.mActivity, Act_UserActivity_Lunch_Editor.class);
-        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____ID, this.mUserActivity.getDatabaseId());
-        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____DAY, ToolBox.getSqlDate(this.mUserActivity.getDay()));
-        this.mActivity.startActivityForResult(intent, 0);
+        Intent intent = new Intent(getActivity(), Act_UserActivity_Lunch_Editor.class);
+        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____ID, userActivity_lunch.getDatabaseId());
+        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____DAY, ToolBox.getSqlDate(userActivity_lunch.getDay()));
+        getActivity().startActivityForResult(intent, 0);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        Toast.makeText(this.mActivity, "on result lunchitem", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "on result lunchitem", Toast.LENGTH_LONG).show();
     }
 
-    @Override
+
     public void delete() {
         // TODO Auto-generated method stub
 

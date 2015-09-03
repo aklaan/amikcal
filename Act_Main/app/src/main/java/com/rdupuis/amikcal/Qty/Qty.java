@@ -8,12 +8,12 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.energy.DBWarper_Qty;
-import com.rdupuis.amikcal.relations.I_Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.Relation;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unit� et un montant
-public class Qty extends I_Relation {
+public class Qty extends Relation {
 
     private long _id;
     private Unity mUnity;

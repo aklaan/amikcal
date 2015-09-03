@@ -37,9 +37,9 @@ public class Act_Day extends Activity{
     }
 
     /*************************************************************************
-     * init : liste des actions a effectuer à la création
-     * - par défaut, on initialise la date à la date du jour.
-     * - on ajoute 1 au mois car android commence l'année au mois 0
+     * init : liste des actions a effectuer Ã  la crÃ©ation
+     * - par dÃ©faut, on initialise la date Ã  la date du jour.
+     * - on ajoute 1 au mois car android commence l'annÃ©e au mois 0
      */
     private void init(){
     	mDay = new DayObj();
@@ -52,7 +52,7 @@ public class Act_Day extends Activity{
   
     
     /**
-     * Rafraichir l'écran
+     * Rafraichir l'Ã©cran
      */
     private void refreshScreen(){
     //	TextView tv  = (TextView)findViewById(R.id.dayview_navbar_tv_DayLabel);
@@ -109,7 +109,7 @@ public class Act_Day extends Activity{
     /*************************************************************************
      * onClickActivities
      *
-     * -Afficher les activitées du jour
+     * -Afficher les activitÃ©es du jour
      *
      *************************************************************************/
      

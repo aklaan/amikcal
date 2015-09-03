@@ -29,6 +29,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
 import com.rdupuis.amikcal.day.Act_Day;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
+import com.rdupuis.amikcal.unity.Unity_Manager;
 import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
 //import com.rdupuis.amikcal.ContentDescriptor;
 
@@ -135,10 +136,9 @@ public class Act_Main extends Activity {
 	*/
 	protected ErrorStatus readAmikcalDB() {
 	    try {
-	        	    
-	        AmiKcalFactory factory  = new AmiKcalFactory(this);
-	        
-	        factory.load_Unity(1);
+
+			Unity_Manager um = new Unity_Manager(this);
+	        um.load(1);
 	    
 	    } catch (Exception e) {
 	    }

@@ -11,8 +11,9 @@ import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Energy_Manager;
 
-public class Component_Reference_Manager extends Component_Manager_Commons {
+public class Component_Reference_Manager extends Component_Manager {
 
     /**
      * Constructeur
@@ -23,20 +24,18 @@ public class Component_Reference_Manager extends Component_Manager_Commons {
         super(activity);
     }
 
-    @Override
-    public void save(Component component) {
+
+    public void save(Component_Reference component) {
 
     }
 
 
-    @Override
-    public void delete(Component component) {
+    public void delete(Component_Reference component) {
 
     }
 
 
-    @Override
-    public void edit(Component component) {
+    public void edit(Component_Reference component) {
 
     }
 
@@ -74,7 +73,8 @@ public class Component_Reference_Manager extends Component_Manager_Commons {
         if (cursor.moveToFirst()) {
 
             //Charger l'énergie
-            EnergySource e = EnergyFactory.load_Energy(cursor.getLong(INDX_QTY_ID));
+            Energy_Manager em = new Energy_Manager(getActivity());
+            EnergySource e = em.load(cursor.getLong(INDX_QTY_ID));
 
             // Charger la Qty
             Qty_Manager qty_manager = new Qty_Manager(getActivity());

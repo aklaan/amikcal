@@ -1,6 +1,7 @@
 package com.rdupuis.amikcal.energy;
 
 import com.rdupuis.amikcal.Qty.Qty;
+import com.rdupuis.amikcal.components.Component_Reference;
 
 /**
  * <h1>Food : un aliment<h1>
@@ -19,7 +20,7 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
 
     public Food() {
 	super();
-	this.setQtyReference(new Qty());
+	this.setComponentReference(new Component_Reference());
     this.setStructure(STRUCTURE.UNDEFINED);
     }
 

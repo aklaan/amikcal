@@ -17,7 +17,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 
 		// **********************************************************************************************
-		// Création de la table des unitées
+		// CrÃ©ation de la table des unitÃ©es
 		// **********************************************************************************************
 		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Units.NAME + " ( "
 				+ ContentDescriptorObj.TB_Units.Columns.ID
@@ -32,7 +32,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ") ON CONFLICT REPLACE)");
 
 		// **********************************************************************************************
-		// Création de la table des contenances
+		// CrÃ©ation de la table des contenances
 		// **********************************************************************************************
 		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Capacities.NAME
 				+ " ( " + ContentDescriptorObj.TB_Capacities.Columns.ID
@@ -49,7 +49,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ") ON CONFLICT REPLACE)");
 
 		// **********************************************************************************************
-		// Création de la table des énergies
+		// CrÃ©ation de la table des Ã©nergies
 		// **********************************************************************************************
 		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Energies.TBNAME
 				+ " ( " + ContentDescriptorObj.TB_Energies.Columns.ID
@@ -71,7 +71,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ") ON CONFLICT REPLACE)");
 
 		// **********************************************************************************************
-		// Création de la table des relations 
+		// CrÃ©ation de la table des relations
 		// **********************************************************************************************
 		db.execSQL("CREATE TABLE " + ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ " ( " + ContentDescriptorObj.TB_Party_rel.Columns.ID
@@ -88,8 +88,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ") ON CONFLICT REPLACE)");
 
 		// **********************************************************************************************
-		// Création de la table des Activitiés de l'utilisateur
-		// ex: Repas / pesées / activité physiques
+		// CrÃ©ation de la table des ActivitiÃ©s de l'utilisateur
+		// ex: Repas / pesÃ©es / activitÃ© physiques
 		// **********************************************************************************************
 		db.execSQL("CREATE TABLE "
 				+ ContentDescriptorObj.TB_UserActivities.TBNAME + " ( "
@@ -124,8 +124,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 		
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une NRJ et son
-		 // composant de référence.
+		 // CrÃ©ation de la vue permettant de faire le lien entre une NRJ et son
+		 // composant de rÃ©fÃ©rence.
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
@@ -141,7 +141,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.REL_NRJ_COMPONENT_REF_ID
 				+ ","
 
-				// ID de la source d'énergie
+				// ID de la source d'ï¿½nergie
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
@@ -159,7 +159,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type NRJ_REF_INTRNL
+				// On sï¿½lï¿½ctionne les liens de type NRJ_REF_INTRNL
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
@@ -174,7 +174,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 		
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une activité et
+		 // CrÃ©ation de la vue permettant de faire le lien entre une activitÃ© et
 		 // ses composants.
 		 //***********************************************************************/
 
@@ -191,7 +191,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.View_UA_Comp_link.Columns.REL_ID
 				+ ","
 
-				// ID de la source d'énergie
+				// ID de la source d'ï¿½nergie
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
@@ -209,7 +209,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type NRJ_REF_INTRNL
+				// On sï¿½lï¿½ctionne les liens de type NRJ_REF_INTRNL
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
@@ -224,8 +224,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une QTY et
-		 // ses équivalences.
+		 // CrÃ©ation de la vue permettant de faire le lien entre une QTY et
+		 // ses Ã©quivalences.
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
@@ -241,7 +241,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.View_qty_equiv.Columns.REL_ID
 				+ ","
 
-				// ID de la source d'énergie
+				// ID de la source d'ï¿½nergie
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
@@ -259,7 +259,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type QTY_EQUIVL
+				// On sï¿½lï¿½ctionne les liens de type QTY_EQUIVL
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
@@ -276,8 +276,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		
 		
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une QTY et
-		 // ses équivalences.
+		 // CrÃ©ation de la vue permettant de faire le lien entre une QTY et
+		 // ses Ã©quivalences.
 		 //***********************************************************************/
 
 		db.execSQL("CREATE VIEW "
@@ -293,7 +293,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.View_Component_equiv.Columns.REL_ID
 				+ ","
 
-				// ID de la source d'énergie
+				// ID de la source d'ï¿½nergie
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
@@ -311,7 +311,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type QTY_EQUIVL
+				// On sï¿½lï¿½ctionne les liens de type QTY_EQUIVL
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
@@ -325,7 +325,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		);
 		
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une activité et
+		 // CrÃ©ation de la vue permettant de faire le lien entre une activitÃ© et
 		 // ses UAC composantes.
 		 //***********************************************************************/
 
@@ -350,7 +350,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.View_Qty.Columns.AMOUNT
 				+ ","
 
-				// ID de l'unitée
+				// ID de l'unitï¿½e
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
@@ -360,7 +360,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type QTY
+				// On sï¿½lï¿½ctionne les liens de type QTY
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
@@ -376,7 +376,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		
 		
 		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre les composant 
+		 // CrÃ©ation de la vue permettant de faire le lien entre les composant
 		 // d'une UAC.
 		 //***********************************************************************/
 
@@ -403,7 +403,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 
 
 				
-				// ID de la source d'énergie
+				// ID de la source d'ï¿½nergie
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."
 				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
@@ -421,7 +421,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ " FROM "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 
-				// On séléctionne les liens de type NRJ_REF_INTRNL
+				// On sï¿½lï¿½ctionne les liens de type NRJ_REF_INTRNL
 				+ " WHERE "
 				+ ContentDescriptorObj.TB_Party_rel.TBNAME
 				+ "."

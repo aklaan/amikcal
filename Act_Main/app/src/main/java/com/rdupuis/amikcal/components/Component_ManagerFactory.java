@@ -20,13 +20,13 @@ public class Component_ManagerFactory {
         // en fonction du type d'activit�e, on va retourner l'objet adequat
         switch (component.getRelationClass()) {
             case CFOOD:
-                return new Component_Food_Manager(activity, (Component_Food) component);
+                return new Component_Food_Manager(activity);
             case CMOVE:
-                return new Component_Move_Manager(activity, (Component_Move) component);
+                //return new Component_Move_Manager(activity, (Component_Move) component);
             case CWEIGHT:
-                return new Component_Weight_Manager(activity, (Component_Weight) component);
+                //return new Component_Weight_Manager(activity);
             default:
-                Toast.makeText(activity, "ERR Cr�a Component Action editor", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "ERR Créa Component Action editor", Toast.LENGTH_LONG).show();
 
                 break;
         }

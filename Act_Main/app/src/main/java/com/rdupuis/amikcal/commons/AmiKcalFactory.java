@@ -24,23 +24,8 @@ public class AmiKcalFactory {
     }
 
 
-    public static ContentResolver getContentResolver() {
 
-        if (contentResolver == null) {//throw exception
-        }
-        return contentResolver;
-    }
 
-    /*******************************************************
-     * supprimer une activit� d'un utilisateur ATTENTION aux liens � revoir....
-     ***************************************************/
-    public void delete(UserActivity userActivity) {
-
-        //   Uri uriDelete = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.DELETE_USER_ACTIVITY_URI,
-        //          userActivity.getId());
-        //  mActivity.getContentResolver().delete(uriDelete, null, null);
-
-    }
 
 
     /*********************************************************************************
@@ -201,7 +186,7 @@ public class AmiKcalFactory {
     /*****************************************************************************************
      *
      ******************************************************************************************/
-    // recharger toutes les �quivalences d'un composant
+    // recharger toutes les équivalences d'un composant
     public ArrayList<Component> load_Equiv(Component component) {
         ArrayList<Component> equiv_list = new ArrayList<Component>();
 

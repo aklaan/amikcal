@@ -11,13 +11,13 @@ import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
 
 /**
- * <b>Liste des activitées de l'utilisateur.</b>
+ * <b>Liste des activitÃ©es de l'utilisateur.</b>
  * <p>
- * les activitées sont :
+ * les activitÃ©es sont :
  * <ul>
  * <li>les repas</li>
- * <li>les activitées physiques</li>
- * <li>les pesées</li>
+ * <li>les activitÃ©es physiques</li>
+ * <li>les pesÃ©es</li>
  * <li>les recettes</li>
  * </ul>
  * </p>
@@ -33,7 +33,7 @@ public class Frag_UserActivity_StatisticsOfDay extends TimeSlidableFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		// la première chose à faire est d'initialiser la date à afficher.
+		// la premiÃ¨re chose Ã  faire est d'initialiser la date Ã  afficher.
 		this.initCurrentDay();
 		
 		//on s'occupe de l'affichage
@@ -55,7 +55,7 @@ public class Frag_UserActivity_StatisticsOfDay extends TimeSlidableFragment {
 
 	
 	/**
-	 * Calculer le nombre total de calories pour une journée.
+	 * Calculer le nombre total de calories pour une journÃ©e.
 	 * @param DateToSelect
 	 * @return
 	 */

@@ -54,10 +54,10 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		this.getIntent();
 
 		// * Recuperer les informations sauvees dans le Bundle lorsque
-		// l'activité a été stopée
+		// l'activitÃ© a Ã©tÃ© stopÃ©e
 		try {
 			if (savedInstanceState != null) {
-				// On restaure la date a laquelle on était
+				// On restaure la date a laquelle on Ã©tait
 				mCurrentDay = (ToolBox.parseCalendar(savedInstanceState
 						.getString(BUNDLE_VAR____CURRENT_DAY)));
 				// On restaure le mode vue
@@ -66,13 +66,13 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 			}
 
 		} catch (Exception e) {
-			// Sinon par défaut, on prend la date du jour.
+			// Sinon par dÃ©faut, on prend la date du jour.
 			mCurrentDay = (Calendar.getInstance());
 		}
 		;
 
-		// Par défaut la vue a afficher est la vue de synthèse du jour.
-		// cette vue est associé niveau de zoom 1
+		// Par dÃ©faut la vue a afficher est la vue de synthÃ¨se du jour.
+		// cette vue est associÃ© niveau de zoom 1
 		if (mCurrentViewMode == null) {
 			mZoomLevel = 1;
 			mCurrentViewMode = getViewMode(mZoomLevel);
@@ -81,10 +81,10 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		;
 
 		// On souhaites conserver en memoire 9 pages en meme temps.
-		// pour gérer correctement le timeSlide
+		// pour gÃ©rer correctement le timeSlide
 		getViewPager().setOffscreenPageLimit(9);
 
-		// on va créer le groupe de fragment à afficher
+		// on va crÃ©er le groupe de fragment Ã  afficher
 		createFragmentsGroups(mCurrentDay,
 				getFagmentClassName(mCurrentViewMode));
 
@@ -101,10 +101,10 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 	/**
 	 * ===============================================================
-	 * onUpdateGroup on override la méthode onUpdateGroup pour mémoriser la date
-	 * a laquelle l'utilisateur s'est positioné. (non-Javadoc)
+	 * onUpdateGroup on override la mÃ©thode onUpdateGroup pour mÃ©moriser la date
+	 * a laquelle l'utilisateur s'est positionÃ©. (non-Javadoc)
 	 * 
-	 * @see com.rdupuis.amikcal.commons.Generic_FragmentsSlider#onUpdateGroup()
+
 	 *      ===============================================================
 	 */
 	@Override
@@ -132,7 +132,7 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		switch (zoomLevel) {
 
 		case 0:
-			getActionBar().setTitle("Jounée");
+			getActionBar().setTitle("Jounï¿½e");
 			return ViewMode.VIEW_ACTIVITIES_OF_DAY;
 		case 1:
 			getActionBar().setTitle("jour");
@@ -175,9 +175,9 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	/**
 	 * ===============================================================
 	 * onClickActivity : Action a effectuer lorque l'utilisateur
-	 * a séléctioné un item "UserActivity" dans une liste d'Activity
+	 * a sÃ©lÃ©ctionÃ© un item "UserActivity" dans une liste d'Activity
 	 * 
-	 *  - On affiche la liste des composants de l'activitée
+	 *  - On affiche la liste des composants de l'activitÃ©e
 	 * ===============================================================
 	 */
 	public void onClickActivity(String id) {
@@ -219,25 +219,25 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	 */
 
 	public void onClickAdd() {
-		// /appeler l'activité
+		// /appeler l'activitÃ©
 		Intent intent = new Intent(this,
 				Act_UserActivity_ChooseNew.class);
 
 		intent.putExtra(AppConsts.INPUT____CHOOSE_NEW_ACTIVITY____DAY_OF_THE_USER_ACTIVITY,
 								ToolBox.getSqlDate(this.mCurrentDay));
 
-		// en regardant si l'activité est présente dans le PackageManager, on
-		// évite de
-		// planter si on a oublié de déclarer l'activité dans le Manifest.
+		// en regardant si l'activitÃ© est prÃ©sente dans le PackageManager, on
+		// Ã©vite de
+		// planter si on a oubliÃ© de dÃ©clarer l'activitÃ© dans le Manifest.
 		if (intent.resolveActivity(getPackageManager()) != null) {
 
-			//il faut faire un startActivityForResult pour déclancher le 
-			// onActivityResult qui va permettre le rafraichissement de l'écran
+			//il faut faire un startActivityForResult pour dÃ©clancher le
+			// onActivityResult qui va permettre le rafraichissement de l'Ã©cran
 			startActivityForResult(intent, 0);
 
 		} else
 			Toast.makeText(this,
-					"Activité Act_UserActivity_ChooseNewActivity non trouvée",
+					"ActivitÃ© Act_UserActivity_ChooseNewActivity non trouvÃ©e",
 					Toast.LENGTH_SHORT).show();
 	}
 
@@ -262,8 +262,8 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		switch (mZoomLevel) {
-		// le niveau le plus bas correspond à la liste des activitées du jour
-		// on ajoute donc le bouton ADD pour pouvoir ajouter une activité
+		// le niveau le plus bas correspond Ã  la liste des activitÃ©es du jour
+		// on ajoute donc le bouton ADD pour pouvoir ajouter une activitÃ©
 		// lorsque l'on monte d'un niveau, le bouton ADD n'est plus utile, alors
 		// on ne l'affiche plus.
 		case MIN_ZOOM_LEVEL:
@@ -292,8 +292,8 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 		boolean iSrefreshViewNeeded = false;
 		switch (item.getItemId()) {
 		case R.id.menu_zoom_in:
-			// Si le niveau de zoom n'est pas déja au plus bas
-			// on décrémente le niveau
+			// Si le niveau de zoom n'est pas dÃ©ja au plus bas
+			// on dÃ©crÃ©mente le niveau
 			if (mZoomLevel > MIN_ZOOM_LEVEL) {
 				mZoomLevel--;
 				iSrefreshViewNeeded = true;
@@ -306,8 +306,8 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 			}
 			break;
 		case R.id.menu_add:
-			// ajout d'une nouvelle activitée
-			// il faudrait appller l'activitée de choix
+			// ajout d'une nouvelle activitÃ©e
+			// il faudrait appller l'activitÃ©e de choix
 			this.onClickAdd();
 			// onClickEdit(null, null, null);
 			break;
@@ -330,16 +330,16 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 
 		}
 
-		// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
-		// pour rafraichir la barre des tâches
+		// invalidateOptionsMenu va appeller la mÃ©thode onPrepareOptionsMenu();
+		// pour rafraichir la barre des tÃ¢ches
 		invalidateOptionsMenu();
 		return true;
 	}
 
 	/**
 	 * ========================================================================
-	 * == == Si la classe a lancé une activité, on rafraichit l'écran au retour
-	 * afin de tenir compte des éventuelles mise à jours (non-Javadoc)
+	 * == == Si la classe a lancÃ© une activitÃ©, on rafraichit l'Ã©cran au retour
+	 * afin de tenir compte des Ã©ventuelles mise Ã  jours (non-Javadoc)
 	 * 
 	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int,
 	 *      android.content.Intent)
@@ -362,31 +362,31 @@ public class UserActivities_FragmentsSlider extends Generic_FragmentsTimeSlider 
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 		//
-		// Pour rappel le ViewPager utilise un PagerAdapter qui gère les
-		// éléments qui doivent être affiché ou non
+		// Pour rappel le ViewPager utilise un PagerAdapter qui gÃ¨re les
+		// Ã©lÃ©ments qui doivent Ãªtre affichÃ© ou non
 		// par exemple, lorsque l'on veut afficher un fragment "A", le
-		// pagerAdapter va créer une copie de A -> A' et afficher cette copie.
-		// si A' n'est plus visible à l'écran, le PagerAdapter peu prendre la
-		// décision de supprimer A' pour
-		// préserver la mémoire.
-		// si par la suite il faut réafficher A, le pagerAdapter va de nouveau
+		// pagerAdapter va crÃ©er une copie de A -> A' et afficher cette copie.
+		// si A' n'est plus visible Ã  l'Ã©cran, le PagerAdapter peu prendre la
+		// dÃ©cision de supprimer A' pour
+		// prÃ©server la mÃ©moire.
+		// si par la suite il faut rÃ©afficher A, le pagerAdapter va de nouveau
 		// en faire une copie A''.
 		//
-		// Lorsque j'appelle le onSaveInstanceState, le système mémorise l'état
+		// Lorsque j'appelle le onSaveInstanceState, le systÃ¨me mÃ©morise l'Ã©tat
 		// actuel des vues. dans mon cas,
-		// il va mémoriser l'état des copies en cours de gestion par le
-		// PagerAdapater. on ne mémorise donc pas
-		// tous les fragments et ça pose des problèmes d'index à la recréation.
+		// il va mÃ©moriser l'Ã©tat des copies en cours de gestion par le
+		// PagerAdapater. on ne mÃ©morise donc pas
+		// tous les fragments et Ã§a pose des problÃ¨mes d'index Ã  la recrÃ©ation.
 		//
-		// Au final, lors de la re-création de mon activité je vais recréer de
+		// Au final, lors de la re-crÃ©ation de mon activitÃ© je vais recrÃ©er de
 		// nouveaux fragments (nouvel id)
-		// qui n'aurront plus aucun lien avec les fragments dont l'état a été
-		// mémorisé.
+		// qui n'aurront plus aucun lien avec les fragments dont l'Ã©tat a Ã©tÃ©
+		// mÃ©morisÃ©.
 		// je prend donc le parti de vider le savedInstanceState pour purger les
 		// Fragmentstate inutiles.
-		// Au lieu de faire un onCreate(null), je le conserve tout de même le
+		// Au lieu de faire un onCreate(null), je le conserve tout de mÃªme le
 		// savedInstanceState pour pouvoir
-		// mémorier la date à laquelle l'utilisateur s'est arrêté.
+		// mÃ©morier la date Ã  laquelle l'utilisateur s'est arrÃªtÃ©.
 		//
 		savedInstanceState.clear();
 		savedInstanceState.putString(BUNDLE_VAR____CURRENT_DAY,

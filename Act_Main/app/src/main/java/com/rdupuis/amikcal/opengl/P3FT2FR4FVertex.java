@@ -7,8 +7,8 @@ package com.rdupuis.amikcal.opengl;
  */
 public class P3FT2FR4FVertex {
 
-	//P3F = coordonnées de sommet x,y,z 
-	//T2F = coordonée de texture x,y
+	//P3F = coordonnÃ©es de sommet x,y,z
+	//T2F = coordonÃ©e de texture x,y
 	//R4F = couleur du sommet + alpha
 	
     public final static int P3FT2FR4FVertex_SIZE = 9;

@@ -42,11 +42,11 @@ public class RecipeObj {
 //		}
 //
 //		/********************************************************
-//		 * 	calcule le ratio de poids avant/après cuisson
-//		 * car il faut prendre en compte l'eau qui sévapore
-//		 * en effet 100g de pain grillé c'est plus calorique que 100g de pain
-//		 * car dans 100g de pain il y a une partie du poids qui est lié à l'eau
-//		 * donc a donc moins d'eau et plus de féculents dans le pain grillé.  	
+//		 * 	calcule le ratio de poids avant/aprÃ¨s cuisson
+//		 * car il faut prendre en compte l'eau qui s'Ã©vapore
+//		 * en effet 100g de pain grillÃ© c'est plus calorique que 100g de pain
+//		 * car dans 100g de pain il y a une partie du poids qui est liÃ© Ã  l'eau
+//		 * donc a donc moins d'eau et plus de fÃ©culents dans le pain grillÃ©.
 //		 * 	@return (float) - ratio 
 //		 */
 //		
@@ -59,8 +59,8 @@ public class RecipeObj {
 //		
 //		
 //		/********************************************************
-//		 * récupérer les proteines
-//		 * @return (float) - quantité de protéines 
+//		 * rÃ©cupÃ©rer les proteines
+//		 * @return (float) - quantitÃ© de protÃ©ines
 //		 */
 //		public float proteins(){
 //			float result=0f;
@@ -78,8 +78,8 @@ public class RecipeObj {
 //		
 //		
 //		/********************************************************
-//		 * récupérer les lipides
-//		 * @return (float) - quantité de lipides 
+//		 * rÃ©cupÃ©rer les lipides
+//		 * @return (float) - quantitÃ© de lipides
 //		 */
 //		public float lipids(){
 //			float result=0f;
@@ -96,8 +96,8 @@ public class RecipeObj {
 //		
 //		
 //		/********************************************************
-//		 * récupérer les glucides
-//		 * @return (float) - quantité glucides
+//		 * rÃ©cupÃ©rer les glucides
+//		 * @return (float) - quantitÃ© glucides
 //		 */
 //		public float glucids(){
 //			float result=0f;
@@ -113,8 +113,8 @@ public class RecipeObj {
 //		}
 //		
 //		/********************************************************
-//		 * récupérer les calories
-//		 * @return (float) - quantité de calories 
+//		 * rÃ©cupÃ©rer les calories
+//		 * @return (float) - quantitÃ© de calories
 //		 */
 //		public float calories(){
 //			float result=0f;

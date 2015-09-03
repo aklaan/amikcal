@@ -124,13 +124,13 @@ public class GLSLProgram {
             // on calcule la matrice "mRotation" a utiliser pour pivoter
             // d'un angle de x radian 
             // ici l'angle c'est counter
-            // le pivot est au centre à 0,0,0
+            // le pivot est au centre Ã  0,0,0
             Matrix.setRotateEulerM(mRotation,0, 0.f, 0.f, counter);
             
             // on calcule la nouvelle matrice de projection mMvp
             Matrix.multiplyMM(mMvp, 0, mProjection, 0, mRotation, 0);
             
-            //on alimente la donnée UNIFORM mMvpLoc du programme OpenGL avec une matrice de 4 flotant
+            //on alimente la donnÃ©e UNIFORM mMvpLoc du programme OpenGL avec une matrice de 4 flotant
             GLES20.glUniformMatrix4fv(mMvpLoc, 1, false, mMvp, 0);
         }
         
@@ -142,7 +142,7 @@ public class GLSLProgram {
         
         if (mTimeLoc != -1) {
             float time = 0;
-            // on alimente la donnée UNIFORM mTimeLoc avec un flotant time 
+            // on alimente la donnÃ©e UNIFORM mTimeLoc avec un flotant time
             GLES20.glUniform1f(mTimeLoc, time);
         }
 
@@ -151,13 +151,13 @@ public class GLSLProgram {
         	
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, GLES20Renderer.mTex0);
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-            // on alimente la donnée UNIFORM mTex0Loc avc un integer 0
+            // on alimente la donnÃ©e UNIFORM mTex0Loc avc un integer 0
             GLES20.glUniform1i(mTex0Loc, 0);
         }
     }
 
     public void draw(Vertices vertices, int mode, int count) {
-        //appel la fonction qui passe à enable toutes les variables
+        //appel la fonction qui passe Ã  enable toutes les variables
     	enableVertexAttribArray(vertices);
         
     	//on se positionne au debut du Buffer
@@ -177,18 +177,18 @@ public class GLSLProgram {
  			Prototype de la fonction	Description
 
 			
-				on Crée une géométrie avec le type de primitive "mode",
-				 cette géométrie est composée de n vertex
-				 les vertex à utiliser sont spécifié dans le tableau des indices
+				on CrÃ©e une gÃ©omÃ©trie avec le type de primitive "mode",
+				 cette gÃ©omÃ©trie est composÃ©e de n vertex
+				 les vertex Ã  utiliser sont spÃ©cifiÃ© dans le tableau des indices
 				 
-				  par exemple :  on veut dessiner un carré, pour cela on va faire 2 triangles côte à côte
+				  par exemple :  on veut dessiner un carrÃ©, pour cela on va faire 2 triangles cÃ´te Ã  cÃ´te
 				  on utilise le mode GL_TRIANGLES
 				  pour dessiner un triangle, il faut 3 sommets, 
 				  on demande donc a dessiner la forme avec les groupe de 3 vertex, on va donc
 				  lire notre tableau des indices par groupe de 3. 
-				  pour savoir quels vertex sont à utiliser, on récupère les n° de vertex
-				  référencé dans le tableau des indices
-				  (pour simplifier les coordonées sont en 2D)
+				  pour savoir quels vertex sont Ã  utiliser, on rÃ©cupÃ¨re les nÂ° de vertex
+				  rÃ©fÃ©rencÃ© dans le tableau des indices
+				  (pour simplifier les coordonÃ©es sont en 2D)
 				  indice 0 - vertex 0 (-1,1)
 				  indice 1 - vertex 1 (-1,-1)
 				  indice 2 - vertex 2 (1,1)
@@ -208,11 +208,11 @@ public class GLSLProgram {
     }
 
     private void enableVertexAttribArray(Vertices vertices) {
-        //si l'adresse mémoire de l'objet désigné par mPositionLoc n'est pas vide
+        //si l'adresse mÃ©moire de l'objet dÃ©signÃ© par mPositionLoc n'est pas vide
     	if (mPositionLoc != -1) {
            
-    		// on va chercher le FloatBuffer où sont stocké les coordonnées des sommets
-           // on se positionne au début du Buffer
+    		// on va chercher le FloatBuffer oÃ¹ sont stockÃ© les coordonnÃ©es des sommets
+           // on se positionne au dÃ©but du Buffer
         	vertices.getVertices().position(0);
             
              
@@ -234,14 +234,14 @@ public class GLSLProgram {
              * 
              * 
              */
-            // on souhaite passer à opengl un tableaux de coordonées pour alimenter la aPosition des vertex.
-            // dans l'objet désigné par l'adresse mPositionLoc (càd aPosition), on va écrire le contenu du FloatBuffer contenant les coordonées des sommets
-        	// on spécifie comment OPENGL doit interpréter le buffer en spécifiant que chaque index du tableau comporte 3 Float d'une longeur P3FT2FR4FVertex_SIZE_BYTES
+            // on souhaite passer Ã  opengl un tableaux de coordonÃ©es pour alimenter la aPosition des vertex.
+            // dans l'objet dÃ©signÃ© par l'adresse mPositionLoc (cÃ d aPosition), on va Ã©crire le contenu du FloatBuffer contenant les coordonÃ©es des sommets
+        	// on spÃ©cifie comment OPENGL doit interprÃ©ter le buffer en spÃ©cifiant que chaque index du tableau comporte 3 Float d'une longeur P3FT2FR4FVertex_SIZE_BYTES
         	// autrement dit, a la lecture du Buffer, au bout de 3 Float d'une longeur P3FT2FR4FVertex_SIZE_BYTES, opengl cree un nouvel index.
             GLES20.glVertexAttribPointer(mPositionLoc, 3, GLES20.GL_FLOAT, false, P3FT2FR4FVertex.P3FT2FR4FVertex_SIZE_BYTES, vertices.getVertices());
             
-            // on rend l'utilisation de mPositionLoc (càd aPosition) possible par le moteur de rendu
-            // dans le cas contraire, OPENGL n'utilisera pas les données passée à aPosition et le fragment
+            // on rend l'utilisation de mPositionLoc (cï¿½d aPosition) possible par le moteur de rendu
+            // dans le cas contraire, OPENGL n'utilisera pas les donnï¿½es passï¿½e ï¿½ aPosition et le fragment
             // se comporte comme si aPosition vaut 0.
             
             GLES20.glEnableVertexAttribArray(mPositionLoc);
@@ -250,7 +250,7 @@ public class GLSLProgram {
             vertices.getVertices().position(0);
             GLES20.glVertexAttribPointer(mColorLoc, 4, GLES20.GL_FLOAT, false, P3FT2FR4FVertex.P3FT2FR4FVertex_SIZE_BYTES, vertices.getVertices());
            
-            // ici, si on n'active pas le lien entre le programme java et le programme OPENGL, dans le programme OpenGL, aColor serra à zéro 
+            // ici, si on n'active pas le lien entre le programme java et le programme OPENGL, dans le programme OpenGL, aColor serra Ã  zÃ©ro
             // et les formes seront noires / sans couleur.
             GLES20.glEnableVertexAttribArray(mColorLoc);
         }

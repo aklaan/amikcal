@@ -9,7 +9,7 @@ import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
-public class Relation_UserActivity_vs_Component extends I_Relation {
+public class Relation_UserActivity_vs_Component extends Relation {
     private UserActivity mUserActivity;
     private Component mComponent;
     private long _id;
@@ -23,23 +23,23 @@ public class Relation_UserActivity_vs_Component extends I_Relation {
     @Override
     public String getParty1() {
 
-	return String.valueOf(mUserActivity.getId());
+	return String.valueOf(mUserActivity.getDatabaseId());
     }
 
     @Override
     public String getParty2() {
 
-	return String.valueOf(mComponent.getId());
+	return String.valueOf(mComponent.getDatabaseId());
     }
 
     @Override
-    public long getId() {
+    public long getDatabaseId() {
 
 	return _id;
     }
 
     @Override
-    public void setId(long rel_id) {
+    public void setDatabaseId(long rel_id) {
 	this._id = rel_id;
 
     }

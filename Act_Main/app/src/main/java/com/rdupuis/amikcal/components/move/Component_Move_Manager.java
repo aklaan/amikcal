@@ -8,7 +8,7 @@ public class Component_Move_Manager extends Component_Manager {
 
 
     public Component_Move_Manager(Activity activity, Component_Move component) {
-        super(activity, component);
+        super(activity);
     }
 
     public Component_Move load(long databaseId) {

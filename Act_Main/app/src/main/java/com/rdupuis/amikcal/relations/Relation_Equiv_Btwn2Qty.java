@@ -7,7 +7,7 @@ import com.rdupuis.amikcal.Qty.Qty;
 import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
 
-public class Relation_Equiv_Btwn2Qty extends I_Relation {
+public class Relation_Equiv_Btwn2Qty extends Relation {
     private Qty mQty1;
     private Qty mQty2;
     private long _id;
@@ -21,23 +21,23 @@ public class Relation_Equiv_Btwn2Qty extends I_Relation {
     @Override
     public String getParty1() {
 
-	return String.valueOf(this.mQty1.getId());
+	return String.valueOf(this.mQty1.getDatabaseId());
     }
 
     @Override
     public String getParty2() {
 
-	return String.valueOf(this.mQty2.getId());
+	return String.valueOf(this.mQty2.getDatabaseId());
     }
 
     @Override
-    public long getId() {
+    public long getDatabaseId() {
 
 	return _id;
     }
 
     @Override
-    public void setId(long rel_id) {
+    public void setDatabaseId(long rel_id) {
 	this._id = rel_id;
 
     }

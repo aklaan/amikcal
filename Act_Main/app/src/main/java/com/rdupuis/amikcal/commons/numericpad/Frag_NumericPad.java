@@ -25,7 +25,7 @@ public class Frag_NumericPad extends Fragment {
 			Bundle savedInstanceState) {
 
 		mMainView = inflater.inflate(R.layout.view_numericpad, container, false);
-		// getIntent récupère l'Intent qui a déclanché l'Activity
+		// getIntent rÃ©cupÃ©re l'Intent qui a dÃ©clanchÃ© l'Activity
 		
 		
 		ed = (TextView) mMainView.findViewById(R.id.padnumber_entry);
@@ -86,8 +86,8 @@ public class Frag_NumericPad extends Fragment {
 	public void OnClick_Btn_Ok() {
 
 		// si l'utilisateur a saisi un nombre
-		// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-		// récupérer la valeur.
+		// on alimente le rÃ©sultat dans l'Intent pour que l'Activity mÃ¨re puisse
+		// rÃ©cupÃ©rer la valeur.
 		// s'il n'a rien saisi, on
 
 		if (ed.getText() != "") {
@@ -95,8 +95,8 @@ public class Frag_NumericPad extends Fragment {
 					.putExtra(this.OUTPUT____AMOUNT,
 							ed.getText().toString());
 
-			// on appelle setResult pour déclancher le onActivityResult de
-			// l'activity mère.
+			// on appelle setResult pour dï¿½clancher le onActivityResult de
+			// l'activity mï¿½re.
 			getActivity().setResult(Activity.RESULT_OK, this.getActivity().getIntent());
 		}
 		// On termine l'Actvity

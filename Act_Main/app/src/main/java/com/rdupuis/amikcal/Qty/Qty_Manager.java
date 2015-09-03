@@ -15,13 +15,13 @@ import com.rdupuis.amikcal.unity.Unity_Manager;
 /**
  * Created by rodol on 31/08/2015.
  */
-public final class Qty_Manager extends Manager {
+public  class Qty_Manager extends Manager {
 
     public Qty_Manager(Activity activity) {
         super(activity);
     }
 
-    public static void save(Qty qty) {
+    public void save(Qty qty) {
         DBWriter_Qty dbw = new DBWriter_Qty(getActivity().getContentResolver(), qty);
         dbw.save();
     }
@@ -57,8 +57,8 @@ public final class Qty_Manager extends Manager {
             qty.setAmount(cursor.getFloat(INDX_AMOUNT));
 
 
-            Unity_Manager.setActivity(getActivity());
-            Unity unity = Unity_Manager.load(cursor.getLong(INDX_UNITY_ID));
+            Unity_Manager um = new Unity_Manager(getActivity());
+            Unity unity = um.load(cursor.getLong(INDX_UNITY_ID));
 
         } else {
             String message = "Qty: " + String.valueOf(databaseId) + " non trouvée";

@@ -23,10 +23,10 @@ public final class ManagerBuilder {
         switch (component.getRelationClass()) {
 
             case CFOOD:
-                return new Component_Food_Manager(activity, (Component_Food) component);
+                return new Component_Food_Manager(activity);
 
             case CMOVE:
-                return new Component_Move_Manager(activity, (Component_Move) component);
+              //  return new Component_Move_Manager(activity);
             case CWEIGHT:
                 break;
             case NRJ_REF_INTRNL:
@@ -64,7 +64,7 @@ public final class ManagerBuilder {
 
 
     public static Manager build(Activity activity, Qty qty) {
-        return new Qty_Manager(activity, qty);
+        return new Qty_Manager(activity);
     }
 
 

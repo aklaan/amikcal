@@ -15,7 +15,7 @@ import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.UA_CLASS_CD;
 
 /**
- * <h1>AppConsts</h1> Classe contenant les contstantes utilisées par
+ * <h1>AppConsts</h1> Classe contenant les contstantes utilisÃ©es par
  * l'application
  */
 public final class AppConsts {
@@ -40,7 +40,7 @@ public final class AppConsts {
     /*****************************************************************************
      * <h1>NRJ_EFFECT_MAP :</h1>
      * <p>
-     * Mapping d'Entrée/Sortie Database pour les NRJ_EFFECT
+     * Mapping d'EntrÃ©e/Sortie Database pour les NRJ_EFFECT
      * </p>
      ****************************************************************************/
 
@@ -51,11 +51,11 @@ public final class AppConsts {
 
 	public NRJ_CLASS_MAP() {
 
-	    _out.put(NRJ_CLASS.UNDEFINED, TB_Energies.PredefinedValues.EnergyClass.UNDEFINED);
+	    _out.put(NRJ_CLASS.ENERGY, TB_Energies.PredefinedValues.EnergyClass.UNDEFINED);
 	    _out.put(NRJ_CLASS.FOOD, TB_Energies.PredefinedValues.EnergyClass.FOOD);
 	    _out.put(NRJ_CLASS.PHYSICAL_ACTIVITY, TB_Energies.PredefinedValues.EnergyClass.PHYSICAL_ACTIVITY);
 	    
-	    _in.put(TB_Energies.PredefinedValues.EnergyClass.UNDEFINED, NRJ_CLASS.UNDEFINED);
+	    _in.put(TB_Energies.PredefinedValues.EnergyClass.UNDEFINED, NRJ_CLASS.ENERGY);
 	    _in.put(TB_Energies.PredefinedValues.EnergyClass.FOOD, NRJ_CLASS.FOOD);
 	    _in.put(TB_Energies.PredefinedValues.EnergyClass.PHYSICAL_ACTIVITY, NRJ_CLASS.PHYSICAL_ACTIVITY);
 	    	}
@@ -64,7 +64,7 @@ public final class AppConsts {
     /*****************************************************************************
      * <h1>STRUCTURE_CD_MAP :</h1>
      * <p>
-     * Mapping d'Entrée/Sortie Database pour les STRUCTURE_CD_MAP
+     * Mapping d'EntrÃ©e/Sortie Database pour les STRUCTURE_CD_MAP
      * </p>
      ****************************************************************************/
     public static final class STRUCTURE_CD_MAP {
@@ -91,7 +91,7 @@ public final class AppConsts {
     /*****************************************************************************
      * <h1>UNIT_CLASS_MAP :</h1>
      * <p>
-     * Mapping d'Entrée/Sortie Database pour les UNIT_CLASS_MAP
+     * Mapping d'EntrÃ©e/Sortie Database pour les UNIT_CLASS_MAP
      * </p>
      ****************************************************************************/
     public static final class UNIT_CLASS_MAP {
@@ -121,7 +121,7 @@ public final class AppConsts {
     /*****************************************************************************
      * <h1>UA_CLASS_CD_MAP :</h1>
      * <p>
-     * Mapping d'Entrée/Sortie Database pour les UA_CLASS_CD_MAP
+     * Mapping d'EntrÃ©e/Sortie Database pour les UA_CLASS_CD_MAP
      * </p>
      ****************************************************************************/
     public static final class UA_CLASS_CD_MAP {
@@ -144,7 +144,7 @@ public final class AppConsts {
     /*****************************************************************************
      * <h1>REL_TYP_CD_MAP :</h1>
      * <p>
-     * Mapping d'Entrée/Sortie Database pour les REL_TYP_CD_MAP
+     * Mapping d'EntrÃ©e/Sortie Database pour les REL_TYP_CD_MAP
      * </p>
      ****************************************************************************/
     public static final class REL_TYP_CD_MAP {

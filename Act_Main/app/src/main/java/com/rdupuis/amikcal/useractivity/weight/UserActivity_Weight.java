@@ -38,13 +38,13 @@ public class UserActivity_Weight extends UserActivity_Commons {
     }
 
     @Override
-    public long getId() {
+    public long getDatabaseId() {
 	// TODO Auto-generated method stub
 	return 0;
     }
 
     @Override
-    public void setId(long _id) {
+    public void setDatabaseId(long _id) {
 	// TODO Auto-generated method stub
 	
     }

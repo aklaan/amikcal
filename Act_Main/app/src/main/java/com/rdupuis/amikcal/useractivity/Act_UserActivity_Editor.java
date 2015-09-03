@@ -15,13 +15,13 @@ import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
- * <b>Ecran d'édition des activitées de l'utilisateur.</b>
+ * <b>Ecran d'ï¿½dition des activitï¿½es de l'utilisateur.</b>
  * <p>
- * les activitées sont :
+ * les activitï¿½es sont :
  * <ul>
  * <li>les repas</li>
- * <li>les activitées physiques</li>
- * <li>les pesées</li>
+ * <li>les activitï¿½es physiques</li>
+ * <li>les pesï¿½es</li>
  * <li>les recettes</li>
  * </ul>
  * </p>
@@ -32,8 +32,8 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 public class Act_UserActivity_Editor extends Act_Editor {
        
     //zone possible dans l'intent:
-    //par rapport à la classe de base EDITOR, pour les UA on a besoin de 
-    //gérer une date.
+    //par rapport ï¿½ la classe de base EDITOR, pour les UA on a besoin de 
+    //gï¿½rer une date.
     public static final String INPUT____DAY = "_day";
     private Calendar input_day;
     private UserActivity edited_UserActivity;
@@ -44,27 +44,28 @@ public class Act_UserActivity_Editor extends Act_Editor {
 	super.onCreate(savedInstanceState);
 	
 	this.input_day = ToolBox.parseCalendar(getIntent().getStringExtra(this.INPUT____DAY));
-	this.setEdited_UserActivity(getFactory().load_UserActivity(this.getEdited_object_id()));
+	UserActivity_Manager uam = new UserActivity_Manager(this);
+		this.setEdited_UserActivity(uam.load(this.getEdited_object_id()));
     }
 
     
     /******************************************************************************************
-     * On prépare les données pour mla mise à jour de la base
+     * On prï¿½pare les donnï¿½es pour mla mise ï¿½ jour de la base
      ******************************************************************************************/
     private ContentValues getContentValues() {
 	ContentValues val = new ContentValues();
 
-	// Ajout des infos communes à toutes les activitées
+	// Ajout des infos communes ï¿½ toutes les activitï¿½es
 	setGenericValues(val);
 
-	// Ajout des infos spécifiques ni necessaire
+	// Ajout des infos spï¿½cifiques ni necessaire
 	setSpecificValues(val);
 	return val;
     }
 
     /**
      * ========================================================================
-     * Methode pour alimenter les données spécifiques si necessaire.
+     * Methode pour alimenter les donnï¿½es spï¿½cifiques si necessaire.
      * ========================================================================
      */
     public ContentValues setSpecificValues(ContentValues val) {
@@ -73,42 +74,42 @@ public class Act_UserActivity_Editor extends Act_Editor {
 
     /**
      * =======================================================================
-     * Ajout des infos communes à toutes les activitées
+     * Ajout des infos communes ï¿½ toutes les activitï¿½es
      * 
      * ======================================================================
      */
     private ContentValues setGenericValues(ContentValues val) {
-	// id de l'activitée
-	val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (getEdited_UserActivity().getId() == AppConsts.NO_ID) ? null
-		: getEdited_UserActivity().getId());
+	// id de l'activitï¿½e
+	val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (getEdited_UserActivity().getDatabaseId() == AppConsts.NO_ID) ? null
+		: getEdited_UserActivity().getDatabaseId());
 	// titre
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.TITLE, getEdited_UserActivity().getTitle());
 	// Date
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.DATE, ToolBox.getSqlDateTime(getEdited_UserActivity().getDay()));
 
 	// class : on utilise la mapping pour transformer l'ENUM Class en Byte
-	// stoké dans la Database.
+	// stokï¿½ dans la Database.
 	UA_CLASS_CD_MAP ua_cd_map = new UA_CLASS_CD_MAP();
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((getEdited_UserActivity().getActivityType())));
 
-	// date de mise à jour
+	// date de mise ï¿½ jour
 	val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
 	return val;
     }
 
     /*******************************************************************************************
-     * Méthode : update() metre à jour l'enregistrement
+     * Mï¿½thode : update() metre ï¿½ jour l'enregistrement
      *******************************************************************************************/
     public void updateUActivity() {
 	ContentValues val = getContentValues();
 	Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI,
-		getEdited_UserActivity().getId());
-	this.getContentResolver().update(uriUpdate, val, String.valueOf(this.getEdited_UserActivity().getId()), null);
+		getEdited_UserActivity().getDatabaseId());
+	this.getContentResolver().update(uriUpdate, val, String.valueOf(this.getEdited_UserActivity().getDatabaseId()), null);
     }
 
     /*******************************************************************************************
-     * Méthode : insert() insérer une nouvelle occurence
+     * Mï¿½thode : insert() insï¿½rer une nouvelle occurence
      *******************************************************************************************/
     public void insertUActivity() {
 	ContentValues val = getContentValues();
@@ -116,11 +117,11 @@ public class Act_UserActivity_Editor extends Act_Editor {
     }
 
     /*******************************************************************************************
-     * Méthode : closeActivity() ferme l'activité
+     * Mï¿½thode : closeActivity() ferme l'activitï¿½
      *******************************************************************************************/
     protected void closeEditor() {
-	// on appelle setResult pour déclancher le onActivityResult de
-	// l'activity mère.
+	// on appelle setResult pour dï¿½clancher le onActivityResult de
+	// l'activity mï¿½re.
 	setResult(RESULT_OK, this.getIntent());
 	// On termine l'Actvity
 	finish();

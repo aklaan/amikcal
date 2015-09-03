@@ -62,9 +62,9 @@ public class Frag_EnergyList extends Fragment {
 
 		
 		// temporaire.......................
-		// on alimente l'action bar de l'activité !!
+		// on alimente l'action bar de l'activitÃ© !!
 		// attention il risque de ne pas y en avoir
-		// ce n'est pas au fragment de gérer ceci !!
+		// ce n'est pas au fragment de gÃ©rer ceci !!
 
 		getActivity().getActionBar().setTitle("Aliments");
 		generateList();
@@ -98,7 +98,7 @@ public class Frag_EnergyList extends Fragment {
 	}// fin du onCreate
 
 	/**
-	 * Appel la vue d'édition d'un aliment (energy)
+	 * Appel la vue d'Ã©dition d'un aliment (energy)
 	 */
 	public void editEnergy(String id) {
 //		Intent intent = new Intent(getActivity(), Act_EnergyEditor.class);
@@ -107,8 +107,8 @@ public class Frag_EnergyList extends Fragment {
 	}
 
 	/**
-	 * onClickAdd est générique dans les écrans du même type on doit donc
-	 * redéfinir la fonction
+	 * onClickAdd est gÃ©nÃ©rique dans les Ã©crans du mÃªme type on doit donc
+	 * redÃ©finir la fonction
 	 * 
 	 */
 	public void onClickAdd(View v) {
@@ -118,30 +118,30 @@ public class Frag_EnergyList extends Fragment {
 	}
 
 	/**
-	 * Gère les actions à effectuer en cas de retours des Intent appelés
+	 * GÃ¨re les actions Ã  effectuer en cas de retours des Intent appelÃ©s
 	 * 
 	 * 
 	 * 
 	 * <p>
-	 * Liste des actions actuellement gérées
+	 * Liste des actions actuellement gÃ©rÃ©es
 	 * <ul>
-	 * <li>Retour depuis l'écran d'édition d'un aliment:</li>
+	 * <li>Retour depuis l'Ã©cran d'Ã©dition d'un aliment:</li>
 	 * <ul>
 	 * <li>Effacer la liste actuelle.</li>
-	 * <li>Regénérer la liste avec les données actualisées.</li>
+	 * <li>RegÃ©nÃ©rer la liste avec les donnÃ©es actualisÃ©es.</li>
 	 * </ul>
 	 * 
 	 * </ul>
 	 * </p>
 	 * 
 	 * @param requestCode
-	 *            le code le l'action demandée
+	 *            le code le l'action demandÃ©e
 	 * 
 	 * @param resultCode
-	 *            le code retour envoyé par l'activitée appellée
+	 *            le code retour envoyÃ© par l'activitÃ©e appellÃ©e
 	 * 
 	 * @param intent
-	 *            l'intent utilisée
+	 *            l'intent utilisÃ©e
 	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -174,8 +174,8 @@ public class Frag_EnergyList extends Fragment {
 
 	/**
 	 * ________________________________________________________________________
-	 * générer la liste des énergie à partir des informations stockées dans la
-	 * base de donnée.
+	 * gÃ©nÃ©rer la liste des Ã©nergie Ã  partir des informations stockÃ©es dans la
+	 * base de donnÃ©e.
 	 */
 	protected void generateList() {
 
@@ -188,17 +188,17 @@ public class Frag_EnergyList extends Fragment {
 					.buildUpon().appendPath(currentFilter).build();
 		}
 
-		// Récupération de la listview créée dans le fichier customizedlist.xml
+		// RÃ©cupÃ©ration de la listview crÃ©Ã©e dans le fichier customizedlist.xml
 		maListViewPerso = (ListView) mainView.findViewById(R.id.listviewperso);
 
-		// Création de la ArrayList qui nous permettra de remplire la listView
+		// CrÃ©ation de la ArrayList qui nous permettra de remplire la listView
 		ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-		// On déclare la HashMap qui contiendra les informations pour un item
+		// On dÃ©clare la HashMap qui contiendra les informations pour un item
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
 
-		// On cré un curseur pour lire la table des aliments consommés
+		// On crÃ© un curseur pour lire la table des aliments consommÃ©s
 		Cursor cur = getActivity().getContentResolver().query(selectUri, null,
 				null, null, null);
 
@@ -239,8 +239,8 @@ public class Frag_EnergyList extends Fragment {
 		}
 		cur.close();
 
-		// Création d'un SimpleAdapter qui se chargera de mettre les items
-		// présent dans notre list (listItem)
+		// CrÃ©ation d'un SimpleAdapter qui se chargera de mettre les items
+		// prÃ©sent dans notre list (listItem)
 		// dans la vue affichageitem
 		SimpleAdapter mSchedule = new SimpleAdapter(getActivity()
 				.getBaseContext(), listItem, R.layout.list_item_energy_food,
@@ -257,16 +257,16 @@ public class Frag_EnergyList extends Fragment {
 
 		});
 
-		// On attribut à notre listView l'adapter que l'on vient de créer
+		// On attribut Ã  notre listView l'adapter que l'on vient de crÃ©er
 		maListViewPerso.setAdapter(mSchedule);
 
-		// Enfin on met un écouteur d'évènement sur notre listView
+		// Enfin on met un Ã©couteur d'Ã©vÃ©nement sur notre listView
 		maListViewPerso.setOnItemClickListener(new OnItemClickListener() {
 			// @Override
 			@SuppressWarnings("unchecked")
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// on récupère la HashMap contenant les infos de notre item
+				// on rÃ©cupÃ©re la HashMap contenant les infos de notre item
 				// (titre, description, img)
 				HashMap<String, String> map = (HashMap<String, String>) maListViewPerso
 						.getItemAtPosition(position);
@@ -276,7 +276,7 @@ public class Frag_EnergyList extends Fragment {
 			}
 		});
 
-		// Enfin on met un écouteur d'évènement long sur notre listView
+		// Enfin on met un Ã©couteur d'Ã©vÃ©nement long sur notre listView
 		maListViewPerso
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 					// @Override
@@ -290,7 +290,7 @@ public class Frag_EnergyList extends Fragment {
 								.get("id"));
 
 						// int ilaposition=position;
-						// création d'un boite de dialogue pour confirmer le
+						// crÃ©ation d'un boite de dialogue pour confirmer le
 						// choix
 						new AlertDialog.Builder(Frag_EnergyList.this
 								.getActivity())
@@ -339,17 +339,17 @@ public class Frag_EnergyList extends Fragment {
 
 	/**
 	 * ________________________________________________________ Action a
-	 * effectuer lorsque l'on séléctionne une énergie
+	 * effectuer lorsque l'on sÃ©lÃ©ctionne une Ã©nergie
 	 */
 
 	public void OnChooseEnergy(View v, String id) {
 
-		// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-		// récupérer la valeur.
+		// on alimente le rÃ©sultat dans l'Intent pour que l'Activity mÃ¨re puisse
+		// rÃ©cupÃ©rer la valeur.
 		this.getActivity().getIntent().putExtra(this.OUTPUT____ID_OF_ENERGY, id);
 
-		// on appelle setResult pour déclencher le onActivityResult de
-		// l'activity mère.
+		// on appelle setResult pour dÃ©clencher le onActivityResult de
+		// l'activity mÃ¨re.
 		getActivity().setResult(Activity.RESULT_OK, this.getActivity().getIntent());
 
 		// On termine l'Activity
@@ -358,7 +358,7 @@ public class Frag_EnergyList extends Fragment {
 
 	/**
 	 * _________________________________________________________________________
-	 * Action a effectuer lorsque l'on clique sur éditer l'énergie séléctionnée
+	 * Action a effectuer lorsque l'on clique sur Ã©diter l'Ã©nergie sÃ©lÃ©ctionnÃ©e
 	 */
 	public void onClick_edit() {
 		editEnergy(Frag_EnergyList.currentId.toString());

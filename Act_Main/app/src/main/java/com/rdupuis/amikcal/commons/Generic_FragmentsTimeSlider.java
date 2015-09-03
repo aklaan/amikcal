@@ -79,7 +79,7 @@ public class Generic_FragmentsTimeSlider extends FragmentActivity {
 		// Initialisation du Tableau des bundle a affecter aux fragments
 		mArrayBundle = new ArrayList<Bundle>();
 
-		// Initialisation du tableau des Fragments a faire défiler dans le
+		// Initialisation du tableau des Fragments a faire dÃ©filer dans le
 		// PagerAdapter
 		mArrayfragments = new ArrayList<TimeSlidableFragment>();
 
@@ -212,8 +212,8 @@ public class Generic_FragmentsTimeSlider extends FragmentActivity {
 	}
 
 	/*
-	 * la méthode onUpdateGroup est définie pour les enfants de la classe elle
-	 * va leur permettre d'éffectuer des opérations personnalisé lorsque l'on
+	 * la mÃ©thode onUpdateGroup est dÃ©finie pour les enfants de la classe elle
+	 * va leur permettre d'Ã©ffectuer des opÃ©rations personnalisÃ© lorsque l'on
 	 * rafraichi le groupe.
 	 */
 

@@ -32,6 +32,11 @@ public class Component_Manager extends Manager {
 
     }
 
+    /**
+     *
+     * @param component
+     */
+    public void edit(Component component){}
 
     /**
      * Sauver un composant, c'est :
