@@ -1,9 +1,5 @@
 package com.rdupuis.amikcal.components;
 
-/**
- * commentaires
- * 2013-08-23 : ajout de la barre de menu pour remplacer le bouton valider
- */
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -19,12 +15,18 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
-import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
+import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
-import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.useractivity.UserActivity;
+
+/**
+ * cette classe est une base commune a tous les Ã©diteurs d'objets de la famille des composants
+ *
+ * commentaires
+ * 2013-08-23 : ajout de la barre de menu pour remplacer le bouton valider
+ */
 
 public class Act_Component_Editor extends Activity {
 
@@ -32,190 +34,186 @@ public class Act_Component_Editor extends Activity {
     Component edited_Component;
     ContentResolver contentResolver;
     AmiKcalFactory factory;
-    public static final String INPUT____COMP_ID = "in_comp_id";
-    public static final String INPUT____CLASS = "in_class";
-    public static final String OUTPUT____COMP_ID = "out_comp_id";
 
-    /** Called when the activity is first created. */
+    //nom des varibles Intent gÃ©rÃ©e par la classe.
+    public static final String INPUT____COMP_ID = "in_comp_id"; // ID du composant Ã  Ã©diter
+    public static final String INPUT____CLASS = "in_class"; //type du composant Ã  crÃ©er
+    public static final String OUTPUT____COMP_ID = "out_comp_id"; //Id du composant qui a Ã©tÃ© Ã©ditÃ©
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	factory = new AmiKcalFactory(this);
+        super.onCreate(savedInstanceState);
+        factory = new AmiKcalFactory(this);
 
-	/***************************************************************************
-	 * ETAPE I : on récupère les infos de l'intent
-	 ***************************************************************************/
+        /***************************************************************************
+         * ETAPE I : on rÃ©cupÃ¨re les infos de l'intent
+         ***************************************************************************/
 
-	// Récupérer l'id du composant à éditer
-	long edited_comp_id = getIntent().getLongExtra(Act_Component_Editor.INPUT____COMP_ID, AppConsts.NO_ID);
-	// en cas de création d'un nouveau composant, récupérer le type de
-	// composant souhaité
-	String input_comp_class = getIntent().getStringExtra(Act_Component_Editor.INPUT____CLASS);
+        // RÃ©cupÃ©rer l'id du composant Ã  Ã©diter
+        long edited_comp_id = getIntent().getLongExtra(Act_Component_Editor.INPUT____COMP_ID, AppConsts.NO_ID);
 
-	// si l'ID n'est pas nul on charge le composant à éditer
-	if (edited_comp_id != AppConsts.NO_ID) {
-	    // chargement du composant stocké
-	    this.edited_Component = factory.load_Component(edited_comp_id);
+        // en cas de crÃ©ation d'un nouveau composant, rÃ©cupÃ©rer le type de composant souhaitÃ©
+        String input_comp_class = getIntent().getStringExtra(Act_Component_Editor.INPUT____CLASS);
 
-	} else {
-	    // Initialisation d'un nouveau composant en fonction de la class
-	    // souhaitée
-	    REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
+        // si l'ID n'est pas nul on charge le composant Ã  Ã©diter
+        if (edited_comp_id != AppConsts.NO_ID) {
+            // chargement du composant stockÃ©
+            this.edited_Component = factory.load_Component(edited_comp_id);
 
-	    switch (rel_typ_cd_map._in.get(input_comp_class)) {
-	    case CFOOD:
-		edited_Component = new Component_Food();
-		break;
-	    // default prend en charge les UNDEFINED
-	    default:
-		Toast.makeText(this, "type Component inconnu", Toast.LENGTH_LONG).show();
-		finish();
-	    }
+        } else {
+            // Initialisation d'un nouveau composant en fonction de la class
+            // souhaitÃ©e
+            REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
 
-	}
+            switch (rel_typ_cd_map._in.get(input_comp_class)) {
+                case CFOOD:
+                    edited_Component = new Component_Food();
+                    break;
+                // default prend en charge les UNDEFINED
+                default:
+                    Toast.makeText(this, "type Component inconnu", Toast.LENGTH_LONG).show();
+                    finish();
+            }
+
+        }
 
     }// fin du onCreate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-	MenuInflater inflater = getMenuInflater();
-	inflater.inflate(R.menu.actionbar_component_editor, menu);
-	return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_component_editor, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-	return super.onPrepareOptionsMenu(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-	// Handle action buttons
-	switch (item.getItemId()) {
-	case R.id.actionbar_component_editor_item_validate:
-	    onClick_Validate();
+        // Handle action buttons
+        switch (item.getItemId()) {
+            case R.id.actionbar_component_editor_item_validate:
+                onClick_Validate();
 
-	default:
-	    return super.onOptionsItemSelected(item);
-	}
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
-     * Appel du pavé numérique
+     * Appel du pavï¿½ numï¿½rique
      */
     public void callNumericPad() {
-	Intent intent = new Intent(this, Act_NumericPad.class);
-	intent.putExtra("question", "Entrez la quantité d'Aliment");
-	startActivityForResult(intent, R.integer.NUMERICPAD);
+        Intent intent = new Intent(this, Act_NumericPad.class);
+        intent.putExtra("question", "Entrez la quantitï¿½ d'Aliment");
+        startActivityForResult(intent, R.integer.NUMERICPAD);
     }
 
     /***************************************************************************************
      * Appel de la liste des aliments
-     * 
-     * @param v
-     *            View
+     *
+     * @param v View
      **************************************************************************************/
     public void onClick_EnergyName(View v) {
-	Intent intent = new Intent(this, Act_EnergyList.class);
-	startActivityForResult(intent, R.integer.ACTY_ENERGIES_LIST);
+        Intent intent = new Intent(this, Act_EnergyList.class);
+        startActivityForResult(intent, R.integer.ACTY_ENERGIES_LIST);
     }
 
     /***************************************************************************************
-     * 
-     * @param v
-     *            View
+     * @param v View
      **************************************************************************************/
     public void onClick_Unit(View v) {
-	callUnitListView();
+        callUnitListView();
     }
 
     /***************************************************************************************
-     * 
-     * Appel de la Liste des unitées.
+     * Appel de la Liste des unitï¿½es.
      **************************************************************************************/
     public void callUnitListView() {
-	Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-	intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_Component.getEnergy().getId()));
-	startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
+        Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
+        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_Component.getEnergy().getId()));
+        startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
 
     /**
-     * Mettre à jour les informations saisies dans la base de donnée.
-     * 
-     * @param v
-     *            View
+     * Mettre ï¿½ jour les informations saisies dans la base de donnï¿½e.
+     *
+     * @param v View
      */
     public void onClick_Validate() {
 
-	// A la création, le save va initialiser l'ID
-	this.edited_Component = factory.save(this.edited_Component);
+        // A la crï¿½ation, le save va initialiser l'ID
+        this.edited_Component = factory.save(this.edited_Component);
 
-	// on appelle setResult pour déclancher le onActivityResult de
-	// l'activity mère.
+        // on appelle setResult pour dï¿½clancher le onActivityResult de
+        // l'activity mï¿½re.
 
-	this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP_ID, this.edited_Component.getId());
-	setResult(RESULT_OK, this.getIntent());
+        this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP_ID, this.edited_Component.getId());
+        setResult(RESULT_OK, this.getIntent());
 
-	// On termine l'Actvity
-	finish();
+        // On termine l'Actvity
+        finish();
 
     }
 
     /******************************************************************************************
-     * Gère le retour d'appel aux autres activitées
-     * 
-     * @param requestCode
-     *            code fonction utilisé par l'activité appellante
-     * @param resultCode
-     *            code retour envoyé par l'activitée appellée
-     * @param intent
-     *            Intent servant de lien entre l'activitée appelante et appellée
+     * Gï¿½re le retour d'appel aux autres activitï¿½es
+     *
+     * @param requestCode code fonction utilisï¿½ par l'activitï¿½ appellante
+     * @param resultCode  code retour envoyï¿½ par l'activitï¿½e appellï¿½e
+     * @param intent      Intent servant de lien entre l'activitï¿½e appelante et appellï¿½e
      ******************************************************************************************/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-	switch (requestCode) {
+        switch (requestCode) {
 
-	case R.integer.NUMERICPAD:
+            case R.integer.NUMERICPAD:
 
-	    if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
 
-		this.edited_Component.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+                    this.edited_Component.getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
 
-	    }
-	    break;
+                }
+                break;
 
-	case R.integer.ACTY_UNITS_LIST:
+            case R.integer.ACTY_UNITS_LIST:
 
-	    if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
 
-		// on récupère l'objet Unit. this.mUAC
-		this.edited_Component.getQty().setUnity(
-			factory.load_Unity(intent
-				.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
-	    }
-	    break;
+                    // on rï¿½cupï¿½re l'objet Unit. this.mUAC
+                    this.edited_Component.getQty().setUnity(
+                            factory.load_Unity(intent
+                                    .getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
+                }
+                break;
 
-	case R.integer.ACTY_ENERGIES_LIST:
+            case R.integer.ACTY_ENERGIES_LIST:
 
-	    if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
 
-		// on récupère l'Energy choisi par l'utilisateur d'après sont id
-		// .
+                    // on rï¿½cupï¿½re l'Energy choisi par l'utilisateur d'aprï¿½s sont id
+                    // .
 
-		this.edited_Component.setEnergy(factory.load_Energy(intent.getLongExtra(
-			Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
+                    this.edited_Component.setEnergy(factory.load_Energy(intent.getLongExtra(
+                            Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
 
-	    }
-	    break;
-	default:
-	    break;
+                }
+                break;
+            default:
+                break;
 
-	}
+        }
     }
 
 }

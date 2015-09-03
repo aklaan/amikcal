@@ -3,10 +3,9 @@ package com.rdupuis.amikcal.relations;
 import android.content.ContentResolver;
 
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.Qty.Qty;
 import com.rdupuis.amikcal.data.writers.DBWriter;
 import com.rdupuis.amikcal.energy.DBWarper;
-import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
 public class Relation_Equiv_Btwn2Qty extends I_Relation {
     private Qty mQty1;

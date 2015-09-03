@@ -24,15 +24,15 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Action;
-import com.rdupuis.amikcal.components.Component_Food;
-import com.rdupuis.amikcal.components.Component_Move;
+import com.rdupuis.amikcal.components.food.Component_Food;
+import com.rdupuis.amikcal.components.move.Component_Move;
 
 public class Act_UserActivity_Component_List extends Activity {
 
-    public UserActivity mUA; // la liste se réfère obligatoirement à une UA
+    public UserActivity mUA; // la liste se rï¿½fï¿½re obligatoirement ï¿½ une UA
     private ListView maListViewPerso;
     private AmiKcalFactory factory;
-    // Noms des zones d'échanges prévues dans l'Intent
+    // Noms des zones d'ï¿½changes prï¿½vues dans l'Intent
     public static final String INPUT____UA_ID = "ua_id";
 
     /** Called when the activity is first created. */
@@ -42,11 +42,11 @@ public class Act_UserActivity_Component_List extends Activity {
 	this.factory = new AmiKcalFactory(this);
 
 	/* *********************************************
-	 * Etape 1 : Chargement des données
+	 * Etape 1 : Chargement des donnï¿½es
 	 * *********************************************
 	 */
 
-	// - récupérer l'UA pour laquelle on souhaites afficher des composants
+	// - rï¿½cupï¿½rer l'UA pour laquelle on souhaites afficher des composants
 	long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
 	this.mUA = factory.load_UserActivity(ua_id);
 
@@ -56,7 +56,7 @@ public class Act_UserActivity_Component_List extends Activity {
 	 */
 
 	setContentView(R.layout.view_components_list);
-	// Récupération de la listview créée dans le fichier customizedlist.xml
+	// Rï¿½cupï¿½ration de la listview crï¿½ï¿½e dans le fichier customizedlist.xml
 
 	/* *********************************************
 	 * Etape 3 : Alimentation des zones d'affichage
@@ -68,22 +68,22 @@ public class Act_UserActivity_Component_List extends Activity {
     }// fin du onCreate
 
     /**
-     * lorsque l'activité s'arrête, on active le setResult pour que les Ecran
-     * précédant puissent éventuellement se mettre à jour.
+     * lorsque l'activitï¿½ s'arrï¿½te, on active le setResult pour que les Ecran
+     * prï¿½cï¿½dant puissent ï¿½ventuellement se mettre ï¿½ jour.
      */
 
     public void onStop() {
 	super.onStop();
-	Toast.makeText(this, "Activité Activity Component stopée", Toast.LENGTH_SHORT).show();
+	Toast.makeText(this, "Activitï¿½ Activity Component stopï¿½e", Toast.LENGTH_SHORT).show();
 	this.setResult(RESULT_OK, this.getIntent());
     }
 
     /*
      * public void onPause(){ super.onPause(); Toast.makeText(this,
-     * "Activité pause", Toast.LENGTH_SHORT).show();
+     * "Activitï¿½ pause", Toast.LENGTH_SHORT).show();
      * 
-     * //on appelle setResult pour déclancher le onActivityResult de l'activity
-     * mère. this.setResult(RESULT_OK, mIntent);
+     * //on appelle setResult pour dï¿½clancher le onActivityResult de l'activity
+     * mï¿½re. this.setResult(RESULT_OK, mIntent);
      * 
      * //On termine l'Acitvity this.finish(); }
      */
@@ -93,7 +93,7 @@ public class Act_UserActivity_Component_List extends Activity {
 	action.edit();
     }
 
-    // créer un nouveau composant.
+    // crï¿½er un nouveau composant.
     public void onClickAdd(View v) {
 
 	switch (this.mUA.getActivityType()) {
@@ -113,7 +113,7 @@ public class Act_UserActivity_Component_List extends Activity {
     }
 
     /**
-     * Gère le retour de l'appel à une autre activitée
+     * Gï¿½re le retour de l'appel ï¿½ une autre activitï¿½e
      * 
      * @param requestCode
      * @param resultCode
@@ -124,19 +124,19 @@ public class Act_UserActivity_Component_List extends Activity {
 
 	switch (requestCode) {
 
-	// on effectue un retour de l'éditeur de composants
-	// il faut ajouter le composant à l'UA s'il n'existe pas
+	// on effectue un retour de l'ï¿½diteur de composants
+	// il faut ajouter le composant ï¿½ l'UA s'il n'existe pas
 	case R.integer.COMPONENT_EDITOR:
 
 	    if (resultCode == RESULT_OK) {
 		long component_id = intent.getLongExtra(Act_Component_Editor.OUTPUT____COMP_ID, AppConsts.NO_ID);
-		// si au retour de léditeur, le composant possède un ID
-		// c'est qu'il a été enregistré dans la database
+		// si au retour de lï¿½diteur, le composant possï¿½de un ID
+		// c'est qu'il a ï¿½tï¿½ enregistrï¿½ dans la database
 		if (component_id != AppConsts.NO_ID) {
 		    // on recharge le composant
 		    Component edited_component =  factory.load_Component(component_id);
 
-		    // on recherche si le composant est déja lié à l'UA
+		    // on recherche si le composant est dï¿½ja liï¿½ ï¿½ l'UA
 		    boolean Linked_with_UA = false;
 
 		    for (Component component : this.mUA.getComponentsList()) {
@@ -145,7 +145,7 @@ public class Act_UserActivity_Component_List extends Activity {
 			    Linked_with_UA = true;
 			}
 		    }
-		    // si le composant n'est pas lié à l'UA, on le lie.
+		    // si le composant n'est pas liï¿½ ï¿½ l'UA, on le lie.
 		    if (!Linked_with_UA) {
 				
 			this.mUA.getComponentsList().add(edited_component);
@@ -172,16 +172,16 @@ public class Act_UserActivity_Component_List extends Activity {
      */
 
     protected void refreshScreen() {
-	// recharger les modification qui ont pu être effectué sur l'UA
+	// recharger les modification qui ont pu ï¿½tre effectuï¿½ sur l'UA
 	this.mUA = factory.load_UserActivity(this.mUA.getId());
 
 	// effacer la liste actuelle
 	maListViewPerso.removeAllViewsInLayout();
 
-	// Création de la ArrayList qui nous permettra de remplir la listView
+	// Crï¿½ation de la ArrayList qui nous permettra de remplir la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-	// On déclare la HashMap qui contiendra les informations pour un item
+	// On dï¿½clare la HashMap qui contiendra les informations pour un item
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
@@ -197,8 +197,8 @@ public class Act_UserActivity_Component_List extends Activity {
 	    listItem.add(map);
 	}
 
-	// Création d'un SimpleAdapter qui se chargera de mettre les items
-	// présent dans notre list (listItem)
+	// Crï¿½ation d'un SimpleAdapter qui se chargera de mettre les items
+	// prï¿½sent dans notre list (listItem)
 	// dans la vue affichageitem
 	SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem,
 		R.layout.list_item_activity_lunch_component, new String[] { "name", "quantity", "energy", "equiv",
@@ -206,26 +206,26 @@ public class Act_UserActivity_Component_List extends Activity {
 			R.id.itemfood_nbkcal, R.id.itemfood_equiv, R.id.itemfood_glu, R.id.itemfood_pro,
 			R.id.itemfood_lip });
 
-	// On attribut à notre listView l'adapter que l'on vient de créer
+	// On attribut ï¿½ notre listView l'adapter que l'on vient de crï¿½er
 	maListViewPerso.setAdapter(mSchedule);
 
-	// Enfin on met un écouteur d'évènement sur notre listView
+	// Enfin on met un ï¿½couteur d'ï¿½vï¿½nement sur notre listView
 	maListViewPerso.setOnItemClickListener(new OnItemClickListener() {
 	    // @Override
 	    @SuppressWarnings("unchecked")
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// on récupère la HashMap contenant les infos de notre item
+		// on rï¿½cupï¿½re la HashMap contenant les infos de notre item
 		// (titre, description, img)
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 
 		/*
-		 * //on créer une boite de dialogue AlertDialog.Builder adb =
+		 * //on crï¿½er une boite de dialogue AlertDialog.Builder adb =
 		 * new AlertDialog.Builder(Acty_ActivityComponentList.this);
-		 * //on attribut un titre à notre boite de dialogue
-		 * adb.setTitle("Sélection Item"); //on insère un message à
+		 * //on attribut un titre ï¿½ notre boite de dialogue
+		 * adb.setTitle("Sï¿½lection Item"); //on insï¿½re un message ï¿½
 		 * notre boite de dialogue, et ici on affiche le titre de l'item
-		 * cliqué adb.setMessage("Votre choix : "+map.get("titre"));
-		 * //on indique que l'on veut le bouton ok à notre boite de
+		 * cliquï¿½ adb.setMessage("Votre choix : "+map.get("titre"));
+		 * //on indique que l'on veut le bouton ok ï¿½ notre boite de
 		 * dialogue adb.setPositiveButton("Ok", null); //on affiche la
 		 * boite de dialogue adb.show();
 		 */
@@ -238,13 +238,13 @@ public class Act_UserActivity_Component_List extends Activity {
 	    }
 	});
 
-	// Enfin on met un écouteur d'évènement long sur notre listView
+	// Enfin on met un ï¿½couteur d'ï¿½vï¿½nement long sur notre listView
 	maListViewPerso.setOnItemLongClickListener(new OnItemLongClickListener() {
 	    // @Override
 	    @SuppressWarnings("rawtypes")
 	    public boolean onItemLongClick(AdapterView parent, View v, int position, long id) {
 		// int ilaposition=position;
-		// création d'un boite de dialogue pour confirmer le
+		// crï¿½ation d'un boite de dialogue pour confirmer le
 		// choix
 
 		new AlertDialog.Builder(parent.getContext())
@@ -312,7 +312,7 @@ public class Act_UserActivity_Component_List extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
 
-	// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
+	// invalidateOptionsMenu va appeller la mï¿½thode onPrepareOptionsMenu();
 	invalidateOptionsMenu();
 	return true;
     }

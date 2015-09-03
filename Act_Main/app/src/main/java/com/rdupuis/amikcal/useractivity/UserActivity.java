@@ -2,22 +2,19 @@ package com.rdupuis.amikcal.useractivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.components.Component_Food;
 
 public abstract class UserActivity {
 
     
-    // la liste des composants est une liste d'objets qui héritent de Component
+    // la liste des composants est une liste d'objets qui hï¿½ritent de Component
     //private ArrayList<? extends Component> mComponentsList;
 
     
-    public abstract long getId();
+    public abstract long getDatabaseId();
 
-    public abstract void setId(long _id);
+    public abstract void setDatabaseId(long _id);
 
     public abstract UA_CLASS_CD getActivityType();
 

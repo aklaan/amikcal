@@ -15,7 +15,7 @@ import android.net.Uri;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.data.DatabaseObj;
 /**
- * <b>Boîte à outils.</b>
+ * <b>Boite Ã  outils.</b>
  * 
  * @author Rodolphe Dupuis
  * @version 0.1
@@ -28,7 +28,7 @@ public final class ToolBox {
 	/**
 	 * Retourne date au format SQL DATE
 	 * @param calendar
-	 * @return String qui représente une date au format yyyy-MM-dd
+	 * @return String qui reprÃ©sente une date au format yyyy-MM-dd
 	 */
 	public static String getSqlDate(Calendar calendar){
 		String result="";
@@ -46,7 +46,7 @@ public final class ToolBox {
 	/**
 	 *  Retourne la date et l'heure d'un calendrer au format SQL TIMESTAMP
 	 * 	@param calendar
-	 * 	@return String qui représente une date au format yyyy-MM-dd HH:mm:ss
+	 * 	@return String qui reprÃ©sente une date au format yyyy-MM-dd HH:mm:ss
 	 */
 	public static String getSqlDateTime(Calendar calendar){
 		String result="";
@@ -99,7 +99,7 @@ public final class ToolBox {
 
 
 	/**
-	 * récupérer la date et l'heure courante
+	 * rÃ©cupÃ©rer la date et l'heure courante
 	 * @return String au format yyyy-MM-dd HH:mm:ss
 	 */
 	public static String getCurrentTimestamp(){
@@ -110,8 +110,8 @@ public final class ToolBox {
 	
 
 	/**
-	 *  récupérer la version de la Database
-	 * 	@return n° de version de la base de donnée
+	 *  rÃ©cupÃ©rer la version de la Database
+	 * 	@return nÂ° de version de la base de donnÃ©e
 	 */
 	public static int getAmikcalDbVersion(){
 		int version=0;
@@ -126,7 +126,7 @@ public final class ToolBox {
 }
 
 	/**
-	 * Fabriquer une chaine de caractère date au format SQL TIMESTAMP
+	 * Fabriquer une chaine de caractï¿½re date au format SQL TIMESTAMP
 	 * @param date - date au format yyyy-MM-dd
 	 * @param hours - heure
 	 * @param minutes - minutes 

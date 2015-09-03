@@ -20,15 +20,13 @@ import android.widget.SimpleAdapter;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Qty;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.relations.Relation_Equiv_Btwn2Components;
 
 public class Act_EquivalenceList extends Activity {
 
     private ListView maListViewPerso;
-    // pour filter la liste des équivalences sur une énergie donnée.
+    // pour filter la liste des ï¿½quivalences sur une ï¿½nergie donnï¿½e.
     public final static String INTPUT____NRJ_ID = "nrj_id";
     private EnergySource nrj;
     public ArrayList<Component> equivalences;
@@ -43,7 +41,7 @@ public class Act_EquivalenceList extends Activity {
 	factory = new AmiKcalFactory(this);
 	equivalences = new ArrayList<Component>();
 	this.nrj = new EnergySource();
-	// Etape 1 : Récupérer les éventuelles informations de l'intent
+	// Etape 1 : Rï¿½cupï¿½rer les ï¿½ventuelles informations de l'intent
 	long nrj_id = this.getIntent().getLongExtra(this.INTPUT____NRJ_ID,AppConsts.NO_ID);
 	
 	if (nrj_id != AppConsts.NO_ID) {
@@ -59,7 +57,7 @@ public class Act_EquivalenceList extends Activity {
 	generateList();
 	getActionBar().setTitle("Equivalences");
 	// Button bt = (Button) findViewById(R.id.btnAdd);
-	// bt.setText("Ajouter une unitée");
+	// bt.setText("Ajouter une unitï¿½e");
     }// fin du onCreate
 
 
@@ -71,7 +69,7 @@ public class Act_EquivalenceList extends Activity {
     }
 
     /**
-     * Gérer les retours d'appels aux autres activitées
+     * Gï¿½rer les retours d'appels aux autres activitï¿½es
      * 
      * @param requestCode
      * @param resultCode
@@ -112,22 +110,22 @@ public class Act_EquivalenceList extends Activity {
 
     protected void generateList() {
 
-	// recharger les modification qui ont pu être effectuées
+	// recharger les modification qui ont pu ï¿½tre effectuï¿½es
 	if (this.nrj.getId() != AppConsts.NO_ID) {
 	    this.nrj = factory.load_Energy(nrj.getId());
 	    equivalences = nrj.getReferenceComponent().getEquivalences();
 	}
 
-	// Récupération de la listview créée dans le fichier customizedlist.xml
+	// Rï¿½cupï¿½ration de la listview crï¿½ï¿½e dans le fichier customizedlist.xml
 	maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
 	// effacer la liste actuelle
 	maListViewPerso.removeAllViewsInLayout();
 
-	// Création de la ArrayList qui nous permettra de remplir la listView
+	// Crï¿½ation de la ArrayList qui nous permettra de remplir la listView
 	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-	// On déclare la HashMap qui contiendra les informations pour un item
+	// On dï¿½clare la HashMap qui contiendra les informations pour un item
 	HashMap<String, String> map;
 	map = new HashMap<String, String>();
 
@@ -144,25 +142,25 @@ public class Act_EquivalenceList extends Activity {
 	    listItem.add(map);
 	}
 
-	// Création d'un SimpleAdapter qui se chargera de mettre les items
-	// présent dans notre list (listItem)
+	// Crï¿½ation d'un SimpleAdapter qui se chargera de mettre les items
+	// prï¿½sent dans notre list (listItem)
 	// dans la vue affichageitem
 	SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_item_equivalence,
 		new String[] { "energy_name", "unit_in_name", "unit_out_name" }, new int[] {
 			R.id.equivalence_item_tv_EnergyName, R.id.equivalence_item_tv_UnitIn,
 			R.id.equivalence_item_tv_UnitOut });
 
-	// On attribut à notre listView l'adapter que l'on vient de créer
+	// On attribut ï¿½ notre listView l'adapter que l'on vient de crï¿½er
 	maListViewPerso.setAdapter(mSchedule);
 
 	// ********************************************************
-	// on met un écouteur d'évènement sur notre listView
+	// on met un ï¿½couteur d'ï¿½vï¿½nement sur notre listView
 	// ********************************************************
 	maListViewPerso.setOnItemClickListener(new OnItemClickListener() {
 	    // @Override
 	    @SuppressWarnings("unchecked")
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// on récupère la HashMap contenant les infos de notre item
+		// on rï¿½cupï¿½re la HashMap contenant les infos de notre item
 		// (titre, description, img)
 		HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 		// OnClick(view, map.get("id"));
@@ -170,7 +168,7 @@ public class Act_EquivalenceList extends Activity {
 	});
 
 	// ********************************************************
-	// on met un écouteur d'évènement sur notre listView
+	// on met un ï¿½couteur d'ï¿½vï¿½nement sur notre listView
 	// ********************************************************
 	maListViewPerso.setOnItemLongClickListener(new OnItemLongClickListener() {
 	    // @Override
@@ -183,7 +181,7 @@ public class Act_EquivalenceList extends Activity {
 		// modifier
 		// Act_EquivalenceList.currentId =
 		// Long.parseLong(map.get("id"));
-		// création d'un boite de dialogue pour confirmer le choix
+		// crï¿½ation d'un boite de dialogue pour confirmer le choix
 		new AlertDialog.Builder(Act_EquivalenceList.this).setTitle("Confirmation")
 			.setMessage("Que souhaitez-vous faire ?")
 			.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
@@ -216,12 +214,12 @@ public class Act_EquivalenceList extends Activity {
 
     public void OnClick(View v, String id) {
 
-	// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-	// récupérer la valeur.
+	// on alimente le rï¿½sultat dans l'Intent pour que l'Activity mï¿½re puisse
+	// rï¿½cupï¿½rer la valeur.
 	// this.getIntent().putExtra(this.OUTPUT____EQUIV_LIST____EQUIV_ID, id);
 
-	// on appelle setResult pour déclancher le onActivityResult de
-	// l'activity mère.
+	// on appelle setResult pour dï¿½clancher le onActivityResult de
+	// l'activity mï¿½re.
 	// this.setResult(RESULT_OK, this.getIntent());
 
 	// On termine l'Acitvity
@@ -281,8 +279,8 @@ public class Act_EquivalenceList extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
 
-	// invalidateOptionsMenu va appeller la méthode onPrepareOptionsMenu();
-	// qui va elle même rafraichir la barre de menu
+	// invalidateOptionsMenu va appeller la mï¿½thode onPrepareOptionsMenu();
+	// qui va elle mï¿½me rafraichir la barre de menu
 	invalidateOptionsMenu();
 	return true;
     }

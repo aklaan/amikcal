@@ -9,22 +9,22 @@ import android.content.ContentResolver;
 public class DBWriter_Component extends DBWriter_Relation {
 
     public DBWriter_Component(ContentResolver contentResolver, Component component) {
-	super(contentResolver, component);
+        super(contentResolver, component);
 
     }
 
     public Component getComponent() {
-	return (Component) this.getSavable();
+        return (Component) this.getSavable();
     }
 
     @Override
-    public void Save() {
-	// Sauver un composant, c'est :
-	// 1 - sauver la relation Qty associée
-	this.getComponent().getQty().getDBWriter(this.getContentResolver()).Save();
-	// 2 - Sauver la relation composant elle même .
-	super.Save();
-	// 3 - Sauver les équivalences du composants
+    public void save() {
+        // Sauver un composant, c'est :
+        // 1 - sauver la relation Qty associÃ©e
+        this.getComponent().getQty().getDBWriter(this.getContentResolver()).save();
+        // 2 - Sauver la relation composant elle mï¿½me .
+        super.save();
+        // 3 - Sauver les ï¿½quivalences du composants
 //	if (this.getComponent().hasEquivalences()){
 //	    for (Component equiv : (this.getComponent().getEquivalences())) 
 //		equiv.getDBWriter(this.getContentResolver()).Save();

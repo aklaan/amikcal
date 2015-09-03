@@ -5,10 +5,15 @@ import com.rdupuis.amikcal.energy.EnergySource;
 
 import android.content.ContentResolver;
 
+/**
+ * Writer utilisÃ© pour sauver les EnergySource
+ */
 public class DBWriter_EnergySource extends DBWriter_Generic {
 
     public DBWriter_EnergySource(ContentResolver contentResolver, EnergySource energySource) {
 	super(contentResolver, energySource);
+        // par dÃ©faut on utilise les Uri du projet Amikcal, mais on pourrait en utiliser d'autres
+        // Ã  la volÃ©e.
 	this.setUriInsert(ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI);
 	this.setUriUpdate(ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI);
     }
@@ -20,10 +25,10 @@ public class DBWriter_EnergySource extends DBWriter_Generic {
     @Override
     public void Save() {
 	
-	//sauver une énergie, c'est :
-	//1 - sauver l'énergie
+	//sauver une Ã©nergie, c'est :
+	//1 - sauver l'Ã©nergie
 	super.Save();
-	//2 - sauver le composant de référence
+	//2 - sauver le composant de rï¿½fï¿½rence
 	this.getEnergySource().getComponentReference().getDBWriter(this.getContentResolver()).Save();
     }
 

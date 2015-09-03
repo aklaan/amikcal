@@ -40,7 +40,7 @@ public class Act_Calendar extends Activity {
      mIntent = getIntent();
      setContentView(R.layout.view_calendar);
 
-     // le Init doit être placé APRES le setContentView sinon
+     // le Init doit Ãªtre placÃ© APRES le setContentView sinon
      // les findViewById ne fonctionnent pas.
      init();
    
@@ -52,25 +52,24 @@ public class Act_Calendar extends Activity {
 	 * 
 	 */
 	private void init() {
-		 
-		// par défaut on prend la date du jour.
-		currentCalendar = Calendar.getInstance();    
+
+		// par dï¿½faut on prend la date du jour.
+		currentCalendar = Calendar.getInstance();
 		currentCalendar.set(currentCalendar.get(Calendar.YEAR), currentCalendar.get(Calendar.MONTH), 1);
-		TextView tv = (TextView)findViewById(R.id.monthLib);
-	    tv.setText(getMonthLabel(currentCalendar.get(Calendar.MONTH)) + " " + currentCalendar.get(Calendar.YEAR));
-	    
-	    Arrays.fill(days, -1);
-	    Arrays.fill(arrayOfButton, -1);
-	    createButtons();
-	    printDays(currentCalendar);
+		TextView tv = (TextView) findViewById(R.id.monthLib);
+		tv.setText(getMonthLabel(currentCalendar.get(Calendar.MONTH)) + " " + currentCalendar.get(Calendar.YEAR));
+
+		Arrays.fill(days, -1);
+		Arrays.fill(arrayOfButton, -1);
+		createButtons();
+		printDays(currentCalendar);
 	}
 	
 	
-	
 	/***
-	 * Déterminier le libellé d'un mois à parti de sont numéro.
+	 * Dï¿½terminier le libellï¿½ d'un mois ï¿½ parti de sont numï¿½ro.
 	 * @param monthNumber
-	 * @return (String) libellé du mois 
+	 * @return (String) libellï¿½ du mois 
 	 */
 	
 	private String getMonthLabel(int monthNumber){
@@ -126,7 +125,7 @@ public class Act_Calendar extends Activity {
 				b.setLayoutParams(params);
 				b.setId(idButton);
 				
-				// on défini l'action Onclick du bouton
+				// on dï¿½fini l'action Onclick du bouton
 				b.setOnClickListener(new View.OnClickListener() {
 				   
 				    public void onClick(View v) {
@@ -149,11 +148,11 @@ public class Act_Calendar extends Activity {
 				    			+ "-" 
 				    			+ ((Integer.parseInt((String)button.getText())<10)?("0"+button.getText()):button.getText()); 
 						
-						// on alimente le résultat dans l'Intent pour que l'Activity mère puisse
-						//récupérer la valeur. 
+						// on alimente le rï¿½sultat dans l'Intent pour que l'Activity mï¿½re puisse
+						//rï¿½cupï¿½rer la valeur. 
 						mIntent.putExtra("result", result); 
 						
-						//on appelle setResult pour déclancher le onActivityResult de l'activity mère. 
+						//on appelle setResult pour dï¿½clancher le onActivityResult de l'activity mï¿½re. 
 						setResult(RESULT_OK, mIntent);
 						
 						//On termine l'Actvity
@@ -165,7 +164,7 @@ public class Act_Calendar extends Activity {
 				});
 
 				tr.addView(b);
-				//On mémorise l'Id du bouton
+				//On mï¿½morise l'Id du bouton
 				arrayOfButton[idButton] = b.getId();
 				idButton++;
 			}
@@ -174,7 +173,7 @@ public class Act_Calendar extends Activity {
 	}
 	
 	/**
-	 * printDays affiche le n° du jour sur le calendrier
+	 * printDays affiche le nï¿½ du jour sur le calendrier
 	 * @param calendar
 	 */
 	
@@ -189,17 +188,17 @@ public class Act_Calendar extends Activity {
 		    //On fabrique le 1er jour du mois
 			c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), 1);
 			
-			//On récupère le n° du 1er jour du mois
+			//On rï¿½cupï¿½re le nï¿½ du 1er jour du mois
 			//0= lundi...etc
 			int day = c.get(Calendar.DAY_OF_WEEK);
 			
-			// le jour 1 est dimanche, mais dans le calendrier affiché à l'écran
+			// le jour 1 est dimanche, mais dans le calendrier affichï¿½ ï¿½ l'ï¿½cran
 			// c'est le jour 7
 			if (day == Calendar.SUNDAY){
 				day=day+5;
 			} else {day=day-2;}
 			
-			//On affiche le n° du jour sur le bouton tant que l'on ne passe pas 
+			//On affiche le nï¿½ du jour sur le bouton tant que l'on ne passe pas 
 			//au mois suivant.
 			int i=0;
 			while (c.get(Calendar.MONTH) == month) {

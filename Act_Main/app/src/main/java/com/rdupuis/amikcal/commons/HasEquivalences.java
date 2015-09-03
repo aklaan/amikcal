@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.commons;
 
+import com.rdupuis.amikcal.Qty.Qty;
+
 import java.util.ArrayList;
 
 public interface HasEquivalences {

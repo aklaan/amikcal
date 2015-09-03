@@ -12,15 +12,13 @@ public class Act_Editor extends Activity {
 
     private long edited_object_id = AppConsts.NO_ID;
     EditMode editMode;
-    private AmiKcalFactory factory;
     public static final String INPUT____ID = "_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setFactory(new AmiKcalFactory(this));
 
-	// dans l'Intent, on récupère l'id de l'objet à éditer
+	// dans l'Intent, on rï¿½cupï¿½re l'id de l'objet ï¿½ ï¿½diter
 	edited_object_id = getIntent().getLongExtra(this.INPUT____ID, AppConsts.NO_ID);
 
 
@@ -28,12 +26,12 @@ public class Act_Editor extends Activity {
 
     public EditMode getEditMode() {
 
-	// si l'id de objet a éditer est connu, nous somme en mode Edition
+	// si l'id de objet a ï¿½diter est connu, nous somme en mode Edition
 	if (edited_object_id != AppConsts.NO_ID) {
 	    this.editMode = EditMode.EDIT;
 	    Toast.makeText(this, "Mode Edition", Toast.LENGTH_LONG).show();
 	} else {
-	    // si l'id est NO_ID, c'est que l'on crée un nouvel objet
+	    // si l'id est NO_ID, c'est que l'on crï¿½e un nouvel objet
 	    this.editMode = EditMode.CREATE;
 	    Toast.makeText(this, "Mode Creation", Toast.LENGTH_LONG).show();
 
@@ -51,12 +49,5 @@ public class Act_Editor extends Activity {
 		this.edited_object_id = edited_object_id;
 	}
 
-	public AmiKcalFactory getFactory() {
-		return factory;
-	}
-
-	public void setFactory(AmiKcalFactory factory) {
-		this.factory = factory;
-	}
 
 }

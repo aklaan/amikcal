@@ -1,6 +1,6 @@
 package com.rdupuis.amikcal.energy;
 
-import com.rdupuis.amikcal.commons.Qty;
+import com.rdupuis.amikcal.Qty.Qty;
 
 /**
  * <h1>Food : un aliment<h1>

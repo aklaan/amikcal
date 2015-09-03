@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.commons;
 
+import com.rdupuis.amikcal.Qty.Qty;
+
 public interface HasQtyReference {
 
 
