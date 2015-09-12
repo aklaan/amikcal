@@ -12,6 +12,7 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Manager;
 
 /**
  * <b>Ecran d'�dition des activit�es physiques de l'utilisateur.</b>
@@ -76,7 +77,7 @@ public class Act_UserActivity_Move_Editor extends
 	 ******************************************************************************************/
 	public void onClickOk(View v) {
 
-		// r�cup�rer l'heure
+		// récupérer l'heure
 		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);
 
 		DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat
@@ -94,11 +95,8 @@ public class Act_UserActivity_Move_Editor extends
 		getEdited_UserActivity().getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (getEdited_UserActivity().getDatabaseId() == AppConsts.NO_ID) {
-			insertUActivity();
-		} else {
-			updateUActivity();
-		}
+		//UserActivity_Move_Manager uam = new UserActivity_Move_Manager(this);
+		//uam.save(getEdited_UserActivity());
 
 		closeEditor();
 	}

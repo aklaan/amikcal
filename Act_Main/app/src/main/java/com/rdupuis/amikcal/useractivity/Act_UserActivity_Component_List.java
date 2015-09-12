@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Component;
 
@@ -52,6 +54,9 @@ public class Act_UserActivity_Component_List extends Activity {
         // - récupérer l'UA pour laquelle on souhaites afficher des composants
         long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
 
+       // UserActivity_Manager uam = new UserActivity_Manager(this);
+       // this.mUA = uam.load(ua_id);
+
 	/* *********************************************
      * Etape 2 : Chargement du Layer d'affichage
 	 * *********************************************
@@ -61,7 +66,7 @@ public class Act_UserActivity_Component_List extends Activity {
         // Récupération de la listview créée dans le fichier customizedlist.xml
 
 	/* *********************************************
-	 * Etape 3 : Alimentation des zones d'affichage
+     * Etape 3 : Alimentation des zones d'affichage
 	 * *********************************************
 	 */
         maListViewPerso = (ListView) findViewById(R.id.listviewperso);
@@ -91,9 +96,11 @@ public class Act_UserActivity_Component_List extends Activity {
      */
 
     public void onClickComponent(Component component) {
+        // ici je ne sais pas quel type de composant est à éditer
+        // je passe par un builder qui va me retourner le bon Manager.
 
-        Component_Manager cm = new Component_Manager(this);
-        cm.edit(component);
+        ManagerBuilder.build(this, component).edit();
+
     }
 
     // Créer un nouveau composant.
@@ -137,8 +144,8 @@ public class Act_UserActivity_Component_List extends Activity {
                     // c'est qu'il a été enregistré dans la database
                     if (component_id != AppConsts.NO_ID) {
                         // on recharge le composant
-                        Component_Manager component_manager = new Component_Manager(this);
-                        Component edited_component = component_manager.load(component_id);
+                     //   Component_Manager component_manager = new Component_Manager(this);
+                    //    Component edited_component = component_manager.load(component_id);
 
                         // on recherche si le composant est déja lié à l'UA
                         boolean Linked_with_UA = false;
@@ -152,7 +159,7 @@ public class Act_UserActivity_Component_List extends Activity {
                         // si le composant n'est pas lié à l'UA, on le lie.
                         if (!Linked_with_UA) {
 
-                            this.mUA.getComponentsList().add(edited_component);
+                          //  this.mUA.getComponentsList().add(component);
                             //this.factory.save(this.mUA);
                         }
                     }
@@ -174,8 +181,7 @@ public class Act_UserActivity_Component_List extends Activity {
 
     protected void refreshScreen() {
         // recharger les modification qui ont pu être effectué sur l'UA
-        UserActivity_Manager uam = new UserActivity_Manager(this);
-        this.mUA = uam.load(this.mUA.getDatabaseId());
+        this.mUA = (UserActivity) ManagerBuilder.build(this, this.mUA).load(mUA.getDatabaseId());
 
         // effacer la liste actuelle
         maListViewPerso.removeAllViewsInLayout();
@@ -195,6 +201,9 @@ public class Act_UserActivity_Component_List extends Activity {
             map.put("name", comp.getEnergy().getName());
             map.put("quantity", String.valueOf(comp.getQty().getAmount()));
             map.put("unity", comp.getQty().getUnity().getLongName());
+
+            AppConsts.REL_TYP_CD_MAP rel_typ_cd_map = new AppConsts.REL_TYP_CD_MAP();
+            map.put("class", rel_typ_cd_map._out.get(comp.getClass()));
 
             listItem.add(map);
         }
@@ -221,7 +230,7 @@ public class Act_UserActivity_Component_List extends Activity {
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
 
 		/*
-		 * //on créer une boite de dialogue AlertDialog.Builder adb =
+         * //on créer une boite de dialogue AlertDialog.Builder adb =
 		 * new AlertDialog.Builder(Acty_ActivityComponentList.this);
 		 * //on attribut un titre à notre boite de dialogue
 		 * adb.setTitle("Sélection Item"); //on insère un message à
@@ -233,8 +242,18 @@ public class Act_UserActivity_Component_List extends Activity {
 		 */
 
                 long component_id = Long.parseLong(map.get("COMPONENT_ID"));
-                Component_Manager cm = new Component_Manager(Act_UserActivity_Component_List.this);
-                onClickComponent(cm.load(component_id));
+
+                AppConsts.REL_TYP_CD_MAP rel_typ_cd_map = new AppConsts.REL_TYP_CD_MAP();
+                Component component = null;
+                switch (rel_typ_cd_map._in.get(map.get("class"))) {
+                    case CFOOD:
+                        component = new Component_Food();
+                    default:
+                }
+
+
+                component = (Component) ManagerBuilder.build(Act_UserActivity_Component_List.this, component).load(component_id);
+                onClickComponent(component);
 
 
             }
@@ -269,8 +288,8 @@ public class Act_UserActivity_Component_List extends Activity {
                             }
                         }).setNegativeButton("NON", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-				/*
-				 * User clicked Cancel so do some stuff
+                /*
+                 * User clicked Cancel so do some stuff
 				 */
                     }
                 })

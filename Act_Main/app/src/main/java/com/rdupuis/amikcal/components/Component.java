@@ -3,6 +3,7 @@ package com.rdupuis.amikcal.components;
 import java.util.ArrayList;
 
 import com.rdupuis.amikcal.Qty.Qty;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.relations.Relation;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
@@ -19,7 +20,7 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  * @author Rodolphe
  * 
  */
-public abstract class Component extends Relation {
+public abstract class Component extends Relation implements ManagedElement{
 
     public  abstract void setEnergy(EnergySource energy) ;
 

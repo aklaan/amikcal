@@ -3,15 +3,16 @@ package com.rdupuis.amikcal.useractivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.components.Component;
 
-public abstract class UserActivity {
+public abstract class UserActivity implements ManagedElement{
 
-    
+
     // la liste des composants est une liste d'objets qui h�ritent de Component
     //private ArrayList<? extends Component> mComponentsList;
 
-    
+
     public abstract long getDatabaseId();
 
     public abstract void setDatabaseId(long _id);

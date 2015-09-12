@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.Qty.Qty;
 import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Energy_Manager;
@@ -19,25 +21,13 @@ public class Component_Reference_Manager extends Component_Manager {
      * Constructeur
      */
 
-    public Component_Reference_Manager(Activity activity) {
+    public Component_Reference_Manager(Activity activity,Component_Reference component_reference) {
 
-        super(activity);
+        super(activity,component_reference);
     }
 
 
-    public void save(Component_Reference component) {
 
-    }
-
-
-    public void delete(Component_Reference component) {
-
-    }
-
-
-    public void edit(Component_Reference component) {
-
-    }
 
     /*****************************************************************************
      * <h1>load_ComponentReference(long nrj_id)</h1>
@@ -72,21 +62,18 @@ public class Component_Reference_Manager extends Component_Manager {
 
         if (cursor.moveToFirst()) {
 
-            //Charger l'énergie
-            Energy_Manager em = new Energy_Manager(getActivity());
-            EnergySource e = em.load(cursor.getLong(INDX_QTY_ID));
-
             // Charger la Qty
-            Qty_Manager qty_manager = new Qty_Manager(getActivity());
-            Qty q = qty_manager.load(cursor.getLong(INDX_QTY_ID));
+            Qty qty = new Qty();
+            Manager manager = ManagerBuilder.build(this.getActivity(), qty);
+            qty = (Qty)manager.load(cursor.getLong(INDX_QTY_ID));
 
             //créer le composant
-            component = new Component_Reference(e, q);
+            component = new Component_Reference(energy, qty);
 
             //réattribuer son datanbase ID
             component.setDatabaseId(cursor.getLong(INDX_QTY_ID));
         } else {
-            Toast.makeText(getActivity(), "Component référence inconnu", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Component référence inconnue", Toast.LENGTH_LONG).show();
         }
 
         cursor.close();

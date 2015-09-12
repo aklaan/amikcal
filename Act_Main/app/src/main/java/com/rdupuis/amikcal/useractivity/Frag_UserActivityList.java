@@ -213,9 +213,9 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
                         Activity currentActivity = Frag_UserActivityList.this.getActivity();
 
 
-                        UserActivity_Manager uam = new UserActivity_Manager(currentActivity);
-                        UserActivity ua = uam.load(item_id);
-                        uam.edit(ua);
+                        //UserActivity_Manager uam = new UserActivity_Manager(currentActivity);
+                        //UserActivity ua = uam.load(item_id);
+                        //uam.edit(ua);
                     }
                 });
 
@@ -226,8 +226,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
                         long item_id = Frag_UserActivityList.this.selectedItemId;
                         Activity currentActivity = Frag_UserActivityList.this.getActivity();
-                        UserActivity_Manager uam = new UserActivity_Manager(currentActivity);
-                        UserActivity ua = uam.load(item_id);
+                        //UserActivity_Manager uam = new UserActivity_Manager(currentActivity);
+                        //UserActivity ua = uam.load(item_id);
                      //   uam.delete(ua);
                         Frag_UserActivityList.this.refreshScreen();
                     }

@@ -7,8 +7,8 @@ import android.net.Uri;
  * le DBWriter fait le lien entre un objet que l'on peu sauver dans une base de donnée
  * et les les URI qui vont permettre de le faire.
  * <p/>
- * par exemple si on souhaite enregistrer une énergie dans un base A et une base B,
- * les Uri ne serront pas les mêmes.du coup l'URI n'est pas une propriété de l'énergie
+ * par exemple si on souhaite enregistrer une énergie dans une base A et une base B,
+ * les Uri ne seront pas les mêmes. du coup l'URI n'est pas une propriété de l'énergie
  */
 public abstract class DBWriter {
 
@@ -24,6 +24,6 @@ public abstract class DBWriter {
 
     public abstract void setUriInsert(Uri uriInsert);
 
-    public abstract void save();
+    public abstract long save();
 
 }

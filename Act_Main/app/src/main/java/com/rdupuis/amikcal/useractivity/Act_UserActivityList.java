@@ -21,9 +21,14 @@ import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
+import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
 
 /**
  * <b>Liste des activit�es de l'utilisateur.</b>
@@ -46,8 +51,9 @@ public class Act_UserActivityList extends Activity {
     private ListView mCustomListView;
     private Calendar currentDay;
     private int currentTypeOfList;
-    private long currentId;
-    private AmiKcalFactory mFactory;
+    private long selectedUserActivityId;
+    private String selectedUserActivityClass;
+
     public static final String INPUT____LIST_TYP = "list_typ";
     public static final String INPUT____DAY = "_day";
 
@@ -200,8 +206,8 @@ public class Act_UserActivityList extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
 
                 HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
-                Act_UserActivityList.this.currentId = Long.parseLong(map.get("id"));
-
+                Act_UserActivityList.this.selectedUserActivityId = Long.getLong(map.get("id"));
+                Act_UserActivityList.this.selectedUserActivityClass = map.get("class");
                 // int ilaposition=position;
                 // cr�ation d'une boite de dialogue pour confirmer le choix
 
@@ -215,10 +221,31 @@ public class Act_UserActivityList extends Activity {
                 adb.setPositiveButton("Editer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 
-                        long item_id = Act_UserActivityList.this.currentId;
-                        UserActivity_Manager ua_manager = new UserActivity_Manager(Act_UserActivityList.this);
-                        UserActivity ua = ua_manager.load(item_id);
-                        ua_manager.edit(ua);
+                        long selectedUserActivityId = Act_UserActivityList.this.selectedUserActivityId;
+                        String selectedUserActivityClass = Act_UserActivityList.this.selectedUserActivityClass;
+                        //utiliser le mapping pour retrouver la classe
+
+
+                        // Alimentation de la classe
+                        UserActivity ua = null;
+                        AppConsts.UA_CLASS_CD_MAP class_map = new AppConsts.UA_CLASS_CD_MAP();
+                        switch (class_map._in.get(selectedUserActivityClass)) {
+                            case LUNCH:
+                                ua = new UserActivity_Lunch();
+                                break;
+                            case MOVE:
+                                ua = new UserActivity_Lunch();
+                                break;
+
+                            case WEIGHT:
+                                ua = new UserActivity_Weight();
+                                break;
+                            default:
+                        }
+
+                        Manager manager = ManagerBuilder.build(Act_UserActivityList.this, ua);
+                        ua = (UserActivity) manager.load(selectedUserActivityId);
+
 
                     }
                 });
@@ -226,7 +253,7 @@ public class Act_UserActivityList extends Activity {
                 // *********************************************************************************************************
                 adb.setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        Act_UserActivityList.this.onClickDelete(String.valueOf(Act_UserActivityList.this.currentId));
+                        Act_UserActivityList.this.onClickDelete(String.valueOf(Act_UserActivityList.this.selectedUserActivityId));
                     }
                 });
 
@@ -308,8 +335,8 @@ public class Act_UserActivityList extends Activity {
 
     public void onClickAdd(View v) {
 
-        UserActivity_Manager userActivity_manager = new UserActivity_Manager((this));
-        userActivity_manager.edit(new UserActivity_Commons(this.currentDay));
+        //UserActivity_Manager userActivity_manager = new UserActivity_Manager((this));
+        //userActivity_manager.edit(new UserActivity_Commons(this.currentDay));
     }
 
     private HashMap<String, String> computeEnergy(long UserActivityId) {
@@ -318,7 +345,7 @@ public class Act_UserActivityList extends Activity {
         map = new HashMap<String, String>();
 
 	/*
-	 * Uri selectUri =
+     * Uri selectUri =
 	 * ContentUris.withAppendedId(ContentDescriptorObj.ViewUserActivities
 	 * .URI_VIEW_USER_ACTIVITIES,UserActivityId);
 	 * 

@@ -5,33 +5,39 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * Created by rodol on 01/09/2015.
  */
-public  class Relation_Manager extends Manager {
+public  class Relation_Manager extends Manager_commons {
 
-public Relation_Manager(Activity activity){
-    super(activity);
+public Relation_Manager(Activity activity, Relation relation){
+
+    super(activity,relation);
 }
 
     /*****************************************************************************************
      * Enregister une relation dans la database
      * <p/>
-     * note : on ne doit pas v�rifier si la relation existe d�j� ici. car pour
-     * les QTY �a n focntionne pas. par exemple si on a 10g de pain pour UA1 et
+     * note : on ne doit pas vérifier si la relation existe déjà ici. car pour
+     * les QTY ça n fonctionne pas. par exemple si on a 10g de pain pour UA1 et
      * que l'on met aussi 10g de pain pour l'UA2 il ne faut pas que les 2 UA
-     * pointent sur la m�me Qty.
+     * pointent sur la même Qty.
      ******************************************************************************************/
-    public Relation save(Relation relation) {
-
+    @Override
+    public long save() {
+Relation relation = (Relation) getElement();
+        long _id = relation.getDatabaseId();
         // ----------------------------------------------------------------------------
-        // On pr�pare les informations � mettre � jour
+        // On prépare les informations à mettre à jour
         ContentValues val = new ContentValues();
 
         // Rel_typ_cd
@@ -45,14 +51,15 @@ public Relation_Manager(Activity activity){
         // Id unity
         val.put(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2, relation.getParty2());
 
-        // date de mise � jour
+        // date de mise à jour
         val.put(ContentDescriptorObj.TB_Party_rel.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
-        // Sauver l'unit�e
+        // Sauver la relation
         if (relation.getDatabaseId() == AppConsts.NO_ID) {
             Uri result = getActivity().getContentResolver().insert(
                     ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI, val);
-            relation.setDatabaseId(Long.parseLong(result.getLastPathSegment()));
+           _id = Long.parseLong(result.getLastPathSegment());
+
         } else {
 
             Uri uriUpdate = ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.UP000_PARTY_REL_URI,
@@ -61,7 +68,7 @@ public Relation_Manager(Activity activity){
         }
 
         // il faut récupérer l'id de lenregistrement que l'on vient de créer
-        return relation;
+        return _id;
     }
 
 

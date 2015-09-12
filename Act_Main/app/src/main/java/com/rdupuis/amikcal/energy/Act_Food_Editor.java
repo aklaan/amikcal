@@ -21,12 +21,15 @@ import android.widget.TextView;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.ContreteEnergySource.STRUCTURE;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor;
 import com.rdupuis.amikcal.relations.Relation;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.unity.Unity_Manager;
 
 /**
@@ -143,10 +146,13 @@ public class Act_Food_Editor extends Activity {
 
                 if (resultCode == RESULT_OK) {
 
-                    Unity_Manager um = new Unity_Manager(this);
+                    Unity unity = new Unity();
+                    Manager manager = ManagerBuilder.build(this, unity);
+                    long _id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
+                    unity = (Unity) manager.load(_id);
 
-                    this.mFood.getComponentReference().getQty().setUnity(
-                            um.load(intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
+                    this.mFood.getComponentReference().getQty().setUnity(unity);
+
 
                 }
                 break;
@@ -166,17 +172,17 @@ public class Act_Food_Editor extends Activity {
      ******************************************************************************************/
     public void onClick_Validate(View v) {
 
-        //r�cup�rer le lib�ll� de l'�nergie
+        //récupérer le libéllé de l'énergie
         EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
         this.mFood.setName(ed.getText().toString());
 
-        //enregister l'�nergie
-        this.mFood.getDBWriter(this.getContentResolver()).save();
+        //Enregister l'énergie
+        Manager manager = ManagerBuilder.build(this, this.mFood);
+        manager.save();
 
-        //this.factory.save(this.mFood);
 
-        // on appelle setResult pour d�clancher le onActivityResult de
-        // l'activity m�re.
+        // on appelle setResult pour déclancher le onActivityResult de
+        // l'activity mère.
         setResult(RESULT_OK, getIntent());
 
         // On termine l'Actvity

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
@@ -29,9 +30,8 @@ public class Act_UnitOfMeasureEditor extends Activity {
 
         try {
 
-            Unity_Manager um = new Unity_Manager(this);
 
-            mUnit = um.load(this.getIntent().getLongExtra(
+            mUnit = (Unity) ManagerBuilder.build(this,mUnit).load(this.getIntent().getLongExtra(
                     this.INPUT____UNITY_ID, AppConsts.NO_ID));
             refreshScreen();
         } catch (Exception e) {
@@ -51,11 +51,10 @@ public class Act_UnitOfMeasureEditor extends Activity {
     public void onValidateClick(View v) {
 
         getScreenData();
-        Unity_Manager um = new Unity_Manager(this);
-        um.save(this.mUnit);
+        this.mUnit.setId(ManagerBuilder.build(this,this.mUnit).save());
 
-        // on appelle setResult pour d�clancher le onActivityResult de
-        // l'activity m�re.
+        // on appelle setResult pour déclancher le onActivityResult de
+        // l'activity mère.
         setResult(RESULT_OK, this.getIntent());
 
         // On termine l'Actvity

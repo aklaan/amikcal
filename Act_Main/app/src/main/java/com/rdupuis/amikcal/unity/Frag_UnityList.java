@@ -30,12 +30,12 @@ public class Frag_UnityList extends Fragment {
 	
 	private ListView maListViewPerso;
 	static Long currentId;
-	static Long energyId = 0l;
+	static Long energyId;
 	private static Long WITH_NO_FILTER = 0l;
 	public static final String INPUT____ENERGY_ID  ="nrj_id";
 	
     private View mainView;
-	//Cr�ation de la vue
+	//Création de la vue
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

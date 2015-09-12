@@ -3,6 +3,7 @@ package com.rdupuis.amikcal.energy;
 import android.content.ContentResolver;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.components.Component_Reference;
 import com.rdupuis.amikcal.data.Savable;
 import com.rdupuis.amikcal.data.writers.DBWriter;
@@ -20,7 +21,7 @@ import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
  * @author Rodolphe
  */
 
-public class EnergySource implements Savable {
+public class EnergySource implements Savable, ManagedElement {
 
     private long databaseId;
     private String name;
@@ -30,7 +31,7 @@ public class EnergySource implements Savable {
     public EnergySource() {
         this.databaseId = AppConsts.NO_ID;
         name = "";
-        this.mReference = new Component_Reference();
+        this.mReference = null;
     }
 
     public String getName() {

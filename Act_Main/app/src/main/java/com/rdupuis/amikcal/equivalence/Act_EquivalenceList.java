@@ -20,6 +20,8 @@ import android.widget.SimpleAdapter;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Energy_Manager;
@@ -46,8 +48,9 @@ public class Act_EquivalenceList extends Activity {
 	long nrj_id = this.getIntent().getLongExtra(this.INTPUT____NRJ_ID,AppConsts.NO_ID);
 	
 	if (nrj_id != AppConsts.NO_ID) {
-	Energy_Manager em = new Energy_Manager(this);
-	    nrj = em.load(nrj_id);
+		Manager manager = ManagerBuilder.build(this, nrj);
+		nrj = (EnergySource)manager.load(nrj_id);
+
 //	    this.equivalences = nrj.getComponentReference().getEquivalences();
 	}
 
@@ -114,9 +117,12 @@ public class Act_EquivalenceList extends Activity {
 
 	// recharger les modification qui ont pu être effectuées
 	if (this.nrj.getDatabaseId() != AppConsts.NO_ID) {
-	    Energy_Manager em = new Energy_Manager(this);
-		this.nrj = em.load(nrj.getDatabaseId());
-	    //equivalences = nrj.getReferenceComponent().getEquivalences();
+		Manager manager = ManagerBuilder.build(this,nrj);
+		nrj = (EnergySource)manager.load(nrj.getDatabaseId());
+
+		nrj = (EnergySource)ManagerBuilder.build(this,nrj).load(nrj.getDatabaseId());
+
+		//equivalences = nrj.getReferenceComponent().getEquivalences();
 	}
 
 	// R�cup�ration de la listview cr��e dans le fichier customizedlist.xml

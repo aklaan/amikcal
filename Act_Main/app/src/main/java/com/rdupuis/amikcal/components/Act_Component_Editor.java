@@ -15,11 +15,15 @@ import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
+import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.unity.Unity_Manager;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 
@@ -63,8 +67,8 @@ public class Act_Component_Editor extends Activity {
         // si l'ID n'est pas nul on charge le composant à éditer
         if (edited_comp_id != AppConsts.NO_ID) {
             // chargement du composant stocké
-            Component_Manager cm = new Component_Manager(this);
-            this.edited_Component = cm.load(edited_comp_id);
+            Manager manager = ManagerBuilder.build(this, this.edited_Component);
+            this.edited_Component = (Component) manager.load(edited_comp_id);
 
         } else {
             // Initialisation d'un nouveau composant en fonction de la class
@@ -153,12 +157,12 @@ public class Act_Component_Editor extends Activity {
      */
     public void onClick_Validate() {
 
-        // A la cr�ation, le save va initialiser l'ID
-        Component_Manager cm = new Component_Manager(this);
-        cm.save(this.edited_Component);
+        // A la création, le save va initialiser l'ID
+        Manager manager = ManagerBuilder.build(this, this.edited_Component);
+        this.edited_Component.setDatabaseId(manager.save());
 
-        // on appelle setResult pour d�clancher le onActivityResult de
-        // l'activity m�re.
+        // on appelle setResult pour déclancher le onActivityResult de
+        // l'activity mère.
 
         this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP_ID, this.edited_Component.getDatabaseId());
         setResult(RESULT_OK, this.getIntent());
@@ -193,10 +197,11 @@ public class Act_Component_Editor extends Activity {
 
                 if (resultCode == RESULT_OK) {
 
-                    // on r�cup�re l'objet Unit. this.mUAC
-                    Unity_Manager um = new Unity_Manager(this);
-                    this.edited_Component.getQty().setUnity(
-                            um.load(intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
+                    // on récupère l'unité de mesure choisie
+                    Unity unity = new Unity();
+                    Manager manager = ManagerBuilder.build(this, unity);
+                    unity = (Unity) manager.load(intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID));
+                    this.edited_Component.getQty().setUnity(unity);
                 }
                 break;
 
@@ -204,11 +209,11 @@ public class Act_Component_Editor extends Activity {
 
                 if (resultCode == RESULT_OK) {
 
-                    // on r�cup�re l'Energy choisi par l'utilisateur d'apr�s sont id
-                    // .
-                    Energy_Manager em = new Energy_Manager(this);
-                    this.edited_Component.setEnergy(em.load(intent.getLongExtra(
-                            Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
+                    // on récupère l'Energy choisie par l'utilisateur
+                    EnergySource energySource = new EnergySource();
+                    Manager manager = ManagerBuilder.build(this, energySource);
+                    energySource = (EnergySource) manager.load(intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID));
+                    this.edited_Component.setEnergy(energySource);
 
                 }
                 break;

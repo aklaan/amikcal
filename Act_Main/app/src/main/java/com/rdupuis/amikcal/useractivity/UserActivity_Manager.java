@@ -8,10 +8,14 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.ComponentFactory;
+import com.rdupuis.amikcal.components.Component_Generic;
 import com.rdupuis.amikcal.components.Component_Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.relations.Relation_Manager;
@@ -28,58 +32,59 @@ import java.util.ArrayList;
  * <p/>
  * exemple : pour une activité food, edit va lancer l'éditeur de food
  */
-public class UserActivity_Manager extends Manager {
+public class UserActivity_Manager extends Manager_commons {
 
-    public UserActivity_Manager(Activity activity) {
-        super(activity);
+    public UserActivity_Manager(Activity activity, UserActivity userActivity) {
+        super(activity, userActivity);
+
     }
 
-    public void save(UserActivity userActivity) {
-        ContentValues val = new ContentValues();
 
-        // id de l'activitée
-        val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (userActivity.getDatabaseId() == AppConsts.NO_ID) ? null : userActivity.getDatabaseId());
-        // titre
-        val.put(ContentDescriptorObj.TB_UserActivities.Columns.TITLE, userActivity.getTitle());
-        // Date
-        val.put(ContentDescriptorObj.TB_UserActivities.Columns.DATE, ToolBox.getSqlDateTime(userActivity.getDay()));
+    @Override
+    public void edit() {
+// mettre ici les option communes
+    }
 
-        // class : on utilise la mapping pour transformer l'ENUM Class en Byte
-        // stok� dans la Database.
-        AppConsts.UA_CLASS_CD_MAP ua_cd_map = new AppConsts.UA_CLASS_CD_MAP();
-        val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((userActivity.getActivityType())));
 
-        // date de mise � jour
-        val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
-
-        if (userActivity.getDatabaseId() == AppConsts.NO_ID) {
+    @Override
+    public long save() {
+        UserActivity ua = (UserActivity) getElement();
+        ContentValues val = this.getContentValues();
+        long new_id = ua.getDatabaseId();
+        if (ua.getDatabaseId() == AppConsts.NO_ID) {
             Uri result = getActivity().getContentResolver().insert(
                     ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI, val);
-            userActivity.setDatabaseId(Long.parseLong(result.getLastPathSegment()));
+            new_id = Long.parseLong(result.getLastPathSegment());
+
+
+            if (!ua.getComponentsList().isEmpty()) {
+
+
+                for (Component component : ua.getComponentsList()) {
+
+                    //ManagerBuilder(getActivity(), component).save();
+                    //Relation_UserActivity_vs_Component UAC_rel = new Relation_UserActivity_vs_Component(UA, component);
+                    //Relation_Manager rm = new Relation_Manager(getActivity());
+
+                    //if (!this.relation_Exists(UAC_rel)) {
+                    //    saveRelation(UAC_rel);
+                }
+            }
+
+
         } else {
 
             Uri uriUpdate =
 
-                    ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI, userActivity.getDatabaseId());
-            getActivity().getContentResolver().update(uriUpdate, val, String.valueOf(userActivity.getDatabaseId()), null);
+                    ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI, ua.getDatabaseId());
+            getActivity().getContentResolver().update(uriUpdate, val, String.valueOf(ua.getDatabaseId()), null);
 
         }
         // si l'UA poss�de des Composants, on doit les sauver et cr�er les liens
         // UA_Composants
 
-        if (!userActivity.getComponentsList().isEmpty()) {
 
-
-            for (Component component : userActivity.getComponentsList()) {
-
-                //ManagerBuilder(getActivity(), component).save();
-                //Relation_UserActivity_vs_Component UAC_rel = new Relation_UserActivity_vs_Component(UA, component);
-                //Relation_Manager rm = new Relation_Manager(getActivity());
-
-                //if (!this.relation_Exists(UAC_rel)) {
-                //    saveRelation(UAC_rel);
-            }
-        }
+        return new_id;
     }
 
 
@@ -108,10 +113,12 @@ public class UserActivity_Manager extends Manager {
 
         // faire un move First pour positionner le pointeur, sinon on pointe sur
         // null
-        Component_Manager cm = new Component_Manager(getActivity());
+        Component_Generic component = new Component_Generic();
+        Manager manager = ManagerBuilder.build(this.getActivity(), component);
         if (cur.moveToFirst()) {
             do {
-                Component component = cm.load(cur.getLong(COMPONENT_ID));
+
+                component = (Component_Generic) manager.load(cur.getLong(COMPONENT_ID));
                 component_list.add(component);
             } while (cur.moveToNext());
         }
@@ -121,7 +128,6 @@ public class UserActivity_Manager extends Manager {
 
     }
 
-    public void edit(UserActivity userActivity){}
 
     /*****************************************************************************
      * Retourne une Activité utilisateur stockée dans la base à partir de son
@@ -134,14 +140,14 @@ public class UserActivity_Manager extends Manager {
      * @return (UserActivityObj) un objet "Activité d'utilisateur"
      * @since 01-06-2012
      ****************************************************************************/
-    public UserActivity load(long databaseId) {
+    @Override
+    public ManagedElement load(long databaseId) {
 
         //Si l'ID en entrée est nul aucune activity ne peux être trouvée
         if (databaseId == AppConsts.NO_ID) {
             // Toast.makeText(this.mActivity, "ID � recharger vide", Toast.LENGTH_LONG).show();
             return null;
         }
-
         Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI,
                 databaseId);
 
@@ -188,7 +194,36 @@ public class UserActivity_Manager extends Manager {
 
         }
 
-        return userActivity;
+        return (ManagedElement) userActivity;
     }
+
+
+    /****************************************************************************
+     * Générer un contenValies communs à toutes les activitées
+     * <p/>
+     ****************************************************************************/
+    @Override
+    public ContentValues getContentValues() {
+        ContentValues val = new ContentValues();
+        UserActivity userActivity = (UserActivity) getElement();
+        // id de l'activitée
+        val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (userActivity.getDatabaseId() == AppConsts.NO_ID) ? null
+                : userActivity.getDatabaseId());
+        // titre
+        val.put(ContentDescriptorObj.TB_UserActivities.Columns.TITLE, userActivity.getTitle());
+        // Date
+        val.put(ContentDescriptorObj.TB_UserActivities.Columns.DATE, ToolBox.getSqlDateTime(userActivity.getDay()));
+
+        // class : on utilise la mapping pour transformer l'ENUM Class en Byte
+        // stoké dans la Database.
+        AppConsts.UA_CLASS_CD_MAP ua_cd_map = new AppConsts.UA_CLASS_CD_MAP();
+        val.put(ContentDescriptorObj.TB_UserActivities.Columns.CLASS, ua_cd_map._out.get((userActivity.getActivityType())));
+
+        // date de mise à jour
+        val.put(ContentDescriptorObj.TB_UserActivities.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+
+        return val;
+    }
+
 
 }

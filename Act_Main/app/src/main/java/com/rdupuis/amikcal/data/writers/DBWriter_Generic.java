@@ -61,7 +61,7 @@ public class DBWriter_Generic extends DBWriter {
      * pour sauver un objet, on va soit l'insérer s'il n'existe pas (id inconnu)
      * ou bien le mettre à jour.
      */
-    public void save() {
+    public long save() {
 
         //on récupère les données à sauvegarder dans un ContentValue grace au Warper
         ContentValues values = getSavable().getDBWarper().getContentValues();
@@ -76,6 +76,7 @@ public class DBWriter_Generic extends DBWriter {
             this.getContentResolver().update(uriUpdate, values, String.valueOf(getSavable().getDatabaseId()), null);
         }
 
+        return 0;
     }
 
     @Override

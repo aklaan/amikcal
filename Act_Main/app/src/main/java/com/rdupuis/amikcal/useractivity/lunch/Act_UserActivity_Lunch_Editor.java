@@ -10,6 +10,8 @@ import android.widget.TimePicker;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
@@ -36,8 +38,11 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
         switch (this.getEditMode()) {
 
             case EDIT:
-                // En cas d'édition, la classe mère a du recharger l'objet
-                // UserActivityLunch
+                // UserActivity ua = new UserActivity_Manager(this);
+
+                //this.setEdited_UserActivity(uam.load(this.getEdited_object_id()));
+
+
                 break;
             case CREATE:
                 // En cas de création, la classe mère n'a pas pu recharger l'objet
@@ -79,8 +84,11 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
         getEdited_UserActivity().getDay().set(Calendar.HOUR_OF_DAY, tp.getCurrentHour().intValue());
         getEdited_UserActivity().getDay().set(Calendar.MINUTE, tp.getCurrentMinute().intValue());
 
-        UserActivity_Manager uam = new UserActivity_Manager(this);
-        uam.save(getEdited_UserActivity());
+        Manager manager = ManagerBuilder.build(this, getEdited_UserActivity());
+        //lorsque l'on sauve la première fois, on récupère un nouvel id.
+        long new_id = manager.save();
+        //on attribue l'id
+        getEdited_UserActivity().setDatabaseId(new_id);
 
         closeEditor();
     }

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
@@ -49,8 +51,8 @@ public class Act_EquivalenceEditor extends Activity {
         int equiv_indx = this.getIntent().getIntExtra(this.INPUT____INDX_EQUIV, AppConsts.NO_INDEX);
 
         if (nrj_id != AppConsts.NO_ID) {
-            Energy_Manager em = new Energy_Manager(this);
-            nrj = em.load(nrj_id);
+            Manager manager = ManagerBuilder.build(this,nrj);
+            nrj = (EnergySource)manager.load(nrj_id);
 
             //
             //   edited_Equivalence = nrj.getReferenceComponent();

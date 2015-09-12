@@ -1,8 +1,9 @@
 package com.rdupuis.amikcal.unity;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 
-public class Unity {
+public class Unity implements ManagedElement{
 	public static enum UNIT_CLASS {
 		INTERNATIONAL, CUSTOM, CONTAINER, FOOD_COMPONENT,TIME,UNDEFINED
 	}
@@ -12,7 +13,7 @@ private String longName;
 private String shortName;
 private UNIT_CLASS mUnityClass;
 
-public Unity(){
+public Unity() {
     this.id = AppConsts.NO_ID;
     this.longName="";
     this.shortName="";

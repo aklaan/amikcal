@@ -2,13 +2,17 @@ package com.rdupuis.amikcal.components;
 
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
 import com.rdupuis.amikcal.Qty.Qty;
 import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.components.move.Component_Move;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -24,19 +28,19 @@ import com.rdupuis.amikcal.relations.Relation_Manager;
  * possibilités d'une Activity
  * c'est une sorte d'Adapter....??
  */
-public class Component_Manager extends Manager {
+public class Component_Manager extends Manager_commons {
 
-
-    public Component_Manager(Activity activity) {
-        super(activity);
-
+    public Component_Manager(Activity activity, Component component) {
+        super(activity, component);
     }
+
 
     /**
      *
-     * @param component
      */
-    public void edit(Component component){}
+    @Override
+    public void edit() {
+    }
 
     /**
      * Sauver un composant, c'est :
@@ -44,19 +48,13 @@ public class Component_Manager extends Manager {
      * - sauver la partie Qty
      * - sauver la relation de composition
      */
-    public void save(Component component) {
+    @Override
+    public long save() {
 
-        // Etape 1 - Sauver la partie Qty associée
-        Qty_Manager qm = new Qty_Manager(getActivity());
-        qm.save(component.getQty());
-
-        // Etape 2 - Sauver la partie énergie associée
-        Energy_Manager em = new Energy_Manager(getActivity());
-        em.save(component.getEnergy());
-
-        // Etape 3 - Sauver la relation de composition
-        Relation_Manager rm = new Relation_Manager(getActivity());
-        rm.save(component);
+        //Sauver la relation de composition
+        //Relation_Manager rm = new Relation_Manager(getActivity());
+        //rm.save(component);
+        return 0;
     }
 
     /***********************************************************************
@@ -70,12 +68,12 @@ public class Component_Manager extends Manager {
      * @return
      ************************************************************************/
 
-    public Component load(long databaseId) {
+    public ManagedElement load(long databaseId) {
         Component component = null;
 
         // si l'id du composant à charger est nul on retourne un composant vide.
         if (databaseId == AppConsts.NO_ID) {
-            return component;
+            return null;
         }
 
         // rechercher la relation "component" à partir de son id.
@@ -92,13 +90,15 @@ public class Component_Manager extends Manager {
         // null
         if (cur.moveToFirst()) {
 
-            //Etape 1 - on récupère l'énergie
-            Energy_Manager em = new Energy_Manager(getActivity());
-            EnergySource nrj = em.load(cur.getLong(NRJ_ID));
+            //Etape 1 - on récupère l'énergie²
+            EnergySource nrj = new EnergySource();
+            Manager manager = ManagerBuilder.build(this.getActivity(), nrj);
+            nrj = (EnergySource) manager.load(cur.getLong(NRJ_ID));
 
             // Etape 2 - on récupère la Qty
-            Qty_Manager qty_manager = new Qty_Manager(getActivity());
-            Qty qty = qty_manager.load(cur.getLong(QTY_ID));
+            Qty qty = new Qty();
+            manager = ManagerBuilder.build(this.getActivity(), qty);
+            qty = (Qty) manager.load(cur.getLong(QTY_ID));
 
             //on récupère le mapping des type de relation pour faire la correspondance
             // entre le code stocké dans la database et sa signification fonctionnelle
@@ -122,8 +122,12 @@ public class Component_Manager extends Manager {
         }
         cur.close();
 
-        return component;
+
+        return (ManagedElement) component;
     }
 
-
+    @Override
+    public ContentValues getContentValues() {
+        return new ContentValues();
+    }
 }

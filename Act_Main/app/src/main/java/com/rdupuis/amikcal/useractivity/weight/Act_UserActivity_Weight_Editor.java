@@ -14,6 +14,7 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.WeightObj;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Manager;
 
 /**
  * <b>Ecran d'�dition des pes�es.</b>
@@ -99,11 +100,8 @@ public class Act_UserActivity_Weight_Editor extends
 		getEdited_UserActivity().getDay().set(Calendar.MINUTE,
 				tp.getCurrentMinute().intValue());
 
-		if (getEdited_UserActivity().getDatabaseId() == AppConsts.NO_ID) {
-			insertUActivity();
-		} else {
-			updateUActivity();
-		}
+		//UserActivity_Weight_Manager uam = new UserActivity_Weight_Manager(this);
+		//uam.save(getEdited_UserActivity());
 
 		closeEditor();
 	}
@@ -152,11 +150,6 @@ public class Act_UserActivity_Weight_Editor extends
 				.format());
 	}
 
-	@Override
-	public ContentValues setSpecificValues(ContentValues val) {
-		// TODO Auto-generated method stub
-		return val;
-	}
 
 	private void refreshHour() {
 		TimePicker tp = (TimePicker) findViewById(R.id.timePicker1);

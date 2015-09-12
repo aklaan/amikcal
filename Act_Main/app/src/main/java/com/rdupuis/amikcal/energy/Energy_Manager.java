@@ -2,16 +2,22 @@ package com.rdupuis.amikcal.energy;
 
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.components.Component_Reference;
 import com.rdupuis.amikcal.components.Component_Reference_Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.data.writers.DBWriter;
+
 import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
 
 /**
@@ -19,13 +25,51 @@ import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
  */
 public class Energy_Manager extends Manager {
 
+    private Activity mActivity;
+    private EnergySource energySource;
+
     public Energy_Manager(Activity activity) {
-        super(activity);
+        setActivity(activity);
+
     }
 
-    public void save(EnergySource energySource) {
-        DBWriter_EnergySource dbw = new DBWriter_EnergySource(getActivity().getContentResolver(), energySource);
+    @Override
+    public void setActivity(Activity activity) {
+        this.mActivity = activity;
+    }
+
+    @Override
+    public Activity getActivity() {
+        return mActivity;
+    }
+
+    @Override
+    public ManagedElement getElement() {
+
+        return (ManagedElement) this.energySource;
+    }
+
+    @Override
+    public void setElement(ManagedElement element) {
+
+        this.energySource = (EnergySource) element;
+    }
+
+
+    public EnergySource getEnergySource() {
+        return energySource;
+    }
+
+    public void setEnergySource(EnergySource energySource) {
+        this.energySource = energySource;
+    }
+
+
+    @Override
+    public long save() {
+        DBWriter dbw = new DBWriter_EnergySource(getActivity().getContentResolver(), getEnergySource());
         dbw.save();
+        return 0;
     }
 
 
@@ -38,24 +82,23 @@ public class Energy_Manager extends Manager {
      * @return (Energy) un objet "énergie"
      * @since 01-06-2012
      ********************************************************************************/
-    public EnergySource load(long databaseId) {
+    @Override
+    public ManagedElement load(long databaseId) {
 
         EnergySource energy = null;
 
         if (databaseId == AppConsts.NO_ID) {
 
+            return null;
             // il faudrait retourner une exception maison du style badId
             // Excetpion
-            return energy;
-        }
 
+        }
         Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Energies.SELECT_ONE_ENERGIES_BY_ID_URI, databaseId);
         Cursor cursor = getActivity().getContentResolver().query(selectUri, null, null, null, null);
 
         final int INDX_NRJ_NAME = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.NAME);
-
         final int INDX_NRJ_CLASS = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.CLASS);
-
         final int INDX_NRJ_STRUCTURE = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.STRUCTURE);
 
         // faire un move First pour positionner le pointeur, sinon on pointe sur
@@ -99,10 +142,11 @@ public class Energy_Manager extends Manager {
 
              */
 
+            //Component_Reference refComponent = new Component_Reference();
+            //Manager manager = ManagerBuilder.build(this.getActivity(), refComponent);
 
-            Component_Reference_Manager cmr = new Component_Reference_Manager(getActivity());
-            Component_Reference refComponent = cmr.load(energy);
-            //energy.setReferenceComponent(refComponent);
+            //refComponent = (Component_Reference) manager.load(energy);
+//            energy.setComponent(refComponent);
 
 
         } else {
@@ -115,8 +159,32 @@ public class Energy_Manager extends Manager {
 
         }
         cursor.close();
-        return energy;
+
+        return (ManagedElement) energy;
+    }
+
+    @Override
+    public ContentValues getContentValues() {
+        ContentValues val = new ContentValues();
+        EnergySource nrj = getEnergySource();
+
+        // Alimentation du nom
+        val.put(ContentDescriptorObj.TB_Energies.Columns.NAME, nrj.getName());
+
+        // Alimentation de la classe
+        AppConsts.NRJ_CLASS_MAP class_map = new AppConsts.NRJ_CLASS_MAP();
+        val.put(ContentDescriptorObj.TB_Energies.Columns.CLASS, class_map._out.get(nrj.getEnergyClass()));
+
+        // date de mise à jour
+        val.put(ContentDescriptorObj.TB_Energies.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+
+        return val;
+    }
+
+    @Override
+    public void edit() {
 
     }
+
 
 }

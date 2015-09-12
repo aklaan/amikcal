@@ -9,12 +9,17 @@ import android.view.View;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
 
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Manager;
 import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
 
+import com.rdupuis.amikcal.useractivity.move.UserActivity_Move_Manager;
 import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
+import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight_Manager;
 
 
 /**
@@ -81,25 +86,25 @@ public class Act_UserActivity_ChooseNew extends Activity {
      * onClickLunch() : Gestion du bouton "repas"
      *******************************************************************************************/
     public void onClickLunch(View v) {
-        //on appelle l'éditeur des repas.
-        UserActivity_Manager uam = new UserActivity_Manager(this);
-        uam.edit(new UserActivity_Lunch(this.currentDay));
+        //on récupère le manager des UserActivity_Lunch.
+        Manager manager = ManagerBuilder.build(this,new UserActivity_Lunch(this.currentDay));
+        //on demande la fonction d'édition du manager
+        manager.edit();
     }
 
     /*******************************************************************************************
-     * onClickPhysicalActivity() : Gestion du bouton "activit� physique"
+     * onClickPhysicalActivity() : Gestion du bouton "activité physique"
      *******************************************************************************************/
     public void onClickPhysicalActivity(View v) {
-        UserActivity_Manager uam = new UserActivity_Manager(this);
-        uam.edit(new UserActivity_Move(this.currentDay));
-    }
+        Manager manager = ManagerBuilder.build(this,new UserActivity_Move(this.currentDay));
+        manager.edit();}
 
     /*******************************************************************************************
      * onClickWeight(): Gestion du bouton "poids"
      *******************************************************************************************/
     public void onClickWeight(View v) {
-        UserActivity_Manager uam = new UserActivity_Manager(this);
-        uam.edit(new UserActivity_Weight(this.currentDay));
+        //UserActivity_Weight_Manager uam = new UserActivity_Weight_Manager(this);
+        //uam.edit(new UserActivity_Weight(this.currentDay));
 
     }
 

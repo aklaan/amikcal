@@ -9,8 +9,8 @@ import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
 public class UserActivity_Weight_Manager extends UserActivity_Manager {
 
-    public UserActivity_Weight_Manager(Activity activity) {
-	super (activity);
+    public UserActivity_Weight_Manager(Activity activity, UserActivity_Weight userActivity_weight) {
+	super (activity, userActivity_weight);
     }
 
 

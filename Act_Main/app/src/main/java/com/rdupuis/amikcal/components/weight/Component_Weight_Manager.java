@@ -3,13 +3,14 @@ package com.rdupuis.amikcal.components.weight;
 import android.app.Activity;
 
 import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.Manager_commons;
 
 
-public class Component_Weight_Manager extends Manager {
+public class Component_Weight_Manager extends Manager_commons {
     
     
-    public Component_Weight_Manager(Activity activity) {
-	super(activity);
+    public Component_Weight_Manager(Activity activity, Component_Weight component_weight) {
+	super(activity, component_weight);
 	
     }
 

@@ -7,27 +7,31 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
+
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
  * Created by rodol on 27/08/2015.
  */
-public final class Unity_Manager extends Manager {
+public final class Unity_Manager extends Manager_commons {
 
-    public Unity_Manager(Activity activity) {
-        super(activity);
+    public Unity_Manager(Activity activity, Unity unity) {
+        super(activity, unity);
+
     }
 
 
     /*****************************************************************************************
-     * Enregister une unit�e dans la databse
+     * Enregister une unitée dans la databse
      ******************************************************************************************/
-    public void save(Unity unity) {
-        // On pr�pare les informations � mettre � jour
+    public long save() {
+        long _id;
+        Unity unity = (Unity) getElement();
+        _id = unity.getId();
+        // On prépare les informations à mettre à jour
         ContentValues val = new ContentValues();
 
         // LongName
@@ -36,22 +40,22 @@ public final class Unity_Manager extends Manager {
         // ShortName
         val.put(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME, unity.getShortName());
 
-        // Alimentation de la classe d'unit�e
+        // Alimentation de la classe d'unitée
         AppConsts.UNIT_CLASS_MAP unit_class_map = new AppConsts.UNIT_CLASS_MAP();
         val.put(ContentDescriptorObj.TB_Units.Columns.CLASS, unit_class_map._out.get(unity.getUnityClass()));
 
-        // date de mise � jour
+        // date de mise à jour
         val.put(ContentDescriptorObj.TB_Units.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
 
-        // Sauver l'unit�e
+        // Sauver l'unitée
         if (unity.getId() == AppConsts.NO_ID) {
             Uri result = getActivity().getContentResolver().insert(ContentDescriptorObj.TB_Units.URI_INSERT_UNIT, val);
-            unity.setId(Long.parseLong(result.getLastPathSegment()));
+            _id = Long.parseLong(result.getLastPathSegment());
         } else {
             getActivity().getContentResolver().update(ContentDescriptorObj.TB_Units.URI_UPDATE_UNIT, val,
                     String.valueOf(unity.getId()), null);
         }
-
+        return _id;
     }
 
 
@@ -64,7 +68,7 @@ public final class Unity_Manager extends Manager {
      * @since 01-06-2012
      *********************************************************************************/
 
-    public static Unity load(long databaseId) {
+    public Unity load(long databaseId) {
 
         Unity u = new Unity();
 
@@ -75,7 +79,7 @@ public final class Unity_Manager extends Manager {
         u.setId(databaseId);
 
         Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Units.URI_SELECT_UNIT, databaseId);
-        Cursor cursor = AmiKcalFactory.contentResolver.query(selectUri, null, null, null, null);
+        Cursor cursor = getActivity().getContentResolver().query(selectUri, null, null, null, null);
 
         final int INDX_NAME = cursor.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.LONG_NAME);
         final int INDX_SYMBOL = cursor.getColumnIndex(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME);

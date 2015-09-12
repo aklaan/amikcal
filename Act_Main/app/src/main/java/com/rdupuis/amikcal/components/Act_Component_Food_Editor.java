@@ -15,8 +15,11 @@ import android.widget.Button;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.unity.Unity;
@@ -149,10 +152,12 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 
                 if (resultCode == RESULT_OK) {
 
-                    // on r�cup�re l'objet Unit. this.mUAC
-                    Unity_Manager um = new Unity_Manager(this);
-                    this.edited_Component.getQty().setUnity(
-                            um.load(intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID)));
+                    // On récupère l'Unitée.
+                    Unity unity = new Unity();
+                    Manager manager = ManagerBuilder.build(this, unity);
+                    long id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
+                    unity = (Unity) manager.load(id);
+                    this.edited_Component.getQty().setUnity(unity);
                 }
                 break;
 
@@ -160,11 +165,14 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 
                 if (resultCode == RESULT_OK) {
 
-                    // on r�cup�re l'Energy choisi par l'utilisateur d'apr�s sont id
+                    // on récupère l'Energy choisie par l'utilisateur
                     // .
-                    Energy_Manager em = new Energy_Manager(this);
-                    this.edited_Component.setEnergy(em.load(intent.getLongExtra(
-                            Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID)));
+                    EnergySource energySource = new EnergySource();
+                    Manager manager = ManagerBuilder.build(this, energySource);
+                    long id = intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID);
+                    energySource = (EnergySource) manager.load(id);
+
+                    this.edited_Component.setEnergy(energySource);
 
                 }
                 break;

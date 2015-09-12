@@ -18,24 +18,14 @@ import android.content.Intent;
 
 public class Component_Food_Manager extends Component_Manager {
 
-    public Component_Food_Manager(Activity activity) {
-        super(activity);
+    public Component_Food_Manager(Activity activity, Component_Food component_food) {
+        super(activity, component_food);
     }
 
-    public Component_Food load(long databaseId) {
-        return (Component_Food) super.load(databaseId);
-    }
-
-    public void save(Component_Food component_food) {
-        super.save(component_food);
-    }
-
-    public void delete() {
-    }
 
     // Dans le cas d'une mise à jour on appelle l'éditeur avec l'ID de
     // l'activité à modifier
-    public  void edit(Component component_food) {
+    public void edit(Component component_food) {
 
         Intent intent = new Intent(getActivity(), Act_Component_Food_Editor.class);
         intent.putExtra(Act_Component_Editor.INPUT____COMP_ID, component_food.getDatabaseId());

@@ -2,12 +2,16 @@ package com.rdupuis.amikcal.Qty;
 
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.Manager_commons;
+import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.unity.Unity_Manager;
@@ -15,16 +19,25 @@ import com.rdupuis.amikcal.unity.Unity_Manager;
 /**
  * Created by rodol on 31/08/2015.
  */
-public  class Qty_Manager extends Manager {
+public class Qty_Manager extends Manager_commons {
 
-    public Qty_Manager(Activity activity) {
-        super(activity);
+    Activity mActivity;
+
+    public Qty_Manager(Activity activity, Qty qty) {
+        super(activity, (ManagedElement) qty);
+
     }
 
-    public void save(Qty qty) {
+    @Override
+    public long save() {
+        Qty qty = (Qty) getElement();
         DBWriter_Qty dbw = new DBWriter_Qty(getActivity().getContentResolver(), qty);
         dbw.save();
+        return 0;
     }
+
+
+
 
 
     /**
@@ -33,11 +46,11 @@ public  class Qty_Manager extends Manager {
      * @param databaseId
      * @return
      */
-    public Qty load(long databaseId) {
+    public ManagedElement load(long databaseId) {
         Qty qty = new Qty();
 
         if (databaseId == AppConsts.NO_ID) {
-            return qty;
+            return null;
         }
 
         qty.setDatabaseId(databaseId);
@@ -57,7 +70,7 @@ public  class Qty_Manager extends Manager {
             qty.setAmount(cursor.getFloat(INDX_AMOUNT));
 
 
-            Unity_Manager um = new Unity_Manager(getActivity());
+            Unity_Manager um = new Unity_Manager(getActivity(),new Unity());
             Unity unity = um.load(cursor.getLong(INDX_UNITY_ID));
 
         } else {
@@ -66,7 +79,15 @@ public  class Qty_Manager extends Manager {
 
 
         }
-        return qty;
+        return (ManagedElement) qty;
     }
 
+
+    public void edit() {
+
+    }
+
+    public ContentValues getContentValues(){
+        return null;
+    }
 }
