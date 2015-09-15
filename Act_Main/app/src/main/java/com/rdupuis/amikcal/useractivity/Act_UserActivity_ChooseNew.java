@@ -87,17 +87,18 @@ public class Act_UserActivity_ChooseNew extends Activity {
      *******************************************************************************************/
     public void onClickLunch(View v) {
         //on récupère le manager des UserActivity_Lunch.
-        Manager manager = ManagerBuilder.build(this,new UserActivity_Lunch(this.currentDay));
+        Manager manager = new UserActivity_Lunch_Manager(this);
         //on demande la fonction d'édition du manager
-        manager.edit();
+        manager.edit(new UserActivity_Lunch(this.currentDay));
     }
 
     /*******************************************************************************************
      * onClickPhysicalActivity() : Gestion du bouton "activité physique"
      *******************************************************************************************/
     public void onClickPhysicalActivity(View v) {
-        Manager manager = ManagerBuilder.build(this,new UserActivity_Move(this.currentDay));
-        manager.edit();}
+        Manager manager = new UserActivity_Move_Manager(this);
+        manager.edit(new UserActivity_Move(this.currentDay));
+    }
 
     /*******************************************************************************************
      * onClickWeight(): Gestion du bouton "poids"

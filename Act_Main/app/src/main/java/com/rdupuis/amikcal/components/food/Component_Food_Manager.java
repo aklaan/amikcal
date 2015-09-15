@@ -2,6 +2,7 @@ package com.rdupuis.amikcal.components.food;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Act_Component_Food_Editor;
 import com.rdupuis.amikcal.components.Component;
@@ -18,15 +19,16 @@ import android.content.Intent;
 
 public class Component_Food_Manager extends Component_Manager {
 
-    public Component_Food_Manager(Activity activity, Component_Food component_food) {
-        super(activity, component_food);
+    public Component_Food_Manager(Activity activity) {
+        super(activity);
     }
 
 
     // Dans le cas d'une mise à jour on appelle l'éditeur avec l'ID de
     // l'activité à modifier
-    public void edit(Component component_food) {
-
+    @Override
+    public void edit(ManagedElement element) {
+        Component_Food component_food = (Component_Food) element;
         Intent intent = new Intent(getActivity(), Act_Component_Food_Editor.class);
         intent.putExtra(Act_Component_Editor.INPUT____COMP_ID, component_food.getDatabaseId());
         REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();

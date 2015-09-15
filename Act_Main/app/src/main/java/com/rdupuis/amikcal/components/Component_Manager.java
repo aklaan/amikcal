@@ -30,8 +30,9 @@ import com.rdupuis.amikcal.relations.Relation_Manager;
  */
 public class Component_Manager extends Manager_commons {
 
-    public Component_Manager(Activity activity, Component component) {
-        super(activity, component);
+    public Component_Manager(Activity activity)
+    {
+        super(activity);
     }
 
 
@@ -39,7 +40,7 @@ public class Component_Manager extends Manager_commons {
      *
      */
     @Override
-    public void edit() {
+    public void edit(ManagedElement element) {
     }
 
     /**
@@ -49,7 +50,7 @@ public class Component_Manager extends Manager_commons {
      * - sauver la relation de composition
      */
     @Override
-    public long save() {
+    public long save(ManagedElement element) {
 
         //Sauver la relation de composition
         //Relation_Manager rm = new Relation_Manager(getActivity());
@@ -68,6 +69,7 @@ public class Component_Manager extends Manager_commons {
      * @return
      ************************************************************************/
 
+    @Override
     public ManagedElement load(long databaseId) {
         Component component = null;
 
@@ -127,7 +129,8 @@ public class Component_Manager extends Manager_commons {
     }
 
     @Override
-    public ContentValues getContentValues() {
+    public ContentValues getContentValues(ManagedElement element)
+    {
         return new ContentValues();
     }
 }

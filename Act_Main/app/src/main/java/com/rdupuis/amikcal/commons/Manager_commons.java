@@ -10,9 +10,9 @@ public class Manager_commons extends Manager {
     Activity mActivity;
     ManagedElement mElement;
 
-    public Manager_commons(Activity activity, ManagedElement element) {
+    public Manager_commons(Activity activity) {
         this.setActivity(activity);
-        this.setElement(element);
+
     }
 
 
@@ -26,7 +26,7 @@ public class Manager_commons extends Manager {
         this.mActivity = activity;
     }
 
-    @Override
+/**    @Override
     public ManagedElement getElement() {
 
         return this.mElement;
@@ -37,16 +37,17 @@ public class Manager_commons extends Manager {
     public void setElement(ManagedElement element) {
     this.mElement = element;
     }
-
+*/
 
     @Override
-    public long save() {
+    public long save(ManagedElement element) {
+
         return 0;
     }
 
 
     @Override
-    public void edit() {
+    public void edit(ManagedElement element) {
     }
 
 
@@ -58,7 +59,7 @@ public class Manager_commons extends Manager {
 
 
     @Override
-    public ContentValues getContentValues() {
+    public ContentValues getContentValues(ManagedElement element) {
         return null;
     }
 

@@ -23,14 +23,14 @@ public class Qty_Manager extends Manager_commons {
 
     Activity mActivity;
 
-    public Qty_Manager(Activity activity, Qty qty) {
-        super(activity, (ManagedElement) qty);
+    public Qty_Manager(Activity activity) {
+        super(activity);
 
     }
 
     @Override
-    public long save() {
-        Qty qty = (Qty) getElement();
+    public long save(ManagedElement element) {
+        Qty qty = (Qty) element;
         DBWriter_Qty dbw = new DBWriter_Qty(getActivity().getContentResolver(), qty);
         dbw.save();
         return 0;
@@ -46,7 +46,8 @@ public class Qty_Manager extends Manager_commons {
      * @param databaseId
      * @return
      */
-    public ManagedElement load(long databaseId) {
+   @Override
+    public Qty load(long databaseId) {
         Qty qty = new Qty();
 
         if (databaseId == AppConsts.NO_ID) {
@@ -70,7 +71,7 @@ public class Qty_Manager extends Manager_commons {
             qty.setAmount(cursor.getFloat(INDX_AMOUNT));
 
 
-            Unity_Manager um = new Unity_Manager(getActivity(),new Unity());
+            Unity_Manager um = new Unity_Manager(getActivity());
             Unity unity = um.load(cursor.getLong(INDX_UNITY_ID));
 
         } else {
@@ -79,15 +80,18 @@ public class Qty_Manager extends Manager_commons {
 
 
         }
-        return (ManagedElement) qty;
+        return  qty;
     }
 
 
-    public void edit() {
+    @Override
+    public void edit(ManagedElement element) {
 
     }
 
-    public ContentValues getContentValues(){
+    @Override
+    public ContentValues getContentValues(ManagedElement element){
+
         return null;
     }
 }

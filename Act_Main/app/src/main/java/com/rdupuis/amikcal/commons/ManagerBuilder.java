@@ -28,20 +28,20 @@ public final class ManagerBuilder {
     public static Manager build(Activity activity, ManagedElement element) {
 
         if (UserActivity_Lunch.class.isInstance(element)) {
-            return new UserActivity_Lunch_Manager(activity , (UserActivity_Lunch) element);
+            return new UserActivity_Lunch_Manager(activity);
         }
 
 
         if (UserActivity_Move.class.isInstance(element)) {
-            return new UserActivity_Move_Manager(activity, (UserActivity_Move) element);
+            return new UserActivity_Move_Manager(activity);
         }
 
         if (Component_Food.class.isInstance(element)) {
-            return new Component_Food_Manager(activity, (Component_Food) element);
+            return new Component_Food_Manager(activity);
         }
 
         if (Qty.class.isInstance(element)) {
-            return new Qty_Manager(activity, (Qty) element);
+            return new Qty_Manager(activity);
         }
 
         return null;

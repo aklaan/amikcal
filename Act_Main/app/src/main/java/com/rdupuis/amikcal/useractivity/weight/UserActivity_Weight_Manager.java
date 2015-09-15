@@ -4,20 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
 
 public class UserActivity_Weight_Manager extends UserActivity_Manager {
 
-    public UserActivity_Weight_Manager(Activity activity, UserActivity_Weight userActivity_weight) {
-	super (activity, userActivity_weight);
+    public UserActivity_Weight_Manager(Activity activity){
+        super (activity);
     }
 
 
 
+@Override
+    public void edit(ManagedElement element) {
 
-    public void edit(UserActivity_Weight userActivity_weight) {
-
+    UserActivity_Weight userActivity_weight = (UserActivity_Weight) element;
 	Intent intent = new Intent(getActivity(), Act_UserActivity_Weight_Editor.class);
 	//intent.putExtra(Act_UserActivity_Weight_Editor.INPUT____UA_ID, this.mUserActivity.getId());
 

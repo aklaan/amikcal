@@ -159,7 +159,7 @@ public class Act_Component_Editor extends Activity {
 
         // A la création, le save va initialiser l'ID
         Manager manager = ManagerBuilder.build(this, this.edited_Component);
-        this.edited_Component.setDatabaseId(manager.save());
+        this.edited_Component.setDatabaseId(manager.save(this.edited_Component));
 
         // on appelle setResult pour déclancher le onActivityResult de
         // l'activity mère.

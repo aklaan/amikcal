@@ -34,22 +34,22 @@ import java.util.ArrayList;
  */
 public class UserActivity_Manager extends Manager_commons {
 
-    public UserActivity_Manager(Activity activity, UserActivity userActivity) {
-        super(activity, userActivity);
+    public UserActivity_Manager(Activity activity) {
+        super(activity);
 
     }
 
 
     @Override
-    public void edit() {
+    public void edit(ManagedElement element) {
 // mettre ici les option communes
     }
 
 
     @Override
-    public long save() {
-        UserActivity ua = (UserActivity) getElement();
-        ContentValues val = this.getContentValues();
+    public long save(ManagedElement element) {
+        UserActivity ua = (UserActivity) element;
+        ContentValues val = this.getContentValues(ua);
         long new_id = ua.getDatabaseId();
         if (ua.getDatabaseId() == AppConsts.NO_ID) {
             Uri result = getActivity().getContentResolver().insert(
@@ -141,7 +141,7 @@ public class UserActivity_Manager extends Manager_commons {
      * @since 01-06-2012
      ****************************************************************************/
     @Override
-    public ManagedElement load(long databaseId) {
+    public UserActivity load(long databaseId) {
 
         //Si l'ID en entrée est nul aucune activity ne peux être trouvée
         if (databaseId == AppConsts.NO_ID) {
@@ -194,7 +194,7 @@ public class UserActivity_Manager extends Manager_commons {
 
         }
 
-        return (ManagedElement) userActivity;
+        return  userActivity;
     }
 
 
@@ -203,9 +203,9 @@ public class UserActivity_Manager extends Manager_commons {
      * <p/>
      ****************************************************************************/
     @Override
-    public ContentValues getContentValues() {
+    public ContentValues getContentValues(ManagedElement element) {
         ContentValues val = new ContentValues();
-        UserActivity userActivity = (UserActivity) getElement();
+        UserActivity userActivity = (UserActivity) element;
         // id de l'activitée
         val.put(ContentDescriptorObj.TB_UserActivities.Columns.ID, (userActivity.getDatabaseId() == AppConsts.NO_ID) ? null
                 : userActivity.getDatabaseId());

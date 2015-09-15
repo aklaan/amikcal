@@ -9,6 +9,7 @@ import android.net.Uri;
 
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -18,8 +19,8 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  */
 public final class Unity_Manager extends Manager_commons {
 
-    public Unity_Manager(Activity activity, Unity unity) {
-        super(activity, unity);
+    public Unity_Manager(Activity activity) {
+        super(activity);
 
     }
 
@@ -27,9 +28,10 @@ public final class Unity_Manager extends Manager_commons {
     /*****************************************************************************************
      * Enregister une unitée dans la databse
      ******************************************************************************************/
-    public long save() {
+    @Override
+    public long save(ManagedElement element) {
         long _id;
-        Unity unity = (Unity) getElement();
+        Unity unity = (Unity) element;
         _id = unity.getId();
         // On prépare les informations à mettre à jour
         ContentValues val = new ContentValues();
@@ -68,7 +70,8 @@ public final class Unity_Manager extends Manager_commons {
      * @since 01-06-2012
      *********************************************************************************/
 
-    public Unity load(long databaseId) {
+   @Override
+   public Unity load(long databaseId) {
 
         Unity u = new Unity();
 

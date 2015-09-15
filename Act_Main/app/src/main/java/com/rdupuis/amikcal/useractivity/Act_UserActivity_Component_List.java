@@ -1,5 +1,8 @@
 package com.rdupuis.amikcal.useractivity;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.components.Act_Component_Editor;
@@ -37,6 +41,7 @@ public class Act_UserActivity_Component_List extends Activity {
     private AmiKcalFactory factory;
     // Noms des zones d'échanges prévues dans l'Intent
     public static final String INPUT____UA_ID = "ua_id";
+    public static final String INPUT____UA = "USER_ACTIVITY";
 
     /**
      * Called when the activity is first created.
@@ -52,10 +57,12 @@ public class Act_UserActivity_Component_List extends Activity {
 	 */
 
         // - récupérer l'UA pour laquelle on souhaites afficher des composants
-        long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
+//        long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
 
-       // UserActivity_Manager uam = new UserActivity_Manager(this);
-       // this.mUA = uam.load(ua_id);
+        this.mUA = getIntent().getExtras().getParcelable(this.INPUT____UA);
+
+//       Manager manager = ManagerBuilder.build().buildUserActivity_Manager uam = new UserActivity_Manager(this);
+        // this.mUA = uam.load(ua_id);
 
 	/* *********************************************
      * Etape 2 : Chargement du Layer d'affichage
@@ -99,7 +106,8 @@ public class Act_UserActivity_Component_List extends Activity {
         // ici je ne sais pas quel type de composant est à éditer
         // je passe par un builder qui va me retourner le bon Manager.
 
-        ManagerBuilder.build(this, component).edit();
+        Manager manager = ManagerBuilder.build(this, component);
+        manager.edit(component);
 
     }
 
@@ -144,8 +152,8 @@ public class Act_UserActivity_Component_List extends Activity {
                     // c'est qu'il a été enregistré dans la database
                     if (component_id != AppConsts.NO_ID) {
                         // on recharge le composant
-                     //   Component_Manager component_manager = new Component_Manager(this);
-                    //    Component edited_component = component_manager.load(component_id);
+                        //   Component_Manager component_manager = new Component_Manager(this);
+                        //    Component edited_component = component_manager.load(component_id);
 
                         // on recherche si le composant est déja lié à l'UA
                         boolean Linked_with_UA = false;
@@ -159,7 +167,7 @@ public class Act_UserActivity_Component_List extends Activity {
                         // si le composant n'est pas lié à l'UA, on le lie.
                         if (!Linked_with_UA) {
 
-                          //  this.mUA.getComponentsList().add(component);
+                            //  this.mUA.getComponentsList().add(component);
                             //this.factory.save(this.mUA);
                         }
                     }

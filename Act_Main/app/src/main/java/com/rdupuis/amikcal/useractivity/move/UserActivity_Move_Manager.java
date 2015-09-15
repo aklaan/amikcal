@@ -11,8 +11,8 @@ import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
 public class UserActivity_Move_Manager extends UserActivity_Manager {
 
-    public UserActivity_Move_Manager(Activity activity, UserActivity_Move userActivity_move) {
-        super(activity, userActivity_move);
+    public UserActivity_Move_Manager(Activity activity) {
+        super(activity);
     }
 
     /**

@@ -22,6 +22,9 @@ import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
+import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
+import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.MultipleItemsActivityList;
 import com.rdupuis.amikcal.commons.TimeSlidableFragment;
 import com.rdupuis.amikcal.commons.ToolBox;
@@ -113,7 +116,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
         final int INDX_COL_TITLE = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.TITLE);
         final int INDX_COL_DATE = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.DATE);
         final int INDX_COL_TYPE = cur.getColumnIndex(ContentDescriptorObj.TB_UserActivities.Columns.CLASS);
-
+        AppConsts.UA_CLASS_CD_MAP mapping = new AppConsts.UA_CLASS_CD_MAP();
         // Lecture du curseur
         if (cur.moveToFirst()) {
 
@@ -130,7 +133,8 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
                 map.put("hour", String.valueOf(decimalFormat.format(mCalendar.get(Calendar.HOUR_OF_DAY))));
                 map.put("minute", String.valueOf(decimalFormat.format(mCalendar.get(Calendar.MINUTE))));
                 map.put("id", cur.getString(INDX_COL_ID));
-                map.put("type", cur.getString(INDX_COL_TYPE));
+                map.put("class", cur.getString(INDX_COL_TYPE));
+
 
                 map.putAll(computeEnergy(Long.parseLong(cur.getString(INDX_COL_ID))));
 
@@ -156,15 +160,21 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
                 // (titre, description, img)
                 HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
 
-                UserActivities_FragmentsSlider ua = (UserActivities_FragmentsSlider) Frag_UserActivityList.this
+                UserActivities_FragmentsSlider uafs = (UserActivities_FragmentsSlider) Frag_UserActivityList.this
                         .getActivity();
 
                 // ----------------------------------------------------------------
                 // A voir si c'est utile de garder la page
-                ua.setCurrentPage(Integer.parseInt(getArguments().getString("page")));
+                uafs.setCurrentPage(Integer.parseInt(getArguments().getString("page")));
+
+
+                long _id = Long.parseLong(map.get("id"));
+                Manager manager = new UserActivity_Manager(Frag_UserActivityList.this.getActivity());
+                UserActivity ua = (UserActivity) manager.load(_id);
+
 
                 // -----------------------------------------------------------------
-                ua.onClickActivity(map.get("id"));
+                uafs.onClickActivity(ua);
 
             }
         });
@@ -208,14 +218,10 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
 
-                        long item_id = Frag_UserActivityList.this.selectedItemId;
+                        long _id = Frag_UserActivityList.this.selectedItemId;
+                        Manager manager = new UserActivity_Manager(Frag_UserActivityList.this.getActivity());
+                        manager.edit(manager.load(_id));
 
-                        Activity currentActivity = Frag_UserActivityList.this.getActivity();
-
-
-                        //UserActivity_Manager uam = new UserActivity_Manager(currentActivity);
-                        //UserActivity ua = uam.load(item_id);
-                        //uam.edit(ua);
                     }
                 });
 
@@ -228,7 +234,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
                         Activity currentActivity = Frag_UserActivityList.this.getActivity();
                         //UserActivity_Manager uam = new UserActivity_Manager(currentActivity);
                         //UserActivity ua = uam.load(item_id);
-                     //   uam.delete(ua);
+                        //   uam.delete(ua);
                         Frag_UserActivityList.this.refreshScreen();
                     }
                 });
@@ -266,7 +272,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
         HashMap<String, String> map;
         map = new HashMap<String, String>();
-	/*
+    /*
 	 * Uri selectUri = ContentUris .withAppendedId(
 	 * ContentDescriptorObj.ViewUserActivities.URI_VIEW_USER_ACTIVITIES,
 	 * UserActivityId);

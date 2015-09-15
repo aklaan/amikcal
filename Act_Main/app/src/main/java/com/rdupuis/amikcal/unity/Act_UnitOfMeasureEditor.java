@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
@@ -51,7 +52,8 @@ public class Act_UnitOfMeasureEditor extends Activity {
     public void onValidateClick(View v) {
 
         getScreenData();
-        this.mUnit.setId(ManagerBuilder.build(this,this.mUnit).save());
+        Manager manager = new Unity_Manager(this);
+        this.mUnit.setId(manager.save(this.mUnit));
 
         // on appelle setResult pour déclancher le onActivityResult de
         // l'activity mère.

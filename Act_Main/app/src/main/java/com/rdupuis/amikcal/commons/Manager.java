@@ -15,16 +15,16 @@ public abstract class Manager {
 
     public abstract Activity getActivity();
 
-    public abstract ManagedElement getElement();
+    //public abstract ManagedElement getElement();
 
-    public abstract void setElement(ManagedElement element);
+   // public abstract void setElement(ManagedElement element);
 
-    public abstract long save();
+    public abstract long save(ManagedElement element);
 
-    public abstract void edit();
+    public abstract void edit(ManagedElement element);
 
     public abstract ManagedElement load(long databaseId);
 
-    public abstract ContentValues getContentValues();
+    public abstract ContentValues getContentValues(ManagedElement element);
 
 }

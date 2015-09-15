@@ -43,31 +43,14 @@ public class Energy_Manager extends Manager {
         return mActivity;
     }
 
-    @Override
-    public ManagedElement getElement() {
-
-        return (ManagedElement) this.energySource;
-    }
-
-    @Override
-    public void setElement(ManagedElement element) {
-
-        this.energySource = (EnergySource) element;
-    }
 
 
-    public EnergySource getEnergySource() {
-        return energySource;
-    }
-
-    public void setEnergySource(EnergySource energySource) {
-        this.energySource = energySource;
-    }
 
 
     @Override
-    public long save() {
-        DBWriter dbw = new DBWriter_EnergySource(getActivity().getContentResolver(), getEnergySource());
+    public long save(ManagedElement element) {
+        EnergySource energySource = (EnergySource) element;
+        DBWriter dbw = new DBWriter_EnergySource(getActivity().getContentResolver(), energySource);
         dbw.save();
         return 0;
     }
@@ -164,9 +147,10 @@ public class Energy_Manager extends Manager {
     }
 
     @Override
-    public ContentValues getContentValues() {
+    public ContentValues getContentValues(ManagedElement element) {
+
         ContentValues val = new ContentValues();
-        EnergySource nrj = getEnergySource();
+        EnergySource nrj = (EnergySource) element;
 
         // Alimentation du nom
         val.put(ContentDescriptorObj.TB_Energies.Columns.NAME, nrj.getName());
@@ -182,7 +166,7 @@ public class Energy_Manager extends Manager {
     }
 
     @Override
-    public void edit() {
+    public void edit(ManagedElement element) {
 
     }
 

@@ -193,8 +193,15 @@ public class Act_UserActivityList extends Activity {
                 // on r�cup�re la HashMap contenant les infos de notre item
                 // (titre, description, img)
                 HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
+                long _id = Long.getLong(map.get("id"));
+                String ua_class_cd = map.get("class");
+                AppConsts.UA_CLASS_CD_MAP maping = new AppConsts.UA_CLASS_CD_MAP();
+                UserActivity ua = UserActivity_Factory.create(maping._in.get(ua_class_cd));
 
-                onClickActivity(map.get("id"));
+                Manager manager = ManagerBuilder.build(Act_UserActivityList.this, ua);
+                ua = (UserActivity) manager.load(_id);
+
+                onClickActivity(ua);
 
             }
         });
@@ -310,11 +317,14 @@ public class Act_UserActivityList extends Activity {
     }
 
     /**
-     * @param id Identifiant de l'activit�e utilisateur s�l�ction�e
+     * @param ua Identifiant de l'activit�e utilisateur s�l�ction�e
      */
-    public void onClickActivity(String id) {
+    public void onClickActivity(UserActivity ua) {
+
         Intent intent = new Intent(this, Act_UserActivity_Component_List.class);
-        intent.putExtra(Act_UserActivity_Component_List.INPUT____UA_ID, id);
+        //intent.putExtra(Act_UserActivity_Component_List.INPUT____UA_ID, id);
+        intent.putExtra(Act_UserActivity_Component_List.INPUT____UA, ua);
+
         startActivityForResult(intent, R.integer.ACTY_COMPONENT_LIST);
     }
 

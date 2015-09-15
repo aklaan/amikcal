@@ -17,12 +17,12 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
 /**
  * Created by rodol on 01/09/2015.
  */
-public  class Relation_Manager extends Manager_commons {
+public class Relation_Manager extends Manager_commons {
 
-public Relation_Manager(Activity activity, Relation relation){
+    public Relation_Manager(Activity activity) {
 
-    super(activity,relation);
-}
+        super(activity);
+    }
 
     /*****************************************************************************************
      * Enregister une relation dans la database
@@ -33,8 +33,8 @@ public Relation_Manager(Activity activity, Relation relation){
      * pointent sur la même Qty.
      ******************************************************************************************/
     @Override
-    public long save() {
-Relation relation = (Relation) getElement();
+    public long save(ManagedElement element) {
+        Relation relation = (Relation) element;
         long _id = relation.getDatabaseId();
         // ----------------------------------------------------------------------------
         // On prépare les informations à mettre à jour
@@ -58,7 +58,7 @@ Relation relation = (Relation) getElement();
         if (relation.getDatabaseId() == AppConsts.NO_ID) {
             Uri result = getActivity().getContentResolver().insert(
                     ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI, val);
-           _id = Long.parseLong(result.getLastPathSegment());
+            _id = Long.parseLong(result.getLastPathSegment());
 
         } else {
 

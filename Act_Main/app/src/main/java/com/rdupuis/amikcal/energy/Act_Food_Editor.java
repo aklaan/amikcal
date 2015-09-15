@@ -178,7 +178,7 @@ public class Act_Food_Editor extends Activity {
 
         //Enregister l'énergie
         Manager manager = ManagerBuilder.build(this, this.mFood);
-        manager.save();
+        this.mFood.setDatabaseId(manager.save(this.mFood));
 
 
         // on appelle setResult pour déclancher le onActivityResult de

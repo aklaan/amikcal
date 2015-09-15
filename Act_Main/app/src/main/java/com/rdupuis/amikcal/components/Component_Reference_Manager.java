@@ -21,9 +21,9 @@ public class Component_Reference_Manager extends Component_Manager {
      * Constructeur
      */
 
-    public Component_Reference_Manager(Activity activity,Component_Reference component_reference) {
+    public Component_Reference_Manager(Activity activity) {
 
-        super(activity,component_reference);
+        super(activity);
     }
 
 

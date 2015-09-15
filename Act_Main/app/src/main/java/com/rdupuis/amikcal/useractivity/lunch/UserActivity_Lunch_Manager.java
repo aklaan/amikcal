@@ -20,8 +20,8 @@ public class UserActivity_Lunch_Manager extends UserActivity_Manager {
      *
      * @param activity
      */
-    public UserActivity_Lunch_Manager(Activity activity, UserActivity_Lunch element) {
-        super(activity, element);
+    public UserActivity_Lunch_Manager(Activity activity) {
+        super(activity);
 
 
     }
@@ -32,8 +32,8 @@ public class UserActivity_Lunch_Manager extends UserActivity_Manager {
      */
 
     @Override
-    public void edit() {
-        UserActivity userActivity = (UserActivity) getElement();
+    public void edit(ManagedElement element) {
+        UserActivity userActivity = (UserActivity) element;
         Intent intent = new Intent(getActivity(), Act_UserActivity_Lunch_Editor.class);
         intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____ID, userActivity.getDatabaseId());
         intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____DAY, ToolBox.getSqlDate(userActivity.getDay()));

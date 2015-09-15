@@ -1,10 +1,14 @@
 package com.rdupuis.amikcal.useractivity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.components.Component;
 
 public class UserActivity_Commons extends UserActivity {
@@ -22,6 +26,44 @@ public class UserActivity_Commons extends UserActivity {
         this.mArrayListComponent = new ArrayList<Component>();
 
     }
+
+
+    public UserActivity_Commons(Parcel parcel) {
+        this.databaseId = parcel.readLong();
+        this.title = parcel.readString();
+        this.day = ToolBox.parseCalendar(parcel.readString());
+        //faire le reste des data
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.getDatabaseId());
+        dest.writeString(this.getTitle());
+        dest.writeString(ToolBox.getSqlDate(this.getDay()));
+
+        //ajouter le reste
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<UserActivity_Commons> CREATOR = new Parcelable.Creator<UserActivity_Commons>() {
+        @Override
+        public UserActivity_Commons createFromParcel(Parcel in) {
+            return new UserActivity_Commons(in);
+        }
+
+        @Override
+        public UserActivity_Commons[] newArray(int size) {
+            return new UserActivity_Commons[size];
+
+        }
+
+    };
+
 
     public UserActivity_Commons(Calendar day) {
         this.day = Calendar.getInstance();
@@ -80,5 +122,6 @@ public class UserActivity_Commons extends UserActivity {
         mArrayListComponent = arrayList;
 
     }
+
 
 }

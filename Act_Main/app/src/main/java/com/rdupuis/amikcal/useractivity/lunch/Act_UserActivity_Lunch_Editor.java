@@ -84,9 +84,10 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
         getEdited_UserActivity().getDay().set(Calendar.HOUR_OF_DAY, tp.getCurrentHour().intValue());
         getEdited_UserActivity().getDay().set(Calendar.MINUTE, tp.getCurrentMinute().intValue());
 
+        //on récupère le manager de la userActivity
         Manager manager = ManagerBuilder.build(this, getEdited_UserActivity());
         //lorsque l'on sauve la première fois, on récupère un nouvel id.
-        long new_id = manager.save();
+        long new_id = manager.save(getEdited_UserActivity());
         //on attribue l'id
         getEdited_UserActivity().setDatabaseId(new_id);
 
