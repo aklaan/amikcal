@@ -50,7 +50,7 @@ public class Component_Manager extends Manager_commons {
      ************************************************************************/
 
     @Override
-    public ManagedElement load(long databaseId) {
+    public Component load(long databaseId) {
         Component component = null;
 
         // si l'id du composant à charger est nul on retourne un composant vide.
@@ -105,7 +105,7 @@ public class Component_Manager extends Manager_commons {
         cur.close();
 
 
-        return (ManagedElement) component;
+        return  component;
     }
 
 }

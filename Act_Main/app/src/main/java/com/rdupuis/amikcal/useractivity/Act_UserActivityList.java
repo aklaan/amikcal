@@ -20,7 +20,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;

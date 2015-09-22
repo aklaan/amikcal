@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
@@ -49,6 +50,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 
         // on initialise la date a traiter
         this.initCurrentDay();
@@ -174,7 +176,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
                 //on commence à lire l'activité pour savoir ce que c'est
                 UserActivity_Manager manager = new UserActivity_Manager(activity);
                 UserActivity ua =  manager.load(_id);
-                manager.showComponents(ua);
+                manager.listComponents(ua);
 
             }
         });

@@ -14,15 +14,9 @@ import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.components.ComponentFactory;
 import com.rdupuis.amikcal.components.Component_Generic;
-import com.rdupuis.amikcal.components.Component_Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.relations.Relation_Manager;
-import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
-import com.rdupuis.amikcal.useractivity.lunch.Act_UserActivity_Lunch_Editor;
 import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
-import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Manager;
 import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
 import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
 
@@ -38,30 +32,33 @@ public class UserActivity_Manager extends Manager_commons {
 
     public UserActivity_Manager(Activity activity) {
         super(activity);
-this.setUriInsert(ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI);
-this.setUriUpdate(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI);
+        this.setUriInsert(ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI);
+        this.setUriUpdate(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI);
     }
 
     /**
      * Méthode appelant l'écran "liste" des composants de la UserActivity
+     *
+     * listComponent est seulement connue des UserActivity_Manager
      * @param userActivity
      */
-    public void showComponents(UserActivity userActivity){
-        Intent intent = new Intent(getActivity(), Act_UserActivity_Component_List.class);
-        intent.putExtra(Act_UserActivity_Component_List.INPUT____UA, userActivity);
-        getActivity().startActivityForResult(intent, 0);
+    public void listComponents(UserActivity userActivity) {
+        UserActivity_Manager manager = (UserActivity_Manager) ManagerBuilder.build(getActivity(), userActivity);
+        manager.listComponents(userActivity);
+
+        //Intent intent = new Intent(getActivity(), Act_UserActivity_Component_List.class);
+        //intent.putExtra(Act_UserActivity_Component_List.INPUT____UA, userActivity);
+        //getActivity().startActivityForResult(intent, 0);
     }
 
 
     @Override
     public void edit(ManagedElement element) {
-        //ici on est entré avec une UserActivity  "common"
+        //ici on est entrée avec une UserActivity  "générique"
         //On passe par le builder pour récupérer le manager adequat (lunch/move/weight)
         Manager manager = ManagerBuilder.build(getActivity(), element);
         manager.edit(element);
-}
-
-
+    }
 
 
     /*****************************************************************************

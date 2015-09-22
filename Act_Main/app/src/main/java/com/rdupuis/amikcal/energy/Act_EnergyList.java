@@ -22,9 +22,11 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
+import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
@@ -42,10 +44,9 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  */
 
 public class Act_EnergyList extends Activity {
-    long currentId;
     String currentFilter = "";
     private ListView maListViewPerso;
-    public final static String OUTPUT____ENERGY = "output_ennergy";
+    public final static String OUTPUT____ENERGY = "output_energy";
 
     /**
      * This function is Called when the activity is first created.
@@ -53,15 +54,18 @@ public class Act_EnergyList extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Toast.makeText(this, this.getClass().getCanonicalName(),Toast.LENGTH_SHORT).show();
+
+
         setContentView(R.layout.view_energy_list);
         getActionBar().setTitle("Aliments");
-        generateList();
+        generateList(currentFilter);
 
         ((TextView) findViewById(R.id.energy_list_view_tv_filter)).addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                // ((TextView)findViewById(R.id.numcaratteri)).setText(String.format(getString(R.string.caratteri),
-                // s.length()));
+                // TODO Auto-generated method stub
 
             }
 
@@ -74,7 +78,7 @@ public class Act_EnergyList extends Activity {
 
                 cleanList();
                 currentFilter = s.toString();
-                generateList();
+                generateList(currentFilter);
 
             }
 
@@ -85,9 +89,9 @@ public class Act_EnergyList extends Activity {
     /**
      * Appel la vue d'�dition d'un aliment (energy)
      */
-    public void editEnergy(long id) {
+    public void editEnergy(EnergySource energySource) {
         Intent intent = new Intent(this, Act_Food_Editor.class);
-        intent.putExtra(Act_Food_Editor.INPUT____ID_OF_FOOD, id);
+        intent.putExtra(Act_Food_Editor.INPUT____FOOD, energySource);
         startActivityForResult(intent, R.integer.ACTY_ENERGY);
     }
 
@@ -97,7 +101,7 @@ public class Act_EnergyList extends Activity {
      */
     public void onClickAdd(View v) {
 
-        editEnergy(AppConsts.NO_ID);
+        editEnergy(new EnergySource());
 
     }
 
@@ -132,7 +136,7 @@ public class Act_EnergyList extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     cleanList();
-                    generateList();
+                    generateList(currentFilter);
 
                 }
                 break;
@@ -155,21 +159,21 @@ public class Act_EnergyList extends Activity {
      * g�n�rer la liste des �nergie � partir des informations stock�es dans la
      * base de donn�e.
      */
-    protected void generateList() {
+    protected void generateList(String filter) {
 
         Uri selectUri;
 
-        if (currentFilter == null || currentFilter.length() == 0) {
+        if (filter == null || filter.length() == 0) {
             selectUri = ContentDescriptorObj.TB_Energies.SELECT_ALL_ENERGIES_URI;
         } else {
-            selectUri = ContentDescriptorObj.TB_Energies.SELECT_ENERGIES_LIKE_URI.buildUpon().appendPath(currentFilter)
+            selectUri = ContentDescriptorObj.TB_Energies.SELECT_ENERGIES_LIKE_URI.buildUpon().appendPath(filter)
                     .build();
         }
 
-        // R�cup�ration de la listview cr��e dans le fichier customizedlist.xml
+        // Récupération de la listview créée dans le fichier customizedlist.xml
         maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
-        // Cr�ation de la ArrayList qui nous permettra de remplire la listView
+        // Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
         // On d�clare la HashMap qui contiendra les informations pour un item
@@ -214,9 +218,8 @@ public class Act_EnergyList extends Activity {
         }
         cur.close();
 
-        // Cr�ation d'un SimpleAdapter qui se chargera de mettre les items
-        // pr�sent dans notre list (listItem)
-        // dans la vue affichageitem
+        // Création d'un SimpleAdapter qui se chargera de mettre les items
+        // présent dans notre list (listItem) dans la vue affichageitem
         SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_item_energy_food,
 
                 new String[]{"name", "energy"}, new int[]{R.id.item_energy_food_name, R.id.item_energy_food_nbkcal
@@ -249,14 +252,15 @@ public class Act_EnergyList extends Activity {
             }
         });
 
-        // Enfin on met un �couteur d'�v�nement long sur notre listView
+        // Enfin on met un écouteur d'évènement long sur notre listView
         maListViewPerso.setOnItemLongClickListener(new OnItemLongClickListener() {
             // @Override
             @SuppressWarnings("unchecked")
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
 
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-                Act_EnergyList.this.currentId = Long.parseLong(map.get("id"));
+                Energy_Food_Manager manager = new Energy_Food_Manager(Act_EnergyList.this);
+                Food food = manager.load(Long.parseLong(map.get("id")));
 
                 // int ilaposition=position;
                 // cr�ation d'un boite de dialogue pour confirmer le
@@ -270,7 +274,7 @@ public class Act_EnergyList extends Activity {
                             }
                         }).setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-				/*
+                /*
 				 * User clicked Cancel so do some stuff
 				 */
                     }
@@ -299,12 +303,10 @@ public class Act_EnergyList extends Activity {
 
     public void OnChooseEnergy(View v, EnergySource energySource) {
 
-        // on alimente le résultat dans l'Intent pour que l'Activity m�re puisse
-        // récupérer la valeur.
+        // on alimente le résultat dans l'Intent pour que l'Activity mère puisse récupérer la valeur.
         this.getIntent().putExtra(this.OUTPUT____ENERGY, energySource);
 
-        // on appelle setResult pour d�clencher le onActivityResult de
-        // l'activity m�re.
+        // on appelle setResult pour déclencher le onActivityResult de l'activity mère.
         this.setResult(RESULT_OK, this.getIntent());
 
         // On termine l'Activity
@@ -316,7 +318,8 @@ public class Act_EnergyList extends Activity {
      * Action a effectuer lorsque l'on clique sur �diter l'�nergie s�l�ctionn�e
      */
     public void onClick_edit() {
-        editEnergy(this.currentId);
+
+       //TODO
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
@@ -36,7 +37,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
         /****************************************************************************
          * ETAPE I : r�cup�ration des donn�es
          ****************************************************************************/

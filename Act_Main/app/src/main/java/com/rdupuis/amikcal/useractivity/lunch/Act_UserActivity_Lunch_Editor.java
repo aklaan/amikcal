@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
@@ -29,13 +30,10 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        // dans la méthode onCreate mêre, on a initialisé les données d'aprés
-        // l'intent.
+        // dans la méthode onCreate mêre, on a initialisé les données d'aprés l'intent.
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.view_edit_lunch);
-
-
 
         refreshScreen();
 

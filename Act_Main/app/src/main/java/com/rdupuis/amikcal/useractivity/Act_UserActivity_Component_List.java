@@ -1,8 +1,5 @@
 package com.rdupuis.amikcal.useractivity;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,25 +19,22 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
+
 import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Component;
-
-import com.rdupuis.amikcal.components.Component_Manager;
 import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.components.move.Component_Move;
 
 public class Act_UserActivity_Component_List extends Activity {
 
     public UserActivity mUA; // la liste se référe obligatoirement à une UA
-    private ListView maListViewPerso;
+    public ListView maListViewPerso;
 
     // Noms des zones d'échanges prévues dans l'Intent
-       public static final String INPUT____UA = "USER_ACTIVITY";
+    public static final String INPUT____UA = "USER_ACTIVITY";
 
     /**
      * Called when the activity is first created.
@@ -48,33 +42,24 @@ public class Act_UserActivity_Component_List extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
 
 	/* *********************************************
      * Etape 1 : Chargement des données
-	 * *********************************************
-	 */
+	 * **********************************************/
 
-        // - récupérer l'UA pour laquelle on souhaites afficher des composants
-//        long ua_id = Long.parseLong(this.getIntent().getStringExtra(this.INPUT____UA_ID));
-
+        // Récupérer l'UA pour laquelle on souhaites afficher des composants
         this.mUA = getIntent().getExtras().getParcelable(this.INPUT____UA);
-
-//       Manager manager = ManagerBuilder.build().buildUserActivity_Manager uam = new UserActivity_Manager(this);
-        // this.mUA = uam.load(ua_id);
 
 	/* *********************************************
      * Etape 2 : Chargement du Layer d'affichage
-	 * *********************************************
-	 */
+	 * *********************************************/
 
         setContentView(R.layout.view_components_list);
-        // Récupération de la listview créée dans le fichier customizedlist.xml
 
 	/* *********************************************
      * Etape 3 : Alimentation des zones d'affichage
-	 * *********************************************
-	 */
+	 * *********************************************/
         maListViewPerso = (ListView) findViewById(R.id.listviewperso);
         this.refreshScreen();
 
@@ -110,7 +95,7 @@ public class Act_UserActivity_Component_List extends Activity {
 
     }
 
-    // Créer un nouveau composant.
+    // Créer un nouveau composant en fonction de l'activity.
     public void onClickAdd(View v) {
 
         switch (this.mUA.getActivityType()) {
@@ -167,7 +152,7 @@ public class Act_UserActivity_Component_List extends Activity {
                         // si le composant n'est pas lié à l'UA, on le lie.
                         if (!Linked_with_UA) {
 
-                              this.mUA.getComponentsList().add(component);
+                            this.mUA.getComponentsList().add(component);
                             //this.factory.save(this.mUA);
                         }
                     }

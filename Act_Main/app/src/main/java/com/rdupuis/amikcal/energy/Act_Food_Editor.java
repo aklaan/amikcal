@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
@@ -42,7 +43,7 @@ public class Act_Food_Editor extends Activity {
     Food mFood;
     AmiKcalFactory factory;
     private ListView maListViewPerso;
-    public static final String INPUT____ID_OF_FOOD = "FOOD_ID";
+    public static final String INPUT____FOOD = "INPUT_FOOD";
 
     /**
      * Called when the activity is first created.
@@ -50,19 +51,11 @@ public class Act_Food_Editor extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
+        mFood= getIntent().getExtras().getParcelable(INPUT____FOOD);
 
         setContentView(R.layout.view_edit_energy_food2);
 
-        long nrj_id = getIntent().getLongExtra(INPUT____ID_OF_FOOD, AppConsts.NO_ID);
-
-        // Si l'ID en entr�e indique que l"on souhaite �diter un aliment en particulier, on le recharge
-        //sinon on en g�n�re un nouveau
-        if (nrj_id != AppConsts.NO_ID) {
-            Energy_Manager em = new Energy_Manager(this);
-            mFood = (Food) em.load(getIntent().getLongExtra(INPUT____ID_OF_FOOD, AppConsts.NO_ID));
-        } else {
-            mFood = new Food();
-        }
 
         ((TextView) findViewById(R.id.energyview_edTxt_energy_name)).addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -138,7 +131,6 @@ public class Act_Food_Editor extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     this.mFood.getComponentReference().getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
-
                 }
                 break;
 
@@ -173,12 +165,10 @@ public class Act_Food_Editor extends Activity {
         this.mFood.setName(ed.getText().toString());
 
         //Enregister l'énergie
-        Manager manager = ManagerBuilder.build(this, this.mFood);
+        Manager manager = new Energy_Food_Manager(this);
         this.mFood.setDatabaseId(manager.save(this.mFood));
 
-
-        // on appelle setResult pour déclancher le onActivityResult de
-        // l'activity mère.
+        // on appelle setResult pour déclancher le onActivityResult de l'activity mère.
         setResult(RESULT_OK, getIntent());
 
         // On termine l'Actvity
@@ -187,9 +177,7 @@ public class Act_Food_Editor extends Activity {
 
 
     public void onClick_Add_Equiv(View view) {
-        Intent intent = new Intent(this, Act_EquivalenceEditor.class);
-        intent.putExtra(Act_EquivalenceEditor.INPUT____ID_NRJ, this.mFood.getDatabaseId());
-        startActivityForResult(intent, R.integer.EQUIVALENCE_EDITOR);
+        //TODO  : gérer l'ajout d'équivalences
 
     }
 
@@ -204,12 +192,6 @@ public class Act_Food_Editor extends Activity {
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
         dfs.setDecimalSeparator(',');
         decimalFormat.setDecimalFormatSymbols(dfs);
-
-        // recharger les modification qui ont pu �tre effectu� sur l'energie
-        // sauf si c'est une nouvelle. dans ce cas
-//	if (this.mEnergy.getId() != AppConsts.NO_ID) {
-//	    this.mEnergy = factory.load_Energy(this.mEnergy.getId());
-//	}
 
         Button bt = (Button) findViewById(R.id.energyview_btn_amount);
         bt.setText(decimalFormat.format(this.mFood.getComponentReference().getQty().getAmount()));
@@ -243,16 +225,16 @@ public class Act_Food_Editor extends Activity {
                 break;
         }
 
-        // R�cup�ration de la listview cr��e dans le fichier customizedlist.xml
+        // Récupération de la listview créée dans le fichier customizedlist.xml
         maListViewPerso = (ListView) findViewById(R.id.listviewperso);
 
         // effacer la liste actuelle
         maListViewPerso.removeAllViewsInLayout();
 
-        // Cr�ation de la ArrayList qui nous permettra de remplir la listView
+        // Création de la ArrayList qui nous permettra de remplir la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
-        // On d�clare la HashMap qui contiendra les informations pour un item
+        // On déclare la HashMap qui contiendra les informations pour un item
         HashMap<String, String> map;
         map = new HashMap<String, String>();
 

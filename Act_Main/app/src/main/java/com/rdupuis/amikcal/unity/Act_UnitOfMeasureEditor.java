@@ -28,6 +28,7 @@ public class Act_UnitOfMeasureEditor extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.view_edit_unit_of_measure);
         mUnit = new Unity();
 

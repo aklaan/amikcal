@@ -36,5 +36,8 @@ public class Component_Food_Manager extends Component_Manager {
         getActivity().startActivityForResult(intent, R.integer.COMPONENT_EDITOR);
     }
 
+    public Component_Food load(long id){
+        return (Component_Food)super.load(id);
+    }
 
 }

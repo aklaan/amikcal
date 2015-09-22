@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
@@ -41,6 +42,7 @@ public class Act_UnitOfMeasureList extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.view_unit_list);
         getActionBar().setTitle("Unitées");
         energySource = this.getIntent().getExtras().getParcelable(Act_UnitOfMeasureList.INPUT____ENERGY_FILTER);

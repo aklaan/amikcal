@@ -48,6 +48,7 @@ public class Act_Component_Editor extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
         edited_Component = getIntent().getExtras().getParcelable(Act_Component_Editor.INPUT____COMP);
     }
 

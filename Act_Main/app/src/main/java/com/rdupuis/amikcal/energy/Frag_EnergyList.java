@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -56,7 +57,7 @@ public class Frag_EnergyList extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		Toast.makeText(this.getActivity(), this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
 		mainView = inflater
 				.inflate(R.layout.view_energy_list, container, false);
 

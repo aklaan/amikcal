@@ -19,7 +19,7 @@ public class Energy_Food_Manager extends Energy_Manager {
     public ContentValues getContentValues(ManagedElement element) {
         ContentValues val = super.getContentValues(element);
 
-	    // Alimenter la structure de l' aliment
+        // Alimenter la structure de l' aliment
         STRUCTURE_CD_MAP stucture_map = new STRUCTURE_CD_MAP();
         val.put(ContentDescriptorObj.TB_Energies.Columns.STRUCTURE,
                 stucture_map._out.get(((Food) element).getStructure()));
@@ -27,4 +27,9 @@ public class Energy_Food_Manager extends Energy_Manager {
         return val;
     }
 
+    @Override
+    public Food load(long databaseId) {
+        return (Food)super.load(databaseId);
+
+    }
 }
