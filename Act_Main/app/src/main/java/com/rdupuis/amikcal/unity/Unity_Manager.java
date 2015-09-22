@@ -26,36 +26,23 @@ public final class Unity_Manager extends Manager_commons {
 
 
     /*****************************************************************************************
-     * Enregister une unitée dans la databse
+     * Enregister une unitée dans la database
      ******************************************************************************************/
     @Override
     public long save(ManagedElement element) {
         long _id;
-        Unity unity = (Unity) element;
-        _id = unity.getId();
+
+        _id = element.getDatabaseId();
         // On prépare les informations à mettre à jour
-        ContentValues val = new ContentValues();
-
-        // LongName
-        val.put(ContentDescriptorObj.TB_Units.Columns.LONG_NAME, unity.getLongName());
-
-        // ShortName
-        val.put(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME, unity.getShortName());
-
-        // Alimentation de la classe d'unitée
-        AppConsts.UNIT_CLASS_MAP unit_class_map = new AppConsts.UNIT_CLASS_MAP();
-        val.put(ContentDescriptorObj.TB_Units.Columns.CLASS, unit_class_map._out.get(unity.getUnityClass()));
-
-        // date de mise à jour
-        val.put(ContentDescriptorObj.TB_Units.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+        ContentValues val = this.getContentValues(element);
 
         // Sauver l'unitée
-        if (unity.getId() == AppConsts.NO_ID) {
+        if (_id == AppConsts.NO_ID) {
             Uri result = getActivity().getContentResolver().insert(ContentDescriptorObj.TB_Units.URI_INSERT_UNIT, val);
             _id = Long.parseLong(result.getLastPathSegment());
         } else {
             getActivity().getContentResolver().update(ContentDescriptorObj.TB_Units.URI_UPDATE_UNIT, val,
-                    String.valueOf(unity.getId()), null);
+                    String.valueOf(_id), null);
         }
         return _id;
     }
@@ -79,7 +66,7 @@ public final class Unity_Manager extends Manager_commons {
             return u;
         }
 
-        u.setId(databaseId);
+        u.setDatabaseId(databaseId);
 
         Uri selectUri = ContentUris.withAppendedId(ContentDescriptorObj.TB_Units.URI_SELECT_UNIT, databaseId);
         Cursor cursor = getActivity().getContentResolver().query(selectUri, null, null, null, null);
@@ -106,5 +93,24 @@ public final class Unity_Manager extends Manager_commons {
 
     }
 
+@Override
+    public ContentValues getContentValues(ManagedElement element){
+    Unity unity = (Unity) element;
+    ContentValues values = new ContentValues();
+// LongName
+    values.put(ContentDescriptorObj.TB_Units.Columns.LONG_NAME, unity.getLongName());
 
+    // ShortName
+    values.put(ContentDescriptorObj.TB_Units.Columns.SHORT_NAME, unity.getShortName());
+
+    // Alimentation de la classe d'unitée
+    AppConsts.UNIT_CLASS_MAP unit_class_map = new AppConsts.UNIT_CLASS_MAP();
+    values.put(ContentDescriptorObj.TB_Units.Columns.CLASS, unit_class_map._out.get(unity.getUnityClass()));
+
+    // date de mise à jour
+    values.put(ContentDescriptorObj.TB_Units.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());
+
+return values;
+
+}
 }

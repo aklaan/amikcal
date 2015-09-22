@@ -21,6 +21,7 @@ import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_EnergyList;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Energy_Manager;
+import com.rdupuis.amikcal.unity.Act_UnitOfMeasureEditor;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.unity.Unity_Manager;
@@ -120,8 +121,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
      **************************************************************************************/
     public void callUnitListView() {
         Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID,
-                String.valueOf(edited_Component.getEnergy().getDatabaseId()));
+        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_FILTER, edited_Component.getEnergy());
         startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -153,10 +153,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
                 if (resultCode == RESULT_OK) {
 
                     // On récupère l'Unitée.
-                    Unity unity = new Unity();
-                    Manager manager = ManagerBuilder.build(this, unity);
-                    long id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
-                    unity = (Unity) manager.load(id);
+                    Unity unity = intent.getExtras().getParcelable(Act_UnitOfMeasureList.OUTPUT____CHOOSED_UNIT);
                     this.edited_Component.getQty().setUnity(unity);
                 }
                 break;
@@ -165,13 +162,12 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 
                 if (resultCode == RESULT_OK) {
 
+
                     // on récupère l'Energy choisie par l'utilisateur
                     // .
-                    EnergySource energySource = new EnergySource();
-                    Manager manager = ManagerBuilder.build(this, energySource);
-                    long id = intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID);
-                    energySource = (EnergySource) manager.load(id);
 
+
+                    EnergySource energySource = intent.getExtras().getParcelable(Act_EnergyList.OUTPUT____ENERGY);
                     this.edited_Component.setEnergy(energySource);
 
                 }

@@ -35,25 +35,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
 
         setContentView(R.layout.view_edit_lunch);
 
-        switch (this.getEditMode()) {
 
-            case EDIT:
-                // UserActivity ua = new UserActivity_Manager(this);
-
-                //this.setEdited_UserActivity(uam.load(this.getEdited_object_id()));
-
-
-                break;
-            case CREATE:
-                // En cas de création, la classe mère n'a pas pu recharger l'objet
-                // UserActivity
-                // on doit en créer un à la date du jour récupéré de l'Intent
-                this.setEdited_UserActivity(new UserActivity_Lunch());
-                this.getEdited_UserActivity().setDay(this.getInput_day());
-
-                break;
-
-        }
 
         refreshScreen();
 
@@ -164,7 +146,7 @@ public class Act_UserActivity_Lunch_Editor extends Act_UserActivity_Editor {
      *******************************************************************************************/
     private void refreshScreen() {
         this.refreshHour();
-        this.refreshLunchType();
+     //   this.refreshLunchType();
 
     }
 

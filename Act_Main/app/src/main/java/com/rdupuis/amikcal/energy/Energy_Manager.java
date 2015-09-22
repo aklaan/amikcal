@@ -10,50 +10,23 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
-import com.rdupuis.amikcal.commons.Manager;
-import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.commons.ToolBox;
-import com.rdupuis.amikcal.components.Component_Reference;
-import com.rdupuis.amikcal.components.Component_Reference_Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
-import com.rdupuis.amikcal.data.writers.DBWriter;
-
-import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
 
 /**
  * Created by rodol on 31/08/2015.
  */
-public class Energy_Manager extends Manager {
+public class Energy_Manager extends Manager_commons {
 
-    private Activity mActivity;
-    private EnergySource energySource;
 
     public Energy_Manager(Activity activity) {
-        setActivity(activity);
-
-    }
-
-    @Override
-    public void setActivity(Activity activity) {
-        this.mActivity = activity;
-    }
-
-    @Override
-    public Activity getActivity() {
-        return mActivity;
+        super(activity);
+        this.setUriInsert(ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI);
+        this.setUriUpdate(ContentDescriptorObj.TB_Energies.UPDATE_ENERGY_ID_URI);
     }
 
 
-
-
-
-    @Override
-    public long save(ManagedElement element) {
-        EnergySource energySource = (EnergySource) element;
-        DBWriter dbw = new DBWriter_EnergySource(getActivity().getContentResolver(), energySource);
-        dbw.save();
-        return 0;
-    }
 
 
     /*********************************************************************************
@@ -66,7 +39,7 @@ public class Energy_Manager extends Manager {
      * @since 01-06-2012
      ********************************************************************************/
     @Override
-    public ManagedElement load(long databaseId) {
+    public EnergySource load(long databaseId) {
 
         EnergySource energy = null;
 
@@ -143,7 +116,7 @@ public class Energy_Manager extends Manager {
         }
         cursor.close();
 
-        return (ManagedElement) energy;
+        return energy;
     }
 
     @Override

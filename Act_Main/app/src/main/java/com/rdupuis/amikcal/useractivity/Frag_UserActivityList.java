@@ -167,14 +167,14 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
                 // A voir si c'est utile de garder la page
                 uafs.setCurrentPage(Integer.parseInt(getArguments().getString("page")));
 
+                Activity activity = Frag_UserActivityList.this.getActivity();
 
                 long _id = Long.parseLong(map.get("id"));
-                Manager manager = new UserActivity_Manager(Frag_UserActivityList.this.getActivity());
-                UserActivity ua = (UserActivity) manager.load(_id);
-
-
-                // -----------------------------------------------------------------
-                uafs.onClickActivity(ua);
+                //on ne sait pas quel type d'activité on a en face.
+                //on commence à lire l'activité pour savoir ce que c'est
+                UserActivity_Manager manager = new UserActivity_Manager(activity);
+                UserActivity ua =  manager.load(_id);
+                manager.showComponents(ua);
 
             }
         });
@@ -218,9 +218,11 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
 
+                        // j'ai un id, mais je ne sais pas de quel type est ma UserActivity
                         long _id = Frag_UserActivityList.this.selectedItemId;
-                        Manager manager = new UserActivity_Manager(Frag_UserActivityList.this.getActivity());
-                        manager.edit(manager.load(_id));
+                        UserActivity_Manager manager = new UserActivity_Manager(Frag_UserActivityList.this.getActivity());
+                        UserActivity ua =  manager.load(_id);
+                        manager.edit(ua);
 
                     }
                 });
@@ -273,7 +275,7 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
         HashMap<String, String> map;
         map = new HashMap<String, String>();
     /*
-	 * Uri selectUri = ContentUris .withAppendedId(
+     * Uri selectUri = ContentUris .withAppendedId(
 	 * ContentDescriptorObj.ViewUserActivities.URI_VIEW_USER_ACTIVITIES,
 	 * UserActivityId);
 	 * 

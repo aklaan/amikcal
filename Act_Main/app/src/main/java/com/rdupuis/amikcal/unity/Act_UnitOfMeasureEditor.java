@@ -13,12 +13,14 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
+import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
 public class Act_UnitOfMeasureEditor extends Activity {
 
     Unity mUnit;
-    public static final String INPUT____UNITY_ID = "unity_id";
+    public static final String INPUT____UNITY = "_unity_in";
+    public static final String OUTPUT____UNITY = "_unity_out";
 
     /**
      * Called when the activity is first created.
@@ -30,15 +32,13 @@ public class Act_UnitOfMeasureEditor extends Activity {
         mUnit = new Unity();
 
         try {
+            mUnit = getIntent().getExtras().getParcelable(Act_UnitOfMeasureEditor.INPUT____UNITY);
 
-
-            mUnit = (Unity) ManagerBuilder.build(this,mUnit).load(this.getIntent().getLongExtra(
-                    this.INPUT____UNITY_ID, AppConsts.NO_ID));
             refreshScreen();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        ;
+
 
     }// fin du onCreate
 
@@ -53,10 +53,12 @@ public class Act_UnitOfMeasureEditor extends Activity {
 
         getScreenData();
         Manager manager = new Unity_Manager(this);
-        this.mUnit.setId(manager.save(this.mUnit));
+        this.mUnit.setDatabaseId(manager.save(this.mUnit));
 
         // on appelle setResult pour déclancher le onActivityResult de
         // l'activity mère.
+
+        this.getIntent().putExtra(Act_UnitOfMeasureEditor.OUTPUT____UNITY, this.mUnit);
         setResult(RESULT_OK, this.getIntent());
 
         // On termine l'Actvity

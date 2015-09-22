@@ -2,13 +2,11 @@ package com.rdupuis.amikcal.components;
 
 import java.util.ArrayList;
 
-import android.content.ContentResolver;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.Qty.Qty;
-import com.rdupuis.amikcal.data.writers.DBWriter;
-import com.rdupuis.amikcal.data.writers.DBWriter_Component;
-import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
@@ -93,18 +91,40 @@ public class Component_Generic extends Component {
 
     }
 
-
-    @Override
-    public DBWarper getDBWarper() {
-        return new DBWarper_Component(this);
+    public Component_Generic(Parcel parcel) {
+        this.id = parcel.readLong();
+        this.mQty = parcel.readParcelable(Qty.class.getClassLoader());
+        this.mEnergy = parcel.readParcelable(EnergySource.class.getClassLoader());
 
     }
 
     @Override
-    public DBWriter getDBWriter(ContentResolver contentResolver) {
-        // TODO Auto-generated method stub
-        return new DBWriter_Component(contentResolver, this);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.getDatabaseId());
+        dest.writeParcelable(this.getQty(), 0);
+        dest.writeParcelable(this.getEnergy(), 0);
+
+
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Component_Generic> CREATOR = new Parcelable.Creator<Component_Generic>() {
+        @Override
+        public Component_Generic createFromParcel(Parcel in) {
+            return new Component_Generic(in);
+        }
+
+        @Override
+        public Component_Generic[] newArray(int size) {
+            return new Component_Generic[size];
+
+        }
+
+    };
 
 
 }

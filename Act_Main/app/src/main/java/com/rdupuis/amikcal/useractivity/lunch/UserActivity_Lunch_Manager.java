@@ -35,8 +35,7 @@ public class UserActivity_Lunch_Manager extends UserActivity_Manager {
     public void edit(ManagedElement element) {
         UserActivity userActivity = (UserActivity) element;
         Intent intent = new Intent(getActivity(), Act_UserActivity_Lunch_Editor.class);
-        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____ID, userActivity.getDatabaseId());
-        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____DAY, ToolBox.getSqlDate(userActivity.getDay()));
+        intent.putExtra(Act_UserActivity_Lunch_Editor.INPUT____EDITED_UA, userActivity);
         getActivity().startActivityForResult(intent, 0);
     }
 

@@ -1,5 +1,7 @@
 package com.rdupuis.amikcal.components;
 
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 import com.rdupuis.amikcal.Qty.Qty;
@@ -20,7 +22,7 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
  * @author Rodolphe
  * 
  */
-public abstract class Component extends Relation implements ManagedElement{
+public abstract class Component extends Relation implements ManagedElement,Parcelable{
 
     public  abstract void setEnergy(EnergySource energy) ;
 

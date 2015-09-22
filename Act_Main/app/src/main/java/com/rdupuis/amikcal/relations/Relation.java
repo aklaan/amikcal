@@ -1,13 +1,8 @@
 package com.rdupuis.amikcal.relations;
 
-import java.util.ArrayList;
-
 import com.rdupuis.amikcal.commons.ManagedElement;
-import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.data.Savable;
-import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public abstract class Relation implements Savable,ManagedElement {
+public abstract class Relation implements ManagedElement {
     	
     //public void setId(long id);
     public abstract String getParty1();

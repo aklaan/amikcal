@@ -36,27 +36,7 @@ public class Component_Manager extends Manager_commons {
     }
 
 
-    /**
-     *
-     */
-    @Override
-    public void edit(ManagedElement element) {
-    }
 
-    /**
-     * Sauver un composant, c'est :
-     * - sauver la partie énergie
-     * - sauver la partie Qty
-     * - sauver la relation de composition
-     */
-    @Override
-    public long save(ManagedElement element) {
-
-        //Sauver la relation de composition
-        //Relation_Manager rm = new Relation_Manager(getActivity());
-        //rm.save(component);
-        return 0;
-    }
 
     /***********************************************************************
      * récupérer un Component qui a été stocké dans la Database
@@ -128,9 +108,4 @@ public class Component_Manager extends Manager_commons {
         return (ManagedElement) component;
     }
 
-    @Override
-    public ContentValues getContentValues(ManagedElement element)
-    {
-        return new ContentValues();
-    }
 }

@@ -1,13 +1,11 @@
 package com.rdupuis.amikcal.energy;
 
-import android.content.ContentResolver;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.components.Component_Reference;
-import com.rdupuis.amikcal.data.Savable;
-import com.rdupuis.amikcal.data.writers.DBWriter;
-import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
 
 /**
  * <h1>EnergySource : une source d'�nergie<h1>
@@ -21,7 +19,7 @@ import com.rdupuis.amikcal.data.writers.DBWriter_EnergySource;
  * @author Rodolphe
  */
 
-public class EnergySource implements Savable, ManagedElement {
+public class EnergySource implements  ManagedElement,Parcelable {
 
     private long databaseId;
     private String name;
@@ -65,16 +63,42 @@ public class EnergySource implements Savable, ManagedElement {
         return NRJ_CLASS.ENERGY;
     }
 
+    public EnergySource(Parcel parcel) {
+        this.databaseId = parcel.readLong();
+        this.name = parcel.readString();
+        this.mReference = parcel.readParcelable(Component_Reference.class.getClassLoader());
+        //faire le reste des data
+    }
+
+
     @Override
-    public DBWarper getDBWarper() {
-        // TODO Auto-generated method stub
-        return null;
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.getDatabaseId());
+        dest.writeString(this.getName());
+        dest.writeParcelable(this.getComponentReference(), 0);
+
+        //ajouter le reste
     }
 
     @Override
-    public DBWriter getDBWriter(ContentResolver contentResolver) {
-        return new DBWriter_EnergySource(contentResolver, this);
+    public int describeContents() {
+        return 0;
     }
+
+    public static final Parcelable.Creator<EnergySource> CREATOR = new Parcelable.Creator<EnergySource>() {
+        @Override
+        public EnergySource createFromParcel(Parcel in) {
+            return new EnergySource(in);
+        }
+
+        @Override
+        public EnergySource[] newArray(int size) {
+            return new EnergySource[size];
+
+        }
+
+    };
+
 
 
 }

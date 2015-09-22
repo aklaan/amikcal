@@ -1,16 +1,13 @@
 package com.rdupuis.amikcal.components.food;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Act_Component_Food_Editor;
-import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Manager;
-
-
-import android.app.Activity;
-import android.content.Intent;
 
 /**
  * Component_Food_Manager permet au composant_Food d'utiliser des fonctionnalité de l'activity
@@ -28,14 +25,14 @@ public class Component_Food_Manager extends Component_Manager {
     // l'activité à modifier
     @Override
     public void edit(ManagedElement element) {
+        //Cast de l'élément en Component_Food
         Component_Food component_food = (Component_Food) element;
+
+        //Préparation de Intent
         Intent intent = new Intent(getActivity(), Act_Component_Food_Editor.class);
-        intent.putExtra(Act_Component_Editor.INPUT____COMP_ID, component_food.getDatabaseId());
-        REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
+        intent.putExtra(Act_Component_Editor.INPUT____COMP, component_food);
 
-        component_food.getRelationClass();
-        intent.putExtra(Act_Component_Editor.INPUT____CLASS, rel_typ_cd_map._out.get(component_food.getRelationClass()));
-
+        //Start de l'activity
         getActivity().startActivityForResult(intent, R.integer.COMPONENT_EDITOR);
     }
 

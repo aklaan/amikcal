@@ -146,11 +146,7 @@ public class Act_Food_Editor extends Activity {
 
                 if (resultCode == RESULT_OK) {
 
-                    Unity unity = new Unity();
-                    Manager manager = ManagerBuilder.build(this, unity);
-                    long _id = intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID);
-                    unity = (Unity) manager.load(_id);
-
+                    Unity unity = intent.getExtras().getParcelable(Act_UnitOfMeasureList.OUTPUT____CHOOSED_UNIT);
                     this.mFood.getComponentReference().getQty().setUnity(unity);
 
 

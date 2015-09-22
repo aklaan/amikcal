@@ -2,7 +2,7 @@ package com.rdupuis.amikcal.commons;
 
 import android.app.Activity;
 import android.content.ContentValues;
-
+import android.net.Uri;
 
 
 /**
@@ -26,5 +26,14 @@ public abstract class Manager {
     public abstract ManagedElement load(long databaseId);
 
     public abstract ContentValues getContentValues(ManagedElement element);
+
+    public abstract Uri getUriUpdate();
+
+    public abstract Uri getUriInsert() ;
+
+    public abstract void setUriUpdate(Uri uriUpdate);
+
+    public abstract void setUriInsert(Uri uriInsert) ;
+
 
 }

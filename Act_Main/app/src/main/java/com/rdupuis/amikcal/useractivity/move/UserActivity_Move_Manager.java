@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.rdupuis.amikcal.commons.ToolBox;
 
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
+import com.rdupuis.amikcal.useractivity.lunch.Act_UserActivity_Lunch_Editor;
 
 
 public class UserActivity_Move_Manager extends UserActivity_Manager {
@@ -22,9 +23,7 @@ public class UserActivity_Move_Manager extends UserActivity_Manager {
     public void edit(UserActivity_Move userActivity_move) {
 
         Intent intent = new Intent(getActivity(), Act_UserActivity_Move_Editor.class);
-        intent.putExtra(Act_UserActivity_Move_Editor.INPUT____ID, userActivity_move.getDatabaseId());
-        intent.putExtra(Act_UserActivity_Move_Editor.INPUT____DAY, ToolBox.getSqlDate((userActivity_move.getDay())));
-        getActivity().startActivityForResult(intent, 0);
+        intent.putExtra(Act_UserActivity_Move_Editor.INPUT____EDITED_UA, userActivity_move);    getActivity().startActivityForResult(intent, 0);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

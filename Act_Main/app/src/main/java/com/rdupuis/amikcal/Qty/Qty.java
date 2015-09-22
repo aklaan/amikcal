@@ -1,31 +1,60 @@
 package com.rdupuis.amikcal.Qty;
 
-import java.util.ArrayList;
-
 import android.content.ContentResolver;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
-import com.rdupuis.amikcal.data.writers.DBWriter;
-import com.rdupuis.amikcal.energy.DBWarper;
-import com.rdupuis.amikcal.energy.DBWarper_Qty;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
 import com.rdupuis.amikcal.relations.Relation;
 import com.rdupuis.amikcal.unity.Unity;
 
 //une Qty est une relation entre une unitée et un montant
-public class Qty extends Relation implements ManagedElement{
+public class Qty extends Relation implements ManagedElement, Parcelable {
 
     private long _id;
     private Unity mUnity;
     private float amount;
-    private ArrayList<Qty> mEquivalences;
 
     public Qty() {
         this.setDatabaseId(AppConsts.NO_ID);
         this.mUnity = new Unity();
         this.amount = 0f;
     }
+
+    public Qty(Parcel parcel) {
+        this._id = parcel.readLong();
+        this.amount = parcel.readFloat();
+        this.mUnity = parcel.readParcelable(Unity.class.getClassLoader());
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.getDatabaseId());
+        dest.writeFloat(this.amount);
+        dest.writeParcelable(this.mUnity, 0);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Qty> CREATOR = new Parcelable.Creator<Qty>() {
+        @Override
+        public Qty createFromParcel(Parcel in) {
+            return new Qty(in);
+        }
+
+        @Override
+        public Qty[] newArray(int size) {
+            return new Qty[size];
+
+        }
+
+    };
 
     public float getAmount() {
         return amount;
@@ -64,7 +93,7 @@ public class Qty extends Relation implements ManagedElement{
     @Override
     public String getParty2() {
         // TODO Auto-generated method stub
-        return String.valueOf(this.getUnity().getId());
+        return String.valueOf(this.getUnity().getDatabaseId());
     }
 
     @Override
@@ -73,25 +102,6 @@ public class Qty extends Relation implements ManagedElement{
         return REL_TYP_CD.QTY;
     }
 
-    @Override
-    public DBWarper getDBWarper() {
-        return new DBWarper_Qty(this);
-    }
 
-    @Override
-    public DBWriter getDBWriter(ContentResolver contentResolver) {
-        return new DBWriter_Qty(contentResolver, this);
-    }
-
-    public ArrayList<Qty> getEquivalences() {
-        // TODO Auto-generated method stub
-        return this.mEquivalences;
-    }
-
-    public void setEquivalences(ArrayList<Qty> equivalences) {
-        // TODO Auto-generated method stub
-        this.mEquivalences = equivalences;
-
-    }
 
 }

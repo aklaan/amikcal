@@ -13,32 +13,18 @@ import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.Manager_commons;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.relations.Relation_Manager;
 import com.rdupuis.amikcal.unity.Unity;
 import com.rdupuis.amikcal.unity.Unity_Manager;
 
 /**
  * Created by rodol on 31/08/2015.
  */
-public class Qty_Manager extends Manager_commons {
-
-    Activity mActivity;
+public class Qty_Manager extends Relation_Manager {
 
     public Qty_Manager(Activity activity) {
         super(activity);
-
     }
-
-    @Override
-    public long save(ManagedElement element) {
-        Qty qty = (Qty) element;
-        DBWriter_Qty dbw = new DBWriter_Qty(getActivity().getContentResolver(), qty);
-        dbw.save();
-        return 0;
-    }
-
-
-
-
 
     /**
      * Lecture d'une Qty dans la base de données
@@ -46,7 +32,7 @@ public class Qty_Manager extends Manager_commons {
      * @param databaseId
      * @return
      */
-   @Override
+    @Override
     public Qty load(long databaseId) {
         Qty qty = new Qty();
 
@@ -80,18 +66,13 @@ public class Qty_Manager extends Manager_commons {
 
 
         }
-        return  qty;
+        return qty;
     }
 
 
     @Override
     public void edit(ManagedElement element) {
-
+//TODO
     }
 
-    @Override
-    public ContentValues getContentValues(ManagedElement element){
-
-        return null;
-    }
 }

@@ -4,8 +4,6 @@ import android.content.ContentResolver;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.Qty.Qty;
-import com.rdupuis.amikcal.data.writers.DBWriter;
-import com.rdupuis.amikcal.energy.DBWarper;
 
 public class Relation_Equiv_Btwn2Qty extends Relation {
     private Qty mQty1;
@@ -48,16 +46,5 @@ public class Relation_Equiv_Btwn2Qty extends Relation {
 	return REL_TYP_CD.QTY_EQUIV;
     }
 
-	@Override
-	public DBWarper getDBWarper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DBWriter getDBWriter(ContentResolver contentResolver) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

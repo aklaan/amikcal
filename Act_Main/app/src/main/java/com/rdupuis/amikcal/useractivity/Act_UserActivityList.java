@@ -317,14 +317,12 @@ public class Act_UserActivityList extends Activity {
     }
 
     /**
-     * @param ua Identifiant de l'activit�e utilisateur s�l�ction�e
+     * @param userActivity
      */
-    public void onClickActivity(UserActivity ua) {
+    public void onClickActivity(UserActivity userActivity) {
 
         Intent intent = new Intent(this, Act_UserActivity_Component_List.class);
-        //intent.putExtra(Act_UserActivity_Component_List.INPUT____UA_ID, id);
-        intent.putExtra(Act_UserActivity_Component_List.INPUT____UA, ua);
-
+        intent.putExtra(Act_UserActivity_Component_List.INPUT____UA, userActivity);
         startActivityForResult(intent, R.integer.ACTY_COMPONENT_LIST);
     }
 

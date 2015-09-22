@@ -38,10 +38,9 @@ public class Act_UserActivity_Component_List extends Activity {
 
     public UserActivity mUA; // la liste se référe obligatoirement à une UA
     private ListView maListViewPerso;
-    private AmiKcalFactory factory;
+
     // Noms des zones d'échanges prévues dans l'Intent
-    public static final String INPUT____UA_ID = "ua_id";
-    public static final String INPUT____UA = "USER_ACTIVITY";
+       public static final String INPUT____UA = "USER_ACTIVITY";
 
     /**
      * Called when the activity is first created.
@@ -147,10 +146,11 @@ public class Act_UserActivity_Component_List extends Activity {
             case R.integer.COMPONENT_EDITOR:
 
                 if (resultCode == RESULT_OK) {
-                    long component_id = intent.getLongExtra(Act_Component_Editor.OUTPUT____COMP_ID, AppConsts.NO_ID);
+
+                    Component component = intent.getExtras().getParcelable(Act_Component_Editor.OUTPUT____COMP);
                     // si au retour de l'éditeur, le composant possède un ID
                     // c'est qu'il a été enregistré dans la database
-                    if (component_id != AppConsts.NO_ID) {
+                    if (component.getDatabaseId() != AppConsts.NO_ID) {
                         // on recharge le composant
                         //   Component_Manager component_manager = new Component_Manager(this);
                         //    Component edited_component = component_manager.load(component_id);
@@ -158,16 +158,16 @@ public class Act_UserActivity_Component_List extends Activity {
                         // on recherche si le composant est déja lié à l'UA
                         boolean Linked_with_UA = false;
 
-                        for (Component component : this.mUA.getComponentsList()) {
+                        for (Component comp : this.mUA.getComponentsList()) {
 
-                            if (component.getDatabaseId() == component_id) {
+                            if (component.getDatabaseId() == comp.getDatabaseId()) {
                                 Linked_with_UA = true;
                             }
                         }
                         // si le composant n'est pas lié à l'UA, on le lie.
                         if (!Linked_with_UA) {
 
-                            //  this.mUA.getComponentsList().add(component);
+                              this.mUA.getComponentsList().add(component);
                             //this.factory.save(this.mUA);
                         }
                     }

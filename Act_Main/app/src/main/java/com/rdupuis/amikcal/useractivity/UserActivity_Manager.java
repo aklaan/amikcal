@@ -20,7 +20,9 @@ import com.rdupuis.amikcal.components.Component_Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.relations.Relation_Manager;
 import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
+import com.rdupuis.amikcal.useractivity.lunch.Act_UserActivity_Lunch_Editor;
 import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch;
+import com.rdupuis.amikcal.useractivity.lunch.UserActivity_Lunch_Manager;
 import com.rdupuis.amikcal.useractivity.move.UserActivity_Move;
 import com.rdupuis.amikcal.useractivity.weight.UserActivity_Weight;
 
@@ -36,56 +38,30 @@ public class UserActivity_Manager extends Manager_commons {
 
     public UserActivity_Manager(Activity activity) {
         super(activity);
+this.setUriInsert(ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI);
+this.setUriUpdate(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI);
+    }
 
+    /**
+     * Méthode appelant l'écran "liste" des composants de la UserActivity
+     * @param userActivity
+     */
+    public void showComponents(UserActivity userActivity){
+        Intent intent = new Intent(getActivity(), Act_UserActivity_Component_List.class);
+        intent.putExtra(Act_UserActivity_Component_List.INPUT____UA, userActivity);
+        getActivity().startActivityForResult(intent, 0);
     }
 
 
     @Override
     public void edit(ManagedElement element) {
-// mettre ici les option communes
-    }
+        //ici on est entré avec une UserActivity  "common"
+        //On passe par le builder pour récupérer le manager adequat (lunch/move/weight)
+        Manager manager = ManagerBuilder.build(getActivity(), element);
+        manager.edit(element);
+}
 
 
-    @Override
-    public long save(ManagedElement element) {
-        UserActivity ua = (UserActivity) element;
-        ContentValues val = this.getContentValues(ua);
-        long new_id = ua.getDatabaseId();
-        if (ua.getDatabaseId() == AppConsts.NO_ID) {
-            Uri result = getActivity().getContentResolver().insert(
-                    ContentDescriptorObj.TB_UserActivities.INSERT_USER_ACTIVITY_URI, val);
-            new_id = Long.parseLong(result.getLastPathSegment());
-
-
-            if (!ua.getComponentsList().isEmpty()) {
-
-
-                for (Component component : ua.getComponentsList()) {
-
-                    //ManagerBuilder(getActivity(), component).save();
-                    //Relation_UserActivity_vs_Component UAC_rel = new Relation_UserActivity_vs_Component(UA, component);
-                    //Relation_Manager rm = new Relation_Manager(getActivity());
-
-                    //if (!this.relation_Exists(UAC_rel)) {
-                    //    saveRelation(UAC_rel);
-                }
-            }
-
-
-        } else {
-
-            Uri uriUpdate =
-
-                    ContentUris.withAppendedId(ContentDescriptorObj.TB_UserActivities.UPDATE_USER_ACTIVITY_URI, ua.getDatabaseId());
-            getActivity().getContentResolver().update(uriUpdate, val, String.valueOf(ua.getDatabaseId()), null);
-
-        }
-        // si l'UA poss�de des Composants, on doit les sauver et cr�er les liens
-        // UA_Composants
-
-
-        return new_id;
-    }
 
 
     /*****************************************************************************
@@ -194,7 +170,7 @@ public class UserActivity_Manager extends Manager_commons {
 
         }
 
-        return  userActivity;
+        return userActivity;
     }
 
 

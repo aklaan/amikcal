@@ -4,8 +4,6 @@ import android.content.ContentResolver;
 
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.data.writers.DBWriter;
-import com.rdupuis.amikcal.energy.DBWarper;
 import com.rdupuis.amikcal.energy.EnergySource;
 
 public class Relation_NRJ_vs_Component extends Relation {
@@ -49,16 +47,5 @@ public class Relation_NRJ_vs_Component extends Relation {
 	return REL_TYP_CD.NRJ_REF_INTRNL;
     }
 
-	@Override
-	public DBWarper getDBWarper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DBWriter getDBWriter(ContentResolver contentResolver) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -12,6 +12,7 @@ import com.rdupuis.amikcal.components.food.Component_Food_Manager;
 import com.rdupuis.amikcal.components.move.Component_Move;
 import com.rdupuis.amikcal.components.move.Component_Move_Manager;
 import com.rdupuis.amikcal.energy.EnergySource;
+import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.relations.Relation;
 import com.rdupuis.amikcal.useractivity.UserActivity;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
@@ -42,6 +43,10 @@ public final class ManagerBuilder {
 
         if (Qty.class.isInstance(element)) {
             return new Qty_Manager(activity);
+        }
+
+        if (Food.class.isInstance(element)) {
+            return new Component_Food_Manager(activity);
         }
 
         return null;

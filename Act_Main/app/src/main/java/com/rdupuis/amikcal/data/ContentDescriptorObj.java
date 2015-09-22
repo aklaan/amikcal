@@ -274,13 +274,13 @@ public final class ContentDescriptorObj {
         // Info concernant la table
         public static final String NAME = "units";
 
-        // Path pour l'Uri de s�l�ction de toute la table
+        // Path pour l'Uri de séléction de toute les unitées
         public static final String SELECT_ALL_UNITS = "units";
-        public static final int SELECT_UNITS_TOKEN = 3100;
+        public static final int SELECT_ALL_UNITS_TOKEN = 3100;
 
-        // Path pour l'Uri de s�l�ction d'un enregistrement
-        public static final String SELECT_UNITY = "units/#";
-        public static final int SELECT_UNITY_TOKEN = 3101;
+        // Path pour l'Uri de séléction d'une unitée en particulier
+        public static final String SELECT_ONE_UNITY = "units/#";
+        public static final int SELECT_ONE_UNITY_TOKEN = 3101;
 
         public static final String INSERT_UNIT = "insert_unit";
         public static final int INSERT_UNIT_TOKEN = 3200;
@@ -763,7 +763,8 @@ public final class ContentDescriptorObj {
             _in.put(TB_Energies.SELECT_ENERGIES_LIKE_TOKEN, REQUESTS_LIST.SELECT_ENERGIES_LIKE);
             _in.put(TB_Energies.INSERT_ENERGY_TOKEN, REQUESTS_LIST.INSERT_ENERGY);
             _in.put(TB_Energies.UPDATE_ENERGY_ID_TOKEN, REQUESTS_LIST.UPDATE_ENERGY_ID);
-
+            
+            //Stockage des Token pour les UserActivities
             _in.put(TB_UserActivities.S00_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
             _in.put(TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_USER_ACTIVITY);
             _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_TOKEN,
@@ -772,11 +773,11 @@ public final class ContentDescriptorObj {
             _in.put(TB_UserActivities.INSERT_USER_ACTIVITY_TOKEN, REQUESTS_LIST.INSERT_USER_ACTIVITY);
             _in.put(TB_UserActivities.DELETE_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
             _in.put(TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.DELETE_USER_ACTIVITY);
-
             _in.put(TB_UserActivities.UPDATE_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
-
-            _in.put(TB_Units.SELECT_UNITS_TOKEN, REQUESTS_LIST.SELECT_ALL_UNITS);
-            _in.put(TB_Units.SELECT_UNITY_TOKEN, REQUESTS_LIST.SELECT_ONE_UNITY_BY_ID);
+            
+            //Stockage des TOKEN pour les Unitées
+            _in.put(TB_Units.SELECT_ALL_UNITS_TOKEN, REQUESTS_LIST.SELECT_ALL_UNITS);
+            _in.put(TB_Units.SELECT_ONE_UNITY_TOKEN, REQUESTS_LIST.SELECT_ONE_UNITY_BY_ID);
             _in.put(TB_Units.INSERT_UNIT_TOKEN, REQUESTS_LIST.INSERT_UNITY);
             _in.put(TB_Units.UPDATE_UNIT_TOKEN, REQUESTS_LIST.UPDATE_UNITY);
 
@@ -828,7 +829,7 @@ public final class ContentDescriptorObj {
         // Match pour la table des energies
         // ----------------------------------------------------------------
 
-        // Match pour le select sur la table des unitées
+        // Match pour le select sur la table des énergies
         matcher.addURI(authority, TB_Energies.SELECT_ALL_ENERGIES_PATH, TB_Energies.SELECT_ALL_ENERGIES_TOKEN);
         matcher.addURI(authority, TB_Energies.SELECT_ONE_ENERGY_BY_ID_PATH, TB_Energies.SELECT_ONE_ENERGY_BY_ID_TOKEN);
         matcher.addURI(authority, TB_Energies.SELECT_ENERGIES_LIKE_PATH, TB_Energies.SELECT_ENERGIES_LIKE_TOKEN);
@@ -839,8 +840,8 @@ public final class ContentDescriptorObj {
         // ----------------------------------------------------------------
 
         // Match pour le select sur la table des unitées
-        matcher.addURI(authority, TB_Units.SELECT_ALL_UNITS, TB_Units.SELECT_UNITS_TOKEN);
-        matcher.addURI(authority, TB_Units.SELECT_UNITY, TB_Units.SELECT_UNITY_TOKEN);
+        matcher.addURI(authority, TB_Units.SELECT_ALL_UNITS, TB_Units.SELECT_ALL_UNITS_TOKEN);
+        matcher.addURI(authority, TB_Units.SELECT_ONE_UNITY, TB_Units.SELECT_ONE_UNITY_TOKEN);
 
         // Match pour l'insert d'une unitée
         matcher.addURI(authority, TB_Units.INSERT_UNIT, TB_Units.INSERT_UNIT_TOKEN);

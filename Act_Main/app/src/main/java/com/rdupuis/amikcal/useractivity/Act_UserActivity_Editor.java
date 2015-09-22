@@ -35,7 +35,7 @@ public class Act_UserActivity_Editor extends Act_Editor {
 
     //zone possible dans l'intent:
     //par rapport à la classe de base EDITOR, pour les UA on a besoin de gérer une date.
-    public static final String INPUT____DAY = "_day";
+    public static final String INPUT____EDITED_UA = "_edited_ua";
     private Calendar input_day;
     private UserActivity edited_UserActivity;
 
@@ -46,13 +46,7 @@ public class Act_UserActivity_Editor extends Act_Editor {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.input_day = ToolBox.parseCalendar(getIntent().getStringExtra(this.INPUT____DAY));
-        //ici on ne sait pas quel type de UserActivity on édite
-
-        /**
-         on aurrait pas ce problème en passant les objet dans l'intent
-         */
-
+        this.edited_UserActivity = getIntent().getExtras().getParcelable(Act_UserActivity_Editor.INPUT____EDITED_UA);
 
     }
 

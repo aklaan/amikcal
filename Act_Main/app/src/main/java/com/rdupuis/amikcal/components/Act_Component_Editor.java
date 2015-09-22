@@ -36,15 +36,11 @@ import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class Act_Component_Editor extends Activity {
 
-    UserActivity mUA;
     Component edited_Component;
-    ContentResolver contentResolver;
-    AmiKcalFactory factory;
 
-    //nom des varibles Intent gérée par la classe.
-    public static final String INPUT____COMP_ID = "in_comp_id"; // ID du composant à éditer
-    public static final String INPUT____CLASS = "in_class"; //type du composant à créer
-    public static final String OUTPUT____COMP_ID = "out_comp_id"; //Id du composant qui a été édité
+    //nom des variables Intent gérée par la classe.
+    public static final String INPUT____COMP = "in_comp"; // ID du composant à éditer
+    public static final String OUTPUT____COMP = "out_comp"; //Id du composant qui a été édité
 
     /**
      * Called when the activity is first created.
@@ -52,42 +48,8 @@ public class Act_Component_Editor extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        /***************************************************************************
-         * ETAPE I : on récupère les infos de l'intent
-         ***************************************************************************/
-
-        // Récupérer l'id du composant à éditer
-        long edited_comp_id = getIntent().getLongExtra(Act_Component_Editor.INPUT____COMP_ID, AppConsts.NO_ID);
-
-        // en cas de création d'un nouveau composant, récupérer le type de composant souhaité
-        String input_comp_class = getIntent().getStringExtra(Act_Component_Editor.INPUT____CLASS);
-
-        // si l'ID n'est pas nul on charge le composant à éditer
-        if (edited_comp_id != AppConsts.NO_ID) {
-            // chargement du composant stocké
-            Manager manager = ManagerBuilder.build(this, this.edited_Component);
-            this.edited_Component = (Component) manager.load(edited_comp_id);
-
-        } else {
-            // Initialisation d'un nouveau composant en fonction de la class
-            // souhaitée
-            REL_TYP_CD_MAP rel_typ_cd_map = new REL_TYP_CD_MAP();
-
-            switch (rel_typ_cd_map._in.get(input_comp_class)) {
-                case CFOOD:
-                    edited_Component = new Component_Food();
-                    break;
-                // default prend en charge les UNDEFINED
-                default:
-                    Toast.makeText(this, "type Component inconnu", Toast.LENGTH_LONG).show();
-                    finish();
-            }
-
-        }
-
-    }// fin du onCreate
+        edited_Component = getIntent().getExtras().getParcelable(Act_Component_Editor.INPUT____COMP);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,7 +61,6 @@ public class Act_Component_Editor extends Activity {
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -116,9 +77,9 @@ public class Act_Component_Editor extends Activity {
         }
     }
 
-    /**
-     * Appel du pav� num�rique
-     */
+    /*******************************************************************************
+     * Appel du pavé numérique
+     *****************************************************************************/
     public void callNumericPad() {
         Intent intent = new Intent(this, Act_NumericPad.class);
         intent.putExtra("question", "Entrez la quantit� d'Aliment");
@@ -126,7 +87,7 @@ public class Act_Component_Editor extends Activity {
     }
 
     /***************************************************************************************
-     * Appel de la liste des aliments
+     * On Appel l'affichage de la liste des aliments
      *
      * @param v View
      **************************************************************************************/
@@ -136,18 +97,13 @@ public class Act_Component_Editor extends Activity {
     }
 
     /***************************************************************************************
+     * Appel de la Liste des unitées.
      * @param v View
      **************************************************************************************/
     public void onClick_Unit(View v) {
-        callUnitListView();
-    }
 
-    /***************************************************************************************
-     * Appel de la Liste des unitées.
-     **************************************************************************************/
-    public void callUnitListView() {
         Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
-        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_ID, String.valueOf(edited_Component.getEnergy().getDatabaseId()));
+        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_FILTER, edited_Component.getEnergy());
         startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
 
     }
@@ -157,14 +113,15 @@ public class Act_Component_Editor extends Activity {
      */
     public void onClick_Validate() {
 
-        // A la création, le save va initialiser l'ID
+        //On ne sait pas quel type de composant est édité.
+        //on passe par le builder pour récupérer le bon Manager
         Manager manager = ManagerBuilder.build(this, this.edited_Component);
         this.edited_Component.setDatabaseId(manager.save(this.edited_Component));
 
         // on appelle setResult pour déclancher le onActivityResult de
         // l'activity mère.
 
-        this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP_ID, this.edited_Component.getDatabaseId());
+        this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP, this.edited_Component);
         setResult(RESULT_OK, this.getIntent());
 
         // On termine l'Actvity
@@ -198,9 +155,7 @@ public class Act_Component_Editor extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     // on récupère l'unité de mesure choisie
-                    Unity unity = new Unity();
-                    Manager manager = ManagerBuilder.build(this, unity);
-                    unity = (Unity) manager.load(intent.getLongExtra(Act_UnitOfMeasureList.OUTPUT____UNIT_ID, AppConsts.NO_ID));
+                    Unity unity = intent.getExtras().getParcelable(Act_UnitOfMeasureList.OUTPUT____CHOOSED_UNIT);
                     this.edited_Component.getQty().setUnity(unity);
                 }
                 break;
@@ -210,9 +165,8 @@ public class Act_Component_Editor extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     // on récupère l'Energy choisie par l'utilisateur
-                    EnergySource energySource = new EnergySource();
-                    Manager manager = ManagerBuilder.build(this, energySource);
-                    energySource = (EnergySource) manager.load(intent.getLongExtra(Act_EnergyList.OUTPUT____ID_OF_ENERGY, AppConsts.NO_ID));
+
+                    EnergySource energySource  = intent.getExtras().getParcelable(Act_EnergyList.OUTPUT____ENERGY);
                     this.edited_Component.setEnergy(energySource);
 
                 }
