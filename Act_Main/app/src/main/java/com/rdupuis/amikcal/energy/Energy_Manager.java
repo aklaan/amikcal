@@ -8,6 +8,8 @@ import android.net.Uri;
 
 import android.widget.Toast;
 
+import com.rdupuis.amikcal.Qty.Qty;
+import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager_commons;
@@ -29,15 +31,15 @@ public class Energy_Manager extends Manager_commons {
 
 
 
-    /*********************************************************************************
-     * <h1>loadEnergy()</h1>
-     * <p/>
-     * Retourne une énergie stockée dans la Database à partir de son id.
-     *
-     * @param databaseId - Identifiant
-     * @return (Energy) un objet "énergie"
-     * @since 01-06-2012
-     ********************************************************************************/
+        /*********************************************************************************
+         * <h1>loadEnergy()</h1>
+         * <p/>
+         * Retourne une énergie stockée dans la Database à partir de son id.
+         *
+         * @param databaseId - Identifiant
+         * @return (Energy) un objet "énergie"
+         * @since 01-06-2012
+         ********************************************************************************/
     @Override
     public EnergySource load(long databaseId) {
 
@@ -56,6 +58,7 @@ public class Energy_Manager extends Manager_commons {
         final int INDX_NRJ_NAME = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.NAME);
         final int INDX_NRJ_CLASS = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.CLASS);
         final int INDX_NRJ_STRUCTURE = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.STRUCTURE);
+        final int INDX_NRJ_QTYREF_ID = cursor.getColumnIndex(ContentDescriptorObj.TB_Energies.Columns.QTY_REF_ID);
 
         // faire un move First pour positionner le pointeur, sinon on pointe sur
         // null
@@ -78,31 +81,34 @@ public class Energy_Manager extends Manager_commons {
                     energy = new PhysicalActivity();
                 default:
 
-                    // il faut g�rer exception
+                    // il faut gérer exception
 
             }
 
             energy.setDatabaseId(databaseId);
             energy.setName(cursor.getString(INDX_NRJ_NAME));
 
-            /** Charger le composant de référence
+            /** Charger la Qty de référence
              *
-             *
-             * Le composant de référence est par exemple : 1OO g de Pain
-             * c'est la référence pour laquelle on va se baser pour exprimer :
+             * La Qty de référence est par exemple : 1OO g  pour du Pain
+             * c'est la référence sur laquelle on va se baser pour exprimer :
              *  - l'équivalence en calories
              *  ex: 100 g de pain = 120Kcal
              *
              *  - la répartion des composants
              *  ex: dans 100 g de pain on a 50g de glucides
+             *
+             *  pour récupérer la Qty de référence
+             *  on ajoute un Id de la référence dans la DB
+             *
 
+             *
              */
 
-            //Component_Reference refComponent = new Component_Reference();
-            //Manager manager = ManagerBuilder.build(this.getActivity(), refComponent);
-
-            //refComponent = (Component_Reference) manager.load(energy);
-//            energy.setComponent(refComponent);
+            Qty qty = new Qty();
+            Qty_Manager manager = new Qty_Manager(this.getActivity());
+            qty = manager.load(cursor.getLong((INDX_NRJ_QTYREF_ID)));
+            energy.setQtyReference(qty);
 
 
         } else {
@@ -128,9 +134,12 @@ public class Energy_Manager extends Manager_commons {
         // Alimentation du nom
         val.put(ContentDescriptorObj.TB_Energies.Columns.NAME, nrj.getName());
 
-        // Alimentation de la classe
+        // Alimentation de la classe d'énergie
         AppConsts.NRJ_CLASS_MAP class_map = new AppConsts.NRJ_CLASS_MAP();
         val.put(ContentDescriptorObj.TB_Energies.Columns.CLASS, class_map._out.get(nrj.getEnergyClass()));
+
+        // ID de la Qty de référence
+        val.put(ContentDescriptorObj.TB_Energies.Columns.QTY_REF_ID, nrj.getQtyReference().getDatabaseId());
 
         // date de mise à jour
         val.put(ContentDescriptorObj.TB_Energies.Columns.LAST_UPDATE, ToolBox.getCurrentTimestamp());

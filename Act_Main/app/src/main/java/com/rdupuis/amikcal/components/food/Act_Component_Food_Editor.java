@@ -1,4 +1,4 @@
-package com.rdupuis.amikcal.components;
+package com.rdupuis.amikcal.components.food;
 
 /**
  * commentaires
@@ -15,17 +15,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Manager;
-import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
-import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.components.Act_Component_Editor;
+import com.rdupuis.amikcal.energy.Act_Energy_Food_List;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.energy.Energy_Manager;
-import com.rdupuis.amikcal.unity.Act_UnitOfMeasureEditor;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.unity.Unity;
-import com.rdupuis.amikcal.unity.Unity_Manager;
 
 
 public class Act_Component_Food_Editor extends Act_Component_Editor {
@@ -106,7 +101,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
      * @param v View
      **************************************************************************************/
     public void onClick_EnergyName(View v) {
-        Intent intent = new Intent(this, Act_EnergyList.class);
+        Intent intent = new Intent(this, Act_Energy_Food_List.class);
         startActivityForResult(intent, R.integer.ACTY_ENERGIES_LIST);
     }
 
@@ -166,9 +161,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 
                     // on récupère l'Energy choisie par l'utilisateur
                     // .
-
-
-                    EnergySource energySource = intent.getExtras().getParcelable(Act_EnergyList.OUTPUT____ENERGY);
+                    EnergySource energySource = intent.getExtras().getParcelable(Act_Energy_Food_List.OUTPUT____CHOOSED_ENERGY);
                     this.edited_Component.setEnergy(energySource);
 
                 }

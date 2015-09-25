@@ -64,6 +64,9 @@ public class DatabaseObj extends SQLiteOpenHelper {
 				+ ContentDescriptorObj.TB_Energies.Columns.STRUCTURE
 				+ " TEXT, "
 
+				+ ContentDescriptorObj.TB_Energies.Columns.QTY_REF_ID
+				+ " TEXT, "
+
 				+ ContentDescriptorObj.TB_Energies.Columns.LAST_UPDATE
 				+ " DATETIME, "
 

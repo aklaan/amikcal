@@ -2,7 +2,6 @@ package com.rdupuis.amikcal.components;
 
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,20 +11,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
-import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.AppConsts.REL_TYP_CD_MAP;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
-import com.rdupuis.amikcal.components.food.Component_Food;
-import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.Act_Energy_Food_List;
 import com.rdupuis.amikcal.energy.EnergySource;
-import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
 import com.rdupuis.amikcal.unity.Unity;
-import com.rdupuis.amikcal.unity.Unity_Manager;
-import com.rdupuis.amikcal.useractivity.UserActivity;
 
 /**
  * cette classe est une base commune a tous les éditeurs d'objets de la famille des composants
@@ -36,7 +28,7 @@ import com.rdupuis.amikcal.useractivity.UserActivity;
 
 public class Act_Component_Editor extends Activity {
 
-    Component edited_Component;
+    public Component edited_Component;
 
     //nom des variables Intent gérée par la classe.
     public static final String INPUT____COMP = "in_comp"; // ID du composant à éditer
@@ -93,7 +85,7 @@ public class Act_Component_Editor extends Activity {
      * @param v View
      **************************************************************************************/
     public void onClick_EnergyName(View v) {
-        Intent intent = new Intent(this, Act_EnergyList.class);
+        Intent intent = new Intent(this, Act_Energy_Food_List.class);
         startActivityForResult(intent, R.integer.ACTY_ENERGIES_LIST);
     }
 
@@ -166,8 +158,7 @@ public class Act_Component_Editor extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     // on récupère l'Energy choisie par l'utilisateur
-
-                    EnergySource energySource  = intent.getExtras().getParcelable(Act_EnergyList.OUTPUT____ENERGY);
+                    EnergySource energySource  = intent.getExtras().getParcelable(Act_Energy_Food_List.OUTPUT____CHOOSED_ENERGY);
                     this.edited_Component.setEnergy(energySource);
 
                 }

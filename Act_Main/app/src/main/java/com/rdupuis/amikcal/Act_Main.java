@@ -1,13 +1,9 @@
 package com.rdupuis.amikcal;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
-//import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -21,19 +17,21 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.commons.Act_Calendar;
 import com.rdupuis.amikcal.commons.Act_Techinfo;
-import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.data.DatabaseObj;
-import com.rdupuis.amikcal.data.ContentDescriptorObj.TB_UserActivities;
 import com.rdupuis.amikcal.day.Act_Day;
-import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.Act_Energy_Food_List;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceList;
 import com.rdupuis.amikcal.unity.Unity;
-import com.rdupuis.amikcal.unity.Unity_Manager;
 import com.rdupuis.amikcal.useractivity.UserActivities_FragmentsSlider;
+
+import java.io.File;
+import java.util.ArrayList;
+
+//import android.content.ContentValues;
 //import com.rdupuis.amikcal.ContentDescriptor;
 
 enum ErrorStatus {
@@ -282,7 +280,7 @@ public class Act_Main extends Activity {
   
     
     public void callEnergyList(View v){
-    	Intent intent = new Intent(this,Act_EnergyList.class);
+    	Intent intent = new Intent(this,Act_Energy_Food_List.class);
     	startActivity(intent);
  
     }

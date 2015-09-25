@@ -79,13 +79,13 @@ public class Component_Generic extends Component {
         return String.valueOf(this.mQty.getDatabaseId());
     }
 
-    @Override
+    //@Override
     public ArrayList<Component> getComponentList() {
 
         return mComponentList;
     }
 
-    @Override
+    //@Override
     public void setComponentList(ArrayList<Component> componentList) {
         mComponentList = componentList;
 

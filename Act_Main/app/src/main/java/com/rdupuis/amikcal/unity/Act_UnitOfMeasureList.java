@@ -1,11 +1,7 @@
 package com.rdupuis.amikcal.unity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,9 +19,11 @@ import android.widget.Toast;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
-import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 import com.rdupuis.amikcal.energy.EnergySource;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Act_UnitOfMeasureList extends Activity {
     private ListView maListViewPerso;
@@ -51,16 +49,11 @@ public class Act_UnitOfMeasureList extends Activity {
 
     }// fin du onCreate
 
-    public void onClickUnit(View v, Unity unity) {
-        Intent intent = new Intent(this, Act_UnitOfMeasureEditor.class);
-        intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY, unity);
-        startActivityForResult(intent, R.integer.ACTY_UNIT);
-
-    }
-
     public void onClickAdd(View v) {
 
-        onClickUnit(v, null);
+        Intent intent = new Intent(this, Act_UnitOfMeasureEditor.class);
+        intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY, new Unity());
+        startActivityForResult(intent, R.integer.ACTY_UNIT);
 
     }
 
@@ -109,7 +102,7 @@ public class Act_UnitOfMeasureList extends Activity {
 
         Uri mUri;
 
-        if (energySource.getDatabaseId()== AppConsts.NO_ID) {
+        if (energySource.getDatabaseId() == AppConsts.NO_ID) {
             mUri = ContentDescriptorObj.TB_Units.URI_SELECT_UNIT;
 
         } else {
@@ -178,7 +171,7 @@ public class Act_UnitOfMeasureList extends Activity {
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
                 Unity_Manager manager = new Unity_Manager(Act_UnitOfMeasureList.this);
                 Unity unity = manager.load(Long.parseLong(map.get("id")));
-                OnChooseUnit(view, unity);
+                OnChooseUnit(unity);
             }
         });
 
@@ -197,8 +190,9 @@ public class Act_UnitOfMeasureList extends Activity {
                         .setPositiveButton("Editer", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                 /* User clicked edit so do some stuff */
-                                onClick_edit();
-
+                                Unity_Manager manager = new Unity_Manager(Act_UnitOfMeasureList.this);
+                                Unity unity = manager.load(Act_UnitOfMeasureList.this.currentId);
+                                manager.edit(unity);
                             }
                         }).setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -221,7 +215,7 @@ public class Act_UnitOfMeasureList extends Activity {
      *
      **********************************************************************************/
 
-    public void OnChooseUnit(View v, Unity unity) {
+    public void OnChooseUnit(Unity unity) {
 
         // on alimente le résultat dans l'Intent pour que l'Activity mère puisse
         // récupérer la valeur.
@@ -245,15 +239,6 @@ public class Act_UnitOfMeasureList extends Activity {
 
     }
 
-    public void onClick_edit() {
-        editUnit(Act_UnitOfMeasureList.currentId.toString());
-    }
-
-    public void editUnit(String unity) {
-        Intent intent = new Intent(this, Act_UnitOfMeasureEditor.class);
-        intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY, unity);
-        startActivityForResult(intent, R.integer.ACTY_UNIT);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

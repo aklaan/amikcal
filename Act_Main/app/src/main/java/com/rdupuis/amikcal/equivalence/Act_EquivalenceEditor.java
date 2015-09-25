@@ -17,7 +17,7 @@ import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
-import com.rdupuis.amikcal.energy.Act_EnergyList;
+import com.rdupuis.amikcal.energy.Act_Energy_Food_List;
 import com.rdupuis.amikcal.energy.EnergySource;
 import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.unity.Act_UnitOfMeasureList;
@@ -150,7 +150,7 @@ public class Act_EquivalenceEditor extends Activity {
     }
 
     public void onClickBtnEnergy(View v) {
-        Intent intent = new Intent(this, Act_EnergyList.class);
+        Intent intent = new Intent(this, Act_Energy_Food_List.class);
         startActivityForResult(intent, this.CHOOSE_NRJ);
     }
 

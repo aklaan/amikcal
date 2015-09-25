@@ -3,9 +3,9 @@ package com.rdupuis.amikcal.energy;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.rdupuis.amikcal.Qty.Qty;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
-import com.rdupuis.amikcal.components.Component_Reference;
 
 /**
  * <h1>EnergySource : une source d'�nergie<h1>
@@ -23,13 +23,13 @@ public class EnergySource implements  ManagedElement,Parcelable {
 
     private long databaseId;
     private String name;
-    private Component_Reference mReference;
+    private Qty mQtyReference;
 
 
     public EnergySource() {
         this.databaseId = AppConsts.NO_ID;
         name = "";
-        this.mReference = null;
+        this.mQtyReference = null;
     }
 
     public String getName() {
@@ -49,13 +49,13 @@ public class EnergySource implements  ManagedElement,Parcelable {
         this.databaseId = databaseId;
     }
 
-    public Component_Reference getComponentReference() {
+    public Qty getQtyReference() {
         // TODO Auto-generated method stub
-        return this.mReference;
+        return this.mQtyReference;
     }
 
-    public void setComponentReference(Component_Reference component_reference) {
-        this.mReference = component_reference;
+    public void setQtyReference(Qty qty) {
+        this.mQtyReference = qty;
     }
 
     public NRJ_CLASS getEnergyClass() {
@@ -66,7 +66,7 @@ public class EnergySource implements  ManagedElement,Parcelable {
     public EnergySource(Parcel parcel) {
         this.databaseId = parcel.readLong();
         this.name = parcel.readString();
-        this.mReference = parcel.readParcelable(Component_Reference.class.getClassLoader());
+        this.mQtyReference = parcel.readParcelable(Qty.class.getClassLoader());
         //faire le reste des data
     }
 
@@ -75,7 +75,7 @@ public class EnergySource implements  ManagedElement,Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.getDatabaseId());
         dest.writeString(this.getName());
-        dest.writeParcelable(this.getComponentReference(), 0);
+        dest.writeParcelable(this.getQtyReference(), 0);
 
         //ajouter le reste
     }

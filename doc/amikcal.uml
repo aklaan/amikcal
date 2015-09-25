@@ -796,7 +796,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="0s7R1HVLvkCN6+ke4U5hbAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="FPjjqH6GU0ug0SLzeHv5vgAA">
 <XPD:ATTR name="FontStyle" type="integer">3</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Manager</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="fBuplduYtEmlOUtUjBxSFQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -827,7 +827,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="usBrgYsluEWLkgsIWuWNkwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="HmRjdof650+auOWz6NyHfgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter_Component</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Component_Manag</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="vPXLPHV8j0mWy9aKdYaX9gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -889,7 +889,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="PMGlHL3ZeEu0AAmYNQvk1AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Uhrjqrtk5UKoschrAyKr0gAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter_EnergySource</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">EnergySource_Manager</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="RAhkCQehfEGIv1wFxbtowwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -912,15 +912,15 @@
 <XPD:OBJ name="OwnedViews[29]" type="UMLClassView" guid="15YgbNx1fkSMXBHyBDgJDwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">341</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">1540</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">95</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">224</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">1536</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">140</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">43</XPD:ATTR>
 <XPD:REF name="Model">y5MYVk/LzEKoMPNFsVMIywAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Rp4KtKNhGU66RGQZ0312hAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="qH0wr3664UeosDfI5oadxgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter_Food</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Energy_Food_Manager</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="pyK8QyskQEeRC1LWEaaC5wAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -945,13 +945,13 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">436</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">1356</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">111</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">123</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">43</XPD:ATTR>
 <XPD:REF name="Model">3VTHyF7YLEy9G+r8ODkvWgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="h0Gd44KS6kij2c2F6P5KXwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="zwJ+V0dImUG5XFIAcWgC8gAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter_Generic</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Manager_Commons</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Hq+OV80Be0+tuDk0nWh+vgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -974,15 +974,15 @@
 <XPD:OBJ name="OwnedViews[31]" type="UMLClassView" guid="fB3L3Cy41kCQVP9zj0zK3QAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">524</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">1536</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">90</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">644</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">1396</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">97</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">43</XPD:ATTR>
 <XPD:REF name="Model">/jYGdrkbm0eWIMNuN3FligAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="U42cFcxVsEWV2IcV3hSzqwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="h07u5dI8V02MdYmzXU6RzgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter_Qty</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Unity_Manager</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="fDTbO3OM10aKCxzrZkbvLAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1013,7 +1013,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Q+GpjCBfaUuvo6py03cGaAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="7F0pdqYczEC4ZCKlI9pUfQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">DBWriter_Relation</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Qty_Manager</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="xAxrLW8cYUS4iPuMo/AUxAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1036,7 +1036,7 @@
 <XPD:OBJ name="OwnedViews[33]" type="UMLGeneralizationView" guid="ejR1MnxxfkqRPhYj8WAZNwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">492,1356;493,1310</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">496,1356;495,1310</XPD:ATTR>
 <XPD:REF name="Model">OwQhUm7DU0WMRAvd9eblDQAA</XPD:REF>
 <XPD:REF name="Head">gnlWCSJeykuhH8Wt7Mf0kAAA</XPD:REF>
 <XPD:REF name="Tail">FABHqipkmkSPtbywtGuNRQAA</XPD:REF>
@@ -1062,7 +1062,7 @@
 <XPD:OBJ name="OwnedViews[34]" type="UMLGeneralizationView" guid="rJfbhKq3P0yTEgE8RcYsywAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">549,1436;512,1398</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">550,1436;516,1398</XPD:ATTR>
 <XPD:REF name="Model">dRDLSALkAEi64RAK9Wnq1gAA</XPD:REF>
 <XPD:REF name="Head">FABHqipkmkSPtbywtGuNRQAA</XPD:REF>
 <XPD:REF name="Tail">jRrORhH+LECUzqDqwGWuFQAA</XPD:REF>
@@ -1088,9 +1088,9 @@
 <XPD:OBJ name="OwnedViews[35]" type="UMLGeneralizationView" guid="3E9OvExjGEW1144pyRyCcQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">568,1536;569,1478</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">644,1407;558,1389</XPD:ATTR>
 <XPD:REF name="Model">kDfUWQreO0mOpIqyF6kQzgAA</XPD:REF>
-<XPD:REF name="Head">jRrORhH+LECUzqDqwGWuFQAA</XPD:REF>
+<XPD:REF name="Head">FABHqipkmkSPtbywtGuNRQAA</XPD:REF>
 <XPD:REF name="Tail">fB3L3Cy41kCQVP9zj0zK3QAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="fGCgCoEZgUm7dik3hRP8ygAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1114,7 +1114,7 @@
 <XPD:OBJ name="OwnedViews[36]" type="UMLGeneralizationView" guid="dh+R7tSrEkWOZdqeLOgQjAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">388,1540;387,1478</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">313,1536;367,1478</XPD:ATTR>
 <XPD:REF name="Model">EDc29FQmWEi5laTb/DDNGAAA</XPD:REF>
 <XPD:REF name="Head">YaEfYtyN2EOvL4HnFiKc1gAA</XPD:REF>
 <XPD:REF name="Tail">15YgbNx1fkSMXBHyBDgJDwAA</XPD:REF>
@@ -1140,7 +1140,7 @@
 <XPD:OBJ name="OwnedViews[37]" type="UMLGeneralizationView" guid="VGpO+i5QH0utiVe9kxoICAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">414,1436;464,1398</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">416,1436;468,1398</XPD:ATTR>
 <XPD:REF name="Model">2DvsA7gUnECsoHe+sSijaAAA</XPD:REF>
 <XPD:REF name="Head">FABHqipkmkSPtbywtGuNRQAA</XPD:REF>
 <XPD:REF name="Tail">YaEfYtyN2EOvL4HnFiKc1gAA</XPD:REF>
@@ -3586,7 +3586,7 @@
 <XPD:REF name="Views[3]">a9cPdMWcKU2xRum9w+qkwAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[47]" type="UMLClass" guid="cxYSPB4tJkyMZvLUMLyt6gAA">
-<XPD:ATTR name="Name" type="string">DBWriter</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Manager</XPD:ATTR>
 <XPD:ATTR name="IsAbstract" type="boolean">True</XPD:ATTR>
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
@@ -3598,7 +3598,7 @@
 <XPD:REF name="Specializations[0]">OwQhUm7DU0WMRAvd9eblDQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[48]" type="UMLClass" guid="Evlqv2xTJkS/2hh/2/P8JwAA">
-<XPD:ATTR name="Name" type="string">DBWriter_Component</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Component_Manag</XPD:ATTR>
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">/xMYtSnYWEe/ItwCiwVuSgAA</XPD:REF>
@@ -3622,7 +3622,7 @@
 <XPD:REF name="Generalizations[0]">r6K7SyHOg06WV8KpCbFVgAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[50]" type="UMLClass" guid="C8Bse/Yug0qYZLsvfJq8JQAA">
-<XPD:ATTR name="Name" type="string">DBWriter_EnergySource</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">EnergySource_Manager</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">le DBWriter connait les URI du resolver qui vont permettre de faire des insert ou les update</XPD:ATTR>
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
@@ -3636,7 +3636,7 @@
 <XPD:REF name="Specializations[0]">EDc29FQmWEi5laTb/DDNGAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[51]" type="UMLClass" guid="y5MYVk/LzEKoMPNFsVMIywAA">
-<XPD:ATTR name="Name" type="string">DBWriter_Food</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Energy_Food_Manager</XPD:ATTR>
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">15YgbNx1fkSMXBHyBDgJDwAA</XPD:REF>
@@ -3647,7 +3647,7 @@
 <XPD:REF name="Generalizations[0]">EDc29FQmWEi5laTb/DDNGAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[52]" type="UMLClass" guid="3VTHyF7YLEy9G+r8ODkvWgAA">
-<XPD:ATTR name="Name" type="string">DBWriter_Generic</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Manager_Commons</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">le DBWriter fait le lien entre un objet que l'on peu sauver dans une base de donnée et les les URI qui vont permettre de le faire.
 
 par exemple si on souhaite enregistrer une énergie dans un base A et une base B, les Uri ne serront pas les mêmes.du coup l'URI n'est pas une propriété de l'énergie </XPD:ATTR>
@@ -3659,12 +3659,13 @@ par exemple si on souhaite enregistrer une énergie dans un base A et une base B
 <XPD:REF name="Views[3]">qbs/9aia7U+XsHJ4n3pvwAAA</XPD:REF>
 <XPD:ATTR name="#Generalizations" type="integer">1</XPD:ATTR>
 <XPD:REF name="Generalizations[0]">OwQhUm7DU0WMRAvd9eblDQAA</XPD:REF>
-<XPD:ATTR name="#Specializations" type="integer">2</XPD:ATTR>
+<XPD:ATTR name="#Specializations" type="integer">3</XPD:ATTR>
 <XPD:REF name="Specializations[0]">dRDLSALkAEi64RAK9Wnq1gAA</XPD:REF>
 <XPD:REF name="Specializations[1]">2DvsA7gUnECsoHe+sSijaAAA</XPD:REF>
+<XPD:REF name="Specializations[2]">kDfUWQreO0mOpIqyF6kQzgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[53]" type="UMLClass" guid="/jYGdrkbm0eWIMNuN3FligAA">
-<XPD:ATTR name="Name" type="string">DBWriter_Qty</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Unity_Manager</XPD:ATTR>
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">fB3L3Cy41kCQVP9zj0zK3QAA</XPD:REF>
@@ -3675,7 +3676,7 @@ par exemple si on souhaite enregistrer une énergie dans un base A et une base B
 <XPD:REF name="Generalizations[0]">kDfUWQreO0mOpIqyF6kQzgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[54]" type="UMLClass" guid="SccIazMJaEmvGAu4qKCL7gAA">
-<XPD:ATTR name="Name" type="string">DBWriter_Relation</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Qty_Manager</XPD:ATTR>
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">jRrORhH+LECUzqDqwGWuFQAA</XPD:REF>
@@ -3684,9 +3685,8 @@ par exemple si on souhaite enregistrer une énergie dans un base A et une base B
 <XPD:REF name="Views[3]">eRIfSjLekE24aPPmzLxPtwAA</XPD:REF>
 <XPD:ATTR name="#Generalizations" type="integer">1</XPD:ATTR>
 <XPD:REF name="Generalizations[0]">dRDLSALkAEi64RAK9Wnq1gAA</XPD:REF>
-<XPD:ATTR name="#Specializations" type="integer">2</XPD:ATTR>
-<XPD:REF name="Specializations[0]">kDfUWQreO0mOpIqyF6kQzgAA</XPD:REF>
-<XPD:REF name="Specializations[1]">oqoKKC264UOpsSTg38wbcwAA</XPD:REF>
+<XPD:ATTR name="#Specializations" type="integer">1</XPD:ATTR>
+<XPD:REF name="Specializations[0]">oqoKKC264UOpsSTg38wbcwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[55]" type="UMLGeneralization" guid="OwQhUm7DU0WMRAvd9eblDQAA">
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
@@ -3711,7 +3711,7 @@ par exemple si on souhaite enregistrer une énergie dans un base A et une base B
 <XPD:OBJ name="OwnedElements[57]" type="UMLGeneralization" guid="kDfUWQreO0mOpIqyF6kQzgAA">
 <XPD:REF name="Namespace">Ljvsbqx9g0GQTECfx9iWngAA</XPD:REF>
 <XPD:REF name="Child">/jYGdrkbm0eWIMNuN3FligAA</XPD:REF>
-<XPD:REF name="Parent">SccIazMJaEmvGAu4qKCL7gAA</XPD:REF>
+<XPD:REF name="Parent">3VTHyF7YLEy9G+r8ODkvWgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">3E9OvExjGEW1144pyRyCcQAA</XPD:REF>
 <XPD:REF name="Views[1]">fGCgCoEZgUm7dik3hRP8ygAA</XPD:REF>
@@ -4288,8 +4288,8 @@ par exemple si on souhaite enregistrer une énergie dans un base A et une base B
 <XPD:REF name="Participant">RzaiBCWM5ESmcvuHdKpv+gAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">nlfsDMiWe0qByCgx46DZsgAA</XPD:REF>
-<XPD:REF name="Views[1]">9PEvWpSltk6K2avb3YawSwAA</XPD:REF>
-<XPD:REF name="Views[2]">P5GI45ObzkGD+1B/cfldHAAA</XPD:REF>
+<XPD:REF name="Views[1]">P5GI45ObzkGD+1B/cfldHAAA</XPD:REF>
+<XPD:REF name="Views[2]">9PEvWpSltk6K2avb3YawSwAA</XPD:REF>
 <XPD:REF name="Views[3]">7BOhyLHA2UKGP7Gw6ALR2AAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="T0eCDK0LKEKDhJ6Alu8hmwAA">
@@ -4298,8 +4298,8 @@ par exemple si on souhaite enregistrer une énergie dans un base A et une base B
 <XPD:REF name="Participant">AxGGadhp7ku/3MgbPbV1yQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">KQK1mbdiI0i1u0fGu2rnfwAA</XPD:REF>
-<XPD:REF name="Views[1]">Z1AGhAwmy0GZbOLEcUMbwAAA</XPD:REF>
-<XPD:REF name="Views[2]">30Pe7vGZs0iWA8u8uHr0KAAA</XPD:REF>
+<XPD:REF name="Views[1]">30Pe7vGZs0iWA8u8uHr0KAAA</XPD:REF>
+<XPD:REF name="Views[2]">Z1AGhAwmy0GZbOLEcUMbwAAA</XPD:REF>
 <XPD:REF name="Views[3]">PX/hjaVg+k+8fZ2VAbB31QAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>

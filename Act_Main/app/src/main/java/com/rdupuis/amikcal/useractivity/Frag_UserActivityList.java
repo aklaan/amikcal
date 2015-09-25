@@ -173,9 +173,11 @@ public class Frag_UserActivityList extends TimeSlidableFragment {
 
                 long _id = Long.parseLong(map.get("id"));
                 //on ne sait pas quel type d'activité on a en face.
-                //on commence à lire l'activité pour savoir ce que c'est
+                //on commence à loader l'activité pour savoir ce que c'est
                 UserActivity_Manager manager = new UserActivity_Manager(activity);
                 UserActivity ua =  manager.load(_id);
+
+                //Un simple click sur l'activité déclanche l'affichage des composants de cette activitée.
                 manager.listComponents(ua);
 
             }

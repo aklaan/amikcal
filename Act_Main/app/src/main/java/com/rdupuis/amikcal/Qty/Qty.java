@@ -35,6 +35,7 @@ public class Qty extends Relation implements ManagedElement, Parcelable {
         dest.writeLong(this.getDatabaseId());
         dest.writeFloat(this.amount);
         dest.writeParcelable(this.mUnity, 0);
+
     }
 
     @Override

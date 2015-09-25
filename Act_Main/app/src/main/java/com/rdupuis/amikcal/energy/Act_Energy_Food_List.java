@@ -43,10 +43,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj;
  * @version 0.1
  */
 
-public class Act_EnergyList extends Activity {
-    String currentFilter = "";
-    private ListView maListViewPerso;
-    public final static String OUTPUT____ENERGY = "output_energy";
+public class Act_Energy_Food_List extends Act_Energy_List {
 
     /**
      * This function is Called when the activity is first created.
@@ -55,7 +52,7 @@ public class Act_EnergyList extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(this, this.getClass().getCanonicalName(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
 
 
         setContentView(R.layout.view_energy_list);
@@ -86,14 +83,6 @@ public class Act_EnergyList extends Activity {
 
     }// fin du onCreate
 
-    /**
-     * Appel la vue d'�dition d'un aliment (energy)
-     */
-    public void editEnergy(EnergySource energySource) {
-        Intent intent = new Intent(this, Act_Food_Editor.class);
-        intent.putExtra(Act_Food_Editor.INPUT____FOOD, energySource);
-        startActivityForResult(intent, R.integer.ACTY_ENERGY);
-    }
 
     /**
      * onClickAdd est g�n�rique dans les �crans du m�me type on doit donc
@@ -101,10 +90,14 @@ public class Act_EnergyList extends Activity {
      */
     public void onClickAdd(View v) {
 
-        editEnergy(new EnergySource());
 
     }
+public void editNewFood(){
+    Food energySource = new Food();
+    Energy_Food_Manager energy_food_manager = new Energy_Food_Manager(this);
+    energy_food_manager.edit(energySource);
 
+}
     /**
      * G�re les actions � effectuer en cas de retours des Intent appel�s
      * <p/>
@@ -244,10 +237,10 @@ public class Act_EnergyList extends Activity {
                 // on r�cup�re la HashMap contenant les infos de notre item
                 // (titre, description, img)
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-
-                Energy_Manager manager = new Energy_Manager(Act_EnergyList.this);
+                Energy_Manager manager = new Energy_Manager(Act_Energy_Food_List.this);
                 EnergySource energySource = manager.load(Long.parseLong(map.get("id")));
-                OnChooseEnergy(view, energySource);
+                // On retourne l'énergie choisie par l'utilisateur
+                OnChooseEnergy(energySource);
 
             }
         });
@@ -259,31 +252,33 @@ public class Act_EnergyList extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
 
                 HashMap<String, String> map = (HashMap<String, String>) maListViewPerso.getItemAtPosition(position);
-                Energy_Food_Manager manager = new Energy_Food_Manager(Act_EnergyList.this);
-                Food food = manager.load(Long.parseLong(map.get("id")));
+                Act_Energy_Food_List.this.chosedEnergyId = Long.parseLong(map.get("id"));
+
 
                 // int ilaposition=position;
                 // cr�ation d'un boite de dialogue pour confirmer le
                 // choix
-                new AlertDialog.Builder(Act_EnergyList.this).setTitle("Confirmation")
+                new AlertDialog.Builder(Act_Energy_Food_List.this).setTitle("Confirmation")
                         .setMessage("Que voulez-vous faire ?")
                         .setPositiveButton("Editer", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-
-                                onClick_edit();
+                                //on va éditer l'énergie
+                                Energy_Food_Manager manager = new Energy_Food_Manager(Act_Energy_Food_List.this);
+                                Food food = manager.load(Act_Energy_Food_List.this.chosedEnergyId);
+                                manager.edit(food);
                             }
                         }).setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                 /*
-				 * User clicked Cancel so do some stuff
+                 * User clicked Cancel so do some stuff
 				 */
                     }
                 })
 
                         .setNeutralButton("Annuler", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-				/*
-				 * User clicked Cancel so do some stuff
+                /*
+                 * User clicked Cancel so do some stuff
 				 */
                             }
                         })
@@ -301,10 +296,10 @@ public class Act_EnergyList extends Activity {
      * effectuer lorsque l'on séléctionne une énergie
      */
 
-    public void OnChooseEnergy(View v, EnergySource energySource) {
+    public void OnChooseEnergy(EnergySource energySource) {
 
         // on alimente le résultat dans l'Intent pour que l'Activity mère puisse récupérer la valeur.
-        this.getIntent().putExtra(this.OUTPUT____ENERGY, energySource);
+        this.getIntent().putExtra(this.OUTPUT____CHOOSED_ENERGY, energySource);
 
         // on appelle setResult pour déclencher le onActivityResult de l'activity mère.
         this.setResult(RESULT_OK, this.getIntent());
@@ -319,7 +314,7 @@ public class Act_EnergyList extends Activity {
      */
     public void onClick_edit() {
 
-       //TODO
+        //TODO
     }
 
     @Override
@@ -344,7 +339,7 @@ public class Act_EnergyList extends Activity {
 
         switch (item.getItemId()) {
             case R.id.actionbar_energylist_item_add:
-                onClickAdd(null);
+                editNewFood();
                 break;
             case R.id.actionbar_energylist_item_back:
                 finish();

@@ -4,10 +4,12 @@ import android.app.Activity;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 
 
+import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager_commons;
@@ -23,6 +25,19 @@ public final class Unity_Manager extends Manager_commons {
         super(activity);
 
     }
+    @Override
+    public void edit(ManagedElement element) {
+        //Cast de l'élément en Component_Food
+        Unity unity = (Unity) element;
+
+        //Préparation de Intent
+        Intent intent = new Intent(getActivity(), Act_UnitOfMeasureEditor.class);
+        intent.putExtra(Act_UnitOfMeasureEditor.INPUT____UNITY, unity);
+
+        //Start de l'activity
+        getActivity().startActivityForResult(intent, R.integer.ACTY_UNIT);
+    }
+
 
 
     /*****************************************************************************************

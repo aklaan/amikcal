@@ -243,17 +243,15 @@ public final class ContentDescriptorObj {
         // Info concernant les colones de la table
         public static final class Columns {
             public static final String ID = BaseColumns._ID; // on utilise la
-            // convention de
-            // format de
-            // colonne ID
-            // indiqué par
-            // BaseColumns
-            public static final String CLASS = "class"; // on absobe ou on
-            // brule
+            // convention de format de colonne ID indiqué par BaseColumns
+            public static final String CLASS = "class"; // on absobe ou on brule
             public static final String NAME = "name"; // roti de boeuf, Courir,
-            // lasagnes maison
-            public static final String STRUCTURE = "cd_struct"; // est un
-            // liquide
+
+            public static final String STRUCTURE = "cd_struct"; // est un liquide
+
+            //Identifiant de la quantité de référence
+            public static final String QTY_REF_ID = "qty_ref_id";
+
             // 0, 1
             public static final String LAST_UPDATE = "last_updt";
 

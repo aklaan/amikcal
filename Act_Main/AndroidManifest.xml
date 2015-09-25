@@ -33,7 +33,7 @@
 
         <activity
 
-            android:name="com.rdupuis.amikcal.components.Act_Component_Food_Editor"></activity>
+            android:name="com.rdupuis.amikcal.components.food.Act_Component_Food_Editor"></activity>
         <activity
             android:name="com.rdupuis.amikcal.useractivity.Act_UserActivityComponentSlider"></activity>
         <activity android:name="com.rdupuis.amikcal.unity.Act_UnitOfMeasureList"></activity>

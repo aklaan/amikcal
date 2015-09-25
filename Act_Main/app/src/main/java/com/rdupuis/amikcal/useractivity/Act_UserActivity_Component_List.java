@@ -49,7 +49,7 @@ public class Act_UserActivity_Component_List extends Activity {
 	 * **********************************************/
 
         // Récupérer l'UA pour laquelle on souhaites afficher des composants
-        this.mUA = getIntent().getExtras().getParcelable(this.INPUT____UA);
+        this.mUA = this.getIntent().getExtras().getParcelable(this.INPUT____UA);
 
 	/* *********************************************
      * Etape 2 : Chargement du Layer d'affichage

@@ -49,7 +49,7 @@
         </activity>
         <activity android:name=".components.Act_UserActivity_Component_List" >
         </activity>                                            
-        <activity android:name="com.rdupuis.amikcal.components.Act_Component_Food_Editor" >
+        <activity android:name="com.rdupuis.amikcal.components.food.Act_Component_Food_Editor" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.useractivity.Act_UserActivityComponentSlider">
          </activity>
@@ -63,6 +63,8 @@
         </activity>
         
         <activity android:name="com.rdupuis.amikcal.energy.Act_EnergyList" >
+        </activity>
+        <activity android:name="com.rdupuis.amikcal.energy.Act_Energy_Food_List" >
         </activity>
         <activity android:name="com.rdupuis.amikcal.opengl.testOpenGl2es" >
         </activity>

@@ -19,6 +19,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rdupuis.amikcal.Qty.Qty;
+import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
@@ -41,7 +43,6 @@ import com.rdupuis.amikcal.unity.Unity_Manager;
 public class Act_Food_Editor extends Activity {
 
     Food mFood;
-    AmiKcalFactory factory;
     private ListView maListViewPerso;
     public static final String INPUT____FOOD = "INPUT_FOOD";
 
@@ -52,7 +53,8 @@ public class Act_Food_Editor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
-        mFood= getIntent().getExtras().getParcelable(INPUT____FOOD);
+
+        mFood = getIntent().getExtras().getParcelable(INPUT____FOOD);
 
         setContentView(R.layout.view_edit_energy_food2);
 
@@ -88,11 +90,17 @@ public class Act_Food_Editor extends Activity {
     }
 
     /***************************************************************************************
+     * Quand on clique sur le bouton des unitées, on affiche une liste de choix
      * @param v
      **************************************************************************************/
     public void onClick_bt_unity(View v) {
         Intent intent = new Intent(this, Act_UnitOfMeasureList.class);
+        intent.putExtra(Act_UnitOfMeasureList.INPUT____ENERGY_FILTER, this.mFood);
+
+        //Start de l'activity
         startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
+
+
 
     }
 
@@ -130,7 +138,7 @@ public class Act_Food_Editor extends Activity {
 
                 if (resultCode == RESULT_OK) {
 
-                    this.mFood.getComponentReference().getQty().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
+                    this.mFood.getQtyReference().setAmount(intent.getFloatExtra(Act_NumericPad.OUTPUT____AMOUNT, 0f));
                 }
                 break;
 
@@ -139,7 +147,7 @@ public class Act_Food_Editor extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     Unity unity = intent.getExtras().getParcelable(Act_UnitOfMeasureList.OUTPUT____CHOOSED_UNIT);
-                    this.mFood.getComponentReference().getQty().setUnity(unity);
+                    this.mFood.getQtyReference().setUnity(unity);
 
 
                 }
@@ -164,9 +172,14 @@ public class Act_Food_Editor extends Activity {
         EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
         this.mFood.setName(ed.getText().toString());
 
-        //Enregister l'énergie
-        Manager manager = new Energy_Food_Manager(this);
-        this.mFood.setDatabaseId(manager.save(this.mFood));
+        //Sauver la Qty de référence et récupérer l'ID de la Database
+        Qty_Manager qty_manager = new Qty_Manager(this);
+        long newQtyId = qty_manager.save(this.mFood.getQtyReference());
+        this.mFood.getQtyReference().setDatabaseId(newQtyId);
+
+        //Enregister l'énergie Food
+        Energy_Food_Manager energy_food_manager = new Energy_Food_Manager(this);
+        this.mFood.setDatabaseId(energy_food_manager.save(this.mFood));
 
         // on appelle setResult pour déclancher le onActivityResult de l'activity mère.
         setResult(RESULT_OK, getIntent());
@@ -194,10 +207,10 @@ public class Act_Food_Editor extends Activity {
         decimalFormat.setDecimalFormatSymbols(dfs);
 
         Button bt = (Button) findViewById(R.id.energyview_btn_amount);
-        bt.setText(decimalFormat.format(this.mFood.getComponentReference().getQty().getAmount()));
+        bt.setText(decimalFormat.format(this.mFood.getQtyReference().getAmount()));
 
         bt = (Button) findViewById(R.id.energyview_btn_unity);
-        bt.setText(this.mFood.getComponentReference().getQty().getUnity().getLongName());
+        bt.setText(this.mFood.getQtyReference().getUnity().getLongName());
 
         EditText ed = (EditText) findViewById(R.id.energyview_edTxt_energy_name);
         ed.setText(this.mFood.getName());

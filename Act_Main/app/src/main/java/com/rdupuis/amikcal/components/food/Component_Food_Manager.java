@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.components.Act_Component_Editor;
-import com.rdupuis.amikcal.components.Act_Component_Food_Editor;
 import com.rdupuis.amikcal.components.Component_Manager;
 
 /**

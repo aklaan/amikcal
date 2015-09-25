@@ -2,6 +2,7 @@ package com.rdupuis.amikcal.useractivity.lunch;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -10,6 +11,7 @@ import android.widget.SimpleAdapter;
 
 import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_List_Builder;
 import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.components.food.Component_Food_Manager;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Component_List;
@@ -17,8 +19,18 @@ import com.rdupuis.amikcal.useractivity.Act_UserActivity_Component_List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Activitée permettant d'afficher les composants d'un repas (lUNNCH)
+ */
 public class Act_UserActivity_Lunch_Component_List extends Act_UserActivity_Component_List {
 
+    /**
+     * Called when the activity is first created.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onClickComponent(Component component) {
@@ -37,8 +49,8 @@ public class Act_UserActivity_Lunch_Component_List extends Act_UserActivity_Comp
      * On souhaite afficher la liste des composant FOOD d'une UA FOOD
      */
 
-   @Override
-   protected void refreshScreen() {
+    @Override
+    protected void refreshScreen() {
 
         // effacer la liste actuelle de composants
         maListViewPerso.removeAllViewsInLayout();
@@ -51,16 +63,19 @@ public class Act_UserActivity_Lunch_Component_List extends Act_UserActivity_Comp
         map = new HashMap<String, String>();
 
 
-       /**
-        * Il faut passer par un Builder qui va créer un conteneur de composants liées à l'UA
-        *
-        *
-        * this.mUA est à null !!!!
-        *
-        */
+        /**
+         * Il faut passer par un Builder qui va créer un conteneur de composants liées à l'UA
+         *
+         *
+         * this.mUA est à null !!!!
+         *
+         */
+
+        Component_List_Builder clb = new Component_List_Builder(this);
+        ArrayList<Component_Food> list = (ArrayList<Component_Food>) clb.getComponentList(this.mUA);
 
         // Pour chaque Composant de L'UA
-        for (Component comp : this.mUA.getComponentsList()) {
+        for (Component comp : list) {
 
             map = new HashMap<String, String>();
             map.put("COMPONENT_ID", String.valueOf(comp.getDatabaseId()));
@@ -96,7 +111,8 @@ public class Act_UserActivity_Lunch_Component_List extends Act_UserActivity_Comp
                 long component_id = Long.parseLong(map.get("COMPONENT_ID"));
                 Component_Food_Manager manager = new Component_Food_Manager(Act_UserActivity_Lunch_Component_List.this);
                 Component_Food component = manager.load(component_id);
-                onClickComponent(component);
+                //un simple click permet d'éditer le composant
+                manager.edit(component);
 
 
             }
