@@ -126,54 +126,6 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 * */
 
 		
-		 //*********************************************************************
-		 // Création de la vue permettant de faire le lien entre une NRJ et son
-		 // composant de référence.
-		 //***********************************************************************/
-
-		db.execSQL("CREATE VIEW "
-				+ ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME
-
-				+ " AS SELECT "
-
-				// ID de la relation NRJ<->QtyRef
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-				+ "."
-				+ ContentDescriptorObj.TB_Party_rel.Columns.ID
-				+ " AS "
-				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.REL_NRJ_COMPONENT_REF_ID
-				+ ","
-
-				// ID de la source d'�nergie
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-				+ "."
-				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1
-				+ " AS "
-				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID
-				+ ","
-
-				// ID de la QtyRef
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-				+ "."
-				+ ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2
-				+ " AS "
-				+ ContentDescriptorObj.View_NRJ_ComponentRef.Columns.QTY_ID
-
-				+ " FROM "
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-
-				// On s�l�ctionne les liens de type NRJ_REF_INTRNL
-				+ " WHERE "
-				+ ContentDescriptorObj.TB_Party_rel.TBNAME
-				+ "."
-				+ ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
-				+ " = '"
-				+ ContentDescriptorObj.TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL
-				+"'"
-
-				
-
-		);
 
 		
 		 //*********************************************************************

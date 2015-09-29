@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 
+import com.rdupuis.amikcal.R;
 import com.rdupuis.amikcal.commons.AppConsts.NRJ_CLASS_MAP;
 import com.rdupuis.amikcal.commons.AppConsts.STRUCTURE_CD_MAP;
 import com.rdupuis.amikcal.commons.ManagedElement;
@@ -39,7 +40,7 @@ public class Energy_Food_Manager extends Energy_Manager {
         Food food = (Food) element;
         Intent intent = new Intent(getActivity(), Act_Food_Editor.class);
         intent.putExtra(Act_Food_Editor.INPUT____FOOD, food);
-        getActivity().startActivityForResult(intent, 0);
+        getActivity().startActivityForResult(intent, R.integer.ACTY_ENERGY_FOOD_EDITOR);
     }
 
 

@@ -1,7 +1,9 @@
 package com.rdupuis.amikcal.components.food;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.rdupuis.amikcal.Qty.Qty;
-import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.components.Component_Generic;
 import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
@@ -83,5 +85,25 @@ public class Component_Food extends Component_Generic {
         return REL_TYP_CD.CFOOD;
     }
 
+    public Component_Food(Parcel parcel) {
+        super(parcel);
+
+    }
+
+
+
+    public static final Parcelable.Creator<Component_Food> CREATOR = new Parcelable.Creator<Component_Food>() {
+        @Override
+        public Component_Food createFromParcel(Parcel in) {
+            return new Component_Food(in);
+        }
+
+        @Override
+        public Component_Food[] newArray(int size) {
+            return new Component_Food[size];
+
+        }
+
+    };
 
 }

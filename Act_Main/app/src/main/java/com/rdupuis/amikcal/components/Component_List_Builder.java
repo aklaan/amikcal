@@ -30,7 +30,7 @@ public class Component_List_Builder {
 
         //Pour un repas, on préprare une liste d'aliments
         if (UserActivity_Lunch.class.isInstance(userActivity)) {
-            return getComponent_Food_List((UserActivity_Lunch)userActivity);
+            return getComponent_Food_List((UserActivity_Lunch) userActivity);
         }
 
         return null;
@@ -46,25 +46,30 @@ public class Component_List_Builder {
         if (userActivity_lunch.getDatabaseId() != AppConsts.NO_ID) {
             long _id = userActivity_lunch.getDatabaseId();
             Uri selectUri = ContentUris.withAppendedId(
-                    ContentDescriptorObj.View_UAC_Data.VIEW_UAC_DATA_URI, _id);
+                    ContentDescriptorObj.View_UA_Comp_link.SELECT_COMP_OF_UA_URI, _id);
 
             // On crée un curseur pour lire la vue
             Cursor cursor = this.getActivity().getContentResolver().query(selectUri, null, String.valueOf(_id), null, null);
 
             // On récupère les index des colonnes de la vue.
-            final int INDX_UAC_ID = cursor.getColumnIndex(ContentDescriptorObj.View_UAC_Data.Columns.UAC_ID);
+            final int INDX_COMP_ID = cursor.getColumnIndex(ContentDescriptorObj.View_UA_Comp_link.Columns.COMP_ID);
 
             Component_Food_Manager manager = new Component_Food_Manager(getActivity());
 
             // faire un move First pour positionner le curseur, sinon on pointe sur null
+
             if (cursor.moveToFirst()) {
 
-                Component_Food component = manager.load(cursor.getLong(INDX_UAC_ID));
-                list.add(component);
+                do {
 
+
+                    Component_Food component = manager.load(cursor.getLong(INDX_COMP_ID));
+                    list.add(component);
+
+                } while (cursor.moveToNext());
             } else {
-                String message = "Composant " + String.valueOf(_id) + " non trouv�";
-                Log.e("loadComponent", message);
+                String message = "Composant " + String.valueOf(_id) + " non trouvé";
+                Log.e("Component_Lisy_Builder", message);
 
             }
             cursor.close();

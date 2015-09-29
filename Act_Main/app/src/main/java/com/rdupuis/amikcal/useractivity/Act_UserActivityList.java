@@ -181,15 +181,15 @@ public class Act_UserActivityList extends Activity {
         }
         cur.close();
 
-        // On attribut � notre listView l'adapter que l'on vient de cr�er
+        // On attribut à notre listView l'adapter que l'on vient de créer
         this.mCustomListView.setAdapter(mMultipleItemsList);
 
-        // Enfin on met un �couteur d'�v�nement sur notre listView
+        // Enfin on met un écouteur d'évènement sur notre listView
         this.mCustomListView.setOnItemClickListener(new OnItemClickListener() {
             // @Override
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // on r�cup�re la HashMap contenant les infos de notre item
+                // on récupère la HashMap contenant les infos de notre item
                 // (titre, description, img)
                 HashMap<String, String> map = (HashMap<String, String>) mCustomListView.getItemAtPosition(position);
                 long _id = Long.getLong(map.get("id"));
@@ -205,7 +205,7 @@ public class Act_UserActivityList extends Activity {
             }
         });
 
-        // Enfin on met un �couteur d'�v�nement long sur notre listView
+        // Enfin on met un écouteur d'évènement long sur notre listView
         mCustomListView.setOnItemLongClickListener(new OnItemLongClickListener() {
             // @Override
             @SuppressWarnings("unchecked")
@@ -215,7 +215,7 @@ public class Act_UserActivityList extends Activity {
                 Act_UserActivityList.this.selectedUserActivityId = Long.getLong(map.get("id"));
                 Act_UserActivityList.this.selectedUserActivityClass = map.get("class");
                 // int ilaposition=position;
-                // cr�ation d'une boite de dialogue pour confirmer le choix
+                // création d'une boite de dialogue pour confirmer le choix
 
                 // AlertDialog.Builder adb = new
                 // AlertDialog.Builder(Act_UserActivityList.this);

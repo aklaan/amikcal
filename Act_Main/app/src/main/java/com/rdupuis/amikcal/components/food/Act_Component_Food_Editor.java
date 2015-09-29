@@ -73,7 +73,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
         switch (item.getItemId()) {
             case R.id.actionbar_component_editor_item_validate:
                 onClick_Validate();
-
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

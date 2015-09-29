@@ -20,7 +20,7 @@ public abstract class Manager {
    // public abstract void setElement(ManagedElement element);
 
     public abstract long save(ManagedElement element);
-
+    public abstract boolean checkBeforeWriting(ManagedElement element);
     public abstract void edit(ManagedElement element);
 
     public abstract ManagedElement load(long databaseId);
@@ -35,5 +35,7 @@ public abstract class Manager {
 
     public abstract void setUriInsert(Uri uriInsert) ;
 
+    public abstract void setReturnCode(RETURNCODE returnCode) ;
+    public abstract RETURNCODE getReturnCode() ;
 
 }

@@ -26,6 +26,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.energy.ContreteEnergySource.STRUCTURE;
@@ -91,6 +92,7 @@ public class Act_Food_Editor extends Activity {
 
     /***************************************************************************************
      * Quand on clique sur le bouton des unitées, on affiche une liste de choix
+     *
      * @param v
      **************************************************************************************/
     public void onClick_bt_unity(View v) {
@@ -99,7 +101,6 @@ public class Act_Food_Editor extends Activity {
 
         //Start de l'activity
         startActivityForResult(intent, R.integer.ACTY_UNITS_LIST);
-
 
 
     }
@@ -181,11 +182,13 @@ public class Act_Food_Editor extends Activity {
         Energy_Food_Manager energy_food_manager = new Energy_Food_Manager(this);
         this.mFood.setDatabaseId(energy_food_manager.save(this.mFood));
 
-        // on appelle setResult pour déclancher le onActivityResult de l'activity mère.
-        setResult(RESULT_OK, getIntent());
 
-        // On termine l'Actvity
-        finish();
+        // On termine l'Actvity si tout c'est bien passé
+        if (energy_food_manager.getReturnCode() == RETURNCODE.OK) {
+            // on appelle setResult pour déclancher le onActivityResult de l'activity mère.
+            setResult(RESULT_OK, getIntent());
+            finish();
+        }
     }
 
 

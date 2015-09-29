@@ -10,9 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.rdupuis.amikcal.Qty.Qty;
+import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.R;
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.energy.Act_Energy_Food_List;
 import com.rdupuis.amikcal.energy.EnergySource;
@@ -64,7 +68,7 @@ public class Act_Component_Editor extends Activity {
         switch (item.getItemId()) {
             case R.id.actionbar_component_editor_item_validate:
                 onClick_Validate();
-
+                return true; // d'après le modèle google c'est ce qu'il faut faire
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -91,6 +95,7 @@ public class Act_Component_Editor extends Activity {
 
     /***************************************************************************************
      * Appel de la Liste des unitées.
+     *
      * @param v View
      **************************************************************************************/
     public void onClick_Unit(View v) {
@@ -106,19 +111,28 @@ public class Act_Component_Editor extends Activity {
      */
     public void onClick_Validate() {
 
+        //on sauve la quantitée saisie
+        Qty_Manager qty_manager = new Qty_Manager(this);
+        long newQtyId = qty_manager.save(this.edited_Component.getQty());
+        this.edited_Component.getQty().setDatabaseId(newQtyId);
+
         //On ne sait pas quel type de composant est édité.
         //on passe par le builder pour récupérer le bon Manager
         Manager manager = ManagerBuilder.build(this, this.edited_Component);
         this.edited_Component.setDatabaseId(manager.save(this.edited_Component));
 
-        // on appelle setResult pour déclancher le onActivityResult de
-        // l'activity mère.
 
-        this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP, this.edited_Component);
-        setResult(RESULT_OK, this.getIntent());
+        // On termine l'Actvity seulement si le manager a bien terminé son taf
+        if (manager.getReturnCode() == RETURNCODE.OK) {
+            // on appelle setResult pour déclancher le onActivityResult de
+            // l'activity mère.
 
-        // On termine l'Actvity
-        finish();
+            this.getIntent().putExtra(Act_Component_Editor.OUTPUT____COMP, this.edited_Component);
+            setResult(RESULT_OK, this.getIntent());
+
+            finish();
+        }
+
 
     }
 
@@ -158,7 +172,7 @@ public class Act_Component_Editor extends Activity {
                 if (resultCode == RESULT_OK) {
 
                     // on récupère l'Energy choisie par l'utilisateur
-                    EnergySource energySource  = intent.getExtras().getParcelable(Act_Energy_Food_List.OUTPUT____CHOOSED_ENERGY);
+                    EnergySource energySource = intent.getExtras().getParcelable(Act_Energy_Food_List.OUTPUT____CHOOSED_ENERGY);
                     this.edited_Component.setEnergy(energySource);
 
                 }

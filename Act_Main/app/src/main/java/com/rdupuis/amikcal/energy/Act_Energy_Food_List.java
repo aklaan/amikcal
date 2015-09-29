@@ -54,7 +54,6 @@ public class Act_Energy_Food_List extends Act_Energy_List {
 
         Toast.makeText(this, this.getClass().getCanonicalName(), Toast.LENGTH_SHORT).show();
 
-
         setContentView(R.layout.view_energy_list);
         getActionBar().setTitle("Aliments");
         generateList(currentFilter);
@@ -124,7 +123,7 @@ public void editNewFood(){
 
         switch (requestCode) {
 
-            case R.integer.ACTY_ENERGY:
+            case R.integer.ACTY_ENERGY_FOOD_EDITOR:
 
                 if (resultCode == RESULT_OK) {
 

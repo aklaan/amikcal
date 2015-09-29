@@ -11,7 +11,7 @@ import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
 
-public class ContentProviderObj extends ContentProvider {
+public class  ContentProviderObj extends ContentProvider {
     private DatabaseObj AmikcalDb;
 
     // private Resources mResources;

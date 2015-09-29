@@ -25,8 +25,11 @@ import com.rdupuis.amikcal.commons.ManagerBuilder;
 
 import com.rdupuis.amikcal.components.Act_Component_Editor;
 import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_List_Builder;
 import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.components.move.Component_Move;
+import com.rdupuis.amikcal.relations.Relation_Manager;
+import com.rdupuis.amikcal.relations.Relation_UserActivity_vs_Component;
 
 public class Act_UserActivity_Component_List extends Activity {
 
@@ -143,7 +146,9 @@ public class Act_UserActivity_Component_List extends Activity {
                         // on recherche si le composant est déja lié à l'UA
                         boolean Linked_with_UA = false;
 
-                        for (Component comp : this.mUA.getComponentsList()) {
+                        Component_List_Builder builder = new Component_List_Builder(this);
+
+                        for (Component comp : builder.getComponentList(this.mUA)) {
 
                             if (component.getDatabaseId() == comp.getDatabaseId()) {
                                 Linked_with_UA = true;
@@ -152,7 +157,10 @@ public class Act_UserActivity_Component_List extends Activity {
                         // si le composant n'est pas lié à l'UA, on le lie.
                         if (!Linked_with_UA) {
 
-                            this.mUA.getComponentsList().add(component);
+                            Relation_Manager manager = new Relation_Manager(this);
+                            Relation_UserActivity_vs_Component relation = new Relation_UserActivity_vs_Component(this.mUA, component);
+                            manager.save(relation);
+                            //this.mUA.getComponentsList().add(component);
                             //this.factory.save(this.mUA);
                         }
                     }
@@ -186,8 +194,10 @@ public class Act_UserActivity_Component_List extends Activity {
         HashMap<String, String> map;
         map = new HashMap<String, String>();
 
+        Component_List_Builder builder = new Component_List_Builder(this);
+
         // Pour chaque Composant de L'UA
-        for (Component comp : this.mUA.getComponentsList()) {
+        for (Component comp : builder.getComponentList(this.mUA)) {
 
             map = new HashMap<String, String>();
             map.put("COMPONENT_ID", String.valueOf(comp.getDatabaseId()));

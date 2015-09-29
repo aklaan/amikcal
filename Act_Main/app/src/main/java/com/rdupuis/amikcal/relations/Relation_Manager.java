@@ -1,8 +1,10 @@
 package com.rdupuis.amikcal.relations;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -11,8 +13,13 @@ import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.Manager_commons;
+import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.commons.ToolBox;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
+import com.rdupuis.amikcal.energy.Energy_Food_Manager;
+import com.rdupuis.amikcal.energy.Food;
+import com.rdupuis.amikcal.useractivity.UserActivity;
+import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
 
 /**
  * Created by rodol on 01/09/2015.
@@ -63,6 +70,8 @@ public class Relation_Manager extends Manager_commons {
         return (relation.getDatabaseId() != AppConsts.NO_ID);
     }
 
+
+    @Override
     public ContentValues getContentValues(ManagedElement element) {
         //Cast de l'élément en Relation
         Relation relation = (Relation) element;

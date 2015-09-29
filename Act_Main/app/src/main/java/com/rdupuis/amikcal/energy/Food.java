@@ -23,7 +23,7 @@ public class Food extends ContreteEnergySource implements HasBodyEffect {
 
     public Food() {
         super();
-        this.setName("FOOD");
+        this.setName("");
         this.setQtyReference(new Qty());
         this.setStructure(STRUCTURE.UNDEFINED);
     }

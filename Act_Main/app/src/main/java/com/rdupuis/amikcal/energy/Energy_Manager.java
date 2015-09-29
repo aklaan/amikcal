@@ -1,8 +1,10 @@
 package com.rdupuis.amikcal.energy;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -13,7 +15,9 @@ import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager_commons;
+import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.commons.ToolBox;
+import com.rdupuis.amikcal.components.Component;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
 
 /**
@@ -47,7 +51,7 @@ public class Energy_Manager extends Manager_commons {
 
         if (databaseId == AppConsts.NO_ID) {
 
-            return null;
+            return new EnergySource();
             // il faudrait retourner une exception maison du style badId
             // Excetpion
 
@@ -105,9 +109,9 @@ public class Energy_Manager extends Manager_commons {
              *
              */
 
-            Qty qty = new Qty();
+
             Qty_Manager manager = new Qty_Manager(this.getActivity());
-            qty = manager.load(cursor.getLong((INDX_NRJ_QTYREF_ID)));
+            Qty qty = manager.load(cursor.getLong((INDX_NRJ_QTYREF_ID)));
             energy.setQtyReference(qty);
 
 
@@ -150,6 +154,50 @@ public class Energy_Manager extends Manager_commons {
     @Override
     public void edit(ManagedElement element) {
 
+    }
+    @Override
+    public boolean checkBeforeWriting(ManagedElement element) {
+        this.setReturnCode(RETURNCODE.KO);
+        boolean check = false;
+        EnergySource energySource = (EnergySource) element;
+
+        if (energySource.getName().isEmpty()) {
+
+            // création d'une boite de dialogue
+            new AlertDialog.Builder(this.getActivity()).setTitle("Attention")
+                    .setMessage("Vous n'avez pas le nom de l'énergie ")
+                    .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+
+                            /**
+                             * Si l'utilisateur clique sur OK
+                             * on ne fait rien.
+                             * il reste sur l'éditeur et peux modifier sa saisie
+                             */
+                        }
+                    })
+
+                    .setNeutralButton("Annuler", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            /**
+                             * Si l'utilisateur clique sur Annuler
+                             * on ferme l'éditeur, ce qui annule la saisie
+                             */
+                            Energy_Manager.this.getActivity().finish();
+
+                        }
+                    })
+
+                    .show();
+
+
+            return check;
+        }
+
+        //Si tout c'est bien passé on signale que le manager est OK
+        this.setReturnCode(RETURNCODE.OK);
+        check = true;
+        return check;
     }
 
 

@@ -1,8 +1,10 @@
 package com.rdupuis.amikcal.components;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -13,6 +15,7 @@ import com.rdupuis.amikcal.commons.ManagedElement;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.Manager_commons;
+import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.components.food.Component_Food;
 import com.rdupuis.amikcal.components.move.Component_Move;
 import com.rdupuis.amikcal.data.ContentDescriptorObj;
@@ -21,6 +24,7 @@ import com.rdupuis.amikcal.energy.Energy_Manager;
 import com.rdupuis.amikcal.energy.Food;
 import com.rdupuis.amikcal.energy.PhysicalActivity;
 import com.rdupuis.amikcal.relations.REL_TYP_CD;
+import com.rdupuis.amikcal.relations.Relation;
 import com.rdupuis.amikcal.relations.Relation_Manager;
 
 /**
@@ -28,14 +32,13 @@ import com.rdupuis.amikcal.relations.Relation_Manager;
  * possibilités d'une Activity
  * c'est une sorte d'Adapter....??
  */
-public class Component_Manager extends Manager_commons {
+public class Component_Manager extends Relation_Manager {
 
     public Component_Manager(Activity activity)
+
     {
         super(activity);
     }
-
-
 
 
     /***********************************************************************
@@ -74,13 +77,13 @@ public class Component_Manager extends Manager_commons {
 
             //Etape 1 - on récupère l'énergie²
             EnergySource nrj = new EnergySource();
-            Manager manager = ManagerBuilder.build(this.getActivity(), nrj);
-            nrj = (EnergySource) manager.load(cur.getLong(NRJ_ID));
+            Energy_Manager manager = new Energy_Manager(this.getActivity());
+            nrj = manager.load(cur.getLong(NRJ_ID));
 
             // Etape 2 - on récupère la Qty
             Qty qty = new Qty();
-            manager = ManagerBuilder.build(this.getActivity(), qty);
-            qty = (Qty) manager.load(cur.getLong(QTY_ID));
+            Qty_Manager qty_manager = new Qty_Manager(this.getActivity());
+            qty = qty_manager.load(cur.getLong(QTY_ID));
 
             //on récupère le mapping des type de relation pour faire la correspondance
             // entre le code stocké dans la database et sa signification fonctionnelle
@@ -105,7 +108,53 @@ public class Component_Manager extends Manager_commons {
         cur.close();
 
 
-        return  component;
+        return component;
     }
+
+    @Override
+    public boolean checkBeforeWriting(ManagedElement element) {
+        this.setReturnCode(RETURNCODE.KO);
+        boolean check = false;
+        Component component = (Component) element;
+
+        if (component.getEnergy().getDatabaseId() == AppConsts.NO_ID) {
+
+            // création d'une boite de dialogue
+            new AlertDialog.Builder(this.getActivity()).setTitle("Attention")
+                    .setMessage("Vous n'avez pas saisi d'énergie ")
+                    .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+
+                            /**
+                             * Si l'utilisateur clique sur OK
+                             * on ne fait rien.
+                             * il reste sur l'éditeur et peux modifier sa saisie
+                             */
+                        }
+                    })
+
+                    .setNeutralButton("Annuler", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            /**
+                             * Si l'utilisateur clique sur Annuler
+                             * on ferme l'éditeur, ce qui annule la saisie
+                             */
+                            Component_Manager.this.getActivity().finish();
+
+                        }
+                    })
+
+                    .show();
+
+
+            return check;
+        }
+
+        //Si tout c'est bien passé on signale que le manager est OK
+        this.setReturnCode(RETURNCODE.OK);
+        check = true;
+        return check;
+    }
+
 
 }
