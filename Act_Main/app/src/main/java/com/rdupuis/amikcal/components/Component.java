@@ -34,10 +34,7 @@ public abstract class Component extends Relation implements ManagedElement,Parce
 
     public abstract REL_TYP_CD getRelationClass() ;
 
-    //public abstract ArrayList<Component> getComponentList();
-
-    //public abstract void setComponentList(ArrayList<Component> Component);
-
-
+    public abstract long getParentId() ;
+    public abstract void setParentId(long databaseId);
     
 }

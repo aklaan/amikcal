@@ -157,7 +157,7 @@ public final class AppConsts {
 	    _out.put(REL_TYP_CD.CFOOD, TB_Party_rel.PredefinedValues.RelationsCodes.CFOOD);
 	    _out.put(REL_TYP_CD.CMOVE, TB_Party_rel.PredefinedValues.RelationsCodes.CMOVE);
 	    _out.put(REL_TYP_CD.CWEIGHT, TB_Party_rel.PredefinedValues.RelationsCodes.CWEIGHT);
-	    _out.put(REL_TYP_CD.UA_COMP, TB_Party_rel.PredefinedValues.RelationsCodes.UA_COMP);
+
 	    _out.put(REL_TYP_CD.NRJ_REF_INTRNL, TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL);
 	    _out.put(REL_TYP_CD.NRJ_REF_EQUIV, TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_EQUIV);
 	    _out.put(REL_TYP_CD.CSTM_NRJ_REF, TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF);
@@ -173,8 +173,7 @@ public final class AppConsts {
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CMOVE, REL_TYP_CD.CMOVE);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CWEIGHT, REL_TYP_CD.CWEIGHT);
 
-	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.UA_COMP, REL_TYP_CD.UA_COMP);
-	    
+
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_INTRNL, REL_TYP_CD.NRJ_REF_INTRNL);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.NRJ_REF_EQUIV, REL_TYP_CD.NRJ_REF_EQUIV);
 	    _in.put(TB_Party_rel.PredefinedValues.RelationsCodes.CSTM_NRJ_REF, REL_TYP_CD.CSTM_NRJ_REF);

@@ -29,8 +29,8 @@ public class Relation_Manager extends Manager_commons {
     public Relation_Manager(Activity activity) {
 
         super(activity);
-        this.setUriInsert(ContentDescriptorObj.TB_Party_rel.INS000_PARTY_REL_URI);
-        this.setUriUpdate(ContentDescriptorObj.TB_Party_rel.UP000_PARTY_REL_URI);
+        this.setUriInsert(ContentDescriptorObj.TB_Party_rel.INSERT_PARTY_REL_URI);
+        this.setUriUpdate(ContentDescriptorObj.TB_Party_rel.UPDATE_PARTY_REL_URI);
     }
 
 
@@ -53,7 +53,7 @@ public class Relation_Manager extends Manager_commons {
                     .appendPath(searchedRelation).build();
             Cursor cur = getActivity().getContentResolver().query(request, null, null, null, null);
 
-            final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ID);
+            final int RELATION_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ROW_ID);
 
             // faire un move First pour positionner le pointeur, sinon on pointe
             // sur null

@@ -96,52 +96,69 @@ public final class ContentDescriptorObj {
          */
 
         // ----------------------------------------------------------------------------
-        // Path pour l'Uri de s�l�ction de toute la table
-        public static final String S00_PARTY_REL_PATH = TBNAME + "/" + SELECT;
-        public static final int S00_PARTY_REL_TOKEN = 1100;
-        public static final Uri S00_PARTY_REL_URI = URI_BASE_PARTY_REL.buildUpon().appendPath(SELECT).build();
+        // Path pour l'Uri de séléction de toute la table
+        public static final String SELECT_ALL_PARTY_REL_PATH = TBNAME + "/" + SELECT;
+        public static final int SELECT_ALL_PARTY_REL_TOKEN = 1100;
+        public static final Uri SELECT_ALL_PARTY_REL_URI =
+                URI_BASE_PARTY_REL.buildUpon().appendPath(SELECT).build();
 
         // ----------------------------------------------------------------------------
         // Path pour l'Uri de séléction d'un enregistrement
-        // le dièse est un alias pour une chaine de caractère --> un fragment.
-        // de ce fait, si on a une URL du style ....../123 ou ..../Bonjour, on a
-        // la même signature /#
         // Attention : '#' correspond forcément à un nombre
         // si on souhaite une chaine de caractère on utilise '*'
 
-        public static final String S01_PARTY_REL_BY_ID_PATH = TBNAME + "/" + SELECT + "/#";
-        public static final int S01_PARTY_REL_BY_ID_TOKEN = 1101;
-        public static final Uri S01_PARTY_REL_BY_ID_URI = URI_BASE_PARTY_REL.buildUpon().appendPath(SELECT).build();
+        public static final String SELECT_RELATION_BY_ID_PATH = TBNAME + "/" + SELECT + "/#";
+        public static final int SELECT_RELATION_BY_ID_TOKEN = 1101;
+        public static final Uri SELECT_RELATION_BY_ID_URI =
+                URI_BASE_PARTY_REL.buildUpon().appendPath(SELECT).build();
 
         // ----------------------------------------------------------------------------
-        // rechercher une relation
+        // Rechercher les enfants d'un parent
+        // Attention : '#' correspond forcément à un nombre et il serra égal
+        // à l'ID du parent
+        // nb : si on souhaitait une chaine de caractère on devrait utiliser '*'
+
+        public static final String SELECT_CHILDREN_PATH = TBNAME + "/" + "SELECT_CHILDREN/#";
+        public static final int SELECT_CHILDREN_TOKEN = 1102;
+        public static final Uri SELECT_CHILDREN_URI =
+                URI_BASE_PARTY_REL.buildUpon().appendPath("SELECT_CHILDREN").build();
+
+        // ----------------------------------------------------------------------------
+        // Rechercher une relation existante entre 2 Party
         // Attention : '#' correspond forcément à un nombre
         // si on souhaite une chaine de caractère on utilise '*'
 
         public static final String SEARCH_RELATION_PATH = TBNAME + "/" + "SELECT_RELATION/*";
-        public static final int SEARCH_RELATION_TOKEN = 1102;
-        public static final Uri SEARCH_RELATION_URI = URI_BASE_PARTY_REL.buildUpon().appendPath("SELECT_RELATION")
-                .build();
+        public static final int SEARCH_RELATION_TOKEN = 1103;
+        public static final Uri SEARCH_RELATION_URI =
+                URI_BASE_PARTY_REL.buildUpon().appendPath("SELECT_RELATION").build();
 
+
+        // -----------------------------------------------------------------------------
         // Path pour l'uri d'insertion et son token
-        public static final String INS000_PARTY_REL_PATH = TBNAME + "/" + INSERT;
-        public static final int INS000_PARTY_REL_TOKEN = 1200;
-        public static final Uri INS000_PARTY_REL_URI = URI_BASE_PARTY_REL.buildUpon().appendPath(INSERT).build();
+        public static final String INSERT_PARTY_REL_PATH = TBNAME + "/" + INSERT;
+        public static final int INSERT_PARTY_REL_TOKEN = 1200;
+        public static final Uri INSERT_PARTY_REL_URI =
+                URI_BASE_PARTY_REL.buildUpon().appendPath(INSERT).build();
 
+        // ----------------------------------------------------------------------------
         // Path pour l'uri de mise à jour et son token
-        public static final String UPD000_PARTY_REL_PATH = TBNAME + "/" + UPDATE + "/#";
-        public static final int UPD000_PARTY_REL_TOKEN = 1300;
-        public static final Uri UP000_PARTY_REL_URI = URI_BASE_PARTY_REL.buildUpon().appendPath(UPDATE).build();
+        // NB: # représente obligatoirement un nombre.
+        public static final String UPDATE_PARTY_REL_PATH = TBNAME + "/" + UPDATE + "/#";
+        public static final int UPDATE_PARTY_REL_TOKEN = 1300;
+        public static final Uri UPDATE_PARTY_REL_URI =
+                URI_BASE_PARTY_REL.buildUpon().appendPath(UPDATE).build();
 
-        // D�claration du tye mime
+        // ----------------------------------------------------------------------------
+        // Déclaration du tye mime
         public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
         public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal.party_rel";
 
+        // ----------------------------------------------------------------------------
+        // Données prédéfinies
         public static final class PredefinedValues {
             public static final class RelationsCodes {
                 public static final String UNDEFINED = "UNDEF";
-                public static final String UA_COMP = "UA_COMP";
-
                 public static final String CFOOD = "CFOOD";
                 public static final String CMOVE = "CMOVE";
                 public static final String CWEIGHT = "CFWEIGHT";
@@ -157,9 +174,12 @@ public final class ContentDescriptorObj {
             }
         }
 
+        // ----------------------------------------------------------------------------
         // Info concernant les colones de la table
         public static final class Columns {
-            public static final String ID = BaseColumns._ID; // on utilise la
+            public static final String ROW_ID = BaseColumns._ID; // on utilise la
+            public static final String PAR_ROW_ID = "par_row_id";
+
             // convention de
             // format de
             // colonne ID
@@ -535,88 +555,6 @@ public final class ContentDescriptorObj {
         }
     }
 
-    /***********************************************************************************
-     * Vue pour récupérer les informations QTY d'une UAC
-     * <p/>
-     * id rel_typ_cd party1 party2 ------ ---------- ------- ------ REL00 UA_UAC
-     * UA uac01 (l'UAC uac01 est rattaché à l'UA) UAC01 UA_CFOOD nrj01 qty33
-     * (uac01 est composé de l'énergie nrj01 et de la qty33) qty33 QTY 178
-     * unit67 (la qty33 correspond à 178 g) eq88 QTY_EQUIV qty33 qty56 (la qty
-     * 33 est évuivalente à la qty56) qty56 QTY 34 unit23 (la qty56 correspond à
-     * 34 Kcal)
-     * <p/>
-     * <p/>
-     * la vue doit ramener
-     * <p/>
-     * uac_id uac_energy_id -> pour recharger nrj la Qty id -> pour recharger la
-     * qty (amount+unity)
-     * <p/>
-     * On utilisera une fonction spécifique pour recharger les équivalences de
-     * la Qty
-     * <p/>
-     * id UA => rel(id;UA_UAC;id UA;id UAC) ==> id UAC
-     * <p/>
-     * UAC=> rel(id uac;UA_CFOOD;id NRJ;id Qty) ==> id QTY
-     * <p/>
-     * QTY=> rel(id;QTY;amount;id Unity)
-     *
-     * @author R.DUPUIS
-     **********************************************************************************/
-    public static final class View_UAC_Data {
-
-        // Info concernant la table
-        public static final String VIEWNAME = "view_uac_data";
-        private static int VIEW_ID = 7;
-        public static final Uri URI_BASE_VIEW_UAC_DATA = BASE_URI.buildUpon().appendPath(VIEWNAME).build();
-        // Path pour l'Uri de s�l�ction d'un enregistrement
-        public static final String VIEW_UAC_DATA_PATH = VIEWNAME + "/" + SELECT + "/#";
-        public static final int VIEW_UAC_DATA_TOKEN = 7100;
-
-        public static final Uri VIEW_UAC_DATA_URI = URI_BASE_VIEW_UAC_DATA.buildUpon().appendPath(SELECT).build();
-
-        public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-        public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEWNAME;
-
-        public static final class Columns {
-            public static final String UAC_ID = "uac_id";
-            public static final String UAC_REL_TYP_CD = "uac_rel_typ_cd";
-            public static final String ENERGY_ID = "energy_id";
-            public static final String QTY_ID = "uac_qty_id";
-        }
-    }
-
-    /***************************************************************************
-     * Vue permettant de relire les UAC d'un UA
-     *
-     * @author Rodolphe
-     ***************************************************************************/
-    public static final class View_UA_Comp_link {
-        // num de vue = 8
-        // Info concernant la table
-        public static final String VIEW_NAME = "view_ua_comp_link";
-        public static final Uri URI_BASE_VIEW_UA_COMP_REL = BASE_URI.buildUpon().appendPath(VIEW_NAME).build();
-
-        // Path pour l'Uri de séléction d'un enregistrement
-        public static final String SELECT_COMP_OF_UA_PATH = VIEW_NAME + "/" + SELECT + "/#";
-        public static final int SELECT_COMP_OF_UA_TOKEN = 8100;
-        public static final Uri SELECT_COMP_OF_UA_URI = URI_BASE_VIEW_UA_COMP_REL.buildUpon().appendPath(SELECT)
-                .build();
-
-        public static final String SEARCH_RELATION_PATH = VIEW_NAME + "/relation/*";
-        public static final int SEARCH_RELATION_TOKEN = 8101;
-        public static final Uri SEARCH_RELATION_URI = URI_BASE_VIEW_UA_COMP_REL.buildUpon().appendPath("relation")
-                .build();
-
-        public static String CONTENT_TYPE_DIR = "vnd.android.cursor.dir/vnd.rdupuis.amikcal";
-        public static String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.rdupuis.amikcal" + VIEW_NAME;
-
-        public static final class Columns {
-            public static final String REL_ID = "rel_id";
-            public static final String UA_ID = "ua_id";
-            public static final String COMP_ID = "comp_id";
-
-        }
-    }
 
     /***************************************************************************
      * <h1>View_qty_equiv</h1>
@@ -730,7 +668,7 @@ public final class ContentDescriptorObj {
      * @author Rodolphe
      */
     public enum REQUESTS_LIST {
-        SELECT_PARTY_REL_ALL, SELECT_PARTY_REL_BY_ID, SELECT_QTY_BY_ID,
+        SELECT_CHILDREN, SELECT_PARTY_REL_BY_ID, SELECT_QTY_BY_ID,
         SELECT_ALL_EQUIV_FOR_UAC, VIEW_DAY_BY_DATE, NONE, SELECT_ALL_COMPONENT_OF_UA, SELECT_QTYREF_OF_NRJ,
         UPDATE_UNITY, SELECT_ALL_UNITS, SELECT_ONE_UNITY_BY_ID, INSERT_UNITY, INSERT_ENERGY, INSERT_USER_ACTIVITY, SELECT_ALL_ENERGIES, SELECT_ONE_ENERGY_BY_ID,
         SELECT_ENERGIES_LIKE, UPDATE_ENERGY, SEARCH_COMPONENT_REF_RELATION,
@@ -749,21 +687,22 @@ public final class ContentDescriptorObj {
         public HashMap<Integer, REQUESTS_LIST> _in = new HashMap<Integer, REQUESTS_LIST>();
 
         public TOKEN_MAP() {
-            _in.put(TB_Party_rel.S00_PARTY_REL_TOKEN, REQUESTS_LIST.NONE);
-            _in.put(TB_Party_rel.S01_PARTY_REL_BY_ID_TOKEN, REQUESTS_LIST.SELECT_PARTY_REL_BY_ID);
+            //Requêtes sur la TB_PARTY_REL
+            _in.put(TB_Party_rel.SELECT_CHILDREN_TOKEN, REQUESTS_LIST.SELECT_CHILDREN);
+            _in.put(TB_Party_rel.SELECT_RELATION_BY_ID_TOKEN, REQUESTS_LIST.SELECT_PARTY_REL_BY_ID);
             _in.put(TB_Party_rel.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_RELATION);
+            _in.put(TB_Party_rel.INSERT_PARTY_REL_TOKEN, REQUESTS_LIST.INSERT_PARTY_REL);
+            _in.put(TB_Party_rel.UPDATE_PARTY_REL_TOKEN, REQUESTS_LIST.UPDATE_PARTY_REL);
 
-            _in.put(TB_Party_rel.INS000_PARTY_REL_TOKEN, REQUESTS_LIST.INSERT_PARTY_REL);
-            _in.put(TB_Party_rel.UPD000_PARTY_REL_TOKEN, REQUESTS_LIST.UPDATE_PARTY_REL);
 
+            //Requêtes sur la TB_ENERGY
             _in.put(TB_Energies.SELECT_ALL_ENERGIES_TOKEN, REQUESTS_LIST.SELECT_ALL_ENERGIES);
             _in.put(TB_Energies.SELECT_ONE_ENERGY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_ONE_ENERGY_BY_ID);
             _in.put(TB_Energies.SELECT_ENERGIES_LIKE_TOKEN, REQUESTS_LIST.SELECT_ENERGIES_LIKE);
             _in.put(TB_Energies.INSERT_ENERGY_TOKEN, REQUESTS_LIST.INSERT_ENERGY);
             _in.put(TB_Energies.UPDATE_ENERGY_ID_TOKEN, REQUESTS_LIST.UPDATE_ENERGY_ID);
-            
-            //Stockage des Token pour les UserActivities
-            _in.put(TB_UserActivities.S00_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
+
+            //Stockage des Token pour les UserActivity
             _in.put(TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_USER_ACTIVITY);
             _in.put(TB_UserActivities.SELECT_USER_ACTIVITIES_BY_DATE_TOKEN,
                     REQUESTS_LIST.SELECT_USER_ACTIVITIES_BY_DATE);
@@ -772,7 +711,7 @@ public final class ContentDescriptorObj {
             _in.put(TB_UserActivities.DELETE_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
             _in.put(TB_UserActivities.DELETE_USER_ACTIVITY_TOKEN, REQUESTS_LIST.DELETE_USER_ACTIVITY);
             _in.put(TB_UserActivities.UPDATE_USER_ACTIVITIES_TOKEN, REQUESTS_LIST.NONE);
-            
+
             //Stockage des TOKEN pour les Unitées
             _in.put(TB_Units.SELECT_ALL_UNITS_TOKEN, REQUESTS_LIST.SELECT_ALL_UNITS);
             _in.put(TB_Units.SELECT_ONE_UNITY_TOKEN, REQUESTS_LIST.SELECT_ONE_UNITY_BY_ID);
@@ -782,15 +721,8 @@ public final class ContentDescriptorObj {
             // View_NRJ_ComponentRef
             _in.put(View_NRJ_ComponentRef.VIEW_COMPONENT_REF_BY_ID_TOKEN, REQUESTS_LIST.SELECT_COMPONENT_REF_BY_ID);
             _in.put(View_NRJ_ComponentRef.VIEW_COMPONENT_REF_BY_NRJ_ID_TOKEN, REQUESTS_LIST.SELECT_COMPONENT_REF_OF_NRJ);
-
-            // View_UA_Comp_link
-            _in.put(View_UA_Comp_link.SELECT_COMP_OF_UA_TOKEN, REQUESTS_LIST.SELECT_ALL_COMPONENT_OF_UA);
             //
             _in.put(View_Qty.VIEW_QTY_BY_ID_TOKEN, REQUESTS_LIST.SELECT_QTY_BY_ID);
-            _in.put(View_UA_Comp_link.SEARCH_RELATION_TOKEN, REQUESTS_LIST.SEARCH_REL_UA_UAC);
-
-            _in.put(View_UAC_Data.VIEW_UAC_DATA_TOKEN, REQUESTS_LIST.SELECT_UAC);
-
             //
             _in.put(CustomQuery.DB_VERSION_TOKEN, REQUESTS_LIST.SELECT_DB_VERSION);
             //
@@ -814,20 +746,18 @@ public final class ContentDescriptorObj {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = AUTHORITY;
 
+        // -------------------------------------------------------------------
         // Liste des Match pour la table PARTY_REL
         // -------------------------------------------------------------------
-
-        matcher.addURI(authority, TB_Party_rel.S00_PARTY_REL_PATH, TB_Party_rel.S00_PARTY_REL_TOKEN);
-        matcher.addURI(authority, TB_Party_rel.S01_PARTY_REL_BY_ID_PATH, TB_Party_rel.S01_PARTY_REL_BY_ID_TOKEN);
+        matcher.addURI(authority, TB_Party_rel.SELECT_CHILDREN_PATH, TB_Party_rel.SELECT_CHILDREN_TOKEN);
+        matcher.addURI(authority, TB_Party_rel.SELECT_RELATION_BY_ID_PATH, TB_Party_rel.SELECT_RELATION_BY_ID_TOKEN);
         matcher.addURI(authority, TB_Party_rel.SEARCH_RELATION_PATH, TB_Party_rel.SEARCH_RELATION_TOKEN);
-        matcher.addURI(authority, TB_Party_rel.INS000_PARTY_REL_PATH, TB_Party_rel.INS000_PARTY_REL_TOKEN);
-        matcher.addURI(authority, TB_Party_rel.UPD000_PARTY_REL_PATH, TB_Party_rel.UPD000_PARTY_REL_TOKEN);
+        matcher.addURI(authority, TB_Party_rel.INSERT_PARTY_REL_PATH, TB_Party_rel.INSERT_PARTY_REL_TOKEN);
+        matcher.addURI(authority, TB_Party_rel.UPDATE_PARTY_REL_PATH, TB_Party_rel.UPDATE_PARTY_REL_TOKEN);
 
         // ----------------------------------------------------------------
-        // Match pour la table des energies
-        // ----------------------------------------------------------------
-
         // Match pour le select sur la table des énergies
+        // -------------------------------------------------------------------
         matcher.addURI(authority, TB_Energies.SELECT_ALL_ENERGIES_PATH, TB_Energies.SELECT_ALL_ENERGIES_TOKEN);
         matcher.addURI(authority, TB_Energies.SELECT_ONE_ENERGY_BY_ID_PATH, TB_Energies.SELECT_ONE_ENERGY_BY_ID_TOKEN);
         matcher.addURI(authority, TB_Energies.SELECT_ENERGIES_LIKE_PATH, TB_Energies.SELECT_ENERGIES_LIKE_TOKEN);
@@ -836,24 +766,16 @@ public final class ContentDescriptorObj {
         // ----------------------------------------------------------------
         // Match pour la table des untitées
         // ----------------------------------------------------------------
-
-        // Match pour le select sur la table des unitées
         matcher.addURI(authority, TB_Units.SELECT_ALL_UNITS, TB_Units.SELECT_ALL_UNITS_TOKEN);
         matcher.addURI(authority, TB_Units.SELECT_ONE_UNITY, TB_Units.SELECT_ONE_UNITY_TOKEN);
 
+        // -------------------------------------------------------------------
         // Match pour l'insert d'une unitée
+        // -------------------------------------------------------------------
         matcher.addURI(authority, TB_Units.INSERT_UNIT, TB_Units.INSERT_UNIT_TOKEN);
         matcher.addURI(authority, TB_Units.UPDATE_UNIT, TB_Units.UPDATE_UNIT_TOKEN);
 
-        // Match pour la vue de selection des liens UA<->Composants
-        // ----------------------------------------------------------------
-        matcher.addURI(authority, View_UA_Comp_link.SELECT_COMP_OF_UA_PATH, View_UA_Comp_link.SELECT_COMP_OF_UA_TOKEN);
-        matcher.addURI(authority, View_UA_Comp_link.SEARCH_RELATION_PATH, View_UA_Comp_link.SEARCH_RELATION_TOKEN);
-
-        // Match pour la vue de selection des liens Composant<->Qty
-        // ----------------------------------------------------------------
-        matcher.addURI(authority, View_UAC_Data.VIEW_UAC_DATA_PATH, View_UAC_Data.VIEW_UAC_DATA_TOKEN);
-
+        // -------------------------------------------------------------------
         // Match pour la vue de selection des liens NRJ<->ComponentRef
         // ----------------------------------------------------------------
         matcher.addURI(authority, View_NRJ_ComponentRef.VIEW_COMPONENT_REF_BY_ID_PATH,
@@ -862,6 +784,8 @@ public final class ContentDescriptorObj {
                 View_NRJ_ComponentRef.VIEW_COMPONENT_REF_BY_NRJ_ID_TOKEN);
 
         matcher.addURI(authority, View_Qty.VIEW_QTY_BY_ID_PATH, View_Qty.VIEW_QTY_BY_ID_TOKEN);
+
+        // -------------------------------------------------------------------
         // Match(s) pour la table user_activities
         // ----------------------------------------------------------------
         matcher.addURI(authority, TB_UserActivities.S00_USER_ACTIVITIES_PATH,

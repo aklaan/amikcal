@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
+import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.data.ContentDescriptorObj.REQUESTS_LIST;
 
 import com.rdupuis.amikcal.data.ContentDescriptorObj.TOKEN_MAP;
+import com.rdupuis.amikcal.relations.REL_TYP_CD;
 
-public class  ContentProviderObj extends ContentProvider {
+public class ContentProviderObj extends ContentProvider {
     private DatabaseObj AmikcalDb;
 
     // private Resources mResources;
@@ -21,39 +23,39 @@ public class  ContentProviderObj extends ContentProvider {
      *****************************************************************************/
     @Override
     public boolean onCreate() {
-	AmikcalDb = new DatabaseObj(getContext());
-	// mResources = getContext().getResources();
+        AmikcalDb = new DatabaseObj(getContext());
+        // mResources = getContext().getResources();
 
-	return true;
+        return true;
 
     }
 
     /******************************************************************************
      * Gestion des getType
-     * 
+     * <p/>
      * ???? je ne sais pas � quoi = �a sert
      *****************************************************************************/
     @Override
     public String getType(Uri uri) {
-	final int matchToken = ContentDescriptorObj.URI_MATCHER.match(uri);
+        final int matchToken = ContentDescriptorObj.URI_MATCHER.match(uri);
 
-	if (matchToken == -1) {
-	    throw new IllegalArgumentException("Unknown URL");
-	}
+        if (matchToken == -1) {
+            throw new IllegalArgumentException("Unknown URL");
+        }
 
-	TOKEN_MAP map = new TOKEN_MAP();
-	REQUESTS_LIST request = map._in.get(matchToken);
+        TOKEN_MAP map = new TOKEN_MAP();
+        REQUESTS_LIST request = map._in.get(matchToken);
 
-	switch (request) {
-	case MIME_ENERGY_DIR:
-	    return ContentDescriptorObj.TB_Energies.CONTENT_TYPE_DIR;
+        switch (request) {
+            case MIME_ENERGY_DIR:
+                return ContentDescriptorObj.TB_Energies.CONTENT_TYPE_DIR;
 
-	case MIME_ENERGY_TYPE:
-	    return ContentDescriptorObj.TB_Energies.CONTENT_ITEM_TYPE;
+            case MIME_ENERGY_TYPE:
+                return ContentDescriptorObj.TB_Energies.CONTENT_ITEM_TYPE;
 
-	default:
-	    throw new UnsupportedOperationException("URI " + uri + " is not supported.");
-	}
+            default:
+                throw new UnsupportedOperationException("URI " + uri + " is not supported.");
+        }
 
     }
 
@@ -63,61 +65,61 @@ public class  ContentProviderObj extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-	SQLiteDatabase db = AmikcalDb.getWritableDatabase();
-	int token = ContentDescriptorObj.URI_MATCHER.match(uri);
+        SQLiteDatabase db = AmikcalDb.getWritableDatabase();
+        int token = ContentDescriptorObj.URI_MATCHER.match(uri);
 
-	TOKEN_MAP map = new TOKEN_MAP();
-	REQUESTS_LIST request = map._in.get(token);
+        TOKEN_MAP map = new TOKEN_MAP();
+        REQUESTS_LIST request = map._in.get(token);
 
-	switch (request) {
+        switch (request) {
 
-	case INSERT_ENERGY: {
-	    long id = db.insert(ContentDescriptorObj.TB_Energies.TBNAME, null, values);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI.buildUpon().appendPath(String.valueOf(id))
-		    .build();
-	}
+            case INSERT_ENERGY: {
+                long id = db.insert(ContentDescriptorObj.TB_Energies.TBNAME, null, values);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return ContentDescriptorObj.TB_Energies.INSERT_ENERGY_URI.buildUpon().appendPath(String.valueOf(id))
+                        .build();
+            }
 
-	case INSERT_UNITY: {
-	    // on fait l'insert dans la table units
-	    // la fonction update retourne n'Id de l'enregistrement cr��.
-	    long id = db.insert(ContentDescriptorObj.TB_Units.NAME, null, values);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_Units.URI_SELECT_UNIT.buildUpon().appendPath(String.valueOf(id)).build();
-	}
+            case INSERT_UNITY: {
+                // on fait l'insert dans la table units
+                // la fonction update retourne n'Id de l'enregistrement cr��.
+                long id = db.insert(ContentDescriptorObj.TB_Units.NAME, null, values);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return ContentDescriptorObj.TB_Units.URI_SELECT_UNIT.buildUpon().appendPath(String.valueOf(id)).build();
+            }
 
-	case INSERT_USER_ACTIVITY: {
-	    // on fait l'insert dans la table
-	    // la fonction update retourne n'Id de l'enregistrement cr��.
-	    long id = db.insert(ContentDescriptorObj.TB_UserActivities.TBNAME, null, values);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI.buildUpon()
-		    .appendPath(String.valueOf(id)).build();
-	}
+            case INSERT_USER_ACTIVITY: {
+                // on fait l'insert dans la table
+                // la fonction update retourne n'Id de l'enregistrement créé.
+                long id = db.insert(ContentDescriptorObj.TB_UserActivities.TBNAME, null, values);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return ContentDescriptorObj.TB_UserActivities.SELECT_USER_ACTIVITY_BY_ID_URI.buildUpon()
+                        .appendPath(String.valueOf(id)).build();
+            }
 
-	case INSERT_PARTY_REL: {
-	    // on fait l'insert dans la table
-	    // la fonction update retourne n'Id de l'enregistrement cr��.
-	    long id = db.insert(ContentDescriptorObj.TB_Party_rel.TBNAME, null, values);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return ContentDescriptorObj.TB_Party_rel.S00_PARTY_REL_URI.buildUpon().appendPath(String.valueOf(id))
-		    .build();
-	}
+            case INSERT_PARTY_REL: {
+                // on fait l'insert dans la table
+                // la fonction update retourne n'Id de l'enregistrement créé
+                long id = db.insert(ContentDescriptorObj.TB_Party_rel.TBNAME, null, values);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return ContentDescriptorObj.TB_Party_rel.SELECT_RELATION_BY_ID_URI.buildUpon().appendPath(String.valueOf(id))
+                        .build();
+            }
 
-	default: {
-	    throw new UnsupportedOperationException("URI: " + uri + " pour INSERT non support�e.");
-	}
-	}
+            default: {
+                throw new UnsupportedOperationException("URI: " + uri + " pour INSERT non support�e.");
+            }
+        }
     }
 
     /*********************************************************************************************
      * Gestion des SELECT
-     * 
+     * <p/>
      * On re�oit une Uri avec un path (chaine de caract�re) on utilise le
      * UriMatcher pour trouver la corespondance Path <=> token (integer) une
      * fois que l'on a le token, on sait quel requ�te � �x�cuter.
-     * 
-     * 
+     * <p/>
+     * <p/>
      * Request a specific record. Cursor managedCursor = managedQuery(
      * ContentUris.withAppendedId(Contacts.People.CONTENT_URI, 2), projection,
      * // Which columns to return. null, // WHERE clause. null, // WHERE clause
@@ -125,205 +127,199 @@ public class  ContentProviderObj extends ContentProvider {
      ************************************************************************************************/
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-	// on charge la base de donn�e
-	SQLiteDatabase db = AmikcalDb.getReadableDatabase();
+        // on charge la base de donn�e
+        SQLiteDatabase db = AmikcalDb.getReadableDatabase();
 
-	final int match = ContentDescriptorObj.URI_MATCHER.match(uri);
-	TOKEN_MAP map = new TOKEN_MAP();
-	REQUESTS_LIST request = map._in.get(match);
+        final int match = ContentDescriptorObj.URI_MATCHER.match(uri);
+        TOKEN_MAP map = new TOKEN_MAP();
+        REQUESTS_LIST request = map._in.get(match);
 
-	switch (request) {
+        switch (request) {
 
-	case SELECT_ONE_ENERGY_BY_ID: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
-	    String whereClause = ContentDescriptorObj.TB_Energies.Columns.ID + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-	}
+            case SELECT_ONE_ENERGY_BY_ID: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
+                String whereClause = ContentDescriptorObj.TB_Energies.Columns.ID + "=" + uri.getLastPathSegment();
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+            }
 
-	case SELECT_ALL_ENERGIES: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
-	    return builder.query(db, projection, null, null, null, null, sortOrder);
-	}
+            case SELECT_ALL_ENERGIES: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
+                return builder.query(db, projection, null, null, null, null, sortOrder);
+            }
 
-	case SELECT_ENERGIES_LIKE: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
-	    String whereClause = ContentDescriptorObj.TB_Energies.Columns.NAME + " like '%" + uri.getLastPathSegment()
-		    + "%'";
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-	}
+            case SELECT_ENERGIES_LIKE: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Energies.TBNAME);
+                String whereClause = ContentDescriptorObj.TB_Energies.Columns.NAME + " like '%" + uri.getLastPathSegment()
+                        + "%'";
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+            }
 
-	// -------------------------------------------------------------------------
-	// Unit�es
-	// -------------------------------------------------------------------------
-	case SELECT_ONE_UNITY_BY_ID: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Units.NAME);
+            // -------------------------------------------------------------------------
+            // Unitées
+            // -------------------------------------------------------------------------
+            case SELECT_ONE_UNITY_BY_ID: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Units.NAME);
 
-	    String whereClause = ContentDescriptorObj.TB_Units.NAME + "." + ContentDescriptorObj.TB_Units.Columns.ID
-		    + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, null);
-	}
+                String whereClause = ContentDescriptorObj.TB_Units.NAME + "." + ContentDescriptorObj.TB_Units.Columns.ID
+                        + "=" + uri.getLastPathSegment();
+                return builder.query(db, projection, whereClause, null, null, null, null);
+            }
 
-	case SELECT_ALL_UNITS: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Units.NAME);
-	    return builder.query(db, null, null, null, null, null, null);
-	}
+            case SELECT_ALL_UNITS: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Units.NAME);
+                return builder.query(db, null, null, null, null, null, null);
+            }
 
-	// -------------------------------------------------------------------------
-	// User Activity
-	// -------------------------------------------------------------------------
+            // -------------------------------------------------------------------------
+            // User Activity
+            // -------------------------------------------------------------------------
 
-	case SELECT_UAC: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_UAC_Data.VIEWNAME);
+            case SELECT_USER_ACTIVITIES_BY_DATE: {
 
-	    String whereClause = ContentDescriptorObj.View_UAC_Data.VIEWNAME + "."
-		    + ContentDescriptorObj.View_UAC_Data.Columns.UAC_ID + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_UserActivities.TBNAME);
 
-	}
+                String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
+                        + ContentDescriptorObj.TB_UserActivities.Columns.DATE + " LIKE '" + uri.getLastPathSegment() + "%'";
 
-	case SELECT_USER_ACTIVITIES_BY_DATE: {
+                // Log.i("where",whereClause);
+                return builder.query(db, projection, whereClause, null, null, null, "datetime("
+                        + ContentDescriptorObj.TB_UserActivities.Columns.DATE + ")");
 
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_UserActivities.TBNAME);
+            }
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.DATE + " LIKE '" + uri.getLastPathSegment() + "%'";
+            case SELECT_USER_ACTIVITY: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_UserActivities.TBNAME);
 
-	    // Log.i("where",whereClause);
-	    return builder.query(db, projection, whereClause, null, null, null, "datetime("
-		    + ContentDescriptorObj.TB_UserActivities.Columns.DATE + ")");
+                String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
+                        + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + uri.getLastPathSegment();
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+            }
 
-	}
+            // -------------------------------------------------------------------------
+            // Composant de référence
+            // -------------------------------------------------------------------------
+            case SELECT_COMPONENT_REF_OF_NRJ: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME);
 
-	case SELECT_USER_ACTIVITY: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_UserActivities.TBNAME);
+                String whereClause = ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME + "."
+                        + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID + "=" + uri.getLastPathSegment();
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-	}
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	// -------------------------------------------------------------------------
-	// Composant de r�f�rence
-	// -------------------------------------------------------------------------
-	case SELECT_COMPONENT_REF_OF_NRJ: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME);
+            }
 
-	    String whereClause = ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME + "."
-		    + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID + "=" + uri.getLastPathSegment();
+            case SEARCH_COMPONENT_REF_RELATION: {
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME);
 
-	}
+                String delims = "x";
+                String[] params = uri.getLastPathSegment().split(delims);
 
-	case SEARCH_COMPONENT_REF_RELATION: {
+                String whereClause = ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME + "."
+                        + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID + "=" + params[0] + " and ( "
+                        + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.QTY_ID + "=" + params[1] + ")";
 
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME);
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	    String delims = "x";
-	    String[] params = uri.getLastPathSegment().split(delims);
+            }
 
-	    String whereClause = ContentDescriptorObj.View_NRJ_ComponentRef.VIEWNAME + "."
-		    + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.ENERGY_ID + "=" + params[0] + " and ( "
-		    + ContentDescriptorObj.View_NRJ_ComponentRef.Columns.QTY_ID + "=" + params[1] + ")";
+            // -------------------------------------------------------------------------
+            // QTY
+            // -------------------------------------------------------------------------
+            case SELECT_QTY_BY_ID: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.View_Qty.VIEWNAME);
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+                String whereClause = ContentDescriptorObj.View_Qty.VIEWNAME + "."
+                        + ContentDescriptorObj.View_Qty.Columns.QTY_ID + "=" + uri.getLastPathSegment();
 
-	}
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	// -------------------------------------------------------------------------
-	// QTY
-	// -------------------------------------------------------------------------
-	case SELECT_QTY_BY_ID: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_Qty.VIEWNAME);
+            }
 
-	    String whereClause = ContentDescriptorObj.View_Qty.VIEWNAME + "."
-		    + ContentDescriptorObj.View_Qty.Columns.QTY_ID + "=" + uri.getLastPathSegment();
+            case SELECT_ALL_EQUIV_OF_QTY: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+                String whereClause = ContentDescriptorObj.View_qty_equiv.VIEWNAME + "."
+                        + ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID + "=" + uri.getLastPathSegment();
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	}
+            }
 
-	case SELECT_ALL_EQUIV_OF_QTY: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_qty_equiv.VIEWNAME);
+            // -------------------------------------------------------------------------
+            // Relations
+            // -------------------------------------------------------------------------
 
-	    String whereClause = ContentDescriptorObj.View_qty_equiv.VIEWNAME + "."
-		    + ContentDescriptorObj.View_qty_equiv.Columns.QTY_ID + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+            case SELECT_PARTY_REL_BY_ID: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
 
-	}
+                String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+                        + ContentDescriptorObj.TB_Party_rel.Columns.ROW_ID + "=" + uri.getLastPathSegment();
 
-	// -------------------------------------------------------------------------
-	// Relations
-	// -------------------------------------------------------------------------
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	case SELECT_PARTY_REL_BY_ID: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
+            }
 
-	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.ID + "=" + uri.getLastPathSegment();
+            case SEARCH_RELATION: {
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
 
-	}
+                String delims = "x";
+                String[] params = uri.getLastPathSegment().split(delims);
 
-	case SEARCH_RELATION: {
+                String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+                        + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "='" + params[0] + "' and "
+                        + ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+                        + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + params[1] + " and "
+                        + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2 + "=" + params[2];
 
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	    String delims = "x";
-	    String[] params = uri.getLastPathSegment().split(delims);
+            }
 
-	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD + "='" + params[0] + "' and "
-		    + ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1 + "=" + params[1] + " and "
-		    + ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2 + "=" + params[2];
+            case SELECT_CHILDREN: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.TB_Party_rel.TBNAME);
+                AppConsts.REL_TYP_CD_MAP mapping = new AppConsts.REL_TYP_CD_MAP();
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+                String whereClause = ContentDescriptorObj.TB_Party_rel.Columns.PAR_ROW_ID
+                        + "=" + uri.getLastPathSegment()
+                        + " AND " + ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD
+                        + " IN ('" + mapping._out.get(REL_TYP_CD.CFOOD) + "','" + mapping._out.get(REL_TYP_CD.CMOVE) + "')";
 
-	}
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
+            }
 
-	case SELECT_ALL_COMPONENT_OF_UA: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_UA_Comp_link.VIEW_NAME);
+            case SELECT_DB_VERSION: {
+                return db.rawQuery("PRAGMA user_version", null);
+            }
 
-	    String whereClause = ContentDescriptorObj.View_UA_Comp_link.VIEW_NAME + "."
-		    + ContentDescriptorObj.View_UA_Comp_link.Columns.UA_ID + "=" + uri.getLastPathSegment();
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-	}
 
-	case SELECT_DB_VERSION: {
-	    return db.rawQuery("PRAGMA user_version", null);
-	}
+            case SELECT_ALL_EQUIV_OF_COMPONENT: {
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(ContentDescriptorObj.View_Component_equiv.VIEWNAME);
 
-	
-	case SELECT_ALL_EQUIV_OF_COMPONENT: {
-	    SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-	    builder.setTables(ContentDescriptorObj.View_Component_equiv.VIEWNAME);
+                String whereClause = ContentDescriptorObj.View_Component_equiv.VIEWNAME + "."
+                        + ContentDescriptorObj.View_Component_equiv.Columns.COMP1_ID + "=" + uri.getLastPathSegment();
 
-	    String whereClause = ContentDescriptorObj.View_Component_equiv.VIEWNAME + "."
-		    + ContentDescriptorObj.View_Component_equiv.Columns.COMP1_ID + "=" + uri.getLastPathSegment();
+                return builder.query(db, projection, whereClause, null, null, null, sortOrder);
 
-	    return builder.query(db, projection, whereClause, null, null, null, sortOrder);
-
-	}
+            }
 
 	/*
-	 * case ContentDescriptorObj.CustomQuery.SUM_ENERGY_OF_DAY_TOKEN:{
+     * case ContentDescriptorObj.CustomQuery.SUM_ENERGY_OF_DAY_TOKEN:{
 	 * SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 	 * builder.setTables(
 	 * 
@@ -367,9 +363,9 @@ public class  ContentProviderObj extends ContentProvider {
 	 * return builder.query(db, projection, whereClause,null, null, null,
 	 * sortOrder); }
 	 */
-	default:
-	    throw new IllegalArgumentException("URI Select non g�r�e: " + uri);
-	}
+            default:
+                throw new IllegalArgumentException("URI Select non g�r�e: " + uri);
+        }
     }
 
     /*****************************************************************************
@@ -378,59 +374,59 @@ public class  ContentProviderObj extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-	// Log.i("update URI : ",uri.getEncodedPath());
+        // Log.i("update URI : ",uri.getEncodedPath());
 
-	SQLiteDatabase db = AmikcalDb.getWritableDatabase();
-	int token = ContentDescriptorObj.URI_MATCHER.match(uri);
-	TOKEN_MAP map = new TOKEN_MAP();
-	REQUESTS_LIST request = map._in.get(token);
+        SQLiteDatabase db = AmikcalDb.getWritableDatabase();
+        int token = ContentDescriptorObj.URI_MATCHER.match(uri);
+        TOKEN_MAP map = new TOKEN_MAP();
+        REQUESTS_LIST request = map._in.get(token);
 
-	switch (request) {
+        switch (request) {
 
-	case UPDATE_ENERGY: {
+            case UPDATE_ENERGY: {
 
-	    String whereClause = ContentDescriptorObj.TB_Energies.TBNAME + "."
-		    + ContentDescriptorObj.TB_Energies.Columns.ID + "=" + selection;
+                String whereClause = ContentDescriptorObj.TB_Energies.TBNAME + "."
+                        + ContentDescriptorObj.TB_Energies.Columns.ID + "=" + selection;
 
-	    db.update(ContentDescriptorObj.TB_Energies.TBNAME, values, whereClause, null);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return 0;
-	}
-	case UPDATE_USER_ACTIVITY: {
+                db.update(ContentDescriptorObj.TB_Energies.TBNAME, values, whereClause, null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return 0;
+            }
+            case UPDATE_USER_ACTIVITY: {
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + selection;
+                String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
+                        + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + selection;
 
-	    db.update(ContentDescriptorObj.TB_UserActivities.TBNAME, values, whereClause, null);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return 0;
-	}
+                db.update(ContentDescriptorObj.TB_UserActivities.TBNAME, values, whereClause, null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return 0;
+            }
 
-	case UPDATE_UNITY: {
+            case UPDATE_UNITY: {
 
-	    String whereClause = ContentDescriptorObj.TB_Units.NAME + "." + ContentDescriptorObj.TB_Units.Columns.ID
-		    + "=" + selection;
+                String whereClause = ContentDescriptorObj.TB_Units.NAME + "." + ContentDescriptorObj.TB_Units.Columns.ID
+                        + "=" + selection;
 
-	    db.update(ContentDescriptorObj.TB_Units.NAME, values, whereClause, null);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return 0;
-	}
+                db.update(ContentDescriptorObj.TB_Units.NAME, values, whereClause, null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return 0;
+            }
 
-	case UPDATE_PARTY_REL: {
+            case UPDATE_PARTY_REL: {
 
-	    String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
-		    + ContentDescriptorObj.TB_Party_rel.Columns.ID + "=" + selection;
+                String whereClause = ContentDescriptorObj.TB_Party_rel.TBNAME + "."
+                        + ContentDescriptorObj.TB_Party_rel.Columns.ROW_ID + "=" + selection;
 
-	    db.update(ContentDescriptorObj.TB_Party_rel.TBNAME, values, whereClause, null);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return 0;
-	}
+                db.update(ContentDescriptorObj.TB_Party_rel.TBNAME, values, whereClause, null);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return 0;
+            }
 
-	default: {
-	    throw new UnsupportedOperationException("URI: " + uri + " pour UPDATE non support�e.");
-	}
+            default: {
+                throw new UnsupportedOperationException("URI: " + uri + " pour UPDATE non support�e.");
+            }
 
-	}
+        }
 
     }
 
@@ -440,28 +436,28 @@ public class  ContentProviderObj extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
-	// Log.i("Delete URI : ",uri.getEncodedPath());
+        // Log.i("Delete URI : ",uri.getEncodedPath());
 
-	SQLiteDatabase db = AmikcalDb.getWritableDatabase();
-	int token = ContentDescriptorObj.URI_MATCHER.match(uri);
-	TOKEN_MAP map = new TOKEN_MAP();
-	REQUESTS_LIST request = map._in.get(token);
+        SQLiteDatabase db = AmikcalDb.getWritableDatabase();
+        int token = ContentDescriptorObj.URI_MATCHER.match(uri);
+        TOKEN_MAP map = new TOKEN_MAP();
+        REQUESTS_LIST request = map._in.get(token);
 
-	switch (request) {
-	case DELETE_USER_ACTIVITY: {
+        switch (request) {
+            case DELETE_USER_ACTIVITY: {
 
-	}
+            }
 
-	    String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
-		    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + uri.getLastPathSegment();
+            String whereClause = ContentDescriptorObj.TB_UserActivities.TBNAME + "."
+                    + ContentDescriptorObj.TB_UserActivities.Columns.ID + "=" + uri.getLastPathSegment();
 
-	    db.delete(ContentDescriptorObj.TB_UserActivities.TBNAME, whereClause, null);
-	    getContext().getContentResolver().notifyChange(uri, null);
-	    return 0;
-	default:
-	    break;
-	}
+            db.delete(ContentDescriptorObj.TB_UserActivities.TBNAME, whereClause, null);
+            getContext().getContentResolver().notifyChange(uri, null);
+            return 0;
+            default:
+                break;
+        }
 
-	return 0;
+        return 0;
     }
 }

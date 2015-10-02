@@ -38,10 +38,12 @@ public class Act_UserActivity_Lunch_Component_List extends Act_UserActivity_Comp
         manager.edit(component);
     }
 
-    // Créer un nouveau composant Food.
+    // Créer un nouveau composant Food pour la UserActivity en cours.
     @Override
     public void onClickAdd(View v) {
-        onClickComponent(new Component_Food());
+        Component_Food component = new Component_Food();
+        component.setParentId(this.mUA.getDatabaseId());
+        onClickComponent(component);
     }
 
 

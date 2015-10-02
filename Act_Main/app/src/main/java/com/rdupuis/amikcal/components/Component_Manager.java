@@ -41,6 +41,39 @@ public class Component_Manager extends Relation_Manager {
     }
 
 
+    /**
+     * Par rapport à une relation "classique" le composant peut avoir un parent
+     * <p/>
+     * Component :
+     * row_id = 1
+     * par_row_id = id de la user activity
+     * party1 = id de l'énergy
+     * party2 = id de la qty
+     * <p/>
+     * Qty de ref :
+     * row_id = 1
+     * par_row_id = id de l'énergy
+     * party1 = amount
+     * party2 = id de l'unity
+     * <p/>
+     * energy value
+     * row_id
+     * par_row_id = qty_reg
+     * party1  =50
+     * party2  =Kcal
+     *
+     * @param element
+     * @return
+     */
+    @Override
+    public ContentValues getContentValues(ManagedElement element) {
+        Component component = (Component) element;
+        ContentValues values = super.getContentValues(element);
+        // Parent
+        values.put(ContentDescriptorObj.TB_Party_rel.Columns.PAR_ROW_ID, component.getParentId());
+        return values;
+    }
+
     /***********************************************************************
      * récupérer un Component qui a été stocké dans la Database
      * <p/>
@@ -62,7 +95,7 @@ public class Component_Manager extends Relation_Manager {
         }
 
         // rechercher la relation "component" à partir de son id.
-        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.S01_PARTY_REL_BY_ID_URI, databaseId);
+        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.SELECT_RELATION_BY_ID_URI, databaseId);
 
         Cursor cur = getActivity().getContentResolver().query(request, null, null, null, null);
 
@@ -70,20 +103,19 @@ public class Component_Manager extends Relation_Manager {
         final int REL_TYP_CD = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.REL_TYP_CD);
         final int NRJ_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_1);
         final int QTY_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.PARTY_2);
+        final int PARENT_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.PAR_ROW_ID);
 
         // Faire un move First pour positionner le curseur, sinon on pointe sur
         // null
         if (cur.moveToFirst()) {
 
             //Etape 1 - on récupère l'énergie²
-            EnergySource nrj = new EnergySource();
             Energy_Manager manager = new Energy_Manager(this.getActivity());
-            nrj = manager.load(cur.getLong(NRJ_ID));
+            EnergySource nrj = manager.load(cur.getLong(NRJ_ID));
 
             // Etape 2 - on récupère la Qty
-            Qty qty = new Qty();
             Qty_Manager qty_manager = new Qty_Manager(this.getActivity());
-            qty = qty_manager.load(cur.getLong(QTY_ID));
+            Qty qty = qty_manager.load(cur.getLong(QTY_ID));
 
             //on récupère le mapping des type de relation pour faire la correspondance
             // entre le code stocké dans la database et sa signification fonctionnelle
@@ -104,6 +136,8 @@ public class Component_Manager extends Relation_Manager {
             //on réasigne l'Id de la database
             component.setDatabaseId(databaseId);
 
+            //On réasigne l'Id du parent
+            component.setParentId(cur.getLong(PARENT_ID));
         }
         cur.close();
 

@@ -12,6 +12,7 @@ import com.rdupuis.amikcal.commons.AmiKcalFactory;
 import com.rdupuis.amikcal.commons.AppConsts;
 import com.rdupuis.amikcal.commons.Manager;
 import com.rdupuis.amikcal.commons.ManagerBuilder;
+import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.unity.Unity.UNIT_CLASS;
 import com.rdupuis.amikcal.useractivity.Act_UserActivity_Editor;
 import com.rdupuis.amikcal.useractivity.UserActivity_Manager;
@@ -56,14 +57,16 @@ public class Act_UnitOfMeasureEditor extends Activity {
         Manager manager = new Unity_Manager(this);
         this.mUnit.setDatabaseId(manager.save(this.mUnit));
 
-        // on appelle setResult pour déclancher le onActivityResult de
-        // l'activity mère.
+        // On termine l'Actvity si tout c'est bien passé
+        if (manager.getReturnCode() == RETURNCODE.OK) {
 
-        this.getIntent().putExtra(Act_UnitOfMeasureEditor.OUTPUT____UNITY, this.mUnit);
-        setResult(RESULT_OK, this.getIntent());
+            // on appelle setResult pour déclancher le onActivityResult de l'activity mère.
+            setResult(RESULT_OK, this.getIntent());
 
-        // On termine l'Actvity
-        finish();
+            //On termine l'activitée
+            finish();
+        }
+
     }
 
     /******************************************************************************************

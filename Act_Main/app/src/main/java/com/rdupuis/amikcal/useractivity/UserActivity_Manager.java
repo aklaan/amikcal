@@ -77,12 +77,13 @@ public class UserActivity_Manager extends Manager_commons {
             return component_list;
         }
 
-        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.View_UA_Comp_link.SELECT_COMP_OF_UA_URI,
+        Uri request = ContentUris.withAppendedId(ContentDescriptorObj.TB_Party_rel.SELECT_CHILDREN_URI,
                 UA.getDatabaseId());
 
         Cursor cur = getActivity().getContentResolver().query(request, null, null, null, null);
 
-        final int COMPONENT_ID = cur.getColumnIndex(ContentDescriptorObj.View_UA_Comp_link.Columns.COMP_ID);
+        //On récupère le ROW_ID des enfants composants de la UserActivity
+        final int COMPONENT_ID = cur.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ROW_ID);
 
         // faire un move First pour positionner le pointeur, sinon on pointe sur
         // null

@@ -46,13 +46,13 @@ public class Component_List_Builder {
         if (userActivity_lunch.getDatabaseId() != AppConsts.NO_ID) {
             long _id = userActivity_lunch.getDatabaseId();
             Uri selectUri = ContentUris.withAppendedId(
-                    ContentDescriptorObj.View_UA_Comp_link.SELECT_COMP_OF_UA_URI, _id);
+                    ContentDescriptorObj.TB_Party_rel.SELECT_CHILDREN_URI, _id);
 
             // On crée un curseur pour lire la vue
             Cursor cursor = this.getActivity().getContentResolver().query(selectUri, null, String.valueOf(_id), null, null);
 
             // On récupère les index des colonnes de la vue.
-            final int INDX_COMP_ID = cursor.getColumnIndex(ContentDescriptorObj.View_UA_Comp_link.Columns.COMP_ID);
+            final int INDX_COMPONENT_ID = cursor.getColumnIndex(ContentDescriptorObj.TB_Party_rel.Columns.ROW_ID);
 
             Component_Food_Manager manager = new Component_Food_Manager(getActivity());
 
@@ -61,9 +61,7 @@ public class Component_List_Builder {
             if (cursor.moveToFirst()) {
 
                 do {
-
-
-                    Component_Food component = manager.load(cursor.getLong(INDX_COMP_ID));
+                    Component_Food component = manager.load(cursor.getLong(INDX_COMPONENT_ID));
                     list.add(component);
 
                 } while (cursor.moveToNext());

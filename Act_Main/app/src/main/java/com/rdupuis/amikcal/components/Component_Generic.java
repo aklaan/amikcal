@@ -27,6 +27,7 @@ import com.rdupuis.amikcal.relations.REL_TYP_CD;
 public class Component_Generic extends Component {
 
     long id;
+    long parentId;
     Qty mQty;
     EnergySource mEnergy;
     ArrayList<Component> mComponentList;
@@ -56,12 +57,24 @@ public class Component_Generic extends Component {
         this.id = id;
     }
 
+    @Override
     public Qty getQty() {
         return mQty;
     }
 
+    @Override
     public void setQty(Qty mQty) {
         this.mQty = mQty;
+    }
+
+    @Override
+    public void setParentId(long _id) {
+        this.parentId = _id;
+    }
+
+    @Override
+    public long getParentId() {
+        return this.parentId;
     }
 
     public REL_TYP_CD getRelationClass() {
@@ -93,6 +106,7 @@ public class Component_Generic extends Component {
 
     public Component_Generic(Parcel parcel) {
         this.id = parcel.readLong();
+     this.parentId = parcel.readLong();
         this.mQty = parcel.readParcelable(Qty.class.getClassLoader());
         this.mEnergy = parcel.readParcelable(EnergySource.class.getClassLoader());
 
@@ -101,6 +115,7 @@ public class Component_Generic extends Component {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.getDatabaseId());
+        dest.writeLong(this.getParentId());
         dest.writeParcelable(this.getQty(), 0);
         dest.writeParcelable(this.getEnergy(), 0);
 

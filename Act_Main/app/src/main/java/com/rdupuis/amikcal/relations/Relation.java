@@ -9,6 +9,7 @@ public abstract class Relation implements ManagedElement {
     public abstract String getParty2() ;
     public abstract long getDatabaseId() ;
     public abstract void setDatabaseId(long databaseId);
+
     public abstract REL_TYP_CD getRelationClass() ;
     
 

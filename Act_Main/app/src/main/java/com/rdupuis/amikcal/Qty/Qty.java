@@ -38,6 +38,7 @@ public class Qty extends Relation implements ManagedElement, Parcelable {
 
     }
 
+
     @Override
     public int describeContents() {
         return 0;
