@@ -106,7 +106,7 @@ public class Component_Generic extends Component {
 
     public Component_Generic(Parcel parcel) {
         this.id = parcel.readLong();
-     this.parentId = parcel.readLong();
+        this.parentId = parcel.readLong();
         this.mQty = parcel.readParcelable(Qty.class.getClassLoader());
         this.mEnergy = parcel.readParcelable(EnergySource.class.getClassLoader());
 

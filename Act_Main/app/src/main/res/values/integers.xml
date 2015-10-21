@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="one_line">1</integer>
-    
+
+    <integer name="Kcal_id">1</integer>
+
+
     <integer name="ACTIVITY_LUNCH">1</integer>
     <integer name="ACTIVITY_ACTIVITY">2</integer>
     <integer name="ACTIVITY_WEIGHT">3</integer>

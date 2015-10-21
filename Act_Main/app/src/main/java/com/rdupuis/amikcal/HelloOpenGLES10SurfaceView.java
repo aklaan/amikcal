@@ -3,7 +3,7 @@ package com.rdupuis.amikcal;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
-class HelloOpenGLES10SurfaceView extends GLSurfaceView {
+public class HelloOpenGLES10SurfaceView extends GLSurfaceView {
 
 	private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
 	private float mPreviousX;
@@ -15,7 +15,7 @@ class HelloOpenGLES10SurfaceView extends GLSurfaceView {
         
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(new HelloOpenGLES10Renderer());
-     //  setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+       setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+     //  setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 }

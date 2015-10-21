@@ -166,7 +166,12 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
 
                 }
                 break;
-            default:
+
+            case R.integer.COMPONENT_EDITOR :
+                if (resultCode == RESULT_OK) {
+                }
+
+                    default:
                 break;
 
         }
@@ -195,7 +200,7 @@ public class Act_Component_Food_Editor extends Act_Component_Editor {
         // Gestion du libell� sur le bouton Unit
         b = (Button) findViewById(R.id.componentview_btn_unit);
 
-        if (edited_Component.getQty().getUnity().getLongName() == "") {
+        if (edited_Component.getQty().getUnity().getLongName().isEmpty()) {
             b.setText(this.getResources().getString(R.string.empty));
         } else {
             b.setText(this.edited_Component.getQty().getUnity().getLongName());

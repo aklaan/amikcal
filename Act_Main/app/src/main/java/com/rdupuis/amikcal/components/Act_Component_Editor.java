@@ -79,7 +79,7 @@ public class Act_Component_Editor extends Activity {
      *****************************************************************************/
     public void callNumericPad() {
         Intent intent = new Intent(this, Act_NumericPad.class);
-        intent.putExtra("question", "Entrez la quantit� d'Aliment");
+        intent.putExtra("question", "Entrez la quantité d'Aliment");
         startActivityForResult(intent, R.integer.NUMERICPAD);
     }
 

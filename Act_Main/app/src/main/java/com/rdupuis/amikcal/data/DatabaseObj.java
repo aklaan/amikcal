@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.rdupuis.amikcal.R;
+
 public class DatabaseObj extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "amikcal.db";
     public static final int DATABASE_VERSION = 1;
@@ -123,8 +125,6 @@ public class DatabaseObj extends SQLiteOpenHelper {
          * ====================================================================
          *
          * */
-
-
 
 
         //*********************************************************************
@@ -273,6 +273,10 @@ public class DatabaseObj extends SQLiteOpenHelper {
         );
 
 
+/**
+ * Initalisations de base
+ */
+        inititialize_Database(db);
 
     }
 
@@ -311,7 +315,7 @@ public class DatabaseObj extends SQLiteOpenHelper {
     private void doUpgradeOfVersion4(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS WORKINGTB");
         /*
-		 * db.execSQL("CREATE TABLE WORKINGTB ( " +
+         * db.execSQL("CREATE TABLE WORKINGTB ( " +
 		 * ContentDescriptorObj.Units.Columns.ID +
 		 * " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 		 * ContentDescriptorObj.Units.Columns.TYPE + " TEXT, " +
@@ -333,9 +337,11 @@ public class DatabaseObj extends SQLiteOpenHelper {
 		 * db.execSQL("ALTER TABLE WORKINGTB RENAME TO " +
 		 * ContentDescriptorObj.Units.NAME);
 		 */
+
+
     }
 
-    private void init_Internationals_Units(SQLiteDatabase db) {
+    private void inititialize_Database(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + ContentDescriptorObj.TB_Units.NAME + " ("
                 + ContentDescriptorObj.TB_Units.Columns.ID + "," + " "
                 + ContentDescriptorObj.TB_Units.Columns.CLASS + "," + " "
@@ -343,7 +349,8 @@ public class DatabaseObj extends SQLiteOpenHelper {
                 + ContentDescriptorObj.TB_Units.Columns.SHORT_NAME + "," + " "
                 + ContentDescriptorObj.TB_Units.Columns.CONTAINERFAMILLY + ","
                 + " " + ContentDescriptorObj.TB_Units.Columns.LAST_UPDATE
-                + ") VALUES (1, 0, 'Gramme', 'g' , null, CURRENT_TIMESTAMP)");
+                + ") VALUES ("+ R.integer.Kcal_id +", 0, 'Kilo Calories', 'Kcal' , null, CURRENT_TIMESTAMP)"
+                + " ,("+R.integer.Kcal_id+1 +", 0, 'Gramme', 'g' , null, CURRENT_TIMESTAMP)");
 
     }
 

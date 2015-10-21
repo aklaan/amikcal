@@ -7,18 +7,26 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.SurfaceHolder;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rdupuis.amikcal.HelloOpenGLES10SurfaceView;
 import com.rdupuis.amikcal.Qty.Qty;
 import com.rdupuis.amikcal.Qty.Qty_Manager;
 import com.rdupuis.amikcal.R;
@@ -29,6 +37,9 @@ import com.rdupuis.amikcal.commons.ManagerBuilder;
 import com.rdupuis.amikcal.commons.RETURNCODE;
 import com.rdupuis.amikcal.commons.numericpad.Act_NumericPad;
 import com.rdupuis.amikcal.components.Component;
+import com.rdupuis.amikcal.components.Component_List_Builder;
+import com.rdupuis.amikcal.components.food.Component_Food;
+import com.rdupuis.amikcal.components.food.Component_Food_Manager;
 import com.rdupuis.amikcal.energy.ContreteEnergySource.STRUCTURE;
 import com.rdupuis.amikcal.equivalence.Act_EquivalenceEditor;
 import com.rdupuis.amikcal.relations.Relation;
@@ -45,7 +56,11 @@ public class Act_Food_Editor extends Activity {
 
     Food mFood;
     private ListView maListViewPerso;
+    private ArrayList<Component_Food> componentFoodList;
     public static final String INPUT____FOOD = "INPUT_FOOD";
+    // ! OpenGL SurfaceView
+    public GLSurfaceView mGLSurfaceView;
+    private GLSurfaceView mGLView;
 
     /**
      * Called when the activity is first created.
@@ -57,9 +72,47 @@ public class Act_Food_Editor extends Activity {
 
         mFood = getIntent().getExtras().getParcelable(INPUT____FOOD);
 
-        setContentView(R.layout.view_edit_energy_food2);
+        Component_List_Builder builder = new Component_List_Builder(this);
+        componentFoodList = builder.getComponent_Food_List(mFood);
+
+        if (componentFoodList.isEmpty()) {
+            Component_Food energeticValue = new Component_Food();
+            componentFoodList.add(energeticValue);
+        }
 
 
+        //setContentView(R.layout.view_edit_energy_food2);
+
+        // Create a GLSurfaceView instance and set it
+        // as the ContentView for this Activity.
+        mGLView = new HelloOpenGLES10SurfaceView(this);
+       mGLView.requestFocus();
+       mGLView.setFocusableInTouchMode(true);
+     //   mGLView.setAlpha(0.5f);
+    //    mGLView.setZOrderOnTop(true);
+
+        setContentView(mGLView);
+        SurfaceHolder sh = mGLView.getHolder();
+       //sh.setFormat(PixelFormat.TRANSPARENT);
+//        FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
+//        frame.addView(mGLView, 0);
+
+        EditText editbox = new EditText(this);
+
+        editbox.setText("hello les amis"
+
+
+        );
+
+        editbox.setTextColor(Color.WHITE);
+
+        addContentView(editbox, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+View toto = getLayoutInflater().inflate(R.layout.view_edit_energy_food2,null);
+addContentView(toto,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+/**
         ((TextView) findViewById(R.id.energyview_edTxt_energy_name)).addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mFood.setName(s.toString());
@@ -78,7 +131,7 @@ public class Act_Food_Editor extends Activity {
         });
 
         refreshScreen();
-
+*/
     }// fin du onCreate
 
     /***************************************************************************************
@@ -87,7 +140,7 @@ public class Act_Food_Editor extends Activity {
     public void onClick_bt_amount(View v) {
         Intent intent = new Intent(this, Act_NumericPad.class);
         intent.putExtra("question", "Entrez la quantit� de r�f�rence");
-        startActivityForResult(intent, R.integer.BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD);
+        startActivityForResult(intent, R.integer.NUMERICPAD);
     }
 
     /***************************************************************************************
@@ -135,7 +188,7 @@ public class Act_Food_Editor extends Activity {
 
         switch (requestCode) {
 
-            case R.integer.BTN_QUANTITY_OF_ENERGY_VIEW_CALL_NUMERICPAD:
+            case R.integer.NUMERICPAD:
 
                 if (resultCode == RESULT_OK) {
 
@@ -193,7 +246,14 @@ public class Act_Food_Editor extends Activity {
 
 
     public void onClick_Add_Equiv(View view) {
-        //TODO  : gérer l'ajout d'équivalences
+        Unity_Manager unity_manager = new Unity_Manager(this);
+        Unity unity = unity_manager.load(R.integer.Kcal_id);
+
+        Component_Food component_food = new Component_Food();
+        component_food.getQty().setUnity(unity);
+        Component_Food_Manager manager = new Component_Food_Manager(this);
+        manager.edit(component_food);
+
 
     }
 
@@ -256,26 +316,23 @@ public class Act_Food_Editor extends Activity {
 
         // Pour chaque �quivalence au composant de r�f�rence..
 
-        /*
-        for (Relation equiv : this.mFood.getComponentReference().getEquivalences()) {
+
+        for (Component_Food componentFood : this.componentFoodList) {
 
             map = new HashMap<String, String>();
-            map.put("EQUIV_INDEX", String.valueOf(this.mFood.getQtyReference().getEquivalences().indexOf(equiv)));
 
-            if (equiv instanceof Component) {
+            map.put("quantity", String.valueOf(((Component) componentFood).getQty().getAmount()));
+            map.put("unity", ((Component) componentFood).getQty().getUnity().getLongName());
+            map.put("name", ((Component) componentFood).getEnergy().getName());
 
-                map.put("quantity", String.valueOf(((Component) equiv).getQty().getAmount()));
-                map.put("unity", ((Component) equiv).getQty().getUnity().getLongName());
-                map.put("nrj", ((Component) equiv).getEnergy().getName());
-            }
             listItem.add(map);
         }
-*/
+
         // Création d'un SimpleAdapter qui se chargera de mettre les items
         // présent dans notre list (listItem)
         // dans la vue affichageitem
         SimpleAdapter mSchedule = new SimpleAdapter(this.getBaseContext(), listItem,
-                R.layout.list_item_activity_lunch_component, new String[]{"name", "quantity", "energy", "equiv",
+                R.layout.list_item_activity_lunch_component, new String[]{"name", "quantity", "unity", "equiv",
                 "nbglu", "nbpro", "nblip"}, new int[]{R.id.itemfood_name, R.id.itemfood_quantity,
                 R.id.itemfood_nbkcal, R.id.itemfood_equiv, R.id.itemfood_glu, R.id.itemfood_pro,
                 R.id.itemfood_lip});
